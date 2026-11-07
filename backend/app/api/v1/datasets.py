@@ -36,13 +36,20 @@ async def import_dataset_file(
 ):
     content = await file.read()
     gid = group_id.strip() if group_id and group_id.strip() else None
-    return _wrap(lambda: importer.import_from_file(conn, content, gid))
+    result = _wrap(lambda: importer.import_from_file(conn, content, gid))
+    if file.filename:
+        conn.execute("UPDATE dataset SET source_filename = ? WHERE id = ?", (file.filename, result["dataset_id"]))
+        conn.commit()
+        result["source_filename"] = file.filename
+    return result
 
 
 @router.get("")
 def list_datasets(conn=Depends(get_db)):
     rows = conn.execute(
-        "SELECT d.id, d.group_id, d.imported_at, d.source, "
+        "SELECT d.id, d.group_id, d.imported_at, d.source, d.source_filename, "
+        "COALESCE(d.label, d.group_id) AS label, "
+        "COALESCE(d.kind, CASE WHEN UPPER(d.group_id) = 'DEV' THEN 'dev' ELSE 'control' END) AS kind, "
         "COUNT(c.id) AS conversations, "
         "COALESCE(SUM(c.channel = 'agent chat'), 0) AS chats, "
         "COALESCE(SUM(c.channel = 'voice call'), 0) AS calls "

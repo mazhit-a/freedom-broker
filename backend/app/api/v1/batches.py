@@ -58,13 +58,13 @@ def start_batch(body: BatchStart, conn=Depends(get_db), client: LLMClient = Depe
 
 
 @router.get("")
-def list_batches():
-    return batch.list_jobs()
+def list_batches(conn=Depends(get_db)):
+    return batch.list_runs(conn, 0, 500)
 
 
 @router.get("/{job_id}")
-def batch_status(job_id: int):
-    job = batch.get_job(job_id)
-    if job is None:
+def batch_status(job_id: int, conn=Depends(get_db)):
+    run = batch.get_run(conn, job_id, with_items=False)
+    if run is None:
         raise HTTPException(status_code=404, detail="Batch not found")
-    return job.snapshot()
+    return run

@@ -115,6 +115,41 @@ def connect(path: str | None = None) -> sqlite3.Connection:
     return conn
 
 
+RUN_SCHEMA = """
+CREATE TABLE IF NOT EXISTS eval_run (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    dataset TEXT,
+    checklist_version_id INTEGER NOT NULL REFERENCES checklist_version(id),
+    model TEXT,
+    force INTEGER NOT NULL DEFAULT 0,
+    retry_failed INTEGER NOT NULL DEFAULT 1,
+    concurrency INTEGER NOT NULL DEFAULT 1,
+    status TEXT NOT NULL DEFAULT 'queued',
+    total INTEGER NOT NULL DEFAULT 0,
+    skipped INTEGER NOT NULL DEFAULT 0,
+    completed INTEGER NOT NULL DEFAULT 0,
+    needs_review INTEGER NOT NULL DEFAULT 0,
+    failed INTEGER NOT NULL DEFAULT 0,
+    throttled_retries INTEGER NOT NULL DEFAULT 0,
+    error TEXT,
+    started_at TEXT NOT NULL,
+    finished_at TEXT
+);
+CREATE TABLE IF NOT EXISTS eval_run_item (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    run_id INTEGER NOT NULL REFERENCES eval_run(id) ON DELETE CASCADE,
+    conversation_id INTEGER NOT NULL REFERENCES conversation(id) ON DELETE CASCADE,
+    status TEXT NOT NULL DEFAULT 'queued',
+    evaluation_id INTEGER,
+    latency_ms INTEGER,
+    error TEXT,
+    started_at TEXT,
+    finished_at TEXT,
+    UNIQUE (run_id, conversation_id)
+);
+CREATE INDEX IF NOT EXISTS idx_eval_run_item_run ON eval_run_item(run_id);
+"""
+
 ADDITIVE_COLUMNS = [
     ("checklist", "channels", "TEXT NOT NULL DEFAULT '[]'"),
     ("checklist_version", "status", "TEXT NOT NULL DEFAULT 'saved'"),
@@ -146,6 +181,12 @@ def init_db(path: str | None = None) -> None:
         _add_column(conn, "review_decision", "total_before", "REAL")
         _add_column(conn, "review_decision", "total_after", "REAL")
         _add_missing_columns(conn)
+        conn.executescript(RUN_SCHEMA)
+        _add_column(conn, "evaluation", "run_id", "INTEGER")
+        _add_column(conn, "dataset", "label", "TEXT")
+        _add_column(conn, "dataset", "kind", "TEXT")
+        _add_column(conn, "dataset", "source_filename", "TEXT")
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_evaluation_run ON evaluation(run_id)")
         conn.commit()
     finally:
         conn.close()

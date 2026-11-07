@@ -1,4 +1,3 @@
-import itertools
 import json
 import sqlite3
 import threading
@@ -10,7 +9,8 @@ from typing import Callable
 
 from backend.app.core.config import get_settings
 from backend.app.core.database import connect
-from backend.app.services.evaluator import evaluate_conversation
+from backend.app.services.appeals import with_review
+from backend.app.services.evaluator import evaluate_conversation, get_evaluation
 from backend.app.services.llm_client import LLMClient
 
 THROTTLE_MARKERS = ("429", "throttl", "ratelimit", "rate limit", "rate_limit", "too many requests", "overloaded", "529", "503", "serviceunavailable")
@@ -36,6 +36,7 @@ class BatchJob:
     failed: int = 0
     in_flight: int = 0
     throttled_retries: int = 0
+    model: str | None = None
     status: str = "queued"
     started_at: str = ""
     finished_at: str | None = None
@@ -57,6 +58,7 @@ class BatchJob:
                 "force": self.force,
                 "retry_failed": self.retry_failed,
                 "concurrency": self.concurrency,
+                "model": self.model,
                 "status": self.status,
                 "total": self.total,
                 "skipped": self.skipped,
@@ -76,7 +78,6 @@ class BatchJob:
 
 _jobs: dict[int, BatchJob] = {}
 _jobs_lock = threading.Lock()
-_ids = itertools.count(1)
 
 
 def get_job(job_id: int) -> BatchJob | None:
@@ -138,6 +139,30 @@ def needs_run(statuses: set[str] | None, force: bool, retry_failed: bool) -> boo
     return retry_failed
 
 
+def _now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def _db_write(sql: str, args: tuple = ()) -> None:
+    conn = connect()
+    try:
+        conn.execute(sql, args)
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def _refresh_counters(run_id: int, throttled: int) -> None:
+    _db_write(
+        "UPDATE eval_run SET "
+        "completed = (SELECT COUNT(*) FROM eval_run_item WHERE run_id = ?1 AND status = 'completed'), "
+        "needs_review = (SELECT COUNT(*) FROM eval_run_item WHERE run_id = ?1 AND status = 'needs_review'), "
+        "failed = (SELECT COUNT(*) FROM eval_run_item WHERE run_id = ?1 AND status = 'failed'), "
+        "throttled_retries = ?2 WHERE id = ?1",
+        (run_id, throttled),
+    )
+
+
 def _evaluation_error(conn: sqlite3.Connection, evaluation_id: int) -> str | None:
     row = conn.execute("SELECT raw_output FROM evaluation WHERE id = ?", (evaluation_id,)).fetchone()
     if not row or not row["raw_output"]:
@@ -180,16 +205,31 @@ def _evaluate_with_backoff(
 def _process_item(job: BatchJob, item: dict, client: LLMClient, max_retries: int, backoff_base: float, sleep: Callable[[float], None]) -> None:
     with job.lock:
         job.in_flight += 1
+    began = time.monotonic()
+    evaluation_id = None
+    latency_ms = None
+    _db_write(
+        "UPDATE eval_run_item SET status = 'running', started_at = ? WHERE run_id = ? AND conversation_id = ?",
+        (_now_iso(), job.id, item["id"]),
+    )
     try:
         result = _evaluate_with_backoff(job, item["id"], client, max_retries, backoff_base, sleep)
         status = result["status"]
         error = result.get("error")
+        evaluation_id = result["id"]
+        latency_ms = result.get("latency_ms")
+        _db_write("UPDATE evaluation SET run_id = ? WHERE id = ?", (job.id, evaluation_id))
     except Exception as exc:
         status = "failed"
         error = f"{type(exc).__name__}: {exc}"
     finally:
         with job.lock:
             job.in_flight -= 1
+    if latency_ms is None:
+        latency_ms = round((time.monotonic() - began) * 1000)
+    if status not in ("completed", "needs_review"):
+        status = "failed"
+        error = error or "failed"
     with job.lock:
         if status == "completed":
             job.completed += 1
@@ -197,10 +237,16 @@ def _process_item(job: BatchJob, item: dict, client: LLMClient, max_retries: int
             job.needs_review += 1
         else:
             job.failed += 1
-            job.failures.append({"conversation_pk": item["id"], "conversation_id": item["conversation_id"], "error": error or status})
+            job.failures.append({"conversation_pk": item["id"], "conversation_id": item["conversation_id"], "error": error})
+        throttled = job.throttled_retries
+    _db_write(
+        "UPDATE eval_run_item SET status = ?, evaluation_id = ?, latency_ms = ?, error = ?, finished_at = ? WHERE run_id = ? AND conversation_id = ?",
+        (status, evaluation_id, latency_ms, error, _now_iso(), job.id, item["id"]),
+    )
+    _refresh_counters(job.id, throttled)
 
 
-def create_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, conversation_pks: list[int] | None = None) -> tuple[BatchJob, list[dict]]:
+def create_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, conversation_pks: list[int] | None = None, model: str | None = None) -> tuple[BatchJob, list[dict]]:
     if dataset:
         items = select_conversations(conn, dataset)
         if conversation_pks is not None:
@@ -215,8 +261,20 @@ def create_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, f
     statuses = existing_statuses(conn, version_id)
     todo = [i for i in items if needs_run(statuses.get(i["id"]), force, retry_failed)]
     workers = max(1, concurrency or get_settings().cqa_batch_concurrency)
+    started = _now_iso()
+    run_id = conn.execute(
+        "INSERT INTO eval_run (dataset, checklist_version_id, model, force, retry_failed, concurrency, status, total, skipped, started_at) "
+        "VALUES (?,?,?,?,?,?,?,?,?,?)",
+        (dataset, version_id, model, int(force), int(retry_failed), workers, "queued", len(items), len(items) - len(todo), started),
+    ).lastrowid
+    todo_ids = {i["id"] for i in todo}
+    conn.executemany(
+        "INSERT INTO eval_run_item (run_id, conversation_id, status) VALUES (?,?,?)",
+        [(run_id, i["id"], "queued" if i["id"] in todo_ids else "skipped") for i in items],
+    )
+    conn.commit()
     job = BatchJob(
-        id=next(_ids),
+        id=run_id,
         dataset=dataset,
         checklist_version_id=version_id,
         force=force,
@@ -224,7 +282,8 @@ def create_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, f
         concurrency=workers,
         total=len(items),
         skipped=len(items) - len(todo),
-        started_at=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        model=model,
+        started_at=started,
     )
     with _jobs_lock:
         _jobs[job.id] = job
@@ -234,6 +293,7 @@ def create_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, f
 def run_job(job: BatchJob, todo: list[dict], client: LLMClient, max_retries: int = 4, backoff_base: float = 2.0, sleep: Callable[[float], None] = time.sleep) -> None:
     with job.lock:
         job.status = "running"
+    _db_write("UPDATE eval_run SET status = 'running' WHERE id = ?", (job.id,))
     try:
         with ThreadPoolExecutor(max_workers=job.concurrency) as pool:
             futures = [pool.submit(_process_item, job, item, client, max_retries, backoff_base, sleep) for item in todo]
@@ -242,23 +302,26 @@ def run_job(job: BatchJob, todo: list[dict], client: LLMClient, max_retries: int
     except Exception as exc:
         with job.lock:
             job.status = "failed"
-            job.finished_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
-            job.failures.append({"conversation_pk": None, "conversation_id": None, "error": f"{type(exc).__name__}: {exc}"})
+            job.finished_at = _now_iso()
+            message = f"{type(exc).__name__}: {exc}"
+            job.failures.append({"conversation_pk": None, "conversation_id": None, "error": message})
+        _db_write("UPDATE eval_run SET status = 'failed', finished_at = ?, error = ? WHERE id = ?", (job.finished_at, message, job.id))
         return
     with job.lock:
         job.status = "completed"
-        job.finished_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        job.finished_at = _now_iso()
+    _db_write("UPDATE eval_run SET status = 'completed', finished_at = ? WHERE id = ?", (job.finished_at, job.id))
 
 
 def start_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, client: LLMClient, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, max_retries: int = 4, backoff_base: float = 2.0, conversation_pks: list[int] | None = None) -> BatchJob:
-    job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency, conversation_pks)
+    job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency, conversation_pks, client.model)
     thread = threading.Thread(target=run_job, args=(job, todo, client, max_retries, backoff_base), daemon=True, name=f"batch-{job.id}")
     thread.start()
     return job
 
 
 def run_job_sync(conn: sqlite3.Connection, dataset: str, version_id: int, client: LLMClient, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, max_retries: int = 4, backoff_base: float = 2.0, sleep: Callable[[float], None] = time.sleep, on_progress: Callable[[dict], None] | None = None) -> dict:
-    job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency)
+    job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency, None, client.model)
     stop = threading.Event()
 
     def reporter():
@@ -274,3 +337,183 @@ def run_job_sync(conn: sqlite3.Connection, dataset: str, version_id: int, client
     if watcher:
         watcher.join()
     return job.snapshot()
+
+
+def _parse_ts(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError:
+        return None
+    return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+
+
+def _final(conn: sqlite3.Connection, evaluation_id: int | None) -> dict | None:
+    if not evaluation_id:
+        return None
+    try:
+        ev = with_review(conn, get_evaluation(conn, evaluation_id))
+    except Exception:
+        return None
+    return {
+        "total": ev.get("final_total"),
+        "gross": bool((ev.get("final") or {}).get("gross_violation", ev.get("gross_violation"))),
+        "status": ev.get("status"),
+    }
+
+
+def _run_status(row: sqlite3.Row) -> str:
+    if row["status"] in ("queued", "running") and row["id"] not in _jobs:
+        return "interrupted"
+    return row["status"]
+
+
+def _run_totals(conn: sqlite3.Connection, run_id: int) -> tuple[float | None, int, int, float]:
+    agg = conn.execute(
+        "SELECT COALESCE(SUM(cost), 0) AS cost, COALESCE(SUM(tokens_input), 0) AS tin, COALESCE(SUM(tokens_output), 0) AS tout "
+        "FROM evaluation WHERE run_id = ?",
+        (run_id,),
+    ).fetchone()
+    totals = []
+    for r in conn.execute(
+        "SELECT i.evaluation_id FROM eval_run_item i WHERE i.run_id = ? AND i.status IN ('completed', 'needs_review') AND i.evaluation_id IS NOT NULL",
+        (run_id,),
+    ).fetchall():
+        final = _final(conn, r["evaluation_id"])
+        if final and final["total"] is not None:
+            totals.append(final["total"])
+    average = round(sum(totals) / len(totals), 2) if totals else None
+    return average, int(agg["tin"]), int(agg["tout"]), round(float(agg["cost"]), 6)
+
+
+def _run_header(conn: sqlite3.Connection, row: sqlite3.Row) -> dict:
+    run_id = row["id"]
+    counts = {
+        r["status"]: r["n"]
+        for r in conn.execute("SELECT status, COUNT(*) AS n FROM eval_run_item WHERE run_id = ? GROUP BY status", (run_id,)).fetchall()
+    }
+    status = _run_status(row)
+    to_run = row["total"] - row["skipped"]
+    processed = row["completed"] + row["needs_review"] + row["failed"]
+    started = _parse_ts(row["started_at"])
+    finished = _parse_ts(row["finished_at"])
+    now = datetime.now(timezone.utc)
+    elapsed = None
+    if started:
+        elapsed = round(max(((finished or now) - started).total_seconds(), 0), 1)
+    eta = None
+    if status == "running" and elapsed is not None and processed > 0:
+        eta = round(elapsed / processed * max(to_run - processed, 0), 1)
+    average, tokens_in, tokens_out, cost = _run_totals(conn, run_id)
+    meta = conn.execute(
+        "SELECT c.name, v.version FROM checklist_version v JOIN checklist c ON c.id = v.checklist_id WHERE v.id = ?",
+        (row["checklist_version_id"],),
+    ).fetchone()
+    ds = conn.execute("SELECT label FROM dataset WHERE group_id = ? ORDER BY id LIMIT 1", (row["dataset"],)).fetchone()
+    failures = [
+        {"conversation_pk": r["conversation_id"], "conversation_id": r["cid"], "error": r["error"]}
+        for r in conn.execute(
+            "SELECT i.conversation_id, c.conversation_id AS cid, i.error FROM eval_run_item i JOIN conversation c ON c.id = i.conversation_id "
+            "WHERE i.run_id = ? AND i.status = 'failed' ORDER BY i.id",
+            (run_id,),
+        ).fetchall()
+    ]
+    if row["error"]:
+        failures.append({"conversation_pk": None, "conversation_id": None, "error": row["error"]})
+    return {
+        "id": run_id,
+        "run_id": run_id,
+        "code": f"R-{run_id:04d}",
+        "dataset": row["dataset"],
+        "dataset_label": (ds["label"] if ds and ds["label"] else row["dataset"]),
+        "checklist_version_id": row["checklist_version_id"],
+        "checklist_label": f"{meta['name']} v{meta['version']}" if meta else None,
+        "model": row["model"],
+        "force": bool(row["force"]),
+        "retry_failed": bool(row["retry_failed"]),
+        "concurrency": row["concurrency"],
+        "status": status,
+        "total": row["total"],
+        "skipped": row["skipped"],
+        "to_run": to_run,
+        "processed": processed,
+        "completed": row["completed"],
+        "needs_review": row["needs_review"],
+        "failed": row["failed"],
+        "done": row["completed"] + row["needs_review"],
+        "running": counts.get("running", 0),
+        "in_flight": counts.get("running", 0),
+        "queued": counts.get("queued", 0),
+        "throttled_retries": row["throttled_retries"],
+        "percent": 100 if to_run <= 0 and status == "completed" else (round(100 * processed / to_run) if to_run > 0 else 0),
+        "average_total": average,
+        "cost_total": cost,
+        "tokens_in": tokens_in,
+        "tokens_out": tokens_out,
+        "elapsed_s": elapsed,
+        "eta_s": eta,
+        "started_at": row["started_at"],
+        "finished_at": row["finished_at"],
+        "failures": failures,
+    }
+
+
+def list_runs(conn: sqlite3.Connection, offset: int = 0, limit: int = 50) -> list[dict]:
+    rows = conn.execute("SELECT * FROM eval_run ORDER BY id DESC LIMIT ? OFFSET ?", (limit, offset)).fetchall()
+    return [_run_header(conn, r) for r in rows]
+
+
+def count_runs(conn: sqlite3.Connection) -> int:
+    return conn.execute("SELECT COUNT(*) FROM eval_run").fetchone()[0]
+
+
+def get_run(conn: sqlite3.Connection, run_id: int, offset: int = 0, limit: int = 50, with_items: bool = True) -> dict | None:
+    row = conn.execute("SELECT * FROM eval_run WHERE id = ?", (run_id,)).fetchone()
+    if row is None:
+        return None
+    payload = _run_header(conn, row)
+    if not with_items:
+        return payload
+    rows = conn.execute(
+        "SELECT i.*, c.conversation_id AS cid, c.channel, c.language FROM eval_run_item i JOIN conversation c ON c.id = i.conversation_id "
+        "WHERE i.run_id = ? ORDER BY i.id LIMIT ? OFFSET ?",
+        (run_id, limit, offset),
+    ).fetchall()
+    items = []
+    for r in rows:
+        evaluation_id = r["evaluation_id"]
+        if r["status"] == "skipped" and not evaluation_id:
+            prior = conn.execute(
+                "SELECT id FROM evaluation WHERE conversation_id = ? AND checklist_version_id = ? AND status = 'completed' ORDER BY id DESC LIMIT 1",
+                (r["conversation_id"], row["checklist_version_id"]),
+            ).fetchone()
+            evaluation_id = prior["id"] if prior else None
+        final = _final(conn, evaluation_id) if r["status"] in ("completed", "needs_review", "skipped") else None
+        other = conn.execute(
+            "SELECT id FROM evaluation WHERE conversation_id = ? AND checklist_version_id != ? AND status = 'completed' ORDER BY id DESC LIMIT 1",
+            (r["conversation_id"], row["checklist_version_id"]),
+        ).fetchone()
+        other_final = _final(conn, other["id"]) if other else None
+        items.append(
+            {
+                "conversation_pk": r["conversation_id"],
+                "conversation_id": r["cid"],
+                "channel": r["channel"],
+                "language": r["language"],
+                "status": r["status"],
+                "evaluation_id": evaluation_id,
+                "latency_ms": r["latency_ms"],
+                "total": final["total"] if final else None,
+                "gross": final["gross"] if final else None,
+                "error": r["error"],
+                "other_version_total": other_final["total"] if other_final else None,
+                "started_at": r["started_at"],
+                "finished_at": r["finished_at"],
+            }
+        )
+    payload["items"] = items
+    payload["items_total"] = conn.execute("SELECT COUNT(*) FROM eval_run_item WHERE run_id = ?", (run_id,)).fetchone()[0]
+    payload["offset"] = offset
+    payload["limit"] = limit
+    return payload
