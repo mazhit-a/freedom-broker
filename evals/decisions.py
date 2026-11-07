@@ -29,7 +29,13 @@ RULES_HEADER = (
 )
 
 JUDGING_RULE_INDEXES = (0, 1, 2, 3, 4, 6, 7, 8)
-STYLES = ("default", "rich", "split", "rich_split", "temporal_choice", "temporal_split")
+STYLES = ("default", "rich", "split", "rich_split", "temporal_choice", "temporal_split", "obs", "gaps", "obs_gaps")
+OBS_STYLES = ("obs", "obs_gaps")
+GAPS_STYLES = ("gaps", "obs_gaps")
+TEMPORAL_CHOICE_STYLES = ("temporal_choice", "obs", "gaps", "obs_gaps")
+GAP_THRESHOLD_SECONDS = 60
+HOLD_START_TEXTS = frozenset({"Клиент поставлен на удержание.", "Клиент күтуге қойылды.", "Customer put on hold."})
+TIMESTAMP_RE = re.compile(r"^\s*(?:(\d+):)?(\d{1,2}):(\d{2})\s*$")
 TEMPORAL_CRITERION = "02"
 TEMPORAL_CHOICE_ANSWERS = {"yes": "yes", "no_late": "no", "na": "na"}
 TEMPORAL_SPLIT_ROLES = {"q_02_needed": "t_needed", "q_02_before": "t_before", "q_02_pushed": "t_pushed"}
@@ -56,7 +62,7 @@ def style_flags(style: str) -> tuple[bool, bool]:
 def temporal_specs(cid: str, style: str) -> list["QuestionSpec"] | None:
     if cid != TEMPORAL_CRITERION:
         return None
-    if style == "temporal_choice":
+    if style in TEMPORAL_CHOICE_STYLES:
         return [QuestionSpec(qname(cid), cid, "temporal_choice", copy.deepcopy(TEMPORAL_CHOICE_BODY))]
     if style == "temporal_split":
         return [
@@ -64,6 +70,72 @@ def temporal_specs(cid: str, style: str) -> list["QuestionSpec"] | None:
             for name, body in TEMPORAL_SPLIT_BODIES.items()
         ]
     return None
+
+
+def parse_timestamp(raw: Any) -> float | None:
+    m = TIMESTAMP_RE.match(raw) if isinstance(raw, str) else None
+    if not m:
+        return None
+    hours, minutes, seconds = int(m.group(1) or 0), int(m.group(2)), int(m.group(3))
+    return float(hours * 3600 + minutes * 60 + seconds)
+
+
+def numeric_offset(value: Any) -> float | None:
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or math.isnan(value):
+        return None
+    return float(value)
+
+
+def message_times(messages: list[dict]) -> list[float | None]:
+    offsets = [numeric_offset(m.get("offset_seconds")) for m in messages]
+    if any(o for o in offsets if o is not None):
+        return offsets
+    return [parse_timestamp(m.get("timestamp_raw")) for m in messages]
+
+
+def annotate_gaps(messages: list[dict], threshold: int = GAP_THRESHOLD_SECONDS) -> list[dict]:
+    times = message_times(messages)
+    out = [dict(m) for m in messages]
+    for i in range(len(out) - 1):
+        a, b = times[i], times[i + 1]
+        if a is None or b is None:
+            continue
+        gap = b - a
+        if gap < threshold:
+            continue
+        msg = out[i]
+        if msg.get("speaker") == "system" and one_line(msg.get("text")) in HOLD_START_TEXTS:
+            continue
+        msg["text"] = f"{msg.get('text') or ''} [пауза {math.floor(gap + 0.5)} с до следующего сообщения]"
+    return out
+
+
+OBS_04_INSTRUCTIONS = (
+    "Корректная и полная консультация. Выберите шаг, описание которого выполняется. Порядок проверки: мысленно перечислите все вопросы, "
+    "которые клиент задал в диалоге, включая второстепенные, и для каждого проверьте, получил ли он ответ или корректный следующий шаг "
+    "после этого. Если основной вопрос решён, а на второстепенный вопрос клиента ответа или следующего шага нет, это 15, а не 20. "
+    "Выберите 20 только если на все вопросы клиента, основные и второстепенные, есть ответ или корректный следующий шаг. "
+    "Если ключевая рекомендация оператора ошибочна, это 0."
+)
+
+OBS_06_INSTRUCTIONS = (
+    "Управление диалогом, скорость и грамотность. Найдите в диалоге три наблюдаемые вещи. Первая: явное ожидание, то есть долгая пауза "
+    "между сообщениями или событие удержания, и предупредил ли оператор об ожидании до него. Вторая: переспрашивал ли клиент "
+    "или спрашивал, что имел в виду оператор, из-за формулировок или порядка ответов оператора. Третья: противоречивые или бессвязные "
+    "реплики оператора. Затем выберите шаг, описание которого соответствует увиденному."
+)
+
+OBS_INSTRUCTIONS = {"04": OBS_04_INSTRUCTIONS, "06": OBS_06_INSTRUCTIONS}
+
+
+def obs_spec(c: Criterion) -> "QuestionSpec | None":
+    instructions = OBS_INSTRUCTIONS.get(c.id)
+    if instructions is None:
+        return None
+    steps = sorted(c.scale_steps, key=lambda s: s.value)
+    options = {str(s.value): one_line(s.descriptor) for s in steps}
+    body = {"type": "choice", "instructions": instructions, "criteria": options}
+    return QuestionSpec(qname(c.id), c.id, "scale_choice", body, [s.value for s in steps])
 
 
 TEMPORAL_CHOICE_BODY = {
@@ -446,8 +518,10 @@ def build_questions(cfg: ChecklistConfig, style: str = "default") -> list[Questi
             descriptors = [one_line(s.descriptor) for s in steps]
             if rich:
                 instr, descriptors, _ = rich_scale(c)
+            observed = obs_spec(c) if style in OBS_STYLES else None
             specs.append(
-                QuestionSpec(
+                observed
+                or QuestionSpec(
                     qname(c.id),
                     c.id,
                     "scale",
@@ -483,8 +557,12 @@ def questions_payload(specs: list[QuestionSpec]) -> dict:
     return {s.name: s.body for s in specs}
 
 
-def build_state(conversation: dict, messages: list[dict] | None = None, header: str | None = None) -> list[str]:
+def build_state(
+    conversation: dict, messages: list[dict] | None = None, header: str | None = None, gaps: bool = False
+) -> list[str]:
     msgs = messages if messages is not None else conversation.get("messages") or []
+    if gaps:
+        msgs = annotate_gaps(msgs)
     meta = (
         f"Conversation metadata: channel={conversation.get('channel')}, "
         f"language={conversation.get('language')}, messages={len(msgs)}"
@@ -499,7 +577,8 @@ def build_request(
     rich, _ = style_flags(style)
     specs = build_questions(cfg, style)
     header = rich_rules_header() if rich else None
-    payload = {"model": model, "state": build_state(conversation, header=header), "questions": questions_payload(specs)}
+    state = build_state(conversation, header=header, gaps=style in GAPS_STYLES)
+    payload = {"model": model, "state": state, "questions": questions_payload(specs)}
     return payload, specs
 
 
@@ -583,6 +662,16 @@ def map_temporal_choice(a: dict, options: list[str]) -> dict:
     }
 
 
+def map_scale_choice(a: dict, spec: "QuestionSpec") -> dict:
+    mapped = map_choice(a, list(spec.body["criteria"].keys()))
+    to_step = {str(v): v for v in spec.steps}
+    return {
+        "answer": str(to_step[mapped["answer"]]),
+        "confidence": mapped["confidence"],
+        "distribution": {str(to_step[k]): v for k, v in mapped["distribution"].items()},
+    }
+
+
 def combine_temporal(needed: float, before: float, pushed: float) -> dict:
     t = TEMPORAL_THRESHOLD
     n_hit, b_hit, u_hit = needed >= t, before >= t, pushed >= t
@@ -636,8 +725,12 @@ def map_answers(response_body: dict, specs: list[QuestionSpec]) -> dict:
             s = roles["flag"]
             out[cid] = map_flag(noul_probability(get_answer(answers, s.name, "noul")))
         else:
-            s = roles["scale"]
-            mapped = map_score(get_answer(answers, s.name, "score"), s.steps)
+            if "scale_choice" in roles:
+                s = roles["scale_choice"]
+                mapped = map_scale_choice(get_answer(answers, s.name, "choice"), s)
+            else:
+                s = roles["scale"]
+                mapped = map_score(get_answer(answers, s.name, "score"), s.steps)
             na = roles.get("scale_na")
             if na is not None:
                 p_na = noul_probability(get_answer(answers, na.name, "noul"))

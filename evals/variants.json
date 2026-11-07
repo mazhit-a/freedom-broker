@@ -63,5 +63,20 @@
     "name": "jev_temporal_split",
     "workflow": "jev_only",
     "params": {"style": "temporal_split"}
+  },
+  {
+    "name": "jev_obs",
+    "workflow": "jev_only",
+    "params": {"style": "obs"}
+  },
+  {
+    "name": "jev_gaps",
+    "workflow": "jev_only",
+    "params": {"style": "gaps"}
+  },
+  {
+    "name": "jev_obs_gaps",
+    "workflow": "jev_only",
+    "params": {"style": "obs_gaps"}
   }
 ]

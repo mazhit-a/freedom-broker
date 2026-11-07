@@ -46,3 +46,7 @@ Implementation decisions (evals/decisions.py)
 - Flag and N/A noul: confidence = max(p, 1-p).
 - Token usage: the returned `usage.input_tokens` when present; otherwise an estimate of characters / 3 over state plus questions JSON, flagged `estimated: true`.
 - A missing or malformed answer raises `DecisionsError(kind="malformed")`; no default answer is ever substituted.
+
+Observation and gap variants (jev_obs, jev_gaps, jev_obs_gaps)
+- Styles `obs`, `gaps`, `obs_gaps`. Criterion 02 uses the temporal choice question in all three. `obs` rewrites 04 and 06 as one choice question each, with option keys equal to the v2 step values and the v2 descriptors verbatim as option texts; answers are mapped back to the integer steps. `gaps` keeps the default 04 and 06 but appends ` [пауза N с до следующего сообщения]` to every message followed by a gap of at least 60 seconds (hold-start system events are left untouched). `obs_gaps` combines both.
+- The formulations were written against the dev-case failure analysis of the jev_only run, using only the meaning of v2. They are tuned to the dev set and must be confirmed on the holdout before being trusted.
