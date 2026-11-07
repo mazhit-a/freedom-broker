@@ -4,13 +4,15 @@ export function intlLocale(locale) {
   return INTL_LOCALE[locale] || INTL_LOCALE.ru;
 }
 
+const NUMBER_LOCALE = { ru: "ru-RU", kk: "ru-RU", en: "en-US" };
+
 const cache = new Map();
 
 function formatter(locale, options) {
   const key = `${locale}|${JSON.stringify(options)}`;
   let fmt = cache.get(key);
   if (!fmt) {
-    fmt = new Intl.NumberFormat(intlLocale(locale), options);
+    fmt = new Intl.NumberFormat(NUMBER_LOCALE[locale] || NUMBER_LOCALE.ru, options);
     cache.set(key, fmt);
   }
   return fmt;
