@@ -166,7 +166,7 @@ export class CqaChecklistBuilder extends CqaElement {
     this._saveError = null;
     this._mode = "edit";
     this._viewed = null;
-    this._newChannel = "chat";
+    this._newChannels = new Set(["chat"]);
     this._onNavCapture = (event) => this.guardNavigation(event);
     this._onBeforeUnload = (event) => {
       if (!this._dirty) return;
@@ -394,7 +394,7 @@ export class CqaChecklistBuilder extends CqaElement {
       this._status = "draft";
       this._selected = null;
       this._openSections = new Set();
-      this._newChannel = "chat";
+      this._newChannels = new Set(["chat"]);
       this.recompute();
       this._selected = this.firstKey();
       this._phase = "ready";
@@ -450,7 +450,7 @@ export class CqaChecklistBuilder extends CqaElement {
       busyName: this._busy,
       viewing: this.viewing,
       viewed: this._viewed,
-      newChannel: this._newChannel,
+      newChannels: [...this._newChannels],
       dirty: this._dirty,
       saveError: this._saveError,
       status: this._status,
@@ -624,7 +624,7 @@ export class CqaChecklistBuilder extends CqaElement {
       if (!field) return;
       const name = field.getAttribute("data-field");
       if (name === "e-type") this.onType(field.value);
-      else if (name === "new-channel") this.onNewChannel(field.getAttribute("data-channel"));
+      else if (name === "new-channel") this.onNewChannel(field.getAttribute("data-channel"), field.checked);
       else if (name === "channel") this.doChannels(field.getAttribute("data-channel"), field.checked);
       else if (name === "sec-weight") this.commitSectionWeight(field.getAttribute("data-section"));
     });
@@ -880,7 +880,7 @@ export class CqaChecklistBuilder extends CqaElement {
     this._status = "draft";
     this._selected = null;
     this._openSections = new Set();
-    this._newChannel = "chat";
+    this._newChannels = new Set(["chat"]);
     this._saveError = null;
     this._dirty = true;
     this._phase = "ready";
@@ -895,7 +895,7 @@ export class CqaChecklistBuilder extends CqaElement {
   }
 
   async createNewDraft(draft, config) {
-    const channels = [CHANNEL_RAW[this._newChannel]];
+    const channels = ["chat", "call"].filter((k) => this._newChannels.has(k)).map((k) => CHANNEL_RAW[k]);
     const created = await api.createChecklistDraft(config, { channels });
     draft.checklistId = created.checklistId;
     draft.versionId = created.id;
@@ -1165,9 +1165,10 @@ export class CqaChecklistBuilder extends CqaElement {
     this.edited();
   }
 
-  onNewChannel(kind) {
+  onNewChannel(kind, on) {
     if (this.readOnly || this._busy || !this._draft || !this._draft.isNew || !["chat", "call"].includes(kind)) return;
-    this._newChannel = kind;
+    if (on) this._newChannels.add(kind);
+    else this._newChannels.delete(kind);
     this._dirty = true;
     this.refreshAll({ editor: false });
   }

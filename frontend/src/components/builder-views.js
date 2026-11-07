@@ -408,17 +408,17 @@ function channelsBlock(ctx, cl, current) {
 function newChecklistBlock(ctx) {
   const { t, draft } = ctx;
   const name = String(draft.config.name ?? "").trim() || t("builder.new.defaultName");
-  const kind = ctx.newChannel || "chat";
+  const picked = new Set(ctx.newChannels || ["chat"]);
   const off = ctx.roleReadOnly || ctx.busy;
-  const radios = CHANNELS.map(
-    ([k]) => html`<label class="chan"><input type="radio" name="new-channel" data-field="new-channel" data-channel="${k}" data-focus-id="newchan-${k}" ${flag(kind === k, "checked")} ${flag(off, "disabled")}>${t(`builder.channel.${k}`)}</label>`
+  const boxes = CHANNELS.map(
+    ([k]) => html`<label class="chan"><input type="checkbox" data-field="new-channel" data-channel="${k}" data-focus-id="newchan-${k}" ${flag(picked.has(k), "checked")} ${flag(off, "disabled")}>${t(`builder.channel.${k}`)}</label>`
   );
   return html`
     <div class="side-block" data-new-block>
       <span class="side-t" data-checklist-title="new">${name} ${chip({ tone: "brand", text: t("builder.new.badge") })}</span>
       <fieldset class="chans" data-channels>
         <legend class="dim12">${t("builder.new.channelLabel")}</legend>
-        ${radios}
+        ${boxes}
         <span class="dim12">${t("builder.side.channelsHint")}</span>
       </fieldset>
       <div class="vrow vedit" data-editing data-version-row="new">

@@ -44,7 +44,7 @@ function ctxFor(draft, over = {}) {
     busyName: null,
     viewing: false,
     viewed: null,
-    newChannel: "chat",
+    newChannels: ["chat"],
     dirty: false,
     saveError: null,
     status: "draft",
@@ -215,7 +215,7 @@ test("sidebar: New checklist is enabled for QA, disabled for viewers; the unsave
   assert.doesNotMatch(String(sidebar(ctxFor(draft))), /data-action="new-checklist"[^>]*disabled/);
   assert.match(String(sidebar(ctxFor(draft, { roleReadOnly: true }))), /data-action="new-checklist"[^>]*disabled/);
   const blank = createBlankDraft(NAMES, "ru", "2026-11-07T10:00:00Z");
-  const out = String(sidebar(ctxFor(blank, { current: null, newChannel: "call" })));
+  const out = String(sidebar(ctxFor(blank, { current: null, newChannels: ["call"] })));
   assert.match(out, /data-new-block/);
   assert.match(out, /новый/);
   assert.match(out, /data-field="new-channel" data-channel="call"[^>]*checked/);

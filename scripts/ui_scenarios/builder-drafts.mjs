@@ -263,7 +263,7 @@ const raw = {
     const after = await serverLists(page);
     const created = after.find((c) => c.name === "Чек-лист жалоб");
     page.assert(created && created.defaultVersionId === null && created.versions.length === 1 && created.versions[0].status === "draft", `created as a draft-only checklist (${JSON.stringify(created)})`);
-    page.assert(JSON.stringify(created.channels) === JSON.stringify(["voice call"]), `channel bound (${JSON.stringify(created.channels)})`);
+    page.assert(JSON.stringify(created.channels) === JSON.stringify(["agent chat", "voice call"]), `channel bound (${JSON.stringify(created.channels)})`);
     page.assert(JSON.stringify(after[0]) === JSON.stringify(before[0]) && JSON.stringify(after[1]) === JSON.stringify(before[1]), "existing checklists unchanged");
     page.assert((await chipText(page)) === "Черновик v1", "builder shows the saved draft");
     page.assert((await dirty(page)) === false, "clean after saving");
