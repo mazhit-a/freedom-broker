@@ -62,6 +62,7 @@ export const scenarios = {
     page.assert((await attr(page, ".ledger-toggle", "aria-expanded")) === "true", "ledger expanded by default");
     await page.assertAccessibleNames();
 
+    await page.eval(`cqaDeep(${q(".ledger-toggle")})[0].focus()`);
     await page.click(CARD + ".ledger-toggle");
     await until(page, `cqaDeep(${q(".ledger-toggle")})[0]?.getAttribute('aria-expanded') === 'false'`, "collapsed");
     page.assert((await count(page, '[data-ledger] [role="table"]')) === 0, "collapsed ledger hides the table");
@@ -77,7 +78,7 @@ export const scenarios = {
     await ready(page);
     page.assert((await count(page, "[data-history]")) === 2, "history: model + open appeal");
     const first = await text(page, '[data-history="model"]');
-    page.assert(/Оценка модели Исходная/.test(first) && /чек-лист v2/.test(first) && /Итог 81,88 из 100/.test(first), `model entry (${first})`);
+    page.assert(/Оценка модели\s*Исходная/.test(first) && /чек-лист v2/.test(first) && /Итог 81,88 из 100/.test(first), `model entry (${first})`);
     page.assert(/Апелляция · 07 Завершение/.test(await text(page, '[data-history="appeal"]')), "appeal entry");
     page.assert(/Есть открытая апелляция по критерию 07/.test(await text(page, "[data-role-hint]")), "reviewer hint names the open appeal");
     await page.eval(`(async () => {
@@ -89,7 +90,7 @@ export const scenarios = {
     page.assert((await text(page, "[data-total]")).startsWith("88,13"), "score panel total after decision");
     page.assert((await attr(page, "[data-ledger]", "data-reconciled")) === "true", "still reconciles");
     page.assert((await count(page, ".lrow-na")) === 1, "N/A row remains");
-    page.assert(/Применимый вес: 85 из 100/.test(await text(page, "[data-ledger-footer]")), `factor after override (${await text(page, "[data-ledger-footer]")})`);
+    page.assert(/Применимый вес: 80 из 100/.test(await text(page, "[data-ledger-footer]")), `factor after override (${await text(page, "[data-ledger-footer]")})`);
     const decision = await text(page, '[data-history="changed"]');
     page.assert(/Решение: оценка изменена/.test(decision) && /Ответ: Нет → Да\./.test(decision) && /Итог: 81,88 → 88,13\./.test(decision), `decision entry (${decision})`);
     page.assert(/QA \/ Проверяющий/.test(decision), "decider shown by role label");

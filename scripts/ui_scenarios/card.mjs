@@ -84,7 +84,7 @@ export const scenarios = {
     page.assert(!/руководител/i.test(gross), "gross strip has no escalation clause");
     page.assert(/Оператор: Оператор A/.test(await text(page, "[data-strip]")), "constant operator label");
     page.assert(/Набор:/.test(await text(page, "[data-strip]")), "dataset label");
-    page.assert(/выберите критерий/.test(await text(page, "[data-role-hint]")), "reviewer role hint");
+    page.assert(/Есть открытая апелляция по критерию 07/.test(await text(page, "[data-role-hint]")), "reviewer role hint names the open appeal");
 
     await hover(page, "04");
     page.assert(await hasClass(page, '[data-index="10"] [data-bubble]', "msg-evidence"), "hover 04 highlights message 11");
@@ -208,7 +208,7 @@ export const scenarios = {
     await setLocale(page, "kk");
     page.assert((await text(page, "[data-total]")) === "81,88", "KZ total");
     page.assert((await text(page, ".out-of")) === "100-ден", "KZ out of");
-    page.assert(/әрекетсіз|таңдаңыз/.test(await text(page, "[data-role-hint]")), "KZ role hint");
+    page.assert(/07 критерийі бойынша ашық апелляция/.test(await text(page, "[data-role-hint]")), "KZ role hint");
     const kkLeft = await page.eval(`cqaAll(cqaDeep('cqa-app >>> cqa-conversation-card')[0].shadowRoot).filter((el) => /(^|\\s)card\\.[a-zA-Z]+/.test(el.textContent) && el.children.length === 0).length`);
     page.assert(kkLeft === 0, "no raw i18n keys in KZ");
     await page.click(CARD + '[data-crit-row="07"] .crit-pick');
