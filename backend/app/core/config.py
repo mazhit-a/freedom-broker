@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     llm_price_cache_read: float = 0.2
     llm_price_cache_write: float = 5.0
     appeal_filing_roles: str = "operator,qa"
+    appeal_window_workdays: int = 5
+    appeal_window_enforced: bool = False
+    appeal_aging_hours: int = 72
     aws_region: str = "us-east-1"
     aws_access_key_id: str = ""
     aws_secret_access_key: str = ""

@@ -85,6 +85,9 @@ CREATE TABLE IF NOT EXISTS appeal (
     criterion_id TEXT NOT NULL,
     comment TEXT,
     author_role TEXT,
+    review_started_at TEXT,
+    review_started_by TEXT,
+    message_refs TEXT,
     status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'resolved')),
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -95,6 +98,8 @@ CREATE TABLE IF NOT EXISTS review_decision (
     new_answer TEXT,
     reason TEXT NOT NULL,
     decided_by_role TEXT,
+    total_before REAL,
+    total_after REAL,
     decided_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 """
@@ -135,6 +140,11 @@ def init_db(path: str | None = None) -> None:
         conn.executescript(SCHEMA)
         _add_column(conn, "appeal", "author_role", "TEXT")
         _add_column(conn, "review_decision", "decided_by_role", "TEXT")
+        _add_column(conn, "appeal", "review_started_at", "TEXT")
+        _add_column(conn, "appeal", "review_started_by", "TEXT")
+        _add_column(conn, "appeal", "message_refs", "TEXT")
+        _add_column(conn, "review_decision", "total_before", "REAL")
+        _add_column(conn, "review_decision", "total_after", "REAL")
         _add_missing_columns(conn)
         conn.commit()
     finally:
