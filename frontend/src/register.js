@@ -5,6 +5,11 @@ import { CqaDrawer } from "./components/cqa-drawer.js";
 import { CqaModal } from "./components/cqa-modal.js";
 import { CqaToast } from "./components/cqa-toast.js";
 import { CqaScaleStepEditor } from "./components/cqa-scale-step-editor.js";
+import { elements as card } from "./screens/card.js";
+import { elements as builder } from "./screens/builder.js";
+import { elements as list } from "./screens/list.js";
+import { elements as overview } from "./screens/overview.js";
+import { elements as runs } from "./screens/runs.js";
 
 export const ELEMENTS = {
   "cqa-nav": CqaNav,
@@ -13,7 +18,12 @@ export const ELEMENTS = {
   "cqa-modal": CqaModal,
   "cqa-toast": CqaToast,
   "cqa-scale-step-editor": CqaScaleStepEditor,
-  "cqa-app": CqaApp
+  "cqa-app": CqaApp,
+  ...card,
+  ...builder,
+  ...list,
+  ...overview,
+  ...runs
 };
 
 export function registerAll() {

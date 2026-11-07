@@ -2,10 +2,21 @@ import { plural } from "../format.js";
 import ru from "./ru.js";
 import kk from "./kk.js";
 import en from "./en.js";
+import card from "./screens/card.js";
+import builder from "./screens/builder.js";
+import list from "./screens/list.js";
+import overview from "./screens/overview.js";
+import runs from "./screens/runs.js";
 
 export const LOCALES = Object.freeze(["ru", "kk", "en"]);
 export const DEFAULT_LOCALE = "ru";
-export const DICTIONARIES = { ru, kk, en };
+const SCREENS = [card, builder, list, overview, runs];
+
+function merge(base, lang) {
+  return Object.assign({}, base, ...SCREENS.map((screen) => screen[lang] || {}));
+}
+
+export const DICTIONARIES = { ru: merge(ru, "ru"), kk: merge(kk, "kk"), en: merge(en, "en") };
 
 const STORAGE_KEY = "cqa.locale";
 const listeners = new Set();
