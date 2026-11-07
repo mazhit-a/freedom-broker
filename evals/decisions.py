@@ -1,3 +1,4 @@
+import copy
 import json
 import math
 import os
@@ -28,7 +29,11 @@ RULES_HEADER = (
 )
 
 JUDGING_RULE_INDEXES = (0, 1, 2, 3, 4, 6, 7, 8)
-STYLES = ("default", "rich", "split", "rich_split")
+STYLES = ("default", "rich", "split", "rich_split", "temporal_choice", "temporal_split")
+TEMPORAL_CRITERION = "02"
+TEMPORAL_CHOICE_ANSWERS = {"yes": "yes", "no_late": "no", "na": "na"}
+TEMPORAL_SPLIT_ROLES = {"q_02_needed": "t_needed", "q_02_before": "t_before", "q_02_pushed": "t_pushed"}
+TEMPORAL_THRESHOLD = 0.5
 FRAMING_RE = re.compile(r"^\s*(?:Да|Нет)\s*[—–-]\s*")
 DETECTED_RE = re.compile(r"^выявлен[оы]?\s+", re.IGNORECASE)
 LIST_SPLIT_RE = re.compile(r",\s*|\s+или\s+")
@@ -46,6 +51,88 @@ def style_flags(style: str) -> tuple[bool, bool]:
     if style not in STYLES:
         raise ValueError(f"unknown jev style {style!r}, known: {list(STYLES)}")
     return style in ("rich", "rich_split"), style in ("split", "rich_split")
+
+
+def temporal_specs(cid: str, style: str) -> list["QuestionSpec"] | None:
+    if cid != TEMPORAL_CRITERION:
+        return None
+    if style == "temporal_choice":
+        return [QuestionSpec(qname(cid), cid, "temporal_choice", copy.deepcopy(TEMPORAL_CHOICE_BODY))]
+    if style == "temporal_split":
+        return [
+            QuestionSpec(name, cid, TEMPORAL_SPLIT_ROLES[name], copy.deepcopy(body))
+            for name, body in TEMPORAL_SPLIT_BODIES.items()
+        ]
+    return None
+
+
+TEMPORAL_CHOICE_BODY = {
+    "type": "choice",
+    "instructions": (
+        "Выявление потребности. Найдите первый ответ оператора по существу: это не приветствие, не просьба подтвердить личность "
+        "и не уточняющий вопрос. Сравните порядок: оператор уточнил недостающие детали до этого ответа или после него. "
+        "Выберите yes, если оператор учёл известные детали и спросил о недостающих до первого ответа по существу. "
+        "Выберите no_late, если оператор дал ответ или объяснение по существу до того, как спросил о недостающих деталях, "
+        "или не спрашивал вовсе, так что клиенту пришлось самому на это указать или самому сообщить детали. "
+        "Выберите na только если первое сообщение клиента уже содержало всё необходимое и уточнение не требовалось."
+    ),
+    "criteria": {
+        "yes": "Да: оператор учёл известные детали и спросил о недостающих до своего первого ответа по существу.",
+        "no_late": (
+            "Нет: оператор дал ответ или объяснение по существу до того, как спросил о недостающих деталях, или не спрашивал вовсе, "
+            "так что клиенту пришлось самому на это указать или самому сообщить детали."
+        ),
+        "na": "N/A: первое сообщение клиента уже содержало всё необходимое, уточнение не требовалось.",
+    },
+}
+
+TEMPORAL_SPLIT_BODIES = {
+    "q_02_needed": {
+        "type": "noul",
+        "instructions": (
+            "Выявление потребности: нужны ли были уточнения. Ответ true означает, что в первом сообщении клиента не хватало деталей, "
+            "которые оператору были нужны, чтобы ответить правильно: какой счёт, заказ, период, документ, сумма. "
+            "Ответ false означает, что первое сообщение клиента уже содержало всё необходимое."
+        ),
+        "criteria": {
+            "true": (
+                "Да: в первом сообщении клиента не хватало деталей, которые оператору были нужны, чтобы ответить правильно "
+                "(какой счёт, заказ, период, документ, сумма)."
+            ),
+            "false": "Нет: первое сообщение клиента уже содержало всё необходимое для правильного ответа.",
+        },
+    },
+    "q_02_before": {
+        "type": "noul",
+        "instructions": (
+            "Выявление потребности: порядок реплик оператора. Найдите первый ответ оператора по существу: это не приветствие, "
+            "не просьба подтвердить личность и не уточняющий вопрос. Ответ true означает, что до этого ответа есть сообщение оператора, "
+            "в котором он просит клиента сообщить недостающие детали или подтверждает уже известные. "
+            "Ответ false означает, что такого сообщения до первого ответа по существу нет."
+        ),
+        "criteria": {
+            "true": (
+                "Да: есть сообщение оператора, которое просит клиента сообщить недостающие детали или подтверждает известные, "
+                "и оно стоит до первого ответа оператора по существу."
+            ),
+            "false": "Нет: до первого ответа оператора по существу такого сообщения нет.",
+        },
+    },
+    "q_02_pushed": {
+        "type": "noul",
+        "instructions": (
+            "Выявление потребности: инициатива клиента. Ответ true означает, что клиенту пришлось самому указать, что оператор не спросил "
+            "нужное, или самому сообщить недостающие детали без запроса после ответа оператора. "
+            "Ответ false означает, что клиенту этого делать не пришлось."
+        ),
+        "criteria": {
+            "true": (
+                "Да: клиент указал, что оператор не спросил нужное, или сам без запроса сообщил недостающие детали после ответа оператора."
+            ),
+            "false": "Нет: клиенту не пришлось ни указывать на пропущенный вопрос, ни сообщать детали без запроса.",
+        },
+    },
+}
 
 
 class DecisionsError(Exception):
@@ -325,6 +412,10 @@ def build_questions(cfg: ChecklistConfig, style: str = "default") -> list[Questi
     rich, _ = style_flags(style)
     specs: list[QuestionSpec] = []
     for c in cfg.criteria:
+        replaced = temporal_specs(c.id, style)
+        if replaced is not None:
+            specs.extend(replaced)
+            continue
         instr = question_instructions(c)
         if c.type == "yes_no":
             if rich:
@@ -483,6 +574,42 @@ def map_flag(p: float) -> dict:
     }
 
 
+def map_temporal_choice(a: dict, options: list[str]) -> dict:
+    mapped = map_choice(a, options)
+    return {
+        "answer": TEMPORAL_CHOICE_ANSWERS[mapped["answer"]],
+        "confidence": mapped["confidence"],
+        "distribution": {TEMPORAL_CHOICE_ANSWERS[k]: v for k, v in mapped["distribution"].items()},
+    }
+
+
+def combine_temporal(needed: float, before: float, pushed: float) -> dict:
+    t = TEMPORAL_THRESHOLD
+    n_hit, b_hit, u_hit = needed >= t, before >= t, pushed >= t
+    p_yes = needed * before * (1.0 - pushed)
+    distribution = {"yes": p_yes, "no": needed * (1.0 - before * (1.0 - pushed)), "na": 1.0 - needed}
+    if not n_hit:
+        answer, confidence = "na", 1.0 - needed
+    else:
+        confidence = needed * (before if b_hit else 1.0 - before) * (pushed if u_hit else 1.0 - pushed)
+        answer = "yes" if b_hit and not u_hit else "no"
+    return {
+        "answer": answer,
+        "confidence": confidence,
+        "distribution": distribution,
+        "detail": {"needed": needed, "before": before, "pushed": pushed},
+    }
+
+
+def specs_for_questions(cfg: ChecklistConfig, asked: dict) -> list[QuestionSpec]:
+    for style in STYLES:
+        specs = build_questions(cfg, style)
+        by_name = {s.name: s for s in specs}
+        if all(n in by_name and by_name[n].body == b for n, b in asked.items()):
+            return [by_name[n] for n in asked]
+    return [q for q in build_questions(cfg) if q.name in asked]
+
+
 def map_answers(response_body: dict, specs: list[QuestionSpec]) -> dict:
     answers = response_body.get("answers")
     if not isinstance(answers, dict):
@@ -492,7 +619,16 @@ def map_answers(response_body: dict, specs: list[QuestionSpec]) -> dict:
         by_cid.setdefault(s.criterion_id, {})[s.role] = s
     out: dict[str, dict] = {}
     for cid, roles in by_cid.items():
-        if "choice" in roles:
+        if "temporal_choice" in roles:
+            s = roles["temporal_choice"]
+            out[cid] = map_temporal_choice(get_answer(answers, s.name, "choice"), list(s.body["criteria"].keys()))
+        elif "t_needed" in roles:
+            probs = {
+                key: noul_probability(get_answer(answers, roles[role].name, "noul"))
+                for key, role in (("needed", "t_needed"), ("before", "t_before"), ("pushed", "t_pushed"))
+            }
+            out[cid] = combine_temporal(probs["needed"], probs["before"], probs["pushed"])
+        elif "choice" in roles:
             s = roles["choice"]
             options = list(s.body["criteria"].keys())
             out[cid] = map_choice(get_answer(answers, s.name, "choice"), options)

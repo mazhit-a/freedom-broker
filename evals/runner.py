@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from evals import prices
-from evals.decisions import JEV_MODEL, DecisionsClient, DecisionsError, build_questions, compute_cost, map_answers
+from evals.decisions import JEV_MODEL, DecisionsClient, DecisionsError, compute_cost, map_answers, specs_for_questions
 from evals.gen.assemble import verify_hash
 from evals.gen.common import DATASET_PATH, ROOT
 from evals.graders import load_checklist
@@ -312,7 +312,7 @@ class Executor:
             return error_response(request, f"served model {served!r} does not match requested model {JEV_MODEL!r}", call.get("attempts", 1))
         try:
             asked = request.params["questions"]
-            answers = map_answers(body, [q for q in build_questions(self.cfg) if q.name in asked])
+            answers = map_answers(body, specs_for_questions(self.cfg, asked))
         except DecisionsError as exc:
             return error_response(request, str(exc), call.get("attempts", 1))
         detail = compute_cost(call.get("usage"), request.params["state"], request.params["questions"])

@@ -71,6 +71,8 @@ def jev_rows(cfg, answers: dict[str, dict]) -> tuple[dict[str, dict], dict[str, 
             "na_reason": None,
             "unexplained": True,
         }
+        if a.get("detail") is not None:
+            rows[c.id]["detail"] = a["detail"]
     return rows, problems
 
 

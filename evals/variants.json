@@ -53,5 +53,15 @@
     "name": "jev_rich_split",
     "workflow": "jev_only",
     "params": {"style": "rich_split"}
+  },
+  {
+    "name": "jev_temporal_choice",
+    "workflow": "jev_only",
+    "params": {"style": "temporal_choice"}
+  },
+  {
+    "name": "jev_temporal_split",
+    "workflow": "jev_only",
+    "params": {"style": "temporal_split"}
   }
 ]
