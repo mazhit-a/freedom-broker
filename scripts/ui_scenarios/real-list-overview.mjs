@@ -117,12 +117,12 @@ export const scenarios = {
   async "real-list-search-sort"(page) {
     await open(page, "#/conversations");
     await listReady(page);
-    const hit = await apiJson(page, "/conversations?envelope=1&q=" + encodeURIComponent("p4-ru-005"));
     await page.eval(`(() => { const i = ${LR}.querySelector('[data-search]'); i.value = 'p4-ru-005'; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+    const hit = await apiJson(page, "/conversations?envelope=1&q=" + encodeURIComponent("p4-ru-005"));
     await until(async () => (await rowIds(page)).length === hit.items.length && hit.items.length > 0);
     page.assert((await rowIds(page)).includes("p4-ru-005"), "search by id returns the conversation");
-    const text = await apiJson(page, "/conversations?envelope=1&q=" + encodeURIComponent("спасибо"));
     await page.eval(`(() => { const i = ${LR}.querySelector('[data-search]'); i.value = 'спасибо'; i.dispatchEvent(new Event('input', { bubbles: true })); })()`);
+    const text = await apiJson(page, "/conversations?envelope=1&q=" + encodeURIComponent("спасибо"));
     await until(async () => (await rowIds(page)).length === Math.min(50, text.total));
     page.assert(text.total > 0, `message text search has hits (${text.total})`);
     page.assert((await rowIds(page)).length === Math.min(50, text.total), "message-text search rows equal server total");
@@ -225,20 +225,28 @@ export const scenarios = {
   },
 
   async "real-locales"(page) {
+    const all = await apiJson(page, "/conversations?envelope=1");
+    const target = all.items.find((i) => i.final_total !== null);
+    page.assert(Boolean(target), "the database has at least one evaluated conversation");
+    const targetId = target.conversation_id;
+    const stats = await apiJson(page, "/stats/overview");
+    const fixed = (value, locale) => Number(value).toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: false });
     await open(page, "#/conversations", "&locale=en");
     await listReady(page);
-    const en = await page.eval(`(() => { const row = [...${LR}.querySelectorAll('[data-row]')].find((x) => x.querySelector('.lt-id').textContent.trim() === 'p1-ru-001'); return { cells: [...row.querySelectorAll('[role=cell]')].map((c) => c.textContent.replace(/\\s+/g, ' ').trim()), h2: ${LR}.querySelector('h2').textContent.trim(), counts: ${LR}.querySelector('[data-counts]').textContent.trim() }; })()`);
-    page.assert(en.cells[5].startsWith("92.31"), `English decimal point (${en.cells[5]})`);
-    page.assert(en.cells[2].includes("Chat") && en.h2 === "Conversations", `English labels (${en.cells[2]}, ${en.h2})`);
-    page.assert(/65/.test(en.counts), `English counts (${en.counts})`);
+    const en = await page.eval(`(() => { const row = [...${LR}.querySelectorAll('[data-row]')].find((x) => x.querySelector('.lt-id').textContent.trim() === ${JSON.stringify(targetId)}); return { found: !!row, cells: row ? [...row.querySelectorAll('[role=cell]')].map((c) => c.textContent.replace(/\\s+/g, ' ').trim()) : [], h2: ${LR}.querySelector('h1').textContent.trim(), counts: ${LR}.querySelector('[data-counts]').textContent.trim() }; })()`);
+    page.assert(en.found, `conversation ${targetId} is on the first page`);
+    page.assert(en.cells[5].startsWith(fixed(target.final_total, "en-US")), `English decimal point (${en.cells[5]} vs ${fixed(target.final_total, "en-US")})`);
+    page.assert(en.cells[2].includes("Chat") || en.cells[2].includes("Call"), `English labels (${en.cells[2]})`);
+    page.assert(en.h2 === "Conversations", `English heading (${en.h2})`);
+    page.assert(en.counts.includes(String(all.total)), `English counts (${en.counts} vs ${all.total})`);
     await open(page, "#/conversations", "&locale=kk");
     await listReady(page);
-    const kk = await page.eval(`(() => { const row = [...${LR}.querySelectorAll('[data-row]')].find((x) => x.querySelector('.lt-id').textContent.trim() === 'p1-ru-001'); return { total: row.querySelectorAll('[role=cell]')[5].textContent.trim(), h2: ${LR}.querySelector('h2').textContent.trim() }; })()`);
-    page.assert(kk.total.startsWith("92,31") && kk.h2 !== "Диалоги" && kk.h2 !== "Conversations", `Kazakh render (${kk.total}, ${kk.h2})`);
+    const kk = await page.eval(`(() => { const row = [...${LR}.querySelectorAll('[data-row]')].find((x) => x.querySelector('.lt-id').textContent.trim() === ${JSON.stringify(targetId)}); return { total: row.querySelectorAll('[role=cell]')[5].textContent.trim(), h2: ${LR}.querySelector('h1').textContent.trim() }; })()`);
+    page.assert(kk.total.startsWith(fixed(target.final_total, "en-US").replace(".", ",")) && kk.h2 !== "Диалоги" && kk.h2 !== "Conversations", `Kazakh render (${kk.total}, ${kk.h2})`);
     await open(page, "#/overview", "&locale=en");
     await until(() => page.eval(`cqaDeep(${JSON.stringify(`${OV} >>> .kpis .kpi`)}).length === 5`));
     const avg = await page.eval(`cqaDeep(${JSON.stringify(`${OV} >>> .kpis .kpi`)})[0].querySelector('.kpi-value').textContent.trim()`);
-    page.assert(norm(avg).startsWith("76.28"), `English overview average (${avg})`);
+    page.assert(norm(avg).startsWith(fixed(stats.kpis.avg, "en-US")), `English overview average (${avg} vs ${stats.kpis.avg})`);
   },
 
   async "real-overview"(page) {

@@ -5,7 +5,7 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = fileURLToPath(new URL("../", import.meta.url));
-const LEGACY = ["js", "index.html"];
+const LEGACY = [];
 const TEXT = new Set([".js", ".mjs", ".css", ".html", ".json", ".txt"]);
 
 function walk(dir, out = []) {
@@ -135,7 +135,7 @@ function htmlParts(text) {
 
 test("the new frontend tree is non-empty and excludes only the legacy UI", () => {
   assert.ok(RUNTIME.length > 40);
-  assert.ok(RUNTIME.includes("demo.html") && RUNTIME.includes("next.html") && RUNTIME.includes("embed-test.html"));
+  assert.ok(RUNTIME.includes("demo.html") && RUNTIME.includes("index.html") && RUNTIME.includes("embed-test.html"));
   assert.ok(!FILES.some((file) => file.startsWith("js/")));
 });
 

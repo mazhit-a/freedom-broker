@@ -214,7 +214,7 @@ export const scenarios = {
     page.assert(j(info.locales) === j(["RU", "KZ", "EN"]), `locales (${info.locales})`);
     page.assert(j(info.widths) === j(["768", "1024", "1440", "Авто"]), `widths (${info.widths})`);
     page.assert(info.mode === "mock", "mock mode chip");
-    page.assert(/^next\.html\?mock=1&locale=ru#\/conversations$/.test(info.src), `relative frame url (${info.src})`);
+    page.assert(/^index\.html\?mock=1&locale=ru#\/conversations$/.test(info.src), `relative frame url (${info.src})`);
     page.assert(info.title === "Приложение CQA", "iframe has a title");
     page.assert(info.groups, "segment groups are labelled");
     page.assert(info.overflow <= 0, `no horizontal overflow of the demo page (${info.overflow})`);

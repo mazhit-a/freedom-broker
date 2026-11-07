@@ -1,5 +1,3 @@
-import re
-from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -208,17 +206,3 @@ def test_ev_appealed_criteria_listed(env):
     c, pk, eid, _ = env
     appeal(c, eid, "05")
     assert c.get(f"{API}/evaluations/{eid}").json()["appealed_criteria"] == ["05"]
-
-
-FRONT = Path(__file__).resolve().parents[1] / "frontend" / "js" / "components"
-
-
-def test_frontend_sources_clean_and_wired():
-    for name in ["cqa-reviewer-queue.js", "cqa-evaluation-panel.js", "cqa-appeal-form.js"]:
-        text = (FRONT / name).read_text(encoding="utf-8")
-        assert not re.search(r"^\s*//", text, re.M), name
-        assert "/*" not in text and "<!--" not in text, name
-    app = (FRONT / "cqa-app.js").read_text(encoding="utf-8")
-    assert "cqa-reviewer-queue" in app
-    panel = (FRONT / "cqa-evaluation-panel.js").read_text(encoding="utf-8")
-    assert 'role === "QA"' in panel and 'role === "Reviewer"' in panel

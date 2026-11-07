@@ -1,3 +1,25 @@
+import { execFileSync } from "node:child_process";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const PRODUCTION_DB = resolve(fileURLToPath(new URL("../../cqa.db", import.meta.url)));
+
+function seedRun() {
+  const db = process.env.CQA_COPY_DB;
+  if (!db) throw new Error("real-runs needs CQA_COPY_DB pointing at a COPY of the database (a finished run is seeded there when none exists)");
+  if (resolve(db) === PRODUCTION_DB) throw new Error("CQA_COPY_DB must not be the production database");
+  const run = (query) => execFileSync("sqlite3", [db], { input: query, encoding: "utf8" }).trim();
+  if (Number(run("select count(*) from eval_run;")) > 0) return;
+  run(`
+    insert into eval_run (dataset, checklist_version_id, model, force, retry_failed, concurrency, status, total, skipped, completed, needs_review, failed, started_at, finished_at)
+    select d.group_id, (select min(id) from checklist_version), null, 0, 1, 1, 'completed', 3, 0, 3, 0, 0, datetime('now', '-1 hour'), datetime('now', '-59 minutes')
+    from dataset d order by d.id limit 1;
+    insert into eval_run_item (run_id, conversation_id, status, evaluation_id, latency_ms, started_at, finished_at)
+    select (select max(id) from eval_run), e.conversation_id, 'completed', max(e.id), 1200, datetime('now', '-1 hour'), datetime('now', '-59 minutes')
+    from evaluation e group by e.conversation_id order by e.conversation_id limit 3;
+  `);
+}
+
 const B = "cqa-app >>> cqa-checklist-builder";
 const R = "cqa-app >>> cqa-eval-runs";
 const APP = "document.querySelector('cqa-app').shadowRoot";
@@ -56,6 +78,7 @@ async function chooseGroup(page, value) {
 
 export const scenarios = {
   async "real-runs"(page) {
+    seedRun();
     page.allowConsole(/502 \(Bad Gateway\).*datasets\/import/);
     await open(page, "#/runs", "role=reviewer", `${R} >>> [data-run]`);
     page.assert((await text(page, `${R} >>> h1`)) === "Запуски оценки", "h1");
@@ -124,7 +147,7 @@ export const scenarios = {
     const chip = () => text(page, `${B} >>> [data-chip=status]`);
     const rowsText = () => texts(page, `${B} >>> [data-region=side] .vrow`);
     const server = await api(page, "/checklists");
-    const uiRows = await page.eval(`cqaDeep(${JSON.stringify(`${B} >>> [data-version-row]`)}).map((e) => Number(e.getAttribute('data-version-row')))`);
+    const uiRows = await page.eval(`cqaDeep(${JSON.stringify(`${B} >>> [data-version-row]`)}).map((e) => Number(e.getAttribute('data-version-row'))).filter((n) => Number.isFinite(n))`);
     page.assert(JSON.stringify([...uiRows].sort()) === JSON.stringify(server[0].versions.map((v) => v.id).sort()), `sidebar lists the server versions (${uiRows})`);
     const baseVersion = server[0].versions.find((v) => v.is_default);
     const baseApplied = baseVersion.applied_count;

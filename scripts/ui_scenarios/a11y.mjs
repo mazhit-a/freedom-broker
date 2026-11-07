@@ -225,7 +225,7 @@ async function until(page, expression, label, timeout = 20000) {
 
 async function openScreen(page, query, hash, tag, locale) {
   await page.eval(`window.__a11yStale = true`);
-  await page.eval(`(() => { const u = new URL('next.html?mock=1&${query}&locale=${locale}&_=' + Date.now() + ${j(hash)}, location.href); location.href = u.href; })()`);
+  await page.eval(`(() => { const u = new URL('index.html?mock=1&${query}&locale=${locale}&_=' + Date.now() + ${j(hash)}, location.href); location.href = u.href; })()`);
   await until(page, `window.__a11yStale === undefined`, "navigation");
   await until(page, `document.readyState === 'complete' && cqaDeep(${j("cqa-app >>> " + tag)}).length === 1`, `screen ${tag}`);
   await sleep(900);

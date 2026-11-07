@@ -164,7 +164,7 @@ export const scenarios = {
     page.allowExternal(/dynamics\.com/);
     for (const width of [768, 1440]) {
       const height = 700;
-      await host(page, `next.html?mock=1&role=operator&locale=ru#/conversations/p1-ru-001`, width, height);
+      await host(page, `index.html?mock=1&role=operator&locale=ru#/conversations/p1-ru-001`, width, height);
       await until(page, `!!${FD}.querySelector('cqa-app') && !!${FD}.querySelector('cqa-app').shadowRoot.querySelector('cqa-conversation-card')`, "app in iframe");
       const CARD = "cqa-app >>> cqa-conversation-card >>> ";
       const inner = (sel) => `cqaDeep(${j(sel)}, ${FD})`;
@@ -200,7 +200,7 @@ export const scenarios = {
       page.assert(back === "appeal-05", `Escape returns focus to the opener inside the iframe at ${width} (${back})`);
     }
     for (const width of [768, 1440]) {
-      await host(page, `next.html?mock=1&role=reviewer&locale=ru#/conversations`, width, 700);
+      await host(page, `index.html?mock=1&role=reviewer&locale=ru#/conversations`, width, 700);
       const LIST = "cqa-app >>> cqa-conversation-list >>> ";
       const inner = (sel) => `cqaDeep(${j(sel)}, ${FD})`;
       await until(page, `${inner(LIST + "[data-action=select-row]")}.length > 0`, "list rows");
@@ -230,7 +230,7 @@ export const scenarios = {
   },
 
   async "embed-navigate"(page) {
-    await host(page, `next.html?mock=1&role=reviewer&locale=ru#/overview`, 1440, 700);
+    await host(page, `index.html?mock=1&role=reviewer&locale=ru#/overview`, 1440, 700);
     await until(page, `!!cqaDeep('cqa-app >>> cqa-header >>> cqa-nav >>> a', ${FD})[0]`, "nav");
     await page.eval(`window.__outer = []; ${FD}.addEventListener('cqa:navigate', (e) => window.__outer.push(e.detail.to)); true`);
     await page.eval(`cqaDeep('cqa-app >>> cqa-header >>> cqa-nav >>> a[data-route=appeals]', ${FD})[0].click()`);

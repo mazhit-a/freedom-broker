@@ -23,7 +23,7 @@ async function until(fn, timeout = 15000, step = 100) {
 async function open(page, query, hash = "#/checklists/1") {
   await page.eval(`(() => { const b = cqaDeep(${JSON.stringify(B)})[0]; if (b) b._dirty = false; return true; })()`).catch(() => null);
   const marker = `m=${Math.random().toString(36).slice(2, 8)}`;
-  await page.eval(`setTimeout(() => { location.href = new URL('next.html?mock=1&${marker}${query ? "&" + query : ""}${hash}', location.href).href; }, 0); true`);
+  await page.eval(`setTimeout(() => { location.href = new URL('index.html?mock=1&${marker}${query ? "&" + query : ""}${hash}', location.href).href; }, 0); true`);
   await until(() => page.eval(`location.search.includes(${JSON.stringify(marker)}) && document.readyState === 'complete'`));
   await until(() => page.eval(`cqaDeep(${JSON.stringify(`${B} >>> [data-row]`)}).length > 0`));
 }

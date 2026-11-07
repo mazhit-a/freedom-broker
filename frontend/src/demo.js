@@ -9,7 +9,7 @@ import {
   stepIndexForHash
 } from "./demo-steps.js";
 
-const FRAME_PAGE = "next.html";
+const FRAME_PAGE = "index.html";
 const config = globalThis.CQA_CONFIG || {};
 const query = new URLSearchParams(globalThis.location.search);
 

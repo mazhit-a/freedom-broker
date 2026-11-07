@@ -39,9 +39,9 @@ test("texts exist for every step in ru, kk and en", () => {
 });
 
 test("frame urls are relative and carry the mock flag only in mock mode", () => {
-  assert.equal(frameUrl({ page: "next.html", role: null, locale: "ru", mock: true, hash: "#/runs" }), "next.html?mock=1&locale=ru#/runs");
-  assert.equal(frameUrl({ page: "next.html", role: "reviewer", locale: "kk", mock: false, hash: "#/appeals" }), "next.html?role=reviewer&locale=kk#/appeals");
-  assert.ok(!frameUrl({ page: "next.html", mock: false, hash: "" }).startsWith("/"));
+  assert.equal(frameUrl({ page: "index.html", role: null, locale: "ru", mock: true, hash: "#/runs" }), "index.html?mock=1&locale=ru#/runs");
+  assert.equal(frameUrl({ page: "index.html", role: "reviewer", locale: "kk", mock: false, hash: "#/appeals" }), "index.html?role=reviewer&locale=kk#/appeals");
+  assert.ok(!frameUrl({ page: "index.html", mock: false, hash: "" }).startsWith("/"));
 });
 
 test("hash to step lookup", () => {

@@ -18,7 +18,7 @@ test("font files exist, are woff2 and are listed in fonts.css", () => {
 });
 
 test("sources contain no external URLs", () => {
-  const files = ["../src/fonts.js", "../src/base-element.js", "../src/index.js", "../src/fonts/fonts.css", "../next.html"];
+  const files = ["../src/fonts.js", "../src/base-element.js", "../src/index.js", "../src/fonts/fonts.css", "../index.html"];
   for (const f of files) {
     const text = readFileSync(new URL(f, import.meta.url), "utf8");
     assert.ok(!/https?:\/\//.test(text), f);
