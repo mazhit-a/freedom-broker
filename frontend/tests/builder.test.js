@@ -621,28 +621,51 @@ test("the whole edit round-trips and feeds the scoring preview", () => {
 
 test("new locale keys exist in every language", () => {
   const keys = Object.keys(DICTIONARIES.ru).filter((k) => k.startsWith("builder.sec.") || k.startsWith("builder.warn.") || /^builder\.err\.sec/.test(k));
-  assert.ok(keys.length >= 23);
+  assert.ok(keys.length >= 26);
   for (const locale of LOCALES) for (const key of keys) assert.ok(key in DICTIONARIES[locale], `${locale} ${key}`);
 });
 
-test("structure markup: editable header, read-only header, warnings and inline errors", () => {
+test("structure markup: collapsed by default, invalid sections open, warnings and inline errors", () => {
   const ctx = viewContext();
+  ctx.openSections = new Set();
+  const plain = String(structure(ctx));
+  assert.equal(plain.includes("sec-name"), false);
+  assert.equal(plain.includes("sec-weight"), false);
+  assert.equal((plain.match(/data-action="toggle-section"/g) || []).length, 4);
+  assert.match(plain, /data-section-weight="opening"[^>]*>вес раздела 25</);
+  assert.match(plain, /aria-expanded="false"[^>]*aria-label="Редактировать раздел «Начало и понимание запроса»"/);
+  assert.match(plain, /data-action="add-section"/);
   addSection(ctx.draft, "Новый раздел");
   renameSection(ctx.draft, "security", "");
   ctx.view = { validation: validate(ctx.draft), preview: computePreview(ctx.draft), changedCount: 0 };
+  const collapsed = String(structure(ctx));
+  assert.equal((collapsed.match(/data-field="sec-name"/g) || []).length, 1);
+  assert.match(collapsed, /data-sec-hint="empty"/);
+  assert.match(collapsed, /aria-expanded="true" aria-disabled="true"/);
+  assert.match(collapsed, /data-sec-hint="keep-open"/);
+  assert.match(collapsed, /Укажите название раздела/);
+  ctx.openSections = new Set(["opening", "gross"]);
   const editable = String(structure(ctx));
-  assert.equal((editable.match(/data-field="sec-name"/g) || []).length, 5);
+  assert.equal((editable.match(/data-field="sec-name"/g) || []).length, 3);
   assert.match(editable, /aria-label="Название раздела 2"[^>]*aria-describedby="sec-note-security"[^>]*aria-invalid="true"/);
-  assert.match(editable, /data-action="add-section"/);
   assert.match(editable, /data-field="sec-weight"[^>]*data-section-weight="gross"[^>]*value="0"[^>]*disabled/);
-  assert.match(editable, /data-sec-hint="empty"/);
-  assert.match(editable, /Укажите название раздела/);
   assert.match(editable, /data-focus-id="sup-opening"[^>]*disabled/);
+  assert.match(editable, /data-action="done-section" data-section="opening"/);
+  assert.match(editable, /data-section-weight="conduct"[^>]*>вес раздела 35</);
   const alerts = String(alertBox(ctx));
   assert.match(alerts, /data-error="secNameEmpty"/);
   assert.match(alerts, /data-warning="emptySection"/);
   const locked = String(structure({ ...ctx, readOnly: true }));
   assert.equal(locked.includes("sec-name"), false);
   assert.equal(locked.includes("add-section"), false);
+  assert.equal(locked.includes("toggle-section"), false);
   assert.match(locked, /data-section-weight="opening"[^>]*>вес раздела 25</);
+  assert.match(locked, /data-sec-hint="empty"/);
+});
+
+test("section edit button and Done label exist in every language", () => {
+  for (const locale of LOCALES) {
+    assert.ok(DICTIONARIES[locale]["builder.sec.edit"].includes("{name}"), locale);
+    for (const key of ["builder.sec.done", "builder.sec.keepOpen"]) assert.ok(DICTIONARIES[locale][key], `${locale} ${key}`);
+  }
 });

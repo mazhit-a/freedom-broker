@@ -78,8 +78,10 @@ const CSS = `${SHARED_CSS}
   .mv { display: flex; }
   .ib { padding: 0; width: 28px; justify-content: center; }
   .sech { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 14px 16px 8px; border-top: 1px solid var(--cqa-line); background: var(--cqa-surface-2); }
-  .sech-edit { padding-top: 10px; }
-  .sech-edit .sech-t { flex: 1 1 200px; min-width: 0; text-transform: none; letter-spacing: 0; }
+  .sech-edit { padding-top: 10px; gap: 6px; }
+  .editb[aria-expanded="true"] { background: var(--cqa-surface); color: var(--cqa-ink); }
+  .editb[aria-disabled="true"], .doneb[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+  .sech-edit .sech-t { flex: 1 1 120px; min-width: 0; text-transform: none; letter-spacing: 0; }
   .sname { width: 100%; height: 30px; font-weight: 600; font-size: var(--cqa-fs-13); }
   .sw { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
   .swf { width: 76px; height: 30px; text-align: right; }
@@ -144,6 +146,7 @@ export class CqaChecklistBuilder extends CqaElement {
     this._draft = null;
     this._baseConfig = null;
     this._selected = null;
+    this._openSections = new Set();
     this._bound = false;
     this._view = null;
     this._dirty = false;
@@ -317,6 +320,7 @@ export class CqaChecklistBuilder extends CqaElement {
       }, this.locale);
       this._status = "draft";
       this._selected = null;
+      this._openSections = new Set();
       this.recompute();
       this._selected = this.firstKey();
       this._phase = "ready";
@@ -343,6 +347,10 @@ export class CqaChecklistBuilder extends CqaElement {
       preview: computePreview(draft),
       changedCount: changedCount(draft)
     };
+    const live = new Set(draft.sections.map((x) => x.id));
+    for (const id of [...this._openSections]) if (!live.has(id)) this._openSections.delete(id);
+    for (const id of validation.badSection.keys()) this._openSections.add(id);
+    for (const id of validation.badSectionWeight) this._openSections.add(id);
   }
 
   context() {
@@ -352,6 +360,7 @@ export class CqaChecklistBuilder extends CqaElement {
       draft: this._draft,
       view: this._view,
       selectedKey: this._selected,
+      openSections: this._openSections,
       readOnly: this.readOnly,
       roleReadOnly: this.roleReadOnly,
       locked: this.locked,
@@ -511,6 +520,15 @@ export class CqaChecklistBuilder extends CqaElement {
       if (!button || button.disabled) return;
       this.onAction(button.getAttribute("data-action"), button);
     });
+    region.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || this.readOnly) return;
+      const head = event.target.closest && event.target.closest(".sech-edit");
+      if (!head) return;
+      const id = head.getAttribute("data-section-id");
+      if (!this._openSections.has(id)) return;
+      event.stopPropagation();
+      this.toggleSection(id);
+    });
     region.addEventListener("input", (event) => {
       const field = event.target.closest("[data-field]");
       if (field) this.onInput(field);
@@ -584,6 +602,9 @@ export class CqaChecklistBuilder extends CqaElement {
     } else if (action === "add-section") {
       if (this.readOnly) return;
       this.doAddSection();
+    } else if (action === "toggle-section" || action === "done-section") {
+      if (this.readOnly) return;
+      this.toggleSection(button.getAttribute("data-section"));
     } else if (action === "remove-section") {
       if (this.readOnly) return;
       this.doRemoveSection(button.getAttribute("data-section"));
@@ -614,8 +635,29 @@ export class CqaChecklistBuilder extends CqaElement {
     }
   }
 
+  toggleSection(id, forceClose) {
+    if (!this._draft.sections.some((x) => x.id === id)) return;
+    const open = this._openSections.has(id);
+    if (open) {
+      const validation = this._view.validation;
+      if (validation.badSection.has(id) || validation.badSectionWeight.has(id)) {
+        return;
+      }
+      this._openSections.delete(id);
+      this.refreshAll();
+      const pencil = this.shadowRoot.querySelector(`[data-focus-id="edit-${id}"]`);
+      if (pencil) pencil.focus();
+      return;
+    }
+    this._openSections.add(id);
+    this.refreshAll();
+    const input = this.shadowRoot.querySelector(`[data-focus-id="sn-${id}"]`);
+    if (input) input.focus();
+  }
+
   doAddSection() {
     const id = addSection(this._draft, this.t("builder.sec.newName"));
+    this._openSections.add(id);
     this.edited();
     const input = this.shadowRoot.querySelector(`[data-focus-id="sn-${id}"]`);
     if (input) {
@@ -645,7 +687,8 @@ export class CqaChecklistBuilder extends CqaElement {
     this.edited();
     this.swap("editor", editor(this.context()));
     this.mountScaleEditor();
-    const target = this.shadowRoot.querySelector(`[data-focus-id="sn-${done.focus}"]`);
+    this._openSections.delete(id);
+    const target = this.shadowRoot.querySelector(`[data-focus-id="sn-${done.focus}"]`) || this.shadowRoot.querySelector(`[data-focus-id="edit-${done.focus}"]`);
     if (target) target.focus();
   }
 

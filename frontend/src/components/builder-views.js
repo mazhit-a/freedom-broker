@@ -111,16 +111,24 @@ function sectionHead(ctx, s, index, count, list) {
   const add = canAdd
     ? html`<button type="button" class="btn btn-sm btn-ghost addc" data-action="add" data-section="${s.id}" data-focus-id="add-${s.id}" aria-label="${t("builder.addCriterionIn", { section: title })}">${icon("plus", 14)}${t("builder.addCriterion")}</button>`
     : html``;
-  if (readOnly) {
+  const nameBad = validation.badSection.has(s.id);
+  const weightBad = validation.badSectionWeight.has(s.id);
+  const invalid = nameBad || weightBad;
+  const editing = !readOnly && (invalid || (ctx.openSections && ctx.openSections.has(s.id)));
+  const pencil = readOnly
+    ? html``
+    : html`<button type="button" class="btn btn-sm btn-ghost ib editb" data-action="toggle-section" data-section="${s.id}" data-focus-id="edit-${s.id}" aria-expanded="${editing ? "true" : "false"}" ${editing && invalid ? raw('aria-disabled="true"') : ""} aria-label="${t("builder.sec.edit", { name: title })}" title="${t("builder.sec.edit", { name: title })}">${icon("edit", 14)}</button>`;
+  if (!editing) {
+    const emptyNote = list.length === 0 ? html`<div class="sec-notes" id="sec-note-${s.id}"><span class="sec-warn" data-sec-hint="empty">${t("builder.sec.empty")}</span></div>` : html``;
     return html`
       <div class="sech" data-section-id="${s.id}">
         <h2 class="sech-t">${title}</h2>${chips}
         <span class="tnum dim12" data-section-weight="${s.id}">${t("builder.sectionWeight", { weight: formatHundredths(derived, ctx.locale) })}</span>
+        ${pencil}
         ${add}
+        ${emptyNote}
       </div>`;
   }
-  const nameBad = validation.badSection.has(s.id);
-  const weightBad = validation.badSectionWeight.has(s.id);
   const entry = sectionInputFor(draft, s.id);
   const weightText = entry ? entry.text : sectionWeightText(derived, ctx.locale);
   const noScored = scored === 0;
@@ -132,15 +140,19 @@ function sectionHead(ctx, s, index, count, list) {
   if (noScored) notes.push(html`<span class="sec-hint" data-sec-hint="weight">${t("builder.sec.weightDisabled")}</span>`);
   if (list.length === 0) notes.push(html`<span class="sec-warn" data-sec-hint="empty">${t("builder.sec.empty")}</span>`);
   if (!canDelete) notes.push(html`<span class="sec-hint" data-sec-hint="delete">${deleteHint}</span>`);
+  if (invalid) notes.push(html`<span class="sec-hint" data-sec-hint="keep-open">${t("builder.sec.keepOpen")}</span>`);
+  const done = html`<button type="button" class="btn btn-sm doneb" data-action="done-section" data-section="${s.id}" data-focus-id="done-${s.id}" ${invalid ? raw('aria-disabled="true"') : ""}>${t("builder.sec.done")}</button>`;
   return html`
     <div class="sech sech-edit" data-section-id="${s.id}">
       <h2 class="sech-t"><input class="field sname" type="text" data-field="sec-name" data-section="${s.id}" data-focus-id="sn-${s.id}" value="${sectionTitleDraft(s, ctx.locale)}" aria-label="${t("builder.sec.nameLabel", { num: index + 1 })}" aria-describedby="sec-note-${s.id}" ${nameBad ? raw('aria-invalid="true"') : ""}></h2>${chips}
+      ${pencil}
       <label class="sw dim12">${t("builder.sec.weightLabel")}<input class="field tnum swf" type="text" inputmode="decimal" data-field="sec-weight" data-section="${s.id}" data-section-weight="${s.id}" data-focus-id="sw-${s.id}" value="${weightText}" aria-label="${t("builder.sec.weightAria", { name: title })}" aria-describedby="sec-note-${s.id}" ${weightBad ? raw('aria-invalid="true"') : ""} ${flag(noScored, "disabled")}></label>
       <span class="mv">
         <button type="button" class="btn btn-sm btn-ghost ib" data-action="section-up" data-section="${s.id}" data-focus-id="sup-${s.id}" aria-label="${t("builder.sec.moveUp", { name: title })}" ${flag(index === 0, "disabled")}>${icon("up", 14)}</button>
         <button type="button" class="btn btn-sm btn-ghost ib" data-action="section-down" data-section="${s.id}" data-focus-id="sdown-${s.id}" aria-label="${t("builder.sec.moveDown", { name: title })}" ${flag(index === count - 1, "disabled")}>${icon("down", 14)}</button>
       </span>
       <button type="button" class="btn btn-sm btn-ghost ib" data-action="remove-section" data-section="${s.id}" data-focus-id="rms-${s.id}" aria-label="${t("builder.sec.delete", { name: title })}" ${deleteHint ? raw(`title="${deleteHint}"`) : ""} ${flag(!canDelete, "disabled")}>${icon("close", 14)}</button>
+      ${done}
       ${add}
       <div class="sec-notes" id="sec-note-${s.id}">${notes}</div>
     </div>`;

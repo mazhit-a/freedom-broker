@@ -88,7 +88,7 @@ const raw = {
     const describedBy = await page.eval(`cqaDeep(${JSON.stringify(`${B} >>> [data-action=save]`)})[0].getAttribute('aria-describedby')`);
     page.assert(describedBy === "save-reason", "save is described by the reason");
     page.assert((await text(page, `${B} >>> [data-meta]`)) === "на основе v2 · изменено критериев: 1", "changed count after one edit");
-    page.assert((await page.eval(`cqaDeep(${JSON.stringify(`${B} >>> [data-section-weight=security]`)})[0].value`)) === "35", "section weight live");
+    page.assert((await text(page, `${B} >>> [data-section-weight=security]`)) === "вес раздела 35", "section weight text follows criteria live");
     const focus = await page.active();
     page.assert(focus && focus.focusId === "rw-k2", `typing in a row weight keeps focus (${JSON.stringify(focus)})`);
 

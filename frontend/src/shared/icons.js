@@ -8,6 +8,7 @@ const PATHS = {
   up: '<path d="m6 15 6-6 6 6"></path>',
   close: '<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>',
   plus: '<path d="M12 5v14"></path><path d="M5 12h14"></path>',
+  edit: '<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path>',
   down: '<path d="m6 9 6 6 6-6"></path>'
 };
 

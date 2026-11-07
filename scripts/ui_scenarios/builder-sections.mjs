@@ -55,6 +55,16 @@ async function setField(page, selector, text, event = "input") {
   await sleep(50);
 }
 
+const pencil = (id) => `${B} >>> [data-action=toggle-section][data-section=${id}]`;
+const IDS = ["opening", "security", "conduct", "gross"];
+
+async function openSecs(page, ...ids) {
+  for (const id of ids) {
+    if ((await attr(page, pencil(id), "aria-expanded")) !== "true") await page.click(pencil(id));
+  }
+  await sleep(50);
+}
+
 const parseHundredthsOf = (text) => Math.round(Number(String(text).replace(",", ".")) * 100);
 
 const confirmDesc = (page) => page.eval(`(${APP}.querySelector('[data-confirm]').getAttribute('description') || '')`);
@@ -62,6 +72,10 @@ const confirmDesc = (page) => page.eval(`(${APP}.querySelector('[data-confirm]')
 const raw = {
   async "builder-sections"(page) {
     await open(page, "role=reviewer");
+    page.assert((await page.deepCount(`${B} >>> [data-field=sec-name]`)) === 0 && (await page.deepCount(`${B} >>> [data-field=sec-weight]`)) === 0, "sections are read-only by default");
+    page.assert((await text(page, `${B} >>> [data-section-weight=security]`)) === "вес раздела 40", "default look shows the derived weight as text");
+    page.assert((await attr(page, pencil("opening"), "aria-label")) === "Редактировать раздел «Начало и понимание запроса»" && (await attr(page, pencil("opening"), "aria-expanded")) === "false", "pencil is labelled and collapsed");
+    await openSecs(page, ...IDS);
     page.assert(JSON.stringify(await names(page)) === JSON.stringify(["Начало и понимание запроса", "Безопасность и решение", "Ведение и завершение диалога", "Грубые нарушения"]), `section names editable (${await names(page)})`);
     page.assert((await attr(page, nameField("opening"), "aria-label")) === "Название раздела 1", "name field is labelled");
     page.assert((await page.deepCount(`${B} >>> .sech-t`)) === 4, "four section headings");
@@ -189,6 +203,7 @@ const raw = {
 
   async "builder-sections-save"(page) {
     await open(page, "role=reviewer");
+    await openSecs(page, "conduct", "security");
     await setField(page, nameField("conduct"), "Завершение");
     await page.click(`${B} >>> [data-action=add-section]`);
     const id = await attr(page, `${B} >>> [data-field=sec-name][data-section^=section-]`, "data-section");
@@ -220,31 +235,80 @@ const raw = {
     page.assert((await page.deepCount(`${B} >>> [data-action=remove-section], ${B} >>> [data-action=section-up]`)) === 0, "no section controls");
     page.assert((await text(page, `${B} >>> [data-section-weight=security]`)) === "вес раздела 40", "weight shown as text");
     page.assert((await text(page, `${B} >>> .sech-t`)) === "Начало и понимание запроса", "name shown as heading text");
+    page.assert((await page.deepCount(`${B} >>> [data-action=toggle-section]`)) === 0, "no pencil for a read-only role");
   },
 
   async "builder-sections-keys"(page) {
     await open(page, "role=reviewer");
+    await openSecs(page, "opening");
     await page.eval(`cqaDeep(${JSON.stringify(nameField("opening"))})[0].focus()`);
     const seen = [];
-    for (let i = 0; i < 6; i += 1) {
+    for (let i = 0; i < 8; i += 1) {
       await page.press("Tab");
       const a = await page.active();
       seen.push(a && a.focusId);
       page.assert(a && a.outline === "solid 2px", `focus ring on ${a && a.focusId}`);
     }
-    page.assert(seen.join() === "sw-opening,sdown-opening,rms-opening,add-opening,pick-k0,rw-k0", `section tab order (${seen})`);
+    page.assert(seen.join() === "edit-opening,sw-opening,sdown-opening,rms-opening,done-opening,add-opening,pick-k0,rw-k0", `section tab order (${seen})`);
     await page.eval(`cqaDeep(${JSON.stringify(nameField("opening"))})[0].select()`);
     await page.type("Раздел А");
     page.assert((await value(page, nameField("opening"))) === "Раздел А", "real typing renames");
     await page.eval(`cqaDeep(${JSON.stringify(`${B} >>> [data-action=section-down][data-section=opening]`)})[0].focus()`);
     await page.press("Enter");
     await sleep(100);
-    page.assert((await names(page))[1] === "Раздел А", "Enter on the move button moves the section");
+    const order = await page.eval(`cqaDeep(${JSON.stringify(`${B} >>> .sech`)}).map((e) => e.getAttribute('data-section-id')).join()`);
+    page.assert(order === "security,opening,conduct,gross", `Enter on the move button moves the section (${order})`);
+    await page.assertAccessibleNames();
+  },
+
+  async "builder-sections-toggle"(page) {
+    await open(page, "role=reviewer");
+    page.assert((await page.deepCount(`${B} >>> [data-action=done-section]`)) === 0, "no Done button in the default look");
+    await page.click(pencil("security"));
+    page.assert((await attr(page, pencil("security"), "aria-expanded")) === "true", "pencil reports expanded");
+    page.assert((await page.active()).focusId === "sn-security", "opening focuses the name input");
+    page.assert((await page.deepCount(`${B} >>> [data-field=sec-name]`)) === 1, "only the edited section shows inputs");
+    await openSecs(page, "conduct");
+    page.assert((await page.deepCount(`${B} >>> [data-field=sec-name]`)) === 2, "several sections can be open");
+    await page.click(`${B} >>> [data-action=done-section][data-section=conduct]`);
+    page.assert((await attr(page, pencil("conduct"), "aria-expanded")) === "false" && (await page.deepCount(`${B} >>> [data-field=sec-name]`)) === 1, "Done collapses the section");
+    page.assert((await page.active()).focusId === "edit-conduct", "closing returns focus to the pencil");
+    await page.eval(`cqaDeep(${JSON.stringify(pencil("conduct"))})[0].focus()`);
+    await page.press("Enter");
+    await sleep(100);
+    page.assert((await page.active()).focusId === "sn-conduct", "Enter on the pencil opens the section");
+    await page.press("Escape");
+    await sleep(100);
+    page.assert((await attr(page, pencil("conduct"), "aria-expanded")) === "false" && (await page.active()).focusId === "edit-conduct", "Escape collapses and returns focus");
+    await setField(page, nameField("security"), "");
+    page.assert((await attr(page, nameField("security"), "aria-invalid")) === "true", "invalid name shown");
+    await page.click(`${B} >>> [data-action=done-section][data-section=security]`);
+    await page.click(pencil("security"));
+    page.assert((await page.deepCount(nameField("security"))) === 1 && (await attr(page, pencil("security"), "aria-expanded")) === "true", "an invalid section cannot collapse");
+    page.assert((await attr(page, pencil("security"), "aria-disabled")) === "true", "pencil is aria-disabled while invalid");
+    page.assert((await text(page, `${B} >>> [data-section-id=security] [data-sec-hint=keep-open]`)).length > 0, "reason is shown");
+    await page.press("Escape");
+    page.assert((await page.deepCount(nameField("security"))) === 1, "Escape does not collapse an invalid section");
+    await setField(page, nameField("security"), "Безопасность");
+    await page.click(`${B} >>> [data-action=done-section][data-section=security]`);
+    page.assert((await page.deepCount(`${B} >>> [data-field=sec-name]`)) === 0, "valid section collapses");
+    page.assert((await text(page, `${B} >>> [data-section-id=security] .sech-t`)) === "Безопасность", "collapsed heading shows the new name");
+    page.assert((await text(page, `${B} >>> [data-section-id=security] .chip`)) === "изменён", "изменён badge in the default look");
+    await page.click(`${B} >>> [data-action=add-section]`);
+    page.assert((await page.active()).focusId.startsWith("sn-section-"), "new section opens with its name focused");
+    const sel = await page.eval(`(() => { const a = cqaDeep(${JSON.stringify(`${B} >>> [data-field=sec-name][data-section^=section-]`)})[0]; return a.selectionStart === 0 && a.selectionEnd === a.value.length; })()`);
+    page.assert(sel === true, "new section name is selected");
+    await page.click(`${B} >>> [data-action=done-section][data-section^=section-]`);
+    page.assert((await text(page, `${B} >>> [data-section-id^=section-] [data-sec-hint=empty]`)).includes("пуст"), "empty-section note shows in the default look");
+    page.assert((await text(page, `${B} >>> [data-section-id^=section-] .chip`)) === "новый", "новый badge in the default look");
     await page.assertAccessibleNames();
   },
 
   async "builder-sections-i18n"(page) {
     await open(page, "role=reviewer&locale=en");
+    page.assert((await attr(page, pencil("opening"), "aria-label")).startsWith("Edit section "), "EN pencil label");
+    await openSecs(page, "opening", "security", "conduct");
+    page.assert((await text(page, `${B} >>> [data-action=done-section][data-section=opening]`)) === "Done", "EN Done");
     page.assert((await attr(page, nameField("opening"), "aria-label")) === "Name of section 1", "EN name label");
     page.assert((await text(page, `${B} >>> [data-action=add-section]`)) === "Add section", "EN add section");
     await page.click(`${B} >>> [data-action=add-section]`);
@@ -260,6 +324,9 @@ const raw = {
     await page.eval(`${APP}.querySelector('[data-confirm-cancel]').click()`);
     await until(async () => !(await confirmOpen(page)));
     await open(page, "role=reviewer&locale=kk");
+    page.assert((await attr(page, pencil("opening"), "aria-label")).endsWith("бөлімін өңдеу"), "KZ pencil label");
+    await openSecs(page, "opening", "conduct");
+    page.assert((await text(page, `${B} >>> [data-action=done-section][data-section=opening]`)) === "Дайын", "KZ Done");
     page.assert((await text(page, `${B} >>> [data-action=add-section]`)) === "Бөлім қосу", "KZ add section");
     page.assert((await attr(page, nameField("opening"), "aria-label")) === "1-бөлімнің атауы", "KZ name label");
     await page.click(`${B} >>> [data-action=remove-section][data-section=conduct]`);
@@ -273,6 +340,7 @@ const raw = {
 
   async "builder-sections-look"(page) {
     await open(page, "role=reviewer");
+    await openSecs(page, "opening", "security", "conduct");
     await setField(page, nameField("opening"), "Старт диалога");
     await setField(page, weightField("security"), "33,33");
     await page.click(`${B} >>> [data-action=add-section]`);
