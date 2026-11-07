@@ -1,0 +1,66 @@
+:host, .cqa {
+  --cqa-brand: #51AF3D;
+  --cqa-brand-strong: #2F7D22;
+  --cqa-brand-deep: #0F5431;
+  --cqa-brand-tint: #EAF5E6;
+  --cqa-on-brand: #FFFFFF;
+  --cqa-ink: #111418;
+  --cqa-ink-2: #4A5260;
+  --cqa-ink-3: #6B7480;
+  --cqa-surface: #FFFFFF;
+  --cqa-surface-2: #F4F6F8;
+  --cqa-surface-3: #EBEEF2;
+  --cqa-line: #E3E7EC;
+  --cqa-line-strong: #CDD3DA;
+  --cqa-ok: #0E7C7B;        --cqa-ok-bg: #E3F3F2;
+  --cqa-warn: #9A5B00;      --cqa-warn-bg: #FBF0DC;
+  --cqa-bad: #B42318;       --cqa-bad-bg: #FCE9E7;
+  --cqa-na: #5B6573;        --cqa-na-bg: #EEF0F3;
+  --cqa-critical: #7A0F12;  --cqa-critical-bg: #F8E1E1;
+  --cqa-hl: #FFF4C2;
+  --cqa-hl-line: #C99A00;
+  --cqa-op-tint: #F1F8EE;
+  --cqa-focus: #51AF3D;
+  --cqa-shadow: 0 8px 32px rgba(17, 20, 24, .14);
+  --cqa-font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --cqa-fs-12: 12px; --cqa-fs-13: 13px; --cqa-fs-14: 14px; --cqa-fs-16: 16px;
+  --cqa-fs-20: 20px; --cqa-fs-24: 24px; --cqa-fs-32: 32px;
+  --cqa-space-1: 4px; --cqa-space-2: 8px; --cqa-space-3: 12px; --cqa-space-4: 16px;
+  --cqa-space-5: 20px; --cqa-space-6: 24px; --cqa-space-8: 32px;
+  --cqa-radius-control: 8px;
+  --cqa-radius-card: 14px;
+  --cqa-control-h: 34px;
+
+  font-family: var(--cqa-font);
+  color: var(--cqa-ink);
+  background: var(--cqa-surface-2);
+  container-type: inline-size;
+}
+
+:host([theme="dark"]), .cqa[data-theme="dark"] {
+  --cqa-brand: #6CC458;
+  --cqa-brand-strong: #5DB84A;
+  --cqa-brand-deep: #8FD67E;
+  --cqa-brand-tint: #16301A;
+  --cqa-on-brand: #0B0E12;
+  --cqa-ink: #E8ECF0;
+  --cqa-ink-2: #B3BBC6;
+  --cqa-ink-3: #8E97A3;
+  --cqa-surface: #151A20;
+  --cqa-surface-2: #0E1216;
+  --cqa-surface-3: #1E242C;
+  --cqa-line: #262D36;
+  --cqa-line-strong: #36404B;
+  --cqa-ok: #4FC2BF;        --cqa-ok-bg: #0F2A2A;
+  --cqa-warn: #E0A84A;      --cqa-warn-bg: #2E2210;
+  --cqa-bad: #F0857A;       --cqa-bad-bg: #341614;
+  --cqa-na: #A3ADBA;        --cqa-na-bg: #20262E;
+  --cqa-critical: #FF9C9C;  --cqa-critical-bg: #3A1214;
+  --cqa-hl: #3A3214;
+  --cqa-hl-line: #D9B13A;
+  --cqa-op-tint: #13241A;
+}
+
+:host *, .cqa * { box-sizing: border-box; }
+:host .tnum, .cqa .tnum { font-variant-numeric: tabular-nums; }
+:host :focus-visible, .cqa :focus-visible { outline: 2px solid var(--cqa-focus); outline-offset: 2px; }

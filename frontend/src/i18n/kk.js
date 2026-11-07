@@ -1,0 +1,50 @@
+export default {
+  "app.title": "Қызмет көрсету сапасын бақылау",
+  "app.subtitle": "Диалогтарды чек-лист бойынша бағалау",
+  "app.shellReady": "Интерфейс қаңқасы жүктелді",
+  "nav.label": "Негізгі навигация",
+  "nav.overview": "Шолу",
+  "nav.conversations": "Диалогтар",
+  "nav.appeals": "Апелляциялар",
+  "nav.checklists": "Чек-листтер",
+  "nav.runs": "Іске қосулар",
+  "header.role": "Рөл",
+  "header.locale": "Интерфейс тілі",
+  "role.exec": "Басшы",
+  "role.reviewer": "QA / Тексеруші",
+  "role.operator": "Оператор",
+  "actor.operator": "Оператор A",
+  "action.retry": "Қайталау",
+  "action.save": "Сақтау",
+  "action.cancel": "Бас тарту",
+  "action.close": "Жабу",
+  "action.apply": "Қолдану",
+  "action.confirm": "Растау",
+  "action.back": "Артқа",
+  "action.open": "Ашу",
+  "action.all": "Барлығы",
+  "state.loading": "Жүктелуде",
+  "state.empty": "Деректер жоқ",
+  "state.emptyHint": "Сүзгіні өзгертіңіз немесе жинақты жүктеңіз.",
+  "state.error": "Орындау мүмкін болмады",
+  "state.errorHint": "Кейінірек қайталап көріңіз.",
+  "state.lowConfidence": "Алдын ала - сенімділік төмен",
+  "state.lowConfidenceNote": "Қорытынды алдын ала - ОКК тексеруі қажет",
+  "state.notCalculated": "Қорытынды есептелмеді",
+  "state.failed": "Бағалау орындалмады",
+  "answer.yes": "Иә",
+  "answer.no": "Жоқ",
+  "answer.na": "N/A",
+  "count.conversations": {
+    one: "{count} диалог",
+    other: "{count} диалог"
+  },
+  "count.appeals": {
+    one: "{count} апелляция",
+    other: "{count} апелляция"
+  },
+  "count.criteria": {
+    one: "{count} критерий",
+    other: "{count} критерий"
+  }
+};

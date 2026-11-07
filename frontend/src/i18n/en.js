@@ -1,0 +1,50 @@
+export default {
+  "app.title": "Conversation Quality Analytics",
+  "app.subtitle": "Checklist-based conversation scoring",
+  "app.shellReady": "Interface shell loaded",
+  "nav.label": "Main navigation",
+  "nav.overview": "Overview",
+  "nav.conversations": "Conversations",
+  "nav.appeals": "Appeals",
+  "nav.checklists": "Checklists",
+  "nav.runs": "Runs",
+  "header.role": "Role",
+  "header.locale": "Interface language",
+  "role.exec": "Manager",
+  "role.reviewer": "QA / Reviewer",
+  "role.operator": "Operator",
+  "actor.operator": "Оператор A",
+  "action.retry": "Retry",
+  "action.save": "Save",
+  "action.cancel": "Cancel",
+  "action.close": "Close",
+  "action.apply": "Apply",
+  "action.confirm": "Confirm",
+  "action.back": "Back",
+  "action.open": "Open",
+  "action.all": "All",
+  "state.loading": "Loading",
+  "state.empty": "No data",
+  "state.emptyHint": "Change the filter or import a dataset.",
+  "state.error": "Could not complete",
+  "state.errorHint": "Try again later.",
+  "state.lowConfidence": "Provisional - low confidence",
+  "state.lowConfidenceNote": "The total is provisional - QA review required",
+  "state.notCalculated": "Total not calculated",
+  "state.failed": "Evaluation failed",
+  "answer.yes": "Yes",
+  "answer.no": "No",
+  "answer.na": "N/A",
+  "count.conversations": {
+    one: "{count} conversation",
+    other: "{count} conversations"
+  },
+  "count.appeals": {
+    one: "{count} appeal",
+    other: "{count} appeals"
+  },
+  "count.criteria": {
+    one: "{count} criterion",
+    other: "{count} criteria"
+  }
+};
