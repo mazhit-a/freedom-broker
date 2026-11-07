@@ -5,7 +5,8 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from backend.app.api.v1.router import router as v1_router
-from backend.app.core.database import init_db
+from backend.app.core.database import connect, init_db
+from backend.app.services.checklist import seed_default
 
 FRONTEND_DIR = Path(__file__).resolve().parents[2] / "frontend"
 
@@ -13,6 +14,11 @@ FRONTEND_DIR = Path(__file__).resolve().parents[2] / "frontend"
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_db()
+    conn = connect()
+    try:
+        seed_default(conn)
+    finally:
+        conn.close()
     yield
 
 

@@ -1,0 +1,102 @@
+{
+  "name": "Default operator quality checklist",
+  "sections": [
+    {"id": "opening", "title": "Opening & understanding"},
+    {"id": "security", "title": "Security & resolution"},
+    {"id": "conduct", "title": "Conduct & closing"},
+    {"id": "gross", "title": "Gross violations"}
+  ],
+  "criteria": [
+    {
+      "id": "01",
+      "title": "Rapport",
+      "description": "The operator greeted the client in the client's language and introduced themselves in the first operator reply. The bot's greeting does not satisfy this criterion.",
+      "section": "opening",
+      "weight": 10,
+      "type": "yes_no",
+      "na_allowed": false
+    },
+    {
+      "id": "02",
+      "title": "Needs discovery",
+      "description": "The operator used the known details and clarified what was missing before answering.",
+      "section": "opening",
+      "weight": 15,
+      "type": "yes_no",
+      "na_allowed": true,
+      "na_condition": "The data was sufficient from the start, no clarification was needed."
+    },
+    {
+      "id": "03",
+      "title": "Identification",
+      "description": "Identity verification was confirmed before disclosing data or performing a protected action. If verification was required but not confirmed in the conversation, the answer is No.",
+      "section": "security",
+      "weight": 20,
+      "type": "yes_no",
+      "na_allowed": true,
+      "na_condition": "The request did not require identity verification (for example a general tariff question)."
+    },
+    {
+      "id": "04",
+      "title": "Correct and complete consultation",
+      "description": "Was the client's request solved correctly and fully.",
+      "section": "security",
+      "weight": 20,
+      "type": "scale",
+      "na_allowed": true,
+      "na_condition": "The chat ended before the client formulated a request.",
+      "scale_steps": [
+        {"value": 20, "descriptor": "All material questions closed or a correct next step given"},
+        {"value": 15, "descriptor": "Main question solved, minor detail missed"},
+        {"value": 10, "descriptor": "Part closed, a material question left open"},
+        {"value": 5, "descriptor": "General hint only, client still unsure how to act"},
+        {"value": 0, "descriptor": "No substantive answer or the key recommendation is wrong"}
+      ],
+      "max_step": 20
+    },
+    {
+      "id": "05",
+      "title": "Empathy and client focus",
+      "description": "The operator was polite and, if the client expressed dissatisfaction or inconvenience, responded to that specific problem.",
+      "section": "conduct",
+      "weight": 15,
+      "type": "yes_no",
+      "na_allowed": false
+    },
+    {
+      "id": "06",
+      "title": "Dialogue management, speed, literacy",
+      "description": "How clearly and consistently the operator communicated.",
+      "section": "conduct",
+      "weight": 15,
+      "type": "scale",
+      "na_allowed": false,
+      "scale_steps": [
+        {"value": 10, "descriptor": "Clear and coherent; if there was an explicit wait, operator warned"},
+        {"value": 7, "descriptor": "One noticeable glitch, client can still understand and continue"},
+        {"value": 4, "descriptor": "Client has to re-ask because of wording or ordering"},
+        {"value": 0, "descriptor": "Incoherent or contradictory, flow unclear"}
+      ],
+      "max_step": 10
+    },
+    {
+      "id": "07",
+      "title": "Closing",
+      "description": "The operator summarised or offered further help and said goodbye.",
+      "section": "conduct",
+      "weight": 5,
+      "type": "yes_no",
+      "na_allowed": true,
+      "na_condition": "The chat broke off before closing was possible."
+    },
+    {
+      "id": "08",
+      "title": "Gross violations",
+      "description": "Insulting the client, offering a paid service bypassing the company, or disclosing confidential information. Bypassing the company: the operator proposes the client transfer money to them personally for investing, or asks for the client's personal number for a private paid consultation. The offer alone is enough.",
+      "section": "gross",
+      "weight": 0,
+      "type": "flag",
+      "na_allowed": false
+    }
+  ]
+}
