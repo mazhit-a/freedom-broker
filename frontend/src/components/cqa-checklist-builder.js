@@ -5,7 +5,7 @@ import { integer } from "../format.js";
 import { can } from "../roles.js";
 import { SHARED_CSS } from "../shared/styles.js";
 import { emptyPanel, errorPanel, loadingPanel } from "../shared/state-panel.js";
-import { addCriterion, changedCount, createDraft, moveCriterion, removeCriterion, reset, setNaCondition, setType, toConfig } from "./builder-model.js";
+import { canRemoveSection, addCriterion, addSection, changedCount, createDraft, moveCriterion, moveSection, removeCriterion, removeSection, renameSection, reset, sectionCriteria, sectionTitleDraft, setNaCondition, setSectionInput, setSectionWeight, setType, toConfig, parseHundredths, sectionInputFor } from "./builder-model.js";
 import { validate } from "./builder-validate.js";
 import { computePreview } from "./builder-preview.js";
 import { alertBox, channelKind, editor, preview, sidebar, structure, topBar } from "./builder-views.js";
@@ -77,7 +77,19 @@ const CSS = `${SHARED_CSS}
   .wf { width: 100%; min-width: 0; text-align: right; height: 30px; }
   .mv { display: flex; }
   .ib { padding: 0; width: 28px; justify-content: center; }
-  .sech { display: flex; align-items: center; gap: 8px; padding: 14px 16px 8px; border-top: 1px solid var(--cqa-line); background: var(--cqa-surface-2); }
+  .sech { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 14px 16px 8px; border-top: 1px solid var(--cqa-line); background: var(--cqa-surface-2); }
+  .sech-edit { padding-top: 10px; }
+  .sech-edit .sech-t { flex: 1 1 200px; min-width: 0; text-transform: none; letter-spacing: 0; }
+  .sname { width: 100%; height: 30px; font-weight: 600; font-size: var(--cqa-fs-13); }
+  .sw { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .swf { width: 76px; height: 30px; text-align: right; }
+  .sec-notes { flex-basis: 100%; display: flex; flex-direction: column; gap: 2px; font-size: var(--cqa-fs-12); }
+  .sec-notes:empty { display: none; }
+  .sec-bad { color: var(--cqa-bad); }
+  .sec-warn { color: var(--cqa-warn); }
+  .sec-hint { color: var(--cqa-ink-3); }
+  .secadd { padding: 12px 16px; border-top: 1px solid var(--cqa-line); }
+  .notice { margin: 12px 16px 0; padding: 10px 12px; border-radius: 8px; background: var(--cqa-warn-bg); color: var(--cqa-warn); font-size: var(--cqa-fs-13); display: flex; flex-direction: column; gap: 2px; }
   .sech-t { margin: 0; font-size: var(--cqa-fs-12); font-weight: 600; color: var(--cqa-ink-2); text-transform: uppercase; letter-spacing: .04em; }
   .addc { margin-left: auto; height: 24px; }
   cqa-scale-step-editor { background: transparent; }
@@ -218,21 +230,24 @@ export class CqaChecklistBuilder extends CqaElement {
   confirmLeave() {
     if (!this._dirty) return Promise.resolve(true);
     const t = (key) => this.t(key);
+    return this.askConfirm({
+      heading: t("builder.confirm.heading"),
+      description: t("builder.confirm.description"),
+      confirmLabel: t("builder.confirm.leave"),
+      cancelLabel: t("builder.confirm.stay")
+    });
+  }
+
+  askConfirm(detail) {
     let node = this;
     let hasApp = false;
     while (node) {
       if (node.localName === "cqa-app") hasApp = true;
       node = node.parentNode || node.host || null;
     }
-    if (!hasApp) return Promise.resolve(window.confirm(`${t("builder.confirm.heading")}. ${t("builder.confirm.description")}`));
+    if (!hasApp) return Promise.resolve(window.confirm(`${detail.heading}. ${detail.description}`));
     return new Promise((resolve) => {
-      emit(this, EVENTS.confirm, {
-        heading: t("builder.confirm.heading"),
-        description: t("builder.confirm.description"),
-        confirmLabel: t("builder.confirm.leave"),
-        cancelLabel: t("builder.confirm.stay"),
-        resolve
-      });
+      emit(this, EVENTS.confirm, { ...detail, resolve });
     });
   }
 
@@ -445,6 +460,9 @@ export class CqaChecklistBuilder extends CqaElement {
     const c = this.selectedCriterion();
     if (!c) return;
     const validation = this._view.validation;
+    const sectionLabel = root.querySelector("[data-ed-section]");
+    const owner = this._draft.sections.find((x) => x.id === c.section);
+    if (sectionLabel && owner) sectionLabel.textContent = sectionTitleDraft(owner, this.locale);
     const mark = (selector, bad) => {
       const el = root.querySelector(selector);
       if (!el) return;
@@ -503,6 +521,7 @@ export class CqaChecklistBuilder extends CqaElement {
       const name = field.getAttribute("data-field");
       if (name === "e-type") this.onType(field.value);
       else if (name === "channel") this.doChannels(field.getAttribute("data-channel"), field.checked);
+      else if (name === "sec-weight") this.commitSectionWeight(field.getAttribute("data-section"));
     });
     region.addEventListener(EVENTS.stepsChange, (event) => {
       const c = this.selectedCriterion();
@@ -562,6 +581,15 @@ export class CqaChecklistBuilder extends CqaElement {
           if (other && !other.disabled) other.focus();
         }
       }
+    } else if (action === "add-section") {
+      if (this.readOnly) return;
+      this.doAddSection();
+    } else if (action === "remove-section") {
+      if (this.readOnly) return;
+      this.doRemoveSection(button.getAttribute("data-section"));
+    } else if (action === "section-up" || action === "section-down") {
+      if (this.readOnly) return;
+      this.doMoveSection(button.getAttribute("data-section"), action);
     } else if (action === "reset") {
       if (this.readOnly || !this._baseConfig) return;
       reset(draft, this._baseConfig, this.locale);
@@ -583,6 +611,54 @@ export class CqaChecklistBuilder extends CqaElement {
       this.doDiscard();
     } else if (action === "open-checklist") {
       navigate(this, "checklists", button.getAttribute("data-id"));
+    }
+  }
+
+  doAddSection() {
+    const id = addSection(this._draft, this.t("builder.sec.newName"));
+    this.edited();
+    const input = this.shadowRoot.querySelector(`[data-focus-id="sn-${id}"]`);
+    if (input) {
+      input.focus();
+      input.select();
+    }
+  }
+
+  async doRemoveSection(id) {
+    const draft = this._draft;
+    const section = draft.sections.find((s) => s.id === id);
+    if (!section || !canRemoveSection(draft, id)) return;
+    const count = sectionCriteria(draft, id).length;
+    if (count > 0) {
+      const name = sectionTitleDraft(section, this.locale);
+      const ok = await this.askConfirm({
+        heading: this.t("builder.sec.confirmHeading", { section: name }),
+        description: this.t("builder.sec.confirmDescription", { section: name, count, n: integer(count, this.locale) }),
+        confirmLabel: this.t("builder.sec.confirmDelete"),
+        cancelLabel: this.t("builder.sec.confirmCancel")
+      });
+      if (!ok || this._draft !== draft || this.readOnly || !draft.sections.some((s) => s.id === id)) return;
+    }
+    const done = removeSection(draft, id, this._selected);
+    if (!done) return;
+    this._selected = done.nextKey;
+    this.edited();
+    this.swap("editor", editor(this.context()));
+    this.mountScaleEditor();
+    const target = this.shadowRoot.querySelector(`[data-focus-id="sn-${done.focus}"]`);
+    if (target) target.focus();
+  }
+
+  doMoveSection(id, action) {
+    if (!moveSection(this._draft, id, action === "section-up" ? -1 : 1)) return;
+    this.edited();
+    const same = action === "section-up" ? "sup" : "sdown";
+    const other = action === "section-up" ? "sdown" : "sup";
+    const target = this.shadowRoot.querySelector(`[data-focus-id="${same}-${id}"]`);
+    if (target && !target.disabled) target.focus();
+    else {
+      const alt = this.shadowRoot.querySelector(`[data-focus-id="${other}-${id}"]`);
+      if (alt && !alt.disabled) alt.focus();
     }
   }
 
@@ -730,7 +806,14 @@ export class CqaChecklistBuilder extends CqaElement {
     if (this.readOnly || this._busy) return;
     const name = field.getAttribute("data-field");
     const draft = this._draft;
-    if (name === "row-weight") {
+    if (name === "sec-name") {
+      renameSection(draft, field.getAttribute("data-section"), field.value);
+    } else if (name === "sec-weight") {
+      const id = field.getAttribute("data-section");
+      const hundredths = parseHundredths(field.value);
+      if (hundredths !== null) setSectionWeight(draft, id, hundredths, this.locale);
+      setSectionInput(draft, id, field.value);
+    } else if (name === "row-weight") {
       const c = draft.criteria.find((x) => x.key === field.getAttribute("data-key"));
       if (!c) return;
       c.weight = field.value;
@@ -744,6 +827,14 @@ export class CqaChecklistBuilder extends CqaElement {
       else return;
     }
     this.edited();
+  }
+
+  commitSectionWeight(id) {
+    const draft = this._draft;
+    if (!draft || this.readOnly) return;
+    const entry = sectionInputFor(draft, id);
+    if (entry && parseHundredths(entry.text) !== null) draft.sectionInput.delete(id);
+    this.refreshAll({ editor: false });
   }
 
   onType(type) {

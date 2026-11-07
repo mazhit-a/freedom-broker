@@ -3,8 +3,8 @@ import { date as formatDate, integer, number } from "../format.js";
 import { stepPoints, formatPoints } from "../scale-steps.js";
 import { icon } from "../shared/icons.js";
 import { chip } from "../shared/chip.js";
-import { formatHundredths, hasNa, isChanged, isNew, parseHundredths, sectionTitle, TYPES } from "./builder-model.js";
-import { errorText } from "./builder-validate.js";
+import { canRemoveSection, formatHundredths, hasNa, isChanged, isNew, isSectionChanged, isSectionNew, parseHundredths, scoredCriteria, sectionHundredths, sectionInputFor, sectionTitle, sectionTitleDraft, sectionWeightText, TYPES } from "./builder-model.js";
+import { errorText, warningText } from "./builder-validate.js";
 
 const flag = (on, name) => (on ? raw(name) : raw(""));
 
@@ -60,10 +60,14 @@ export function topBar(ctx) {
 export function alertBox(ctx) {
   const { t, view } = ctx;
   const errors = view.validation.errors;
-  if (errors.length === 0 && !ctx.saveError) return html``;
+  const warnings = view.validation.warnings;
+  if (errors.length === 0 && !ctx.saveError && warnings.length === 0) return html``;
   const server = ctx.saveError ? html`<span data-error="server">${ctx.saveError}</span>` : html``;
   const items = errors.map((e) => html`<span data-error="${e.code}">${errorText(e.code === "sum" ? { ...e, sumText: formatHundredths(e.sum, ctx.locale) } : e, t)}</span>`);
-  return html`<div role="alert" class="alert" data-alerts>${server}${items}</div>`;
+  const box = errors.length || ctx.saveError ? html`<div role="alert" class="alert" data-alerts>${server}${items}</div>` : html``;
+  const notes = warnings.map((w) => html`<span data-warning="${w.code}">${warningText(w, t)}</span>`);
+  const warn = warnings.length ? html`<div class="notice" data-warnings role="note" aria-label="${t("builder.warn.label")}">${notes}</div>` : html``;
+  return html`${box}${warn}`;
 }
 
 function rowHtml(ctx, c, index, siblings) {
@@ -94,27 +98,70 @@ function rowHtml(ctx, c, index, siblings) {
     </div>`;
 }
 
+function sectionHead(ctx, s, index, count, list) {
+  const { t, draft, readOnly, view } = ctx;
+  const validation = view.validation;
+  const title = sectionTitle(s, ctx.locale);
+  const derived = sectionHundredths(draft, s.id);
+  const scored = scoredCriteria(draft, s.id).length;
+  const canAdd = !readOnly && !list.some((c) => c.type === "flag");
+  const created = isSectionNew(draft, s);
+  const changed = !created && isSectionChanged(draft, s);
+  const chips = html`${changed ? chip({ tone: "warn", text: t("builder.changed") }) : ""}${created ? chip({ tone: "brand", text: t("builder.new") }) : ""}`;
+  const add = canAdd
+    ? html`<button type="button" class="btn btn-sm btn-ghost addc" data-action="add" data-section="${s.id}" data-focus-id="add-${s.id}" aria-label="${t("builder.addCriterionIn", { section: title })}">${icon("plus", 14)}${t("builder.addCriterion")}</button>`
+    : html``;
+  if (readOnly) {
+    return html`
+      <div class="sech" data-section-id="${s.id}">
+        <h2 class="sech-t">${title}</h2>${chips}
+        <span class="tnum dim12" data-section-weight="${s.id}">${t("builder.sectionWeight", { weight: formatHundredths(derived, ctx.locale) })}</span>
+        ${add}
+      </div>`;
+  }
+  const nameBad = validation.badSection.has(s.id);
+  const weightBad = validation.badSectionWeight.has(s.id);
+  const entry = sectionInputFor(draft, s.id);
+  const weightText = entry ? entry.text : sectionWeightText(derived, ctx.locale);
+  const noScored = scored === 0;
+  const canDelete = canRemoveSection(draft, s.id);
+  const deleteHint = canDelete ? "" : t("builder.sec.deleteLast");
+  const notes = [];
+  if (nameBad) notes.push(html`<span class="sec-bad" data-sec-error="name">${validation.badSection.get(s.id) === "secNameEmpty" ? t("builder.sec.nameEmpty") : t("builder.sec.nameDup")}</span>`);
+  if (weightBad) notes.push(html`<span class="sec-bad" data-sec-error="weight">${t("builder.sec.weightInvalid")}</span>`);
+  if (noScored) notes.push(html`<span class="sec-hint" data-sec-hint="weight">${t("builder.sec.weightDisabled")}</span>`);
+  if (list.length === 0) notes.push(html`<span class="sec-warn" data-sec-hint="empty">${t("builder.sec.empty")}</span>`);
+  if (!canDelete) notes.push(html`<span class="sec-hint" data-sec-hint="delete">${deleteHint}</span>`);
+  return html`
+    <div class="sech sech-edit" data-section-id="${s.id}">
+      <h2 class="sech-t"><input class="field sname" type="text" data-field="sec-name" data-section="${s.id}" data-focus-id="sn-${s.id}" value="${sectionTitleDraft(s, ctx.locale)}" aria-label="${t("builder.sec.nameLabel", { num: index + 1 })}" aria-describedby="sec-note-${s.id}" ${nameBad ? raw('aria-invalid="true"') : ""}></h2>${chips}
+      <label class="sw dim12">${t("builder.sec.weightLabel")}<input class="field tnum swf" type="text" inputmode="decimal" data-field="sec-weight" data-section="${s.id}" data-section-weight="${s.id}" data-focus-id="sw-${s.id}" value="${weightText}" aria-label="${t("builder.sec.weightAria", { name: title })}" aria-describedby="sec-note-${s.id}" ${weightBad ? raw('aria-invalid="true"') : ""} ${flag(noScored, "disabled")}></label>
+      <span class="mv">
+        <button type="button" class="btn btn-sm btn-ghost ib" data-action="section-up" data-section="${s.id}" data-focus-id="sup-${s.id}" aria-label="${t("builder.sec.moveUp", { name: title })}" ${flag(index === 0, "disabled")}>${icon("up", 14)}</button>
+        <button type="button" class="btn btn-sm btn-ghost ib" data-action="section-down" data-section="${s.id}" data-focus-id="sdown-${s.id}" aria-label="${t("builder.sec.moveDown", { name: title })}" ${flag(index === count - 1, "disabled")}>${icon("down", 14)}</button>
+      </span>
+      <button type="button" class="btn btn-sm btn-ghost ib" data-action="remove-section" data-section="${s.id}" data-focus-id="rms-${s.id}" aria-label="${t("builder.sec.delete", { name: title })}" ${deleteHint ? raw(`title="${deleteHint}"`) : ""} ${flag(!canDelete, "disabled")}>${icon("close", 14)}</button>
+      ${add}
+      <div class="sec-notes" id="sec-note-${s.id}">${notes}</div>
+    </div>`;
+}
+
 export function structure(ctx) {
   const { t, draft, readOnly } = ctx;
-  const sections = draft.sections.map((s) => {
+  const count = draft.sections.length;
+  const sections = draft.sections.map((s, index) => {
     const list = draft.criteria.filter((c) => c.section === s.id);
-    const weight = list.reduce((sum, c) => sum + (c.type === "flag" ? 0 : parseHundredths(c.weight) || 0), 0);
-    const canAdd = !readOnly && !list.some((c) => c.type === "flag");
-    const title = sectionTitle(s, ctx.locale);
-    const add = canAdd
-      ? html`<button type="button" class="btn btn-sm btn-ghost addc" data-action="add" data-section="${s.id}" data-focus-id="add-${s.id}" aria-label="${t("builder.addCriterionIn", { section: title })}">${icon("plus", 14)}${t("builder.addCriterion")}</button>`
-      : html``;
     return html`
-      <div class="sech">
-        <h2 class="sech-t">${title}</h2>
-        <span class="tnum dim12" data-section-weight="${s.id}">${t("builder.sectionWeight", { weight: formatHundredths(weight, ctx.locale) })}</span>
-        ${add}
-      </div>
+      ${sectionHead(ctx, s, index, count, list)}
       ${list.map((c, i) => rowHtml(ctx, c, i, list.length))}`;
   });
+  const addSection = readOnly
+    ? html``
+    : html`<div class="secadd"><button type="button" class="btn btn-sm" data-action="add-section" data-focus-id="add-section">${icon("plus", 14)}${t("builder.sec.add")}</button></div>`;
   return html`
     <div class="crow chead"><span>${t("builder.col.num")}</span><span>${t("builder.col.criterion")}</span><span>${t("builder.col.type")}</span><span class="r">${t("builder.col.weight")}</span><span></span><span class="sr">${t("builder.col.remove")}</span></div>
-    ${sections}`;
+    ${sections}
+    ${addSection}`;
 }
 
 function readOnlySteps(ctx, c) {
@@ -151,7 +198,7 @@ export function editor(ctx) {
       : html`<cqa-scale-step-editor data-scale-editor></cqa-scale-step-editor>`;
   }
   return html`
-    <div class="ed-h"><h2 class="h2">${t("builder.ed.title", { num })}</h2><span class="dim12">${section ? sectionTitle(section, ctx.locale) : ""}</span></div>
+    <div class="ed-h"><h2 class="h2">${t("builder.ed.title", { num })}</h2><span class="dim12" data-ed-section>${section ? sectionTitleDraft(section, ctx.locale) : ""}</span></div>
     <label class="lbl">${t("builder.ed.name")}<input class="field" data-field="e-name" data-focus-id="e-name" value="${c.name}" ${nameBad ? raw('aria-invalid="true"') : ""} ${off}></label>
     <label class="lbl">${t("builder.ed.description")}<textarea class="field" data-field="e-desc" data-focus-id="e-desc" ${off}>${c.description}</textarea></label>
     <div class="two">

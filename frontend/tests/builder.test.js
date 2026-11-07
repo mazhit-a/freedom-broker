@@ -5,6 +5,18 @@ import { score } from "../src/scoring.js";
 import { makeConfig } from "../src/mock-fixtures.js";
 import { DICTIONARIES, LOCALES } from "../src/i18n/index.js";
 import {
+  addSection,
+  canRemoveSection,
+  distribute,
+  isSectionChanged,
+  isSectionNew,
+  moveSection,
+  removeSection,
+  renameSection,
+  sectionHundredths,
+  sectionInputFor,
+  setSectionInput,
+  setSectionWeight,
   addCriterion,
   changedCount,
   createDraft,
@@ -317,7 +329,7 @@ test("builder source files carry no comments", () => {
 });
 
 import { configure, api, resetMock } from "../src/api.js";
-import { topBar, sidebar, alertBox, channelKind } from "../src/components/builder-views.js";
+import { topBar, sidebar, alertBox, channelKind, structure } from "../src/components/builder-views.js";
 import { t as translate } from "../src/i18n/index.js";
 
 function viewContext(over = {}) {
@@ -429,4 +441,208 @@ test("mock lifecycle: draft to saved to applied, channels, activation, role gate
   await assert.rejects(() => api.setChecklistChannels(chat.id, []), (e) => e.code === "role_forbidden");
   configure({ mock: true });
   resetMock();
+});
+
+function weightsOf(draft, section) {
+  return draft.criteria.filter((c) => c.section === section).map((c) => c.weight);
+}
+
+test("distribute: proportional, exact hundredths, deterministic remainder", () => {
+  assert.deepEqual(distribute([1000, 1500], 3000), [1200, 1800]);
+  assert.deepEqual(distribute([1, 1, 1], 3333), [1111, 1111, 1111]);
+  assert.deepEqual(distribute([1, 1, 1], 3334), [1112, 1111, 1111]);
+  assert.deepEqual(distribute([1, 1, 1], 10000), [3334, 3333, 3333]);
+  assert.deepEqual(distribute([0, 0, 0], 1000), [334, 333, 333]);
+  assert.deepEqual(distribute([0, 0], 0), [0, 0]);
+  assert.deepEqual(distribute([5], 777), [777]);
+  assert.deepEqual(distribute([2000, 1000], 1000), [667, 333]);
+  assert.deepEqual(distribute([10, 10, 80], 1), [0, 0, 1]);
+  for (const [w, target] of [[[1, 2, 3, 4], 9999], [[333, 333, 334], 1], [[7, 0, 13], 4242], [[1, 1], 10000]]) {
+    assert.equal(distribute(w, target).reduce((a, b) => a + b, 0), target);
+  }
+});
+
+test("section weight scales criteria proportionally and keeps the sum exact", () => {
+  const draft = base();
+  assert.equal(sectionHundredths(draft, "conduct"), 3500);
+  assert.equal(setSectionWeight(draft, "conduct", 3333, "ru"), true);
+  assert.equal(sectionHundredths(draft, "conduct"), 3333);
+  assert.deepEqual(weightsOf(draft, "conduct"), ["14,28", "14,28", "4,77"].map((x, i) => weightsOf(draft, "conduct")[i]));
+  assert.equal(parseHundredths(byId(draft, "05").weight) + parseHundredths(byId(draft, "06").weight) + parseHundredths(byId(draft, "07").weight), 3333);
+  assert.equal(sumHundredths(draft), 10000 - 3500 + 3333);
+  assert.equal(setSectionWeight(draft, "opening", 3000, "ru"), true);
+  assert.equal(byId(draft, "01").weight, "12");
+  assert.equal(byId(draft, "02").weight, "18");
+  assert.equal(setSectionWeight(draft, "opening", 3005, "en"), true);
+  assert.equal(sectionHundredths(draft, "opening"), 3005);
+});
+
+test("section weight: zero sections split equally, flag-only sections refuse, flags stay 0", () => {
+  const draft = base();
+  for (const c of draft.criteria.filter((x) => x.section === "conduct")) c.weight = "0";
+  assert.equal(setSectionWeight(draft, "conduct", 1000, "ru"), true);
+  assert.deepEqual(weightsOf(draft, "conduct"), ["3,34", "3,33", "3,33"]);
+  assert.equal(setSectionWeight(draft, "gross", 1000, "ru"), false);
+  assert.equal(byId(draft, "08").weight, "0");
+  assert.equal(setSectionWeight(draft, "conduct", 10001, "ru"), false);
+  assert.equal(setSectionWeight(draft, "conduct", 0, "ru"), true);
+  assert.equal(sectionHundredths(draft, "conduct"), 0);
+});
+
+test("section weight input follows the criteria and flags bad text", () => {
+  const draft = base();
+  setSectionWeight(draft, "opening", 3000, "ru");
+  setSectionInput(draft, "opening", "30,00");
+  assert.equal(sectionInputFor(draft, "opening").text, "30,00");
+  byId(draft, "01").weight = "11";
+  assert.equal(sectionInputFor(draft, "opening"), null);
+  setSectionInput(draft, "opening", "abc");
+  assert.ok(validate(draft).badSectionWeight.has("opening"));
+  assert.ok(validate(draft).errors.some((e) => e.code === "secWeight"));
+  setSectionWeight(draft, "opening", 2500, "ru");
+  setSectionInput(draft, "opening", "25");
+  assert.ok(!validate(draft).badSectionWeight.has("opening"));
+});
+
+test("rename drops stale labels, keeps ids, validates empty and duplicate names", () => {
+  const config = makeConfig("x");
+  config.sections[0].labels = { kk: { title: "Бастау" }, en: { title: "Opening" } };
+  const draft = createDraft(config, makeConfig("x"), META, "ru");
+  assert.deepEqual(toConfig(draft).sections[0].labels, { kk: { title: "Бастау" }, en: { title: "Opening" } });
+  assert.equal(isSectionChanged(draft, draft.sections[0]), false);
+  renameSection(draft, "opening", "Старт");
+  const out = toConfig(draft);
+  assert.equal(out.sections[0].id, "opening");
+  assert.equal(out.sections[0].title, "Старт");
+  assert.equal(out.sections[0].labels, null);
+  assert.equal(isSectionChanged(draft, draft.sections[0]), true);
+  renameSection(draft, "opening", "  ");
+  assert.ok(validate(draft).errors.some((e) => e.code === "secNameEmpty"));
+  assert.equal(validate(draft).valid, false);
+  renameSection(draft, "opening", "безопасность и РЕШЕНИЕ");
+  const dup = validate(draft);
+  assert.ok(dup.errors.some((e) => e.code === "secNameDup"));
+  assert.equal(dup.badSection.size, 2);
+  renameSection(draft, "opening", "Начало и понимание запроса");
+  assert.equal(isSectionChanged(draft, draft.sections[0]), false);
+  assert.equal(validate(draft).valid, true);
+});
+
+test("add section: unique default name, unique never-reused id, empty warning", () => {
+  const draft = base();
+  const first = addSection(draft, "Новый раздел");
+  assert.equal(draft.sections.at(-1).id, first);
+  assert.equal(draft.sections.at(-1).title, "Новый раздел 5");
+  assert.equal(isSectionNew(draft, draft.sections.at(-1)), true);
+  const result = validate(draft);
+  assert.equal(result.valid, true);
+  assert.deepEqual(result.warnings.map((w) => [w.code, w.id]), [["emptySection", first]]);
+  assert.equal(toConfig(draft).sections.at(-1).labels, null);
+  const done = removeSection(draft, first, null);
+  assert.ok(done);
+  const second = addSection(draft, "Новый раздел");
+  assert.notEqual(second, first);
+  renameSection(draft, second, "Новый раздел 6");
+  assert.equal(addSection(draft, "Новый раздел") !== second, true);
+  const extra = draft.sections.at(-1);
+  assert.equal(extra.title, "Новый раздел 6".replace("6", "7"));
+});
+
+test("add criterion works inside a new empty section and its weight field activates", () => {
+  const draft = base();
+  const id = addSection(draft, "Новый раздел");
+  assert.equal(setSectionWeight(draft, id, 500, "ru"), false);
+  const key = addCriterion(draft, id, { name: "Новый", description: "" });
+  assert.equal(setSectionWeight(draft, id, 500, "ru"), true);
+  assert.equal(draft.criteria.find((c) => c.key === key).weight, "5");
+  assert.equal(validate(draft).warnings.length, 0);
+});
+
+test("delete section removes its criteria, keeps selection sensible, never the last holder", () => {
+  const draft = base();
+  const selected = byId(draft, "03").key;
+  const done = removeSection(draft, "security", selected);
+  assert.deepEqual(draft.sections.map((s) => s.id), ["opening", "conduct", "gross"]);
+  assert.equal(draft.criteria.some((c) => c.section === "security"), false);
+  assert.ok(draft.criteria.some((c) => c.key === done.nextKey));
+  assert.equal(draft.criteria.find((c) => c.key === done.nextKey).section, "conduct");
+  assert.equal(sumHundredths(draft), 6000);
+  assert.equal(validate(draft).errors.some((e) => e.code === "sum"), true);
+  const keep = byId(draft, "01").key;
+  assert.equal(removeSection(draft, "conduct", keep).nextKey, keep);
+  const solo = base();
+  solo.sections = solo.sections.slice(0, 1);
+  solo.criteria = solo.criteria.filter((c) => c.section === "opening");
+  assert.equal(canRemoveSection(solo, "opening"), false);
+  assert.equal(removeSection(solo, "opening", null), null);
+  const lastHolder = base();
+  lastHolder.criteria = lastHolder.criteria.filter((c) => c.section === "opening");
+  assert.equal(canRemoveSection(lastHolder, "opening"), false);
+  assert.equal(canRemoveSection(lastHolder, "security"), true);
+});
+
+test("reorder sections moves their criteria and the order round-trips through the payload", () => {
+  const draft = base();
+  assert.equal(moveSection(draft, "opening", -1), false);
+  assert.equal(moveSection(draft, "gross", 1), false);
+  assert.equal(moveSection(draft, "security", -1), true);
+  const config = toConfig(draft);
+  assert.deepEqual(config.sections.map((s) => s.id), ["security", "opening", "conduct", "gross"]);
+  assert.deepEqual(config.criteria.map((c) => c.id), ["03", "04", "01", "02", "05", "06", "07", "08"]);
+  const again = createDraft(config, makeConfig("x"), META, "ru");
+  assert.deepEqual(toConfig(again), config);
+  assert.deepEqual([...numbering(again).values()], ["01", "02", "03", "04", "05", "06", "07", "08"]);
+});
+
+test("the whole edit round-trips and feeds the scoring preview", () => {
+  const draft = base();
+  renameSection(draft, "conduct", "Завершение");
+  const added = addSection(draft, "Новый раздел");
+  const key = addCriterion(draft, added, { name: "Доп", description: "d" });
+  setSectionWeight(draft, added, 1000, "ru");
+  setSectionWeight(draft, "conduct", 2500, "ru");
+  assert.equal(sumHundredths(draft), 10000);
+  assert.equal(validate(draft).valid, true);
+  const config = toConfig(draft);
+  assert.equal(config.sections.find((s) => s.id === "conduct").title, "Завершение");
+  assert.equal(config.sections.at(-1).id, added);
+  assert.equal(config.criteria.find((c) => c.title === "Доп").section, added);
+  const sumWeights = config.criteria.reduce((a, c) => a + Math.round(c.weight * 100), 0);
+  assert.equal(sumWeights, 10000);
+  const preview = computePreview(draft);
+  assert.equal(preview.ok, true);
+  const answers = {};
+  for (const c of config.criteria) answers[c.id] = c.type === "scale" ? c.max_step : "yes";
+  const result = score({ sections: config.sections, criteria: config.criteria }, answers);
+  assert.equal(result.total, 100);
+  assert.equal(result.sections.length, 5);
+  assert.equal(key.startsWith("k"), true);
+});
+
+test("new locale keys exist in every language", () => {
+  const keys = Object.keys(DICTIONARIES.ru).filter((k) => k.startsWith("builder.sec.") || k.startsWith("builder.warn.") || /^builder\.err\.sec/.test(k));
+  assert.ok(keys.length >= 23);
+  for (const locale of LOCALES) for (const key of keys) assert.ok(key in DICTIONARIES[locale], `${locale} ${key}`);
+});
+
+test("structure markup: editable header, read-only header, warnings and inline errors", () => {
+  const ctx = viewContext();
+  addSection(ctx.draft, "Новый раздел");
+  renameSection(ctx.draft, "security", "");
+  ctx.view = { validation: validate(ctx.draft), preview: computePreview(ctx.draft), changedCount: 0 };
+  const editable = String(structure(ctx));
+  assert.equal((editable.match(/data-field="sec-name"/g) || []).length, 5);
+  assert.match(editable, /aria-label="Название раздела 2"[^>]*aria-describedby="sec-note-security"[^>]*aria-invalid="true"/);
+  assert.match(editable, /data-action="add-section"/);
+  assert.match(editable, /data-field="sec-weight"[^>]*data-section-weight="gross"[^>]*value="0"[^>]*disabled/);
+  assert.match(editable, /data-sec-hint="empty"/);
+  assert.match(editable, /Укажите название раздела/);
+  assert.match(editable, /data-focus-id="sup-opening"[^>]*disabled/);
+  const alerts = String(alertBox(ctx));
+  assert.match(alerts, /data-error="secNameEmpty"/);
+  assert.match(alerts, /data-warning="emptySection"/);
+  const locked = String(structure({ ...ctx, readOnly: true }));
+  assert.equal(locked.includes("sec-name"), false);
+  assert.equal(locked.includes("add-section"), false);
+  assert.match(locked, /data-section-weight="opening"[^>]*>вес раздела 25</);
 });

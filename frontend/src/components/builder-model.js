@@ -96,15 +96,29 @@ export function snapshot(c) {
   ]);
 }
 
-export function createDraft(config, baseConfig, meta, locale) {
-  const sections = (config.sections || []).map((s) => ({ ...s }));
+function normalizeSections(config) {
+  const sections = (config.sections || []).map((s) => ({
+    id: s.id,
+    title: s.title ?? "",
+    labels: s.labels ?? null,
+    origTitle: s.title ?? "",
+    touched: false
+  }));
   const known = new Set(sections.map((s) => s.id));
   for (const c of config.criteria || []) {
     if (!known.has(c.section)) {
       known.add(c.section);
-      sections.push({ id: c.section, title: String(c.section ?? ""), labels: null });
+      const title = String(c.section ?? "");
+      sections.push({ id: c.section, title, labels: null, origTitle: title, touched: false });
     }
   }
+  return sections;
+}
+
+export function createDraft(config, baseConfig, meta, locale) {
+  const sections = normalizeSections(config);
+  const baselineSections = new Map();
+  if (baseConfig) for (const s of normalizeSections(baseConfig)) baselineSections.set(s.id, s.title);
   const criteria = (config.criteria || []).map((c, i) => fromCriterion(c, i, locale));
   const baseline = new Map();
   if (baseConfig) {
@@ -120,6 +134,9 @@ export function createDraft(config, baseConfig, meta, locale) {
     sections,
     criteria,
     baseline,
+    baselineSections,
+    retiredSections: new Set(),
+    sectionInput: new Map(),
     counter: criteria.length
   };
 }
@@ -131,6 +148,7 @@ export function reset(draft, baseConfig, locale) {
     criteria: next.criteria,
     counter: next.counter
   });
+  draft.sectionInput = new Map();
 }
 
 export function ordered(draft) {
@@ -234,6 +252,138 @@ export function setNaCondition(c, text) {
   if (c.type === "scale") c.naAllowed = text.trim() !== "";
 }
 
+export function sectionTitleDraft(section, locale) {
+  return section.touched ? section.title : sectionTitle(section, locale);
+}
+
+export function isSectionNew(draft, section) {
+  return draft.baselineSections.size > 0 && !draft.baselineSections.has(section.id);
+}
+
+export function isSectionChanged(draft, section) {
+  return draft.baselineSections.has(section.id) && draft.baselineSections.get(section.id) !== section.title;
+}
+
+export function sectionCriteria(draft, sectionId) {
+  return draft.criteria.filter((c) => c.section === sectionId);
+}
+
+export function scoredCriteria(draft, sectionId) {
+  return sectionCriteria(draft, sectionId).filter((c) => c.type !== "flag");
+}
+
+export function sectionHundredths(draft, sectionId) {
+  return scoredCriteria(draft, sectionId).reduce((sum, c) => sum + (parseHundredths(c.weight) || 0), 0);
+}
+
+export function sectionWeightText(hundredths, locale) {
+  return inputWeight(toDecimalString(hundredths), locale);
+}
+
+export function sectionInputFor(draft, sectionId) {
+  const entry = draft.sectionInput.get(sectionId);
+  if (!entry) return null;
+  if (entry.sum !== sectionHundredths(draft, sectionId)) {
+    draft.sectionInput.delete(sectionId);
+    return null;
+  }
+  return entry;
+}
+
+export function setSectionInput(draft, sectionId, text) {
+  draft.sectionInput.set(sectionId, { text, sum: sectionHundredths(draft, sectionId) });
+}
+
+export function distribute(weights, target) {
+  const n = weights.length;
+  if (n === 0) return [];
+  const total = weights.reduce((a, b) => a + b, 0);
+  if (total === 0) {
+    const base = Math.floor(target / n);
+    const extra = target - base * n;
+    return weights.map((_, i) => base + (i < extra ? 1 : 0));
+  }
+  const parts = weights.map((w, i) => ({ i, floor: Math.floor((w * target) / total), rem: (w * target) % total }));
+  let left = target - parts.reduce((a, p) => a + p.floor, 0);
+  const order = [...parts].sort((a, b) => b.rem - a.rem || a.i - b.i);
+  for (const p of order) {
+    if (left <= 0) break;
+    p.floor += 1;
+    left -= 1;
+  }
+  return parts.map((p) => p.floor);
+}
+
+export function setSectionWeight(draft, sectionId, hundredths, locale) {
+  const list = scoredCriteria(draft, sectionId);
+  if (list.length === 0 || !Number.isInteger(hundredths) || hundredths < 0 || hundredths > 10000) return false;
+  const next = distribute(list.map((c) => parseHundredths(c.weight) || 0), hundredths);
+  list.forEach((c, i) => {
+    c.weight = sectionWeightText(next[i], locale);
+  });
+  return true;
+}
+
+export function renameSection(draft, sectionId, title) {
+  const section = draft.sections.find((s) => s.id === sectionId);
+  if (!section) return false;
+  section.title = title;
+  section.touched = true;
+  return true;
+}
+
+function newSectionId(draft) {
+  const taken = new Set([...draft.sections.map((s) => s.id), ...draft.baselineSections.keys(), ...draft.retiredSections]);
+  let n = draft.sections.length + 1;
+  while (taken.has(`section-${n}`)) n += 1;
+  return `section-${n}`;
+}
+
+export function addSection(draft, baseName) {
+  const names = new Set(draft.sections.map((s) => s.title.trim().toLowerCase()));
+  let n = draft.sections.length + 1;
+  while (names.has(`${baseName} ${n}`.toLowerCase())) n += 1;
+  const section = { id: newSectionId(draft), title: `${baseName} ${n}`, labels: null, origTitle: null, touched: true };
+  draft.sections.push(section);
+  return section.id;
+}
+
+export function canRemoveSection(draft, sectionId) {
+  if (!draft.sections.some((s) => s.id === sectionId)) return false;
+  if (draft.sections.length <= 1) return false;
+  return draft.criteria.some((c) => c.section !== sectionId);
+}
+
+export function removeSection(draft, sectionId, selectedKey) {
+  if (!canRemoveSection(draft, sectionId)) return null;
+  const before = ordered(draft);
+  const index = before.findIndex((c) => c.key === selectedKey);
+  const at = draft.sections.findIndex((s) => s.id === sectionId);
+  draft.sections.splice(at, 1);
+  draft.retiredSections.add(sectionId);
+  draft.criteria = draft.criteria.filter((c) => c.section !== sectionId);
+  draft.sectionInput.delete(sectionId);
+  const rest = ordered(draft);
+  const keep = rest.find((c) => c.key === selectedKey);
+  const nextKey = keep ? keep.key : rest[Math.min(Math.max(index, 0), rest.length - 1)].key;
+  const focus = draft.sections[Math.min(at, draft.sections.length - 1)].id;
+  return { nextKey, focus };
+}
+
+export function moveSection(draft, sectionId, direction) {
+  const at = draft.sections.findIndex((s) => s.id === sectionId);
+  const to = at + direction;
+  if (at < 0 || to < 0 || to >= draft.sections.length) return false;
+  const [item] = draft.sections.splice(at, 1);
+  draft.sections.splice(to, 0, item);
+  return true;
+}
+
+function sectionOut(s) {
+  const renamed = s.origTitle !== null && s.title !== s.origTitle;
+  return { id: s.id, title: s.title, labels: renamed ? null : s.labels ?? null };
+}
+
 export function toConfig(draft) {
   const criteria = ordered(draft).map((c) => {
     const hundredths = parseHundredths(c.weight);
@@ -259,5 +409,5 @@ export function toConfig(draft) {
     }
     return out;
   });
-  return { ...draft.config, sections: draft.sections.map((s) => ({ ...s })), criteria };
+  return { ...draft.config, sections: draft.sections.map(sectionOut), criteria };
 }
