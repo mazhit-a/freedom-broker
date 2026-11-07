@@ -1,0 +1,42 @@
+[
+  {
+    "name": "baseline",
+    "workflow": "single_call",
+    "params": {"prompt": "v1", "profile": "claude-opus-5-5", "effort": "medium"}
+  },
+  {
+    "name": "opus_low",
+    "workflow": "single_call",
+    "params": {"prompt": "v1", "profile": "claude-opus-5-5", "effort": "low"}
+  },
+  {
+    "name": "sonnet_medium",
+    "workflow": "single_call",
+    "params": {"prompt": "v1", "profile": "claude-sonnet-5-5", "effort": "medium"}
+  },
+  {
+    "name": "jev_only",
+    "workflow": "jev_only",
+    "params": {}
+  },
+  {
+    "name": "jev_sonnet",
+    "workflow": "jev_explain",
+    "params": {"profile": "claude-sonnet-5-5", "effort": "medium"}
+  },
+  {
+    "name": "jev_haiku",
+    "workflow": "jev_explain",
+    "params": {"profile": "claude-haiku-4-5"}
+  },
+  {
+    "name": "extract_then_judge",
+    "workflow": "extract_then_judge",
+    "params": {"prompt": "v1", "profile": "claude-opus-5-5", "effort": "medium", "extract_effort": "low"}
+  },
+  {
+    "name": "per_criterion",
+    "workflow": "per_criterion",
+    "params": {"profile": "claude-opus-5-5", "effort": "medium"}
+  }
+]

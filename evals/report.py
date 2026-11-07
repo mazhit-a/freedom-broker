@@ -100,6 +100,15 @@ def latency_stats(candidates: list[dict]) -> dict:
     }
 
 
+def dispute_stats(candidates: list[dict]) -> dict | None:
+    explained = [c for c in candidates if isinstance(c.get("disputes"), dict)]
+    if not explained:
+        return None
+    total = sum(len(c.get("results") or {}) for c in explained)
+    disputed = sum(len(c["disputes"]) for c in explained)
+    return {"n_candidates": len(explained), "disputed": disputed, "criteria": total, "rate": rate(disputed, total)}
+
+
 def judged_scores(judgements: dict[str, dict]) -> dict[str, float]:
     return {
         cid: j["case_score"]
@@ -144,6 +153,7 @@ def summarize_run(run: dict, cfg: ChecklistConfig | None = None) -> dict:
         "grades": grades,
         "judge": summarize(list(judgements.values())),
         "scores": judged_scores(judgements),
+        "disputes": dispute_stats(candidates),
         "cost": cost_stats(candidates),
         "latency": latency_stats(candidates),
         "breakdown": breakdown(run["dataset"], judgements, grades),
@@ -236,6 +246,9 @@ def run_report(run: dict, cfg: ChecklistConfig | None = None) -> str:
             ],
         )
     )
+    if s.get("disputes"):
+        d = s["disputes"]
+        out += ["", f"Explainer dispute rate: {pct(d['rate'])} ({d['disputed']} of {d['criteria']} explained criteria)"]
     if any(row["n"] for row in g["calibration"]):
         out += ["", "### Confidence calibration", ""]
         out.append(
