@@ -1,0 +1,4 @@
+{
+ "detail": "This action requires the reviewer role",
+ "code": "role_forbidden"
+}

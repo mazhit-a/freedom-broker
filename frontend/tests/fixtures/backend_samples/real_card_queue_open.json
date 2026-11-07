@@ -1,0 +1,570 @@
+[
+ {
+  "id": 3,
+  "evaluation_id": 4,
+  "criterion_id": "07",
+  "comment": "Оператор назвал порядок действий, это видно в приложенных сообщениях.",
+  "status": "open",
+  "created_at": "2026-11-07 15:36:19",
+  "author_role": "operator",
+  "review_started_at": null,
+  "review_started_by": null,
+  "message_refs": [
+   0,
+   4
+  ],
+  "decision": null,
+  "new_answer": null,
+  "reason": null,
+  "decided_at": null,
+  "decided_by_role": null,
+  "total_before": null,
+  "total_after": null,
+  "display_status": "new",
+  "conversation_pk": 1,
+  "conversation_id": "p1-ru-001",
+  "channel": "agent chat",
+  "language": "RU",
+  "age_hours": 0.11,
+  "checklist_version_label": "v1",
+  "model_label": "claude-opus-5-5",
+  "criterion": {
+   "id": "07",
+   "title": "Closing",
+   "description": "The operator summarised or offered further help and said goodbye.",
+   "section": "conduct",
+   "weight": 5.0,
+   "type": "yes_no",
+   "na_allowed": true,
+   "na_condition": "The chat broke off before closing was possible.",
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  "original": {
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "Оператор попрощался, но не подвёл итог и не предложил дополнительную помощь.",
+   "na_reason": null,
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Пожалуйста. Хорошего вечера!"
+    }
+   ],
+   "checked_range": {
+    "from": 11,
+    "to": 11
+   }
+  },
+  "fragment": [
+   {
+    "message_index": 10,
+    "timestamp_raw": "01:28",
+    "offset_seconds": 88.0,
+    "speaker": "client",
+    "text": "Нашла, спасибо."
+   },
+   {
+    "message_index": 11,
+    "timestamp_raw": "02:04",
+    "offset_seconds": 124.0,
+    "speaker": "operator",
+    "text": "Пожалуйста. Хорошего вечера!"
+   }
+  ]
+ },
+ {
+  "id": 4,
+  "evaluation_id": 4,
+  "criterion_id": "01",
+  "comment": "Повторная попытка по тому же критерию.",
+  "status": "open",
+  "created_at": "2026-11-07 15:36:20",
+  "author_role": "operator",
+  "review_started_at": null,
+  "review_started_by": null,
+  "message_refs": [],
+  "decision": null,
+  "new_answer": null,
+  "reason": null,
+  "decided_at": null,
+  "decided_by_role": null,
+  "total_before": null,
+  "total_after": null,
+  "display_status": "new",
+  "conversation_pk": 1,
+  "conversation_id": "p1-ru-001",
+  "channel": "agent chat",
+  "language": "RU",
+  "age_hours": 0.11,
+  "checklist_version_label": "v1",
+  "model_label": "claude-opus-5-5",
+  "criterion": {
+   "id": "01",
+   "title": "Rapport",
+   "description": "The operator greeted the client in the client's language and introduced themselves in the first operator reply. The bot's greeting does not satisfy this criterion.",
+   "section": "opening",
+   "weight": 10.0,
+   "type": "yes_no",
+   "na_allowed": false,
+   "na_condition": null,
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  "original": {
+   "answer": "yes",
+   "points": 10.0,
+   "effective_points": 15.38,
+   "rationale": "В первой реплике оператор поздоровался на русском языке, на котором писал клиент, и представился по имени.",
+   "na_reason": null,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Здравствуйте! Меня зовут Алина."
+    }
+   ],
+   "checked_range": null
+  },
+  "fragment": [
+   {
+    "message_index": 8,
+    "timestamp_raw": "00:38",
+    "offset_seconds": 38.0,
+    "speaker": "system",
+    "text": "Эскалация на оператора."
+   },
+   {
+    "message_index": 9,
+    "timestamp_raw": "01:15",
+    "offset_seconds": 75.0,
+    "speaker": "operator",
+    "text": "Здравствуйте! Меня зовут Алина. В веб-версии откройте вкладку «Кабинет». Название тарифа будет под вашим ФИО."
+   },
+   {
+    "message_index": 10,
+    "timestamp_raw": "01:28",
+    "offset_seconds": 88.0,
+    "speaker": "client",
+    "text": "Нашла, спасибо."
+   }
+  ]
+ },
+ {
+  "id": 5,
+  "evaluation_id": 5,
+  "criterion_id": "07",
+  "comment": "Оператор назвал порядок действий, это видно в приложенных сообщениях.",
+  "status": "open",
+  "created_at": "2026-11-07 15:36:50",
+  "author_role": "operator",
+  "review_started_at": null,
+  "review_started_by": null,
+  "message_refs": [
+   0,
+   4
+  ],
+  "decision": null,
+  "new_answer": null,
+  "reason": null,
+  "decided_at": null,
+  "decided_by_role": null,
+  "total_before": null,
+  "total_after": null,
+  "display_status": "new",
+  "conversation_pk": 3,
+  "conversation_id": "p1-ru-003",
+  "channel": "agent chat",
+  "language": "RU",
+  "age_hours": 0.1,
+  "checklist_version_label": "v1",
+  "model_label": "claude-opus-5-5",
+  "criterion": {
+   "id": "07",
+   "title": "Closing",
+   "description": "The operator summarised or offered further help and said goodbye.",
+   "section": "conduct",
+   "weight": 5.0,
+   "type": "yes_no",
+   "na_allowed": true,
+   "na_condition": "The chat broke off before closing was possible.",
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  "original": {
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "Оператор попрощался, но не подвёл итог по комиссии и не предложил дальнейшую помощь, хотя вопрос клиента остался открытым.",
+   "na_reason": null,
+   "evidence": [
+    {
+     "message_index": 14,
+     "quote": "Хорошего дня!"
+    }
+   ],
+   "checked_range": {
+    "from": 12,
+    "to": 14
+   }
+  },
+  "fragment": [
+   {
+    "message_index": 11,
+    "timestamp_raw": "03:16",
+    "offset_seconds": 196.0,
+    "speaker": "client",
+    "text": "Через веб."
+   },
+   {
+    "message_index": 12,
+    "timestamp_raw": "03:59",
+    "offset_seconds": 239.0,
+    "speaker": "operator",
+    "text": "Откройте «Кабинет», название тарифа под ФИО."
+   },
+   {
+    "message_index": 13,
+    "timestamp_raw": "04:32",
+    "offset_seconds": 272.0,
+    "speaker": "client",
+    "text": "Да, «Инвестор». А комиссию где искать?"
+   },
+   {
+    "message_index": 14,
+    "timestamp_raw": "05:07",
+    "offset_seconds": 307.0,
+    "speaker": "operator",
+    "text": "Название тарифа смотрите там же. Хорошего дня!"
+   }
+  ]
+ },
+ {
+  "id": 6,
+  "evaluation_id": 5,
+  "criterion_id": "01",
+  "comment": "Повторная попытка по тому же критерию.",
+  "status": "open",
+  "created_at": "2026-11-07 15:36:50",
+  "author_role": "operator",
+  "review_started_at": null,
+  "review_started_by": null,
+  "message_refs": [],
+  "decision": null,
+  "new_answer": null,
+  "reason": null,
+  "decided_at": null,
+  "decided_by_role": null,
+  "total_before": null,
+  "total_after": null,
+  "display_status": "new",
+  "conversation_pk": 3,
+  "conversation_id": "p1-ru-003",
+  "channel": "agent chat",
+  "language": "RU",
+  "age_hours": 0.1,
+  "checklist_version_label": "v1",
+  "model_label": "claude-opus-5-5",
+  "criterion": {
+   "id": "01",
+   "title": "Rapport",
+   "description": "The operator greeted the client in the client's language and introduced themselves in the first operator reply. The bot's greeting does not satisfy this criterion.",
+   "section": "opening",
+   "weight": 10.0,
+   "type": "yes_no",
+   "na_allowed": false,
+   "na_condition": null,
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  "original": {
+   "answer": "yes",
+   "points": 10.0,
+   "effective_points": 12.5,
+   "rationale": "В первой реплике оператор поздоровался на русском языке, языке клиента, и представился по имени.",
+   "na_reason": null,
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Добрый день! Я Лера из поддержки."
+    }
+   ],
+   "checked_range": null
+  },
+  "fragment": [
+   {
+    "message_index": 9,
+    "timestamp_raw": "01:31",
+    "offset_seconds": 91.0,
+    "speaker": "client",
+    "text": "Именно на покупку, не на вывод."
+   },
+   {
+    "message_index": 10,
+    "timestamp_raw": "02:49",
+    "offset_seconds": 169.0,
+    "speaker": "operator",
+    "text": "Добрый день! Я Лера из поддержки. Вы через приложение или веб-версию смотрите?"
+   },
+   {
+    "message_index": 11,
+    "timestamp_raw": "03:16",
+    "offset_seconds": 196.0,
+    "speaker": "client",
+    "text": "Через веб."
+   }
+  ]
+ },
+ {
+  "id": 15,
+  "evaluation_id": 12,
+  "criterion_id": "07",
+  "comment": "служебная апелляция сценария ошибок",
+  "status": "open",
+  "created_at": "2026-11-07 15:40:49",
+  "author_role": "operator",
+  "review_started_at": null,
+  "review_started_by": null,
+  "message_refs": [
+   0
+  ],
+  "decision": null,
+  "new_answer": null,
+  "reason": null,
+  "decided_at": null,
+  "decided_by_role": null,
+  "total_before": null,
+  "total_after": null,
+  "display_status": "new",
+  "conversation_pk": 11,
+  "conversation_id": "p1-ru-011",
+  "channel": "agent chat",
+  "language": "RU",
+  "age_hours": 0.04,
+  "checklist_version_label": "v1",
+  "model_label": "claude-opus-5-5",
+  "criterion": {
+   "id": "07",
+   "title": "Closing",
+   "description": "The operator summarised or offered further help and said goodbye.",
+   "section": "conduct",
+   "weight": 5.0,
+   "type": "yes_no",
+   "na_allowed": true,
+   "na_condition": "The chat broke off before closing was possible.",
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  "original": {
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "Оператор попрощался, но не подвёл итог и не предложил дальнейшую помощь, хотя критерий требует этого.",
+   "na_reason": null,
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Пожалуйста. Хорошего дня!"
+    }
+   ],
+   "checked_range": {
+    "from": 12,
+    "to": 13
+   }
+  },
+  "fragment": [
+   {
+    "message_index": 11,
+    "timestamp_raw": "03:03",
+    "offset_seconds": 183.0,
+    "speaker": "operator",
+    "text": "Да, если нужен отчёт за весь год, выберите этот период."
+   },
+   {
+    "message_index": 12,
+    "timestamp_raw": "03:24",
+    "offset_seconds": 204.0,
+    "speaker": "client",
+    "text": "Скачалось. Спасибо."
+   },
+   {
+    "message_index": 13,
+    "timestamp_raw": "03:41",
+    "offset_seconds": 221.0,
+    "speaker": "operator",
+    "text": "Пожалуйста. Хорошего дня!"
+   }
+  ]
+ },
+ {
+  "id": 16,
+  "evaluation_id": 16,
+  "criterion_id": "01",
+  "comment": "оценка занижена, оператор всё объяснил",
+  "status": "open",
+  "created_at": "2026-11-07 15:41:10",
+  "author_role": "operator",
+  "review_started_at": null,
+  "review_started_by": null,
+  "message_refs": [
+   0,
+   4
+  ],
+  "decision": null,
+  "new_answer": null,
+  "reason": null,
+  "decided_at": null,
+  "decided_by_role": null,
+  "total_before": null,
+  "total_after": null,
+  "display_status": "new",
+  "conversation_pk": 14,
+  "conversation_id": "p1-ru-014",
+  "channel": "agent chat",
+  "language": "RU",
+  "age_hours": 0.03,
+  "checklist_version_label": "v1",
+  "model_label": "claude-opus-5-5",
+  "criterion": {
+   "id": "01",
+   "title": "Rapport",
+   "description": "The operator greeted the client in the client's language and introduced themselves in the first operator reply. The bot's greeting does not satisfy this criterion.",
+   "section": "opening",
+   "weight": 10.0,
+   "type": "yes_no",
+   "na_allowed": false,
+   "na_condition": null,
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  "original": {
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "Оператор использовал неформальное «Привет» и не представился в первой реплике.",
+   "na_reason": null,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Привет, где именно ищете?"
+    }
+   ],
+   "checked_range": {
+    "from": 9,
+    "to": 9
+   }
+  },
+  "fragment": [
+   {
+    "message_index": 8,
+    "timestamp_raw": "01:16",
+    "offset_seconds": 76.0,
+    "speaker": "system",
+    "text": "Эскалация на оператора."
+   },
+   {
+    "message_index": 9,
+    "timestamp_raw": "01:36",
+    "offset_seconds": 96.0,
+    "speaker": "operator",
+    "text": "Привет, где именно ищете?"
+   },
+   {
+    "message_index": 10,
+    "timestamp_raw": "02:08",
+    "offset_seconds": 128.0,
+    "speaker": "client",
+    "text": "Я уже писал, на сайте компании, не в приложении."
+   }
+  ]
+ },
+ {
+  "id": 23,
+  "evaluation_id": 61,
+  "criterion_id": "01",
+  "comment": "Оператор назвал порядок действий.",
+  "status": "open",
+  "created_at": "2026-11-07 15:42:55",
+  "author_role": "operator",
+  "review_started_at": null,
+  "review_started_by": null,
+  "message_refs": [
+   0,
+   2
+  ],
+  "decision": null,
+  "new_answer": null,
+  "reason": null,
+  "decided_at": null,
+  "decided_by_role": null,
+  "total_before": null,
+  "total_after": null,
+  "display_status": "new",
+  "conversation_pk": 60,
+  "conversation_id": "p1-en-015",
+  "channel": "agent chat",
+  "language": "EN",
+  "age_hours": 0.0,
+  "checklist_version_label": "v1",
+  "model_label": "claude-opus-5-5",
+  "criterion": {
+   "id": "01",
+   "title": "Rapport",
+   "description": "The operator greeted the client in the client's language and introduced themselves in the first operator reply. The bot's greeting does not satisfy this criterion.",
+   "section": "opening",
+   "weight": 10.0,
+   "type": "yes_no",
+   "na_allowed": false,
+   "na_condition": null,
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  "original": {
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "В первом ответе оператор не поздоровался и не представился, сразу дал инструкцию. Приветствие бота не засчитывается.",
+   "na_reason": null,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Open settings then go back and log in again."
+    }
+   ],
+   "checked_range": {
+    "from": 9,
+    "to": 9
+   }
+  },
+  "fragment": [
+   {
+    "message_index": 8,
+    "timestamp_raw": "00:42",
+    "offset_seconds": 42.0,
+    "speaker": "system",
+    "text": "Chat transferred to an agent."
+   },
+   {
+    "message_index": 9,
+    "timestamp_raw": "01:21",
+    "offset_seconds": 81.0,
+    "speaker": "operator",
+    "text": "Open settings then go back and log in again."
+   },
+   {
+    "message_index": 10,
+    "timestamp_raw": "02:00",
+    "offset_seconds": 120.0,
+    "speaker": "client",
+    "text": "Settings where? I'm on the company website and there's no login."
+   }
+  ]
+ }
+]

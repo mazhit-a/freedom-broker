@@ -5,7 +5,7 @@
  "conversation_id": "p4-ru-003",
  "channel": "voice call",
  "language": "RU",
- "audio_url": "https://audio.invalid/redacted",
+ "has_audio": true,
  "messages": [
   {
    "message_index": 0,

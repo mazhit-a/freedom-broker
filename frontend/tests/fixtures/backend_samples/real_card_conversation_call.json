@@ -1,0 +1,688 @@
+{
+ "id": 64,
+ "dataset_id": 1,
+ "group_id": "DEV",
+ "conversation_id": "p4-ru-005",
+ "channel": "voice call",
+ "language": "RU",
+ "has_audio": true,
+ "occurred_at": "2026-11-03T15:28:08.7797579+00:00",
+ "duration_seconds": 351.91,
+ "messages": [
+  {
+   "message_index": 0,
+   "timestamp_raw": "2026-11-03T15:28:08.7797579+00:00",
+   "offset_seconds": 0.0,
+   "speaker": "system",
+   "text": "Bot dialog and transcription languages have been updated. The dialog language changed from kk-KZ to ru-RU, with transcription now aligned to ru-RU.",
+   "audio_start_seconds": 0.0,
+   "audio_end_seconds": 0.0
+  },
+  {
+   "message_index": 1,
+   "timestamp_raw": "2026-11-03T15:28:08.9668425+00:00",
+   "offset_seconds": 0.187,
+   "speaker": "system",
+   "text": "Запись и транскрибирование запущены.",
+   "audio_start_seconds": 0.0,
+   "audio_end_seconds": 0.0
+  },
+  {
+   "message_index": 2,
+   "timestamp_raw": "2026-11-03T15:28:12.2343366+00:00",
+   "offset_seconds": 3.455,
+   "speaker": "client",
+   "text": "Стали тебе?",
+   "audio_start_seconds": 0.0,
+   "audio_end_seconds": 3.268
+  },
+  {
+   "message_index": 3,
+   "timestamp_raw": "2026-11-03T15:28:20.9301037+00:00",
+   "offset_seconds": 12.15,
+   "speaker": "client",
+   "text": "2",
+   "audio_start_seconds": 3.268,
+   "audio_end_seconds": 11.963
+  },
+  {
+   "message_index": 4,
+   "timestamp_raw": "2026-11-03T15:28:22.3889683+00:00",
+   "offset_seconds": 13.609,
+   "speaker": "client",
+   "text": "Я сейчас скажу.",
+   "audio_start_seconds": 11.963,
+   "audio_end_seconds": 13.422
+  },
+  {
+   "message_index": 5,
+   "timestamp_raw": "2026-11-03T15:28:34.8975634+00:00",
+   "offset_seconds": 26.118,
+   "speaker": "bot",
+   "text": "Целими цбе Фридом брокер за кошки для нас Здравствуйте, добро пожаловать во Фридом брокер, а завтра для выбора русского языка нажми по услугам Фридом банк кредиты, цифровая ипотека, обслуживание карт нажмите один, чтобы получить ссылку на раздел, часто задаваемые вопросы и информацию о курсах академии в WhatsApp нажмите 2.",
+   "audio_start_seconds": 25.931,
+   "audio_end_seconds": 45.531
+  },
+  {
+   "message_index": 6,
+   "timestamp_raw": "2026-11-03T15:28:44.1294818+00:00",
+   "offset_seconds": 35.35,
+   "speaker": "bot",
+   "text": "Если у вас вопрос по опционам американского рынка нажмите 3 по услугам Фридом брокер, акции и облигации ведущих компаний нажмите ноль.",
+   "audio_start_seconds": 35.163,
+   "audio_end_seconds": 43.563
+  },
+  {
+   "message_index": 7,
+   "timestamp_raw": "2026-11-03T15:28:44.2248217+00:00",
+   "offset_seconds": 35.445,
+   "speaker": "client",
+   "text": "4",
+   "audio_start_seconds": 35.258,
+   "audio_end_seconds": 35.258
+  },
+  {
+   "message_index": 8,
+   "timestamp_raw": "2026-11-03T15:28:47.1013427+00:00",
+   "offset_seconds": 38.322,
+   "speaker": "client",
+   "text": "Ноль.",
+   "audio_start_seconds": 38.135,
+   "audio_end_seconds": 38.135
+  },
+  {
+   "message_index": 9,
+   "timestamp_raw": "2026-11-03T15:28:47.1439323+00:00",
+   "offset_seconds": 38.364,
+   "speaker": "client",
+   "text": "0",
+   "audio_start_seconds": 38.177,
+   "audio_end_seconds": 38.177
+  },
+  {
+   "message_index": 10,
+   "timestamp_raw": "2026-11-03T15:29:01.2377877+00:00",
+   "offset_seconds": 52.458,
+   "speaker": "bot",
+   "text": "Продолжая разговор, вы соглашаетесь на Сборы обработку ваших персональных данных, а также на запись разговора после консультации просим оценить качество обслуживания сотрудника.",
+   "audio_start_seconds": 52.271,
+   "audio_end_seconds": 61.071
+  },
+  {
+   "message_index": 11,
+   "timestamp_raw": "2026-11-03T15:29:01.5732895+00:00",
+   "offset_seconds": 52.794,
+   "speaker": "system",
+   "text": "Клиент переведен от агента на представителя службы поддержки",
+   "audio_start_seconds": 52.607,
+   "audio_end_seconds": 52.607
+  },
+  {
+   "message_index": 12,
+   "timestamp_raw": "2026-11-03T15:29:02.4913445+00:00",
+   "offset_seconds": 53.712,
+   "speaker": "system",
+   "text": "Запись и транскрибирование приостановлены.",
+   "audio_start_seconds": 53.525,
+   "audio_end_seconds": 53.525
+  },
+  {
+   "message_index": 13,
+   "timestamp_raw": "2026-11-03T15:29:12.5665721+00:00",
+   "offset_seconds": 63.787,
+   "speaker": "system",
+   "text": "Агент присоединился к разговору с клиентом.",
+   "audio_start_seconds": 53.525,
+   "audio_end_seconds": 53.525
+  },
+  {
+   "message_index": 14,
+   "timestamp_raw": "2026-11-03T15:29:15.5014718+00:00",
+   "offset_seconds": 66.722,
+   "speaker": "system",
+   "text": "Запись и транскрибирование возобновлены.",
+   "audio_start_seconds": 53.525,
+   "audio_end_seconds": 53.525
+  },
+  {
+   "message_index": 15,
+   "timestamp_raw": "2026-11-03T15:29:19.0764399+00:00",
+   "offset_seconds": 70.297,
+   "speaker": "client",
+   "text": "Ну в хабаровскомто.",
+   "audio_start_seconds": 57.1,
+   "audio_end_seconds": 57.1
+  },
+  {
+   "message_index": 16,
+   "timestamp_raw": "2026-11-03T15:29:21.2631163+00:00",
+   "offset_seconds": 72.483,
+   "speaker": "operator",
+   "text": "Компания fernetbark и операции Здравствуйте, чем могу вам помочь?",
+   "audio_start_seconds": 59.286,
+   "audio_end_seconds": 62.886
+  },
+  {
+   "message_index": 17,
+   "timestamp_raw": "2026-11-03T15:29:30.3971045+00:00",
+   "offset_seconds": 81.617,
+   "speaker": "operator",
+   "text": "Да.",
+   "audio_start_seconds": 68.42,
+   "audio_end_seconds": 68.82
+  },
+  {
+   "message_index": 18,
+   "timestamp_raw": "2026-11-03T15:29:50.9981441+00:00",
+   "offset_seconds": 102.218,
+   "speaker": "client",
+   "text": "Здравствуйте, мы с супругой на неё регистрируем, как его брокерский счёт пополнили простой Фридом в банке. И вот сейчас наш брокер Оксана просит в техподдержку позвонить. Мы зарегистрировались, но она говорит, что нужно было указать место гражданства Казахстан Кыргызстан то, что у супруги вид на жительство, а вы сможете сбросить нам приложение настройки, все как это правильно сделать?",
+   "audio_start_seconds": 68.82,
+   "audio_end_seconds": 89.021
+  },
+  {
+   "message_index": 19,
+   "timestamp_raw": "2026-11-03T15:29:56.0937951+00:00",
+   "offset_seconds": 107.314,
+   "speaker": "operator",
+   "text": "Так, а подскажете номер телефона, по которому регистрацию проходили?",
+   "audio_start_seconds": 94.117,
+   "audio_end_seconds": 97.717
+  },
+  {
+   "message_index": 20,
+   "timestamp_raw": "2026-11-03T15:29:58.0478396+00:00",
+   "offset_seconds": 109.268,
+   "speaker": "client",
+   "text": "А вот по этому же номеру.",
+   "audio_start_seconds": 96.071,
+   "audio_end_seconds": 96.071
+  },
+  {
+   "message_index": 21,
+   "timestamp_raw": "2026-11-03T15:30:00.6028172+00:00",
+   "offset_seconds": 111.823,
+   "speaker": "operator",
+   "text": "Сейчас проверим.",
+   "audio_start_seconds": 98.626,
+   "audio_end_seconds": 99.426
+  },
+  {
+   "message_index": 22,
+   "timestamp_raw": "2026-11-03T15:30:01.2823297+00:00",
+   "offset_seconds": 112.503,
+   "speaker": "client",
+   "text": "Аида усубалину.",
+   "audio_start_seconds": 99.306,
+   "audio_end_seconds": 99.306
+  },
+  {
+   "message_index": 23,
+   "timestamp_raw": "2026-11-03T15:30:14.6516127+00:00",
+   "offset_seconds": 125.872,
+   "speaker": "operator",
+   "text": "Ей также можете, пожалуйста, подсказать, каким мы к вам обращаться.",
+   "audio_start_seconds": 112.675,
+   "audio_end_seconds": 116.675
+  },
+  {
+   "message_index": 24,
+   "timestamp_raw": "2026-11-03T15:30:18.2556603+00:00",
+   "offset_seconds": 129.476,
+   "speaker": "client",
+   "text": "А меня эльмар, а вот супруга рядом аида.",
+   "audio_start_seconds": 116.279,
+   "audio_end_seconds": 116.279
+  },
+  {
+   "message_index": 25,
+   "timestamp_raw": "2026-11-03T15:30:19.9363640+00:00",
+   "offset_seconds": 131.157,
+   "speaker": "client",
+   "text": "Здравствуйте.",
+   "audio_start_seconds": 116.675,
+   "audio_end_seconds": 117.96
+  },
+  {
+   "message_index": 26,
+   "timestamp_raw": "2026-11-03T15:30:35.6714339+00:00",
+   "offset_seconds": 146.892,
+   "speaker": "client",
+   "text": "Нам удалить.",
+   "audio_start_seconds": 117.96,
+   "audio_end_seconds": 133.695
+  },
+  {
+   "message_index": 27,
+   "timestamp_raw": "2026-11-03T15:30:38.7328671+00:00",
+   "offset_seconds": 149.953,
+   "speaker": "client",
+   "text": "Приложение может нам удалить его?",
+   "audio_start_seconds": 133.695,
+   "audio_end_seconds": 136.756
+  },
+  {
+   "message_index": 28,
+   "timestamp_raw": "2026-11-03T15:30:39.6179564+00:00",
+   "offset_seconds": 150.838,
+   "speaker": "operator",
+   "text": "Это очень приятно. Здравствуйте, можем удалить ваш домой счет, но это будет не сегодня, скорее всего, вам пока стоит не заходить в мобильное приложение некоторое время, и у нас появится возможность удаления дома счёта, после чего вы можете повторно пройти это вам пока.",
+   "audio_start_seconds": 137.641,
+   "audio_end_seconds": 154.841
+  },
+  {
+   "message_index": 29,
+   "timestamp_raw": "2026-11-03T15:30:46.2477198+00:00",
+   "offset_seconds": 157.468,
+   "speaker": "operator",
+   "text": "Да, вы можете сейчас зайти в меню настройки и выйти с дома счёта.",
+   "audio_start_seconds": 144.271,
+   "audio_end_seconds": 149.471
+  },
+  {
+   "message_index": 30,
+   "timestamp_raw": "2026-11-03T15:30:58.7734462+00:00",
+   "offset_seconds": 169.994,
+   "speaker": "client",
+   "text": "Часть секундочку Фридом я крестик делаю регистрацию, потом крестик назад. Теперь вижу меню, куда нам нужно настройки.",
+   "audio_start_seconds": 154.841,
+   "audio_end_seconds": 156.797
+  },
+  {
+   "message_index": 31,
+   "timestamp_raw": "2026-11-03T15:31:00.6965129+00:00",
+   "offset_seconds": 171.917,
+   "speaker": "client",
+   "text": "Выход правильно?",
+   "audio_start_seconds": 156.797,
+   "audio_end_seconds": 158.72
+  },
+  {
+   "message_index": 32,
+   "timestamp_raw": "2026-11-03T15:31:01.7459865+00:00",
+   "offset_seconds": 172.966,
+   "speaker": "operator",
+   "text": "Настройки и там не знаю выход да.",
+   "audio_start_seconds": 159.769,
+   "audio_end_seconds": 162.569
+  },
+  {
+   "message_index": 33,
+   "timestamp_raw": "2026-11-03T15:31:04.8139771+00:00",
+   "offset_seconds": 176.034,
+   "speaker": "client",
+   "text": "Выход выйти.",
+   "audio_start_seconds": 162.569,
+   "audio_end_seconds": 162.837
+  },
+  {
+   "message_index": 34,
+   "timestamp_raw": "2026-11-03T15:31:16.9851022+00:00",
+   "offset_seconds": 188.205,
+   "speaker": "operator",
+   "text": "Да, таким образом, пока можете не захотеть ваш прямой счет, и в целом можете не заходить мобильное приложение некоторое время и если успеем сегодня.",
+   "audio_start_seconds": 175.008,
+   "audio_end_seconds": 184.608
+  },
+  {
+   "message_index": 35,
+   "timestamp_raw": "2026-11-03T15:31:17.1518133+00:00",
+   "offset_seconds": 188.372,
+   "speaker": "client",
+   "text": "А через сколько мы можем?",
+   "audio_start_seconds": 175.175,
+   "audio_end_seconds": 175.175
+  },
+  {
+   "message_index": 36,
+   "timestamp_raw": "2026-11-03T15:31:20.1246975+00:00",
+   "offset_seconds": 191.345,
+   "speaker": "client",
+   "text": "Или завтра утром лучше.",
+   "audio_start_seconds": 178.148,
+   "audio_end_seconds": 178.148
+  },
+  {
+   "message_index": 37,
+   "timestamp_raw": "2026-11-03T15:31:23.6261770+00:00",
+   "offset_seconds": 194.846,
+   "speaker": "operator",
+   "text": "Ли так?",
+   "audio_start_seconds": 181.649,
+   "audio_end_seconds": 182.449
+  },
+  {
+   "message_index": 38,
+   "timestamp_raw": "2026-11-03T15:31:29.6312444+00:00",
+   "offset_seconds": 200.851,
+   "speaker": "operator",
+   "text": "Сейчас можно сделать таким образом.",
+   "audio_start_seconds": 187.654,
+   "audio_end_seconds": 189.654
+  },
+  {
+   "message_index": 39,
+   "timestamp_raw": "2026-11-03T15:31:36.9680791+00:00",
+   "offset_seconds": 208.188,
+   "speaker": "operator",
+   "text": "Точно, к сожалению, время не подскажем, когда у нас появится возможность, но обычно это это через 02:00.",
+   "audio_start_seconds": 194.991,
+   "audio_end_seconds": 201.791
+  },
+  {
+   "message_index": 40,
+   "timestamp_raw": "2026-11-03T15:31:39.4236516+00:00",
+   "offset_seconds": 210.644,
+   "speaker": "operator",
+   "text": "Бывает возможным.",
+   "audio_start_seconds": 197.447,
+   "audio_end_seconds": 198.247
+  },
+  {
+   "message_index": 41,
+   "timestamp_raw": "2026-11-03T15:31:41.2731981+00:00",
+   "offset_seconds": 212.493,
+   "speaker": "client",
+   "text": "А тогда завтра рано утром, мы попробуем правильно?",
+   "audio_start_seconds": 199.296,
+   "audio_end_seconds": 199.296
+  },
+  {
+   "message_index": 42,
+   "timestamp_raw": "2026-11-03T15:31:51.9282226+00:00",
+   "offset_seconds": 223.148,
+   "speaker": "client",
+   "text": "Угу.",
+   "audio_start_seconds": 201.791,
+   "audio_end_seconds": 209.951
+  },
+  {
+   "message_index": 43,
+   "timestamp_raw": "2026-11-03T15:31:59.5495953+00:00",
+   "offset_seconds": 230.77,
+   "speaker": "operator",
+   "text": "Да, но перед тем как попробовать, вы можете обратиться к нам на линию, чтобы проверили, активен ли ваш прямой счет, и если завтра утром уже точно появится возможность удаления, специалист его удалит и после чего вы можете уже пройти регистрацию заново уже корректно.",
+   "audio_start_seconds": 217.573,
+   "audio_end_seconds": 234.773
+  },
+  {
+   "message_index": 44,
+   "timestamp_raw": "2026-11-03T15:32:03.7033733+00:00",
+   "offset_seconds": 234.924,
+   "speaker": "operator",
+   "text": "Да, конечно, вот остались.",
+   "audio_start_seconds": 221.727,
+   "audio_end_seconds": 223.327
+  },
+  {
+   "message_index": 45,
+   "timestamp_raw": "2026-11-03T15:32:06.2180623+00:00",
+   "offset_seconds": 237.438,
+   "speaker": "operator",
+   "text": "Дал.",
+   "audio_start_seconds": 224.241,
+   "audio_end_seconds": 224.641
+  },
+  {
+   "message_index": 46,
+   "timestamp_raw": "2026-11-03T15:32:07.1428129+00:00",
+   "offset_seconds": 238.363,
+   "speaker": "client",
+   "text": "Угу всё понял, спасибо вам огромное. Вы сейчас этим займётесь правильно. Ну вот там напишите там то, что нужно правильно.",
+   "audio_start_seconds": 225.166,
+   "audio_end_seconds": 225.166
+  },
+  {
+   "message_index": 47,
+   "timestamp_raw": "2026-11-03T15:32:18.6247374+00:00",
+   "offset_seconds": 249.845,
+   "speaker": "client",
+   "text": "Угу.",
+   "audio_start_seconds": 234.773,
+   "audio_end_seconds": 236.648
+  },
+  {
+   "message_index": 48,
+   "timestamp_raw": "2026-11-03T15:32:22.0699836+00:00",
+   "offset_seconds": 253.29,
+   "speaker": "operator",
+   "text": "Да да да я подожду некоторое время, просто есть возможность, что рабочее время у меня закончится. Я не успею его удалить, в связи с чем вам лучше завтра на всякий случай позвонить нам сперва на линию и после уточнить.",
+   "audio_start_seconds": 240.093,
+   "audio_end_seconds": 255.693
+  },
+  {
+   "message_index": 49,
+   "timestamp_raw": "2026-11-03T15:32:22.5194149+00:00",
+   "offset_seconds": 253.74,
+   "speaker": "client",
+   "text": "А в какое время можно позвонить само рано?",
+   "audio_start_seconds": 240.543,
+   "audio_end_seconds": 240.543
+  },
+  {
+   "message_index": 50,
+   "timestamp_raw": "2026-11-03T15:32:24.6264758+00:00",
+   "offset_seconds": 255.847,
+   "speaker": "operator",
+   "text": "С 09:00.",
+   "audio_start_seconds": 242.65,
+   "audio_end_seconds": 243.45
+  },
+  {
+   "message_index": 51,
+   "timestamp_raw": "2026-11-03T15:32:29.7743829+00:00",
+   "offset_seconds": 260.995,
+   "speaker": "client",
+   "text": "С 09:00, всё Спасибо большое, тогда будем ждать. Тогда спасибо.",
+   "audio_start_seconds": 247.798,
+   "audio_end_seconds": 247.798
+  },
+  {
+   "message_index": 52,
+   "timestamp_raw": "2026-11-03T15:32:32.8487843+00:00",
+   "offset_seconds": 264.069,
+   "speaker": "operator",
+   "text": "Да, конечно у вас остались то половина вопрос эльмар.",
+   "audio_start_seconds": 250.872,
+   "audio_end_seconds": 254.472
+  },
+  {
+   "message_index": 53,
+   "timestamp_raw": "2026-11-03T15:32:35.1006788+00:00",
+   "offset_seconds": 266.321,
+   "speaker": "client",
+   "text": "Что говорите?",
+   "audio_start_seconds": 253.124,
+   "audio_end_seconds": 253.124
+  },
+  {
+   "message_index": 54,
+   "timestamp_raw": "2026-11-03T15:32:36.7933606+00:00",
+   "offset_seconds": 268.014,
+   "speaker": "operator",
+   "text": "У вас остались с тобой эти вопросы?",
+   "audio_start_seconds": 254.817,
+   "audio_end_seconds": 257.617
+  },
+  {
+   "message_index": 55,
+   "timestamp_raw": "2026-11-03T15:32:37.8861668+00:00",
+   "offset_seconds": 269.106,
+   "speaker": "client",
+   "text": "Дополнительный вопрос.",
+   "audio_start_seconds": 255.909,
+   "audio_end_seconds": 255.909
+  },
+  {
+   "message_index": 56,
+   "timestamp_raw": "2026-11-03T15:32:43.0479673+00:00",
+   "offset_seconds": 274.268,
+   "speaker": "client",
+   "text": "Да, вот когда убить на жительство?",
+   "audio_start_seconds": 257.617,
+   "audio_end_seconds": 261.071
+  },
+  {
+   "message_index": 57,
+   "timestamp_raw": "2026-11-03T15:32:53.4809918+00:00",
+   "offset_seconds": 284.701,
+   "speaker": "client",
+   "text": "У супруги выбрать нужно Кыргызстан и заграничный паспорт правильно, потому что есть Казахстан и удостоверение личности, которая выдала, ведь на жительство Казахстан.",
+   "audio_start_seconds": 261.071,
+   "audio_end_seconds": 271.504
+  },
+  {
+   "message_index": 58,
+   "timestamp_raw": "2026-11-03T15:32:57.1058924+00:00",
+   "offset_seconds": 288.326,
+   "speaker": "operator",
+   "text": "Так.",
+   "audio_start_seconds": 275.129,
+   "audio_end_seconds": 275.529
+  },
+  {
+   "message_index": 59,
+   "timestamp_raw": "2026-11-03T15:33:01.8456553+00:00",
+   "offset_seconds": 293.066,
+   "speaker": "client",
+   "text": "Ну, допустим арсенного.",
+   "audio_start_seconds": 275.529,
+   "audio_end_seconds": 279.869
+  },
+  {
+   "message_index": 60,
+   "timestamp_raw": "2026-11-03T15:33:02.7404474+00:00",
+   "offset_seconds": 293.961,
+   "speaker": "operator",
+   "text": "У вас выбор между?",
+   "audio_start_seconds": 280.764,
+   "audio_end_seconds": 282.364
+  },
+  {
+   "message_index": 61,
+   "timestamp_raw": "2026-11-03T15:33:07.2408848+00:00",
+   "offset_seconds": 298.461,
+   "speaker": "operator",
+   "text": "У вас выбор между вмж или удостоверение личности Казахстан?",
+   "audio_start_seconds": 285.264,
+   "audio_end_seconds": 288.864
+  },
+  {
+   "message_index": 62,
+   "timestamp_raw": "2026-11-03T15:33:11.9684347+00:00",
+   "offset_seconds": 303.189,
+   "speaker": "operator",
+   "text": "Да.",
+   "audio_start_seconds": 289.992,
+   "audio_end_seconds": 290.392
+  },
+  {
+   "message_index": 63,
+   "timestamp_raw": "2026-11-03T15:33:17.6674905+00:00",
+   "offset_seconds": 308.888,
+   "speaker": "client",
+   "text": "Вот есть вон ж оно выдано республикой Казахстан это айдикарда вид на жительство, а есть загранпаспорт, выданный республикой Кыргызстан.",
+   "audio_start_seconds": 290.392,
+   "audio_end_seconds": 295.691
+  },
+  {
+   "message_index": 64,
+   "timestamp_raw": "2026-11-03T15:33:18.7365009+00:00",
+   "offset_seconds": 309.957,
+   "speaker": "operator",
+   "text": "Да.",
+   "audio_start_seconds": 296.76,
+   "audio_end_seconds": 297.16
+  },
+  {
+   "message_index": 65,
+   "timestamp_raw": "2026-11-03T15:33:28.4818394+00:00",
+   "offset_seconds": 319.702,
+   "speaker": "client",
+   "text": "Вот когда мы регистрировались, лучше правильно будет указать Кыргызстан из заграничный паспорт правильно? Вот вам, наверное, обращаются часто с этим вопросом, у кого в н ж?",
+   "audio_start_seconds": 297.16,
+   "audio_end_seconds": 306.505
+  },
+  {
+   "message_index": 66,
+   "timestamp_raw": "2026-11-03T15:33:34.9669991+00:00",
+   "offset_seconds": 326.187,
+   "speaker": "operator",
+   "text": "Да, когда при регистрации тогда лучше будет крыну указать и паспорт.",
+   "audio_start_seconds": 312.99,
+   "audio_end_seconds": 317.39
+  },
+  {
+   "message_index": 67,
+   "timestamp_raw": "2026-11-03T15:33:40.0833924+00:00",
+   "offset_seconds": 331.304,
+   "speaker": "client",
+   "text": "Всё я понял, Спасибо большое. Я понял спасибо.",
+   "audio_start_seconds": 317.39,
+   "audio_end_seconds": 318.107
+  },
+  {
+   "message_index": 68,
+   "timestamp_raw": "2026-11-03T15:33:43.1228955+00:00",
+   "offset_seconds": 334.343,
+   "speaker": "operator",
+   "text": "А в бнж в нж это уже идёт как дополнительная резиденция, это у вас.",
+   "audio_start_seconds": 321.146,
+   "audio_end_seconds": 326.746
+  },
+  {
+   "message_index": 69,
+   "timestamp_raw": "2026-11-03T15:33:46.9438984+00:00",
+   "offset_seconds": 338.164,
+   "speaker": "client",
+   "text": "Да, это вид на жительство в Казахстане у супруги.",
+   "audio_start_seconds": 324.967,
+   "audio_end_seconds": 324.967
+  },
+  {
+   "message_index": 70,
+   "timestamp_raw": "2026-11-03T15:33:52.6592693+00:00",
+   "offset_seconds": 343.88,
+   "speaker": "operator",
+   "text": "Да, сперва указывайте свой паспорт и далее если желать уже можно добавить казахстанский.",
+   "audio_start_seconds": 330.683,
+   "audio_end_seconds": 335.883
+  },
+  {
+   "message_index": 71,
+   "timestamp_raw": "2026-11-03T15:33:58.5669295+00:00",
+   "offset_seconds": 349.787,
+   "speaker": "operator",
+   "text": "Мы благодарю вас за обращение.",
+   "audio_start_seconds": 336.59,
+   "audio_end_seconds": 338.59
+  },
+  {
+   "message_index": 72,
+   "timestamp_raw": "2026-11-03T15:33:59.0964705+00:00",
+   "offset_seconds": 350.317,
+   "speaker": "client",
+   "text": "Всё я понял спасибо вам огромное спасибо тогда завтра в 9 вас наберём.",
+   "audio_start_seconds": 337.12,
+   "audio_end_seconds": 337.12
+  },
+  {
+   "message_index": 73,
+   "timestamp_raw": "2026-11-03T15:34:00.2140555+00:00",
+   "offset_seconds": 351.434,
+   "speaker": "system",
+   "text": "Клиент завершил разговор.",
+   "audio_start_seconds": 338.237,
+   "audio_end_seconds": 338.237
+  },
+  {
+   "message_index": 74,
+   "timestamp_raw": "2026-11-03T15:34:00.6862747+00:00",
+   "offset_seconds": 351.907,
+   "speaker": "operator",
+   "text": "Да, в конце разговора присниматься не.",
+   "audio_start_seconds": 338.71,
+   "audio_end_seconds": 341.11
+  }
+ ]
+}

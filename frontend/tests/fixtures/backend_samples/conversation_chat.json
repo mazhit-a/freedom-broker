@@ -5,7 +5,7 @@
  "conversation_id": "p1-ru-001",
  "channel": "agent chat",
  "language": "RU",
- "audio_url": null,
+ "has_audio": false,
  "messages": [
   {
    "message_index": 0,

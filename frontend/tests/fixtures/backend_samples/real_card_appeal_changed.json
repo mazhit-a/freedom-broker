@@ -1,0 +1,23 @@
+{
+ "id": 23,
+ "evaluation_id": 61,
+ "criterion_id": "01",
+ "comment": "Оператор назвал порядок действий.",
+ "status": "resolved",
+ "created_at": "2026-11-07 15:42:55",
+ "author_role": "operator",
+ "review_started_at": "2026-11-07 15:42:55",
+ "review_started_by": "reviewer",
+ "message_refs": [
+  0,
+  2
+ ],
+ "decision": "change",
+ "new_answer": "yes",
+ "reason": "Оператор действительно назвал порядок действий.",
+ "decided_at": "2026-11-07 15:42:55",
+ "decided_by_role": "reviewer",
+ "total_before": 26.25,
+ "total_after": 38.75,
+ "display_status": "changed"
+}

@@ -1,0 +1,498 @@
+{
+ "id": 64,
+ "conversation_id": 64,
+ "checklist_version_id": 1,
+ "model": "claude-opus-5-5",
+ "prompt_version": "v1",
+ "status": "completed",
+ "total": 65.5,
+ "total_status": "calculated",
+ "provisional": false,
+ "gross_violation": false,
+ "tokens_input": 4424,
+ "tokens_output": 1997,
+ "tokens_cache_read": 2728,
+ "tokens_cache_write": 0,
+ "latency_ms": 18936,
+ "cost": 0.058182,
+ "created_at": "2026-11-07 10:55:57",
+ "run_id": null,
+ "criteria": [
+  {
+   "criterion_id": "01",
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "В первой реплике оператор поздоровался на языке клиента и назвал компанию, но своё имя не назвал, то есть не представился.",
+   "checked_range": {
+    "from": 16,
+    "to": 17
+   },
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Здравствуйте, чем могу вам помочь?"
+    }
+   ]
+  },
+  {
+   "criterion_id": "02",
+   "answer": "yes",
+   "points": 15.0,
+   "effective_points": 15.0,
+   "rationale": "Оператор уточнил номер телефона регистрации и имя клиента. По документам он переспросил, между чем выбирает клиент, и только после этого дал ответ.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 19,
+     "quote": "подскажете номер телефона, по которому регистрацию проходили?"
+    },
+    {
+     "message_index": 61,
+     "quote": "У вас выбор между вмж или удостоверение личности Казахстан?"
+    }
+   ]
+  },
+  {
+   "criterion_id": "03",
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "Оператор нашёл счёт по номеру телефона и обсуждал его удаление, то есть защищённое действие. Подтверждения личности клиента в разговоре нет.",
+   "checked_range": {
+    "from": 19,
+    "to": 48
+   },
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 21,
+     "quote": "Сейчас проверим."
+    },
+    {
+     "message_index": 48,
+     "quote": "Я не успею его удалить"
+    }
+   ]
+  },
+  {
+   "criterion_id": "04",
+   "answer": "20",
+   "points": 20.0,
+   "effective_points": 20.0,
+   "rationale": "Оператор дал понятный следующий шаг: выйти из приложения, завтра с 09:00 позвонить для удаления счёта и пройти регистрацию заново. На дополнительный вопрос он объяснил, что указывать паспорт Кыргызстана, а ВНЖ Казахстана добавлять дополнительно.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 43,
+     "quote": "вы можете обратиться к нам на линию, чтобы проверили, активен ли ваш прямой счет"
+    },
+    {
+     "message_index": 50,
+     "quote": "С 09:00."
+    },
+    {
+     "message_index": 70,
+     "quote": "сперва указывайте свой паспорт и далее если желать уже можно добавить казахстанский"
+    }
+   ]
+  },
+  {
+   "criterion_id": "05",
+   "answer": "yes",
+   "points": 15.0,
+   "effective_points": 15.0,
+   "rationale": "Оператор был вежлив и предупредил клиента о риске не успеть удалить счёт до конца рабочего времени. Недовольства клиент не выражал.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 48,
+     "quote": "вам лучше завтра на всякий случай позвонить нам сперва на линию и после уточнить"
+    }
+   ]
+  },
+  {
+   "criterion_id": "06",
+   "answer": "7",
+   "points": 10.5,
+   "effective_points": 10.5,
+   "rationale": "Часть формулировок путаная, например «Настройки и там не знаю выход да». В одном месте клиенту пришлось переспросить. В целом клиент понял, что делать, и смог продолжить разговор.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 32,
+     "quote": "Настройки и там не знаю выход да."
+    },
+    {
+     "message_index": 53,
+     "quote": "Что говорите?"
+    }
+   ]
+  },
+  {
+   "criterion_id": "07",
+   "answer": "yes",
+   "points": 5.0,
+   "effective_points": 5.0,
+   "rationale": "Оператор предложил помощь по остальным вопросам и завершил разговор благодарностью за обращение.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 54,
+     "quote": "У вас остались с тобой эти вопросы?"
+    },
+    {
+     "message_index": 71,
+     "quote": "благодарю вас за обращение"
+    }
+   ]
+  },
+  {
+   "criterion_id": "08",
+   "answer": "no",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации нет.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 66,
+     "quote": "Да, когда при регистрации тогда лучше будет крыну указать и паспорт."
+    }
+   ]
+  }
+ ],
+ "original": {
+  "total": 65.5,
+  "total_status": "calculated",
+  "provisional": false,
+  "gross_violation": false,
+  "criteria": [
+   {
+    "criterion_id": "01",
+    "answer": "no",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "rationale": "В первой реплике оператор поздоровался на языке клиента и назвал компанию, но своё имя не назвал, то есть не представился.",
+    "checked_range": {
+     "from": 16,
+     "to": 17
+    },
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 16,
+      "quote": "Здравствуйте, чем могу вам помочь?"
+     }
+    ]
+   },
+   {
+    "criterion_id": "02",
+    "answer": "yes",
+    "points": 15.0,
+    "effective_points": 15.0,
+    "rationale": "Оператор уточнил номер телефона регистрации и имя клиента. По документам он переспросил, между чем выбирает клиент, и только после этого дал ответ.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 19,
+      "quote": "подскажете номер телефона, по которому регистрацию проходили?"
+     },
+     {
+      "message_index": 61,
+      "quote": "У вас выбор между вмж или удостоверение личности Казахстан?"
+     }
+    ]
+   },
+   {
+    "criterion_id": "03",
+    "answer": "no",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "rationale": "Оператор нашёл счёт по номеру телефона и обсуждал его удаление, то есть защищённое действие. Подтверждения личности клиента в разговоре нет.",
+    "checked_range": {
+     "from": 19,
+     "to": 48
+    },
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 21,
+      "quote": "Сейчас проверим."
+     },
+     {
+      "message_index": 48,
+      "quote": "Я не успею его удалить"
+     }
+    ]
+   },
+   {
+    "criterion_id": "04",
+    "answer": "20",
+    "points": 20.0,
+    "effective_points": 20.0,
+    "rationale": "Оператор дал понятный следующий шаг: выйти из приложения, завтра с 09:00 позвонить для удаления счёта и пройти регистрацию заново. На дополнительный вопрос он объяснил, что указывать паспорт Кыргызстана, а ВНЖ Казахстана добавлять дополнительно.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 43,
+      "quote": "вы можете обратиться к нам на линию, чтобы проверили, активен ли ваш прямой счет"
+     },
+     {
+      "message_index": 50,
+      "quote": "С 09:00."
+     },
+     {
+      "message_index": 70,
+      "quote": "сперва указывайте свой паспорт и далее если желать уже можно добавить казахстанский"
+     }
+    ]
+   },
+   {
+    "criterion_id": "05",
+    "answer": "yes",
+    "points": 15.0,
+    "effective_points": 15.0,
+    "rationale": "Оператор был вежлив и предупредил клиента о риске не успеть удалить счёт до конца рабочего времени. Недовольства клиент не выражал.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 48,
+      "quote": "вам лучше завтра на всякий случай позвонить нам сперва на линию и после уточнить"
+     }
+    ]
+   },
+   {
+    "criterion_id": "06",
+    "answer": "7",
+    "points": 10.5,
+    "effective_points": 10.5,
+    "rationale": "Часть формулировок путаная, например «Настройки и там не знаю выход да». В одном месте клиенту пришлось переспросить. В целом клиент понял, что делать, и смог продолжить разговор.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 32,
+      "quote": "Настройки и там не знаю выход да."
+     },
+     {
+      "message_index": 53,
+      "quote": "Что говорите?"
+     }
+    ]
+   },
+   {
+    "criterion_id": "07",
+    "answer": "yes",
+    "points": 5.0,
+    "effective_points": 5.0,
+    "rationale": "Оператор предложил помощь по остальным вопросам и завершил разговор благодарностью за обращение.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 54,
+      "quote": "У вас остались с тобой эти вопросы?"
+     },
+     {
+      "message_index": 71,
+      "quote": "благодарю вас за обращение"
+     }
+    ]
+   },
+   {
+    "criterion_id": "08",
+    "answer": "no",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации нет.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 66,
+      "quote": "Да, когда при регистрации тогда лучше будет крыну указать и паспорт."
+     }
+    ]
+   }
+  ]
+ },
+ "appeals": [],
+ "appeal_deadline": "2026-11-13 10:55:57",
+ "appeal_window_workdays": 5,
+ "decisions": [],
+ "appealed_criteria": [],
+ "model_label": "claude-opus-5-5",
+ "occurred_at": "2026-11-03T15:28:08.7797579+00:00",
+ "duration_seconds": 351.91,
+ "confidence": {
+  "level": "high",
+  "with_rationale": 8,
+  "total": 8
+ },
+ "display_appeal_status": "none",
+ "final_total": 65.5,
+ "total_changed": false,
+ "final": {
+  "total": 65.5,
+  "calculated": true,
+  "reason": null,
+  "provisional": false,
+  "gross_violation": false,
+  "changed": false,
+  "criteria": [
+   {
+    "criterion_id": "01",
+    "answer": "no",
+    "status": "answered",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "overridden": false,
+    "original_answer": "no",
+    "original_points": 0.0,
+    "original_effective_points": 0.0
+   },
+   {
+    "criterion_id": "02",
+    "answer": "yes",
+    "status": "answered",
+    "points": 15.0,
+    "effective_points": 15.0,
+    "overridden": false,
+    "original_answer": "yes",
+    "original_points": 15.0,
+    "original_effective_points": 15.0
+   },
+   {
+    "criterion_id": "03",
+    "answer": "no",
+    "status": "answered",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "overridden": false,
+    "original_answer": "no",
+    "original_points": 0.0,
+    "original_effective_points": 0.0
+   },
+   {
+    "criterion_id": "04",
+    "answer": 20,
+    "status": "answered",
+    "points": 20.0,
+    "effective_points": 20.0,
+    "overridden": false,
+    "original_answer": "20",
+    "original_points": 20.0,
+    "original_effective_points": 20.0
+   },
+   {
+    "criterion_id": "05",
+    "answer": "yes",
+    "status": "answered",
+    "points": 15.0,
+    "effective_points": 15.0,
+    "overridden": false,
+    "original_answer": "yes",
+    "original_points": 15.0,
+    "original_effective_points": 15.0
+   },
+   {
+    "criterion_id": "06",
+    "answer": 7,
+    "status": "answered",
+    "points": 10.5,
+    "effective_points": 10.5,
+    "overridden": false,
+    "original_answer": "7",
+    "original_points": 10.5,
+    "original_effective_points": 10.5
+   },
+   {
+    "criterion_id": "07",
+    "answer": "yes",
+    "status": "answered",
+    "points": 5.0,
+    "effective_points": 5.0,
+    "overridden": false,
+    "original_answer": "yes",
+    "original_points": 5.0,
+    "original_effective_points": 5.0
+   },
+   {
+    "criterion_id": "08",
+    "answer": "no",
+    "status": "answered",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "no",
+    "original_points": null,
+    "original_effective_points": null
+   }
+  ],
+  "sections": [
+   {
+    "id": "opening",
+    "title": "Opening & understanding",
+    "earned": 15.0,
+    "applicable_max": 25.0,
+    "percent": 60.0,
+    "effective_points": 15.0,
+    "effective_max": 25.0
+   },
+   {
+    "id": "security",
+    "title": "Security & resolution",
+    "earned": 20.0,
+    "applicable_max": 40.0,
+    "percent": 50.0,
+    "effective_points": 20.0,
+    "effective_max": 40.0
+   },
+   {
+    "id": "conduct",
+    "title": "Conduct & closing",
+    "earned": 30.5,
+    "applicable_max": 35.0,
+    "percent": 87.14,
+    "effective_points": 30.5,
+    "effective_max": 35.0
+   },
+   {
+    "id": "gross",
+    "title": "Gross violations",
+    "earned": null,
+    "applicable_max": 0.0,
+    "percent": null,
+    "effective_points": null,
+    "effective_max": 0.0
+   }
+  ]
+ }
+}

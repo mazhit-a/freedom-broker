@@ -52,6 +52,7 @@ const STYLES = `${SHARED_CSS}${LEDGER_CSS}${HISTORY_CSS}${CALL_CSS}${APPEAL_CSS}
 .msg.is-sel { box-shadow: 0 0 0 2px var(--cqa-brand); }
 .msg-system.is-sel { box-shadow: 0 0 0 2px var(--cqa-brand); }
 .msg-system { display: inline-flex; gap: 8px; align-items: center; }
+.msg-system .ts { flex: none; white-space: nowrap; }
 .msg-head { align-items: center; gap: 8px; }
 .msg-text { margin: 4px 0 0; font-size: var(--cqa-fs-14); line-height: 1.5; text-wrap: pretty; white-space: pre-wrap; }
 .ts { border: 0; background: transparent; padding: 0 2px; font: 500 var(--cqa-fs-12) var(--cqa-font); font-variant-numeric: tabular-nums; color: var(--cqa-ink-3); cursor: pointer; border-radius: 4px; text-decoration: underline dotted; text-underline-offset: 3px; }

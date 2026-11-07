@@ -3,7 +3,7 @@ import { html } from "../base-element.js";
 import { EVENTS, emit } from "../events.js";
 import { captureFocus, restoreFocus } from "../focus.js";
 import { date, number } from "../format.js";
-import { can } from "../roles.js";
+import { can, wireRole } from "../roles.js";
 import { CARD_EVENTS, wallClock } from "./card-model.js";
 import { openAppeals } from "./card-history.js";
 import { allowedAnswers, answerValue, candidateIds, defaultNewAnswer, errorText, fragmentFor, isCommentValid, previewTotals, refChips } from "./appeal-model.js";
@@ -193,7 +193,7 @@ export class AppealFlow {
     this.error = null;
     this.syncDrawer();
     try {
-      const appeal = await api.submitAppeal(ev.id, id, { comment: this.comment.trim(), refs: this.refs.slice() });
+      const appeal = await api.submitAppeal(ev.id, id, { comment: this.comment.trim(), refs: this.refs.slice(), role: wireRole(host.role) });
       await this.refresh();
       this.isOpen = false;
       this.busy = false;
@@ -318,7 +318,7 @@ export class AppealFlow {
     state.error = null;
     host.renderNow();
     try {
-      await api.startReview(id);
+      await api.startReview(id, { role: wireRole(host.role) });
       await this.refresh();
       state.busy = false;
       host.renderNow();
@@ -345,7 +345,8 @@ export class AppealFlow {
       const result = await api.decideAppeal(id, {
         decision: state.decision,
         newAnswer: change ? state.newAnswer : null,
-        reason: state.reason.trim()
+        reason: state.reason.trim(),
+        role: wireRole(host.role)
       });
       await this.refresh();
       this.panels.delete(id);

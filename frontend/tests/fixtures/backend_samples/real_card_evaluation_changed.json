@@ -1,0 +1,524 @@
+{
+ "id": 61,
+ "conversation_id": 60,
+ "checklist_version_id": 1,
+ "model": "claude-opus-5-5",
+ "prompt_version": "v1",
+ "status": "completed",
+ "total": 26.25,
+ "total_status": "calculated",
+ "provisional": false,
+ "gross_violation": false,
+ "tokens_input": 2240,
+ "tokens_output": 1259,
+ "tokens_cache_read": 5456,
+ "tokens_cache_write": 0,
+ "latency_ms": 12175,
+ "cost": 0.035232,
+ "created_at": "2026-11-07 10:55:38",
+ "run_id": null,
+ "criteria": [
+  {
+   "criterion_id": "01",
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "В первом ответе оператор не поздоровался и не представился, сразу дал инструкцию. Приветствие бота не засчитывается.",
+   "checked_range": {
+    "from": 9,
+    "to": 9
+   },
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Open settings then go back and log in again."
+    }
+   ]
+  },
+  {
+   "criterion_id": "02",
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "Оператор не уточнил, где клиент пытается войти (приложение или сайт) и в чём проблема, а сразу дал неподходящую инструкцию. Клиенту пришлось самому пояснять ситуацию.",
+   "checked_range": {
+    "from": 9,
+    "to": 11
+   },
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Open settings then go back and log in again."
+    },
+    {
+     "message_index": 10,
+     "quote": "Settings where? I'm on the company website and there's no login."
+    }
+   ]
+  },
+  {
+   "criterion_id": "03",
+   "answer": "na",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Оператор дал общую инструкцию по входу. Данные клиента не раскрывались, защищённые действия не выполнялись.",
+   "checked_range": null,
+   "na_reason": "Запрос касался общей инструкции по входу на платформу и не требовал верификации личности.",
+   "needs_review": false,
+   "evidence": []
+  },
+  {
+   "criterion_id": "04",
+   "answer": "15",
+   "points": 15.0,
+   "effective_points": 18.75,
+   "rationale": "Основная проблема решена: оператор направил клиента на tradernet.global, и клиент вошёл. Однако первая инструкция была неверной, что потребовало дополнительного обмена.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Go to tradernet.global and sign in there."
+    },
+    {
+     "message_index": 12,
+     "quote": "That worked."
+    }
+   ]
+  },
+  {
+   "criterion_id": "05",
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "Общение сухое: нет приветствия, нет вежливых формулировок, прощание одним словом. Оператор не выразил сожаления из-за неудобства клиента и не извинился за неверную первую инструкцию.",
+   "checked_range": {
+    "from": 9,
+    "to": 13
+   },
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Oh, that site is just for information."
+    },
+    {
+     "message_index": 13,
+     "quote": "Bye."
+    }
+   ]
+  },
+  {
+   "criterion_id": "06",
+   "answer": "4",
+   "points": 6.0,
+   "effective_points": 7.5,
+   "rationale": "Первая инструкция была неясной и не подходила к ситуации клиента. Клиенту пришлось переспрашивать, где находятся настройки.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Settings where?"
+    }
+   ]
+  },
+  {
+   "criterion_id": "07",
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "Оператор попрощался, но не подвёл итог и не предложил дополнительную помощь.",
+   "checked_range": {
+    "from": 12,
+    "to": 13
+   },
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Bye."
+    }
+   ]
+  },
+  {
+   "criterion_id": "08",
+   "answer": "no",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации нет.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Go to tradernet.global and sign in there."
+    }
+   ]
+  }
+ ],
+ "original": {
+  "total": 26.25,
+  "total_status": "calculated",
+  "provisional": false,
+  "gross_violation": false,
+  "criteria": [
+   {
+    "criterion_id": "01",
+    "answer": "no",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "rationale": "В первом ответе оператор не поздоровался и не представился, сразу дал инструкцию. Приветствие бота не засчитывается.",
+    "checked_range": {
+     "from": 9,
+     "to": 9
+    },
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Open settings then go back and log in again."
+     }
+    ]
+   },
+   {
+    "criterion_id": "02",
+    "answer": "no",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "rationale": "Оператор не уточнил, где клиент пытается войти (приложение или сайт) и в чём проблема, а сразу дал неподходящую инструкцию. Клиенту пришлось самому пояснять ситуацию.",
+    "checked_range": {
+     "from": 9,
+     "to": 11
+    },
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Open settings then go back and log in again."
+     },
+     {
+      "message_index": 10,
+      "quote": "Settings where? I'm on the company website and there's no login."
+     }
+    ]
+   },
+   {
+    "criterion_id": "03",
+    "answer": "na",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Оператор дал общую инструкцию по входу. Данные клиента не раскрывались, защищённые действия не выполнялись.",
+    "checked_range": null,
+    "na_reason": "Запрос касался общей инструкции по входу на платформу и не требовал верификации личности.",
+    "needs_review": false,
+    "evidence": []
+   },
+   {
+    "criterion_id": "04",
+    "answer": "15",
+    "points": 15.0,
+    "effective_points": 18.75,
+    "rationale": "Основная проблема решена: оператор направил клиента на tradernet.global, и клиент вошёл. Однако первая инструкция была неверной, что потребовало дополнительного обмена.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 11,
+      "quote": "Go to tradernet.global and sign in there."
+     },
+     {
+      "message_index": 12,
+      "quote": "That worked."
+     }
+    ]
+   },
+   {
+    "criterion_id": "05",
+    "answer": "no",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "rationale": "Общение сухое: нет приветствия, нет вежливых формулировок, прощание одним словом. Оператор не выразил сожаления из-за неудобства клиента и не извинился за неверную первую инструкцию.",
+    "checked_range": {
+     "from": 9,
+     "to": 13
+    },
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 11,
+      "quote": "Oh, that site is just for information."
+     },
+     {
+      "message_index": 13,
+      "quote": "Bye."
+     }
+    ]
+   },
+   {
+    "criterion_id": "06",
+    "answer": "4",
+    "points": 6.0,
+    "effective_points": 7.5,
+    "rationale": "Первая инструкция была неясной и не подходила к ситуации клиента. Клиенту пришлось переспрашивать, где находятся настройки.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 10,
+      "quote": "Settings where?"
+     }
+    ]
+   },
+   {
+    "criterion_id": "07",
+    "answer": "no",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "rationale": "Оператор попрощался, но не подвёл итог и не предложил дополнительную помощь.",
+    "checked_range": {
+     "from": 12,
+     "to": 13
+    },
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 13,
+      "quote": "Bye."
+     }
+    ]
+   },
+   {
+    "criterion_id": "08",
+    "answer": "no",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации нет.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 11,
+      "quote": "Go to tradernet.global and sign in there."
+     }
+    ]
+   }
+  ]
+ },
+ "appeals": [
+  {
+   "id": 23,
+   "evaluation_id": 61,
+   "criterion_id": "01",
+   "comment": "Оператор назвал порядок действий.",
+   "status": "resolved",
+   "created_at": "2026-11-07 15:42:55",
+   "author_role": "operator",
+   "review_started_at": "2026-11-07 15:42:55",
+   "review_started_by": "reviewer",
+   "message_refs": [
+    0,
+    2
+   ],
+   "decision": "change",
+   "new_answer": "yes",
+   "reason": "Оператор действительно назвал порядок действий.",
+   "decided_at": "2026-11-07 15:42:55",
+   "decided_by_role": "reviewer",
+   "total_before": 26.25,
+   "total_after": 38.75,
+   "display_status": "changed"
+  }
+ ],
+ "appeal_deadline": "2026-11-13 10:55:38",
+ "appeal_window_workdays": 5,
+ "decisions": [
+  {
+   "id": 23,
+   "evaluation_id": 61,
+   "criterion_id": "01",
+   "comment": "Оператор назвал порядок действий.",
+   "status": "resolved",
+   "created_at": "2026-11-07 15:42:55",
+   "author_role": "operator",
+   "review_started_at": "2026-11-07 15:42:55",
+   "review_started_by": "reviewer",
+   "message_refs": [
+    0,
+    2
+   ],
+   "decision": "change",
+   "new_answer": "yes",
+   "reason": "Оператор действительно назвал порядок действий.",
+   "decided_at": "2026-11-07 15:42:55",
+   "decided_by_role": "reviewer",
+   "total_before": 26.25,
+   "total_after": 38.75,
+   "display_status": "changed"
+  }
+ ],
+ "appealed_criteria": [],
+ "model_label": "claude-opus-5-5",
+ "occurred_at": null,
+ "duration_seconds": 246.0,
+ "confidence": {
+  "level": "high",
+  "with_rationale": 8,
+  "total": 8
+ },
+ "display_appeal_status": "changed",
+ "final_total": 38.75,
+ "total_changed": true,
+ "final": {
+  "total": 38.75,
+  "calculated": true,
+  "reason": null,
+  "provisional": false,
+  "gross_violation": false,
+  "changed": true,
+  "criteria": [
+   {
+    "criterion_id": "01",
+    "answer": "yes",
+    "status": "answered",
+    "points": 10.0,
+    "effective_points": 12.5,
+    "overridden": true,
+    "original_answer": "no",
+    "original_points": 0.0,
+    "original_effective_points": 0.0
+   },
+   {
+    "criterion_id": "02",
+    "answer": "no",
+    "status": "answered",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "overridden": false,
+    "original_answer": "no",
+    "original_points": 0.0,
+    "original_effective_points": 0.0
+   },
+   {
+    "criterion_id": "03",
+    "answer": "na",
+    "status": "na",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "na",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "04",
+    "answer": 15,
+    "status": "answered",
+    "points": 15.0,
+    "effective_points": 18.75,
+    "overridden": false,
+    "original_answer": "15",
+    "original_points": 15.0,
+    "original_effective_points": 18.75
+   },
+   {
+    "criterion_id": "05",
+    "answer": "no",
+    "status": "answered",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "overridden": false,
+    "original_answer": "no",
+    "original_points": 0.0,
+    "original_effective_points": 0.0
+   },
+   {
+    "criterion_id": "06",
+    "answer": 4,
+    "status": "answered",
+    "points": 6.0,
+    "effective_points": 7.5,
+    "overridden": false,
+    "original_answer": "4",
+    "original_points": 6.0,
+    "original_effective_points": 7.5
+   },
+   {
+    "criterion_id": "07",
+    "answer": "no",
+    "status": "answered",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "overridden": false,
+    "original_answer": "no",
+    "original_points": 0.0,
+    "original_effective_points": 0.0
+   },
+   {
+    "criterion_id": "08",
+    "answer": "no",
+    "status": "answered",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "no",
+    "original_points": null,
+    "original_effective_points": null
+   }
+  ],
+  "sections": [
+   {
+    "id": "opening",
+    "title": "Opening & understanding",
+    "earned": 10.0,
+    "applicable_max": 25.0,
+    "percent": 40.0,
+    "effective_points": 12.5,
+    "effective_max": 31.25
+   },
+   {
+    "id": "security",
+    "title": "Security & resolution",
+    "earned": 15.0,
+    "applicable_max": 20.0,
+    "percent": 75.0,
+    "effective_points": 18.75,
+    "effective_max": 25.0
+   },
+   {
+    "id": "conduct",
+    "title": "Conduct & closing",
+    "earned": 6.0,
+    "applicable_max": 35.0,
+    "percent": 17.14,
+    "effective_points": 7.5,
+    "effective_max": 43.75
+   },
+   {
+    "id": "gross",
+    "title": "Gross violations",
+    "earned": null,
+    "applicable_max": 0.0,
+    "percent": null,
+    "effective_points": null,
+    "effective_max": 0.0
+   }
+  ]
+ }
+}

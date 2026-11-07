@@ -275,14 +275,14 @@ const real = {
     const raw = await sendJson("POST", "/evaluations/" + encodeURIComponent(evaluationId) + "/appeals", {
       criterion_id: criterionId,
       comment: body.comment,
-      role: "operator",
+      role: body.role === undefined ? "operator" : body.role,
       message_refs: refs
     });
     return mapAppeal(raw);
   },
 
-  async startReview(appealId) {
-    const raw = await sendJson("POST", "/appeals/" + encodeURIComponent(appealId) + "/start-review", { role: "reviewer" });
+  async startReview(appealId, options = {}) {
+    const raw = await sendJson("POST", "/appeals/" + encodeURIComponent(appealId) + "/start-review", { role: options.role === undefined ? "reviewer" : options.role });
     return mapAppeal(raw);
   },
 
@@ -291,7 +291,7 @@ const real = {
       decision: body.decision,
       new_answer: body.newAnswer === undefined || body.newAnswer === null ? null : wireAnswer(body.newAnswer),
       reason: body.reason,
-      role: "reviewer"
+      role: body.role === undefined ? "reviewer" : body.role
     });
     return mapAppeal(raw);
   },

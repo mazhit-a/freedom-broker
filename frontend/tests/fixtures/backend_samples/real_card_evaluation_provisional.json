@@ -1,0 +1,358 @@
+{
+ "id": 82,
+ "conversation_id": 4,
+ "checklist_version_id": 1,
+ "model": "claude-opus-5-5",
+ "prompt_version": "v1",
+ "status": "needs_review",
+ "total": null,
+ "total_status": "not_calculated",
+ "provisional": true,
+ "gross_violation": false,
+ "tokens_input": 20,
+ "tokens_output": 10,
+ "tokens_cache_read": 0,
+ "tokens_cache_write": 0,
+ "latency_ms": 0,
+ "cost": 0.00028,
+ "created_at": "2026-11-07 14:32:48",
+ "run_id": null,
+ "criteria": [
+  {
+   "criterion_id": "01",
+   "answer": "needs_review",
+   "points": null,
+   "effective_points": null,
+   "rationale": "criterion 01: quote not found in message 3: 'меня зовут Анна'",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": true,
+   "evidence": []
+  },
+  {
+   "criterion_id": "02",
+   "answer": "needs_review",
+   "points": null,
+   "effective_points": null,
+   "rationale": "criterion 02: quote not found in message 5: 'подать заявку в приложении'",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": true,
+   "evidence": []
+  },
+  {
+   "criterion_id": "03",
+   "answer": "na",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Идентификация не требовалась.",
+   "checked_range": null,
+   "na_reason": "Общий вопрос, проверка личности не нужна.",
+   "needs_review": false,
+   "evidence": []
+  },
+  {
+   "criterion_id": "04",
+   "answer": "needs_review",
+   "points": null,
+   "effective_points": null,
+   "rationale": "criterion 04: quote not found in message 5: 'подать заявку'",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": true,
+   "evidence": []
+  },
+  {
+   "criterion_id": "05",
+   "answer": "needs_review",
+   "points": null,
+   "effective_points": null,
+   "rationale": "criterion 05: quote not found in message 5: 'я подскажу шаги'",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": true,
+   "evidence": []
+  },
+  {
+   "criterion_id": "06",
+   "answer": "needs_review",
+   "points": null,
+   "effective_points": null,
+   "rationale": "criterion 06: quote not found in message 5: 'я подскажу шаги'",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": true,
+   "evidence": []
+  },
+  {
+   "criterion_id": "07",
+   "answer": "needs_review",
+   "points": null,
+   "effective_points": null,
+   "rationale": "criterion 07: quote not found in message 7: 'до свидания'",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": true,
+   "evidence": []
+  },
+  {
+   "criterion_id": "08",
+   "answer": "no",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Грубых нарушений нет.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": []
+  }
+ ],
+ "original": {
+  "total": null,
+  "total_status": "not_calculated",
+  "provisional": true,
+  "gross_violation": false,
+  "criteria": [
+   {
+    "criterion_id": "01",
+    "answer": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "rationale": "criterion 01: quote not found in message 3: 'меня зовут Анна'",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": true,
+    "evidence": []
+   },
+   {
+    "criterion_id": "02",
+    "answer": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "rationale": "criterion 02: quote not found in message 5: 'подать заявку в приложении'",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": true,
+    "evidence": []
+   },
+   {
+    "criterion_id": "03",
+    "answer": "na",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Идентификация не требовалась.",
+    "checked_range": null,
+    "na_reason": "Общий вопрос, проверка личности не нужна.",
+    "needs_review": false,
+    "evidence": []
+   },
+   {
+    "criterion_id": "04",
+    "answer": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "rationale": "criterion 04: quote not found in message 5: 'подать заявку'",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": true,
+    "evidence": []
+   },
+   {
+    "criterion_id": "05",
+    "answer": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "rationale": "criterion 05: quote not found in message 5: 'я подскажу шаги'",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": true,
+    "evidence": []
+   },
+   {
+    "criterion_id": "06",
+    "answer": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "rationale": "criterion 06: quote not found in message 5: 'я подскажу шаги'",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": true,
+    "evidence": []
+   },
+   {
+    "criterion_id": "07",
+    "answer": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "rationale": "criterion 07: quote not found in message 7: 'до свидания'",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": true,
+    "evidence": []
+   },
+   {
+    "criterion_id": "08",
+    "answer": "no",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Грубых нарушений нет.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": []
+   }
+  ]
+ },
+ "appeals": [],
+ "appeal_deadline": "2026-11-13 14:32:48",
+ "appeal_window_workdays": 5,
+ "decisions": [],
+ "appealed_criteria": [],
+ "model_label": "claude-opus-5-5",
+ "occurred_at": null,
+ "duration_seconds": 261.0,
+ "confidence": {
+  "level": "low",
+  "with_rationale": 8,
+  "total": 8
+ },
+ "display_appeal_status": "none",
+ "final_total": null,
+ "total_changed": false,
+ "final": {
+  "total": null,
+  "calculated": false,
+  "reason": "all weighted criteria are N/A or awaiting review",
+  "provisional": true,
+  "gross_violation": false,
+  "changed": false,
+  "criteria": [
+   {
+    "criterion_id": "01",
+    "answer": null,
+    "status": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "needs_review",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "02",
+    "answer": null,
+    "status": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "needs_review",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "03",
+    "answer": "na",
+    "status": "na",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "na",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "04",
+    "answer": null,
+    "status": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "needs_review",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "05",
+    "answer": null,
+    "status": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "needs_review",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "06",
+    "answer": null,
+    "status": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "needs_review",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "07",
+    "answer": null,
+    "status": "needs_review",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "needs_review",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "08",
+    "answer": "no",
+    "status": "answered",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "no",
+    "original_points": null,
+    "original_effective_points": null
+   }
+  ],
+  "sections": [
+   {
+    "id": "opening",
+    "title": "Opening & understanding",
+    "earned": null,
+    "applicable_max": 0.0,
+    "percent": null,
+    "effective_points": null,
+    "effective_max": 0.0
+   },
+   {
+    "id": "security",
+    "title": "Security & resolution",
+    "earned": null,
+    "applicable_max": 0.0,
+    "percent": null,
+    "effective_points": null,
+    "effective_max": 0.0
+   },
+   {
+    "id": "conduct",
+    "title": "Conduct & closing",
+    "earned": null,
+    "applicable_max": 0.0,
+    "percent": null,
+    "effective_points": null,
+    "effective_max": 0.0
+   },
+   {
+    "id": "gross",
+    "title": "Gross violations",
+    "earned": null,
+    "applicable_max": 0.0,
+    "percent": null,
+    "effective_points": null,
+    "effective_max": 0.0
+   }
+  ]
+ }
+}

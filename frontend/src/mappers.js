@@ -64,7 +64,7 @@ export function mapConversation(raw) {
     channelRaw: raw.channel ?? null,
     language: raw.language ?? null,
     operator: OPERATOR_LABEL,
-    hasAudio: Boolean(raw.audio_url) || Boolean(raw.has_audio),
+    hasAudio: Boolean(raw.has_audio),
     occurredAt: raw.occurred_at ?? null,
     durationSeconds: raw.duration_seconds ?? null,
     messages
@@ -198,7 +198,7 @@ export function mapAppeal(raw, extra = {}) {
     newAnswer: raw.new_answer === null || raw.new_answer === undefined ? null : mapAnswer(raw.new_answer),
     reason: raw.reason ?? null,
     decidedAt: raw.decided_at ?? null,
-    decidedBy: raw.decided_by_role ? REVIEWER_LABEL : null,
+    decidedBy: raw.decided_by_role || raw.decision ? REVIEWER_LABEL : null,
     totalBefore: raw.total_before ?? null,
     totalAfter: raw.total_after ?? null,
     original: original

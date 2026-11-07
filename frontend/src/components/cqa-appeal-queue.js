@@ -2,7 +2,7 @@ import { CqaElement, html, raw } from "../base-element.js";
 import { api, ensureConfigured } from "../api.js";
 import { EVENTS, emit } from "../events.js";
 import { number } from "../format.js";
-import { can } from "../roles.js";
+import { can, wireRole } from "../roles.js";
 import { SHARED_CSS } from "../shared/styles.js";
 import { langChip, statusChip } from "../shared/chip.js";
 import { emptyPanel, errorPanel, loadingPanel } from "../shared/state-panel.js";
@@ -187,7 +187,15 @@ export class CqaAppealQueue extends CqaElement {
     this._evals.set(id, { status: "loading", ev: null });
     try {
       const ev = await api.getEvaluationById(appeal.evaluationId);
-      this._evals.set(id, { status: "ok", ev });
+      let messages = [];
+      if (appeal.refs.some((r) => !appeal.fragment.some((f) => f.index === r.index))) {
+        try {
+          messages = (await api.getConversation(appeal.conversationPk ?? appeal.conversationId)).messages;
+        } catch (error) {
+          messages = [];
+        }
+      }
+      this._evals.set(id, { status: "ok", ev, messages });
     } catch (error) {
       this._evals.set(id, { status: "error", ev: null });
     }
@@ -265,7 +273,7 @@ export class CqaAppealQueue extends CqaElement {
       if (max !== null && max !== undefined) pts = this.t("queue.pts", { earned: number(original.effPoints, locale), max: number(max, locale) });
     }
     const times = appeal.refs.map((r) => {
-      const frag = appeal.fragment.find((f) => f.index === r.index);
+      const frag = appeal.fragment.find((f) => f.index === r.index) || (entry.messages || []).find((f) => f.index === r.index);
       return frag && frag.time ? frag.time : `#${r.n}`;
     });
     const refsText = times.length ? this.t("review.refs", { list: times.join(", ") }) : this.t("review.refsNone");
@@ -382,7 +390,7 @@ export class CqaAppealQueue extends CqaElement {
     this._busyStart.add(id);
     this.renderNow();
     try {
-      await api.startReview(id);
+      await api.startReview(id, { role: wireRole(this.role) });
       this._busyStart.delete(id);
       await this.refreshList();
       this.toast(this.t("review.started"), "ok");
@@ -408,7 +416,8 @@ export class CqaAppealQueue extends CqaElement {
       const result = await api.decideAppeal(id, {
         decision: state.decision,
         newAnswer: change ? state.newAnswer : null,
-        reason: state.reason.trim()
+        reason: state.reason.trim(),
+        role: wireRole(this.role)
       });
       const decision = state.decision;
       this._panels.delete(id);

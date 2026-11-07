@@ -589,13 +589,15 @@ async function main() {
     cdp.on("Log.entryAdded", (p) => {
       if (p.entry.level === "error") consoleErrors.push(`${p.entry.text} ${p.entry.url || ""}`.trim());
     });
+    const urlById = new Map();
     cdp.on("Network.requestWillBeSent", (p) => {
       const url = p.request.url;
+      urlById.set(p.requestId, url);
       if (url.startsWith("data:") || url.startsWith("about:")) return;
       requests.push(url);
       if (!url.startsWith(origin) && !url.startsWith("http://localhost")) external.push(url);
     });
-    cdp.on("Network.loadingFailed", (p) => failed.push(`${p.errorText} ${p.requestId}`));
+    cdp.on("Network.loadingFailed", (p) => failed.push(`${p.errorText} ${urlById.get(p.requestId) || p.requestId}`));
     await cdp.send("Page.enable");
     await cdp.send("Runtime.enable");
     await cdp.send("Log.enable");
@@ -618,10 +620,14 @@ async function main() {
         });
         await cdp.send("Page.navigate", { url: args.url });
         const allowedConsole = [];
+        const allowedExternal = [];
         const page = {
           requests,
           allowConsole(pattern) {
             allowedConsole.push(pattern);
+          },
+          allowExternal(pattern) {
+            allowedExternal.push(pattern);
           },
           assert(cond, message) {
             if (!cond) problems.push(`assertion failed: ${message}`);
@@ -689,8 +695,10 @@ async function main() {
           page.assert(overflow.sw <= overflow.iw, `no horizontal overflow (scrollWidth ${overflow.sw} > ${overflow.iw})`);
           const unexpected = consoleErrors.filter((m) => !allowedConsole.some((re) => re.test(m)));
           page.assert(unexpected.length === 0, `console errors: ${unexpected.join(" | ")}`);
-          page.assert(external.length === 0, `requests left the origin: ${external.join(", ")}`);
-          page.assert(failed.length === 0, `failed requests: ${failed.join(", ")}`);
+          const leaked = external.filter((u) => !allowedExternal.some((re) => re.test(u)));
+          page.assert(leaked.length === 0, `requests left the origin: ${leaked.join(", ")}`);
+          const broken = failed.filter((u) => !allowedExternal.some((re) => re.test(u)));
+          page.assert(broken.length === 0, `failed requests: ${broken.join(", ")}`);
         } catch (error) {
           problems.push(`exception: ${error.message}`);
         }
