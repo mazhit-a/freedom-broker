@@ -64,7 +64,7 @@ const saveOff = (page) => page.eval(`cqaDeep(${JSON.stringify(`${B} >>> [data-ac
 const rowWeight = (key) => `${B} >>> [data-field=row-weight][data-key=${key}]`;
 const nums = (page) => texts(page, `${B} >>> [data-row] .nm`);
 
-export const scenarios = {
+const raw = {
   async builder(page) {
     await open(page, "role=reviewer");
     page.assert((await text(page, `${B} >>> h1`)) === "Чек-лист качества чатов", "title is the checklist name");
@@ -303,3 +303,18 @@ export const scenarios = {
     await page.assertAccessibleNames();
   }
 };
+
+const CLEAR = `(() => { const b = cqaDeep("cqa-app >>> cqa-checklist-builder")[0]; if (b) b._dirty = false; return true; })()`;
+
+export const scenarios = Object.fromEntries(
+  Object.entries(raw).map(([name, fn]) => [
+    name,
+    async (page, ...rest) => {
+      try {
+        return await fn(page, ...rest);
+      } finally {
+        await page.eval(CLEAR).catch(() => null);
+      }
+    }
+  ])
+);

@@ -1,20 +1,23 @@
 import { CqaElement, html } from "../base-element.js";
 import { api } from "../api.js";
 import { EVENTS, emit, navigate } from "../events.js";
+import { integer } from "../format.js";
 import { can } from "../roles.js";
 import { SHARED_CSS } from "../shared/styles.js";
 import { emptyPanel, errorPanel, loadingPanel } from "../shared/state-panel.js";
 import { addCriterion, changedCount, createDraft, moveCriterion, removeCriterion, reset, setNaCondition, setType, toConfig } from "./builder-model.js";
 import { validate } from "./builder-validate.js";
 import { computePreview } from "./builder-preview.js";
-import { alertBox, editor, preview, sidebar, structure, topBar } from "./builder-views.js";
+import { alertBox, channelKind, editor, preview, sidebar, structure, topBar } from "./builder-views.js";
 
 export const BUILDER_EVENTS = Object.freeze({
-  saveRequest: "cqa:builder-save-request",
-  applyRequest: "cqa:builder-apply-request",
-  duplicateRequest: "cqa:builder-duplicate-request",
-  change: "cqa:builder-change"
+  change: "cqa:builder-change",
+  saved: "cqa:builder-saved",
+  applied: "cqa:builder-applied"
 });
+
+const KNOWN_ERRORS = new Set(["role_forbidden", "draft_version", "dataset_required", "not_implemented", "http_409", "http_404"]);
+const CHANNEL_RAW = { chat: "agent chat", call: "voice call" };
 
 const REGIONS = ["bar", "alert", "structure", "editor", "preview", "side"];
 
@@ -37,6 +40,10 @@ const CSS = `${SHARED_CSS}
   .sum-warn { background: var(--cqa-warn-bg); color: var(--cqa-warn); }
   .sum-bad { background: var(--cqa-bad-bg); color: var(--cqa-bad); }
   .actions { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+  .chans { border: 0; margin: 0; padding: 4px 12px 8px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .chans legend { padding: 0; }
+  .chan { display: flex; align-items: center; gap: 8px; font-size: var(--cqa-fs-13); cursor: pointer; }
+  .chan input { accent-color: var(--cqa-brand-strong); }
   .btn-apply { border-color: var(--cqa-brand-strong); color: var(--cqa-brand-deep); }
   .reason { flex-basis: 100%; margin: 0; font-size: var(--cqa-fs-12); color: var(--cqa-warn); }
   .reason:empty { display: none; }
@@ -127,6 +134,31 @@ export class CqaChecklistBuilder extends CqaElement {
     this._selected = null;
     this._bound = false;
     this._view = null;
+    this._dirty = false;
+    this._busy = null;
+    this._saveError = null;
+    this._onNavCapture = (event) => this.guardNavigation(event);
+    this._onBeforeUnload = (event) => {
+      if (!this._dirty) return;
+      event.preventDefault();
+      event.returnValue = "";
+    };
+  }
+
+  get dirty() {
+    return this._dirty;
+  }
+
+  get busy() {
+    return this._busy !== null;
+  }
+
+  get locked() {
+    return this._status === "applied";
+  }
+
+  get roleReadOnly() {
+    return !can(this.role, "edit-checklist");
   }
 
   get status() {
@@ -147,7 +179,7 @@ export class CqaChecklistBuilder extends CqaElement {
   }
 
   get readOnly() {
-    return !can(this.role, "edit-checklist");
+    return this.roleReadOnly || this.locked;
   }
 
   getConfig() {
@@ -159,7 +191,63 @@ export class CqaChecklistBuilder extends CqaElement {
   }
 
   onReady() {
+    window.addEventListener(EVENTS.navigate, this._onNavCapture, true);
+    window.addEventListener("beforeunload", this._onBeforeUnload);
     this.load();
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener(EVENTS.navigate, this._onNavCapture, true);
+    window.removeEventListener("beforeunload", this._onBeforeUnload);
+    super.disconnectedCallback();
+  }
+
+  guardNavigation(event) {
+    const detail = event.detail || {};
+    if (!this._dirty || detail.guarded) return;
+    const stays = detail.to === "checklists" && (!detail.id || (this._current && String(detail.id) === String(this._current.id)));
+    if (stays) return;
+    event.stopImmediatePropagation();
+    this.confirmLeave().then((ok) => {
+      if (!ok) return;
+      this._dirty = false;
+      this.dispatchEvent(new CustomEvent(EVENTS.navigate, { detail: { ...detail, guarded: true }, bubbles: true, composed: true }));
+    });
+  }
+
+  confirmLeave() {
+    if (!this._dirty) return Promise.resolve(true);
+    const t = (key) => this.t(key);
+    let node = this;
+    let hasApp = false;
+    while (node) {
+      if (node.localName === "cqa-app") hasApp = true;
+      node = node.parentNode || node.host || null;
+    }
+    if (!hasApp) return Promise.resolve(window.confirm(`${t("builder.confirm.heading")}. ${t("builder.confirm.description")}`));
+    return new Promise((resolve) => {
+      emit(this, EVENTS.confirm, {
+        heading: t("builder.confirm.heading"),
+        description: t("builder.confirm.description"),
+        confirmLabel: t("builder.confirm.leave"),
+        cancelLabel: t("builder.confirm.stay"),
+        resolve
+      });
+    });
+  }
+
+  toast(message, tone = "ok", action = null) {
+    emit(this, EVENTS.toast, { message, tone, action });
+  }
+
+  errorMessage(error, nothingSaved) {
+    const code = error && error.code ? String(error.code) : "";
+    const status = error && error.status ? Number(error.status) : 0;
+    let text;
+    if (KNOWN_ERRORS.has(code)) text = this.t(`builder.err.${code}`, { gap: error.gap || "" });
+    else if (status === 422 || status === 400) text = this.t("builder.err.validation", { detail: error.message || code });
+    else text = this.t("builder.err.generic");
+    return nothingSaved ? `${text} ${this.t("builder.err.nothingSaved")}` : text;
   }
 
   attributeChangedCallback(name, previous, next) {
@@ -173,6 +261,9 @@ export class CqaChecklistBuilder extends CqaElement {
   async load() {
     const token = (this._token += 1);
     this._phase = "loading";
+    this._dirty = false;
+    this._busy = null;
+    this._saveError = null;
     this.renderNow();
     try {
       const lists = await api.listChecklists();
@@ -247,6 +338,11 @@ export class CqaChecklistBuilder extends CqaElement {
       view: this._view,
       selectedKey: this._selected,
       readOnly: this.readOnly,
+      roleReadOnly: this.roleReadOnly,
+      locked: this.locked,
+      busy: this.busy,
+      dirty: this._dirty,
+      saveError: this._saveError,
       status: this._status,
       lists: this._lists,
       current: this._current
@@ -368,8 +464,20 @@ export class CqaChecklistBuilder extends CqaElement {
     emit(this, BUILDER_EVENTS.change, { valid: this.valid, status: this._status, changed: this._view.changedCount });
   }
 
+  nextVersionNumber() {
+    const numbers = (this._current ? this._current.versions : []).map((v) => v.version);
+    return Math.max(this._draft.versionNumber, ...numbers) + 1;
+  }
+
   edited() {
-    if (this._status !== "draft") this._status = "draft";
+    if (this._status !== "draft") {
+      this._status = "draft";
+      this._draft.versionId = null;
+      this._draft.versionNumber = this.nextVersionNumber();
+      this._draft.createdAt = new Date().toISOString();
+    }
+    this._dirty = true;
+    this._saveError = null;
     this.refreshAll({ editor: false });
     this.announceChange();
   }
@@ -391,7 +499,10 @@ export class CqaChecklistBuilder extends CqaElement {
     });
     region.addEventListener("change", (event) => {
       const field = event.target.closest("[data-field]");
-      if (field && field.getAttribute("data-field") === "e-type") this.onType(field.value);
+      if (!field) return;
+      const name = field.getAttribute("data-field");
+      if (name === "e-type") this.onType(field.value);
+      else if (name === "channel") this.doChannels(field.getAttribute("data-channel"), field.checked);
     });
     region.addEventListener(EVENTS.stepsChange, (event) => {
       const c = this.selectedCriterion();
@@ -404,6 +515,7 @@ export class CqaChecklistBuilder extends CqaElement {
   onAction(action, button) {
     const key = button.getAttribute("data-key");
     const draft = this._draft;
+    if (this._busy) return;
     if (action === "retry" || action === "empty-action") {
       if (action === "retry") this.load();
       else navigate(this, "checklists");
@@ -455,23 +567,167 @@ export class CqaChecklistBuilder extends CqaElement {
       reset(draft, this._baseConfig, this.locale);
       if (!draft.criteria.some((c) => c.key === this._selected)) this._selected = this.firstKey();
       this._status = "draft";
+      this._saveError = null;
+      this._dirty = draft.versionId !== null;
       this.refreshAll();
       this.announceChange();
     } else if (action === "save") {
-      if (!this.valid || this.readOnly || this._status !== "draft") return;
-      emit(this, BUILDER_EVENTS.saveRequest, { config: toConfig(draft), draft, checklistId: draft.checklistId, versionId: draft.versionId, versionNumber: draft.versionNumber });
+      this.doSave();
     } else if (action === "apply") {
-      if (this._status !== "saved" || this.readOnly) return;
-      emit(this, BUILDER_EVENTS.applyRequest, { checklistId: draft.checklistId, versionId: draft.versionId, versionNumber: draft.versionNumber });
+      this.doApply();
     } else if (action === "duplicate") {
-      emit(this, BUILDER_EVENTS.duplicateRequest, { versionId: Number(button.getAttribute("data-version")) });
+      this.doDuplicate(Number(button.getAttribute("data-version")));
+    } else if (action === "activate") {
+      this.doActivate(Number(button.getAttribute("data-version")));
+    } else if (action === "discard") {
+      this.doDiscard();
     } else if (action === "open-checklist") {
       navigate(this, "checklists", button.getAttribute("data-id"));
     }
   }
 
+  async setBusy(name, fn) {
+    this._busy = name;
+    this.refreshAll({ editor: false });
+    try {
+      return await fn();
+    } finally {
+      this._busy = null;
+      if (this._draft) this.refreshAll({ editor: this._status === "applied" });
+    }
+  }
+
+  async refreshLists() {
+    try {
+      const lists = await api.listChecklists();
+      const current = lists.find((c) => c.id === this._current.id);
+      if (current) {
+        this._lists = lists;
+        this._current = current;
+      }
+    } catch (error) {
+      return;
+    }
+  }
+
+  async doSave() {
+    const draft = this._draft;
+    if (!draft || !this.valid || this.readOnly || this._status !== "draft" || this._busy) return;
+    const config = toConfig(draft);
+    const base = draft.baseNumber;
+    await this.setBusy("save", async () => {
+      try {
+        let saved;
+        if (draft.versionId !== null) {
+          await api.updateDraft(draft.versionId, config);
+          saved = await api.finalizeVersion(draft.versionId);
+        } else {
+          saved = await api.saveChecklistVersion(draft.checklistId, config);
+        }
+        draft.versionId = saved.id;
+        draft.versionNumber = saved.version;
+        this._status = "saved";
+        this._dirty = false;
+        this._saveError = null;
+        await this.refreshLists();
+        const version = `v${saved.version}`;
+        this.toast(base === null ? this.t("builder.toast.savedNoBase", { version }) : this.t("builder.toast.saved", { version, base: `v${base}` }));
+        emit(this, BUILDER_EVENTS.saved, { checklistId: draft.checklistId, versionId: saved.id, version: saved.version });
+      } catch (error) {
+        const message = this.errorMessage(error, true);
+        this._saveError = message;
+        this.toast(message, "bad");
+      }
+    });
+    this.announceChange();
+  }
+
+  async doApply() {
+    const draft = this._draft;
+    if (!draft || this._status !== "saved" || this.readOnly || this._busy) return;
+    await this.setBusy("apply", async () => {
+      try {
+        const datasets = await api.listDatasets();
+        const control = datasets.find((d) => d.kind === "control") || datasets[0];
+        if (!control) throw Object.assign(new Error("dataset"), { code: "dataset_required" });
+        const run = await api.startRun({ versionId: draft.versionId, groupId: control.groupId });
+        this._status = "applied";
+        this._saveError = null;
+        await this.refreshLists();
+        this.toast(
+          this.t("builder.toast.applied", { count: run.total, n: integer(run.total, this.locale), version: `v${draft.versionNumber}` }),
+          "ok",
+          { label: this.t("builder.toast.openRun"), to: "runs", id: run.number }
+        );
+        emit(this, BUILDER_EVENTS.applied, { checklistId: draft.checklistId, versionId: draft.versionId, run: run.number });
+      } catch (error) {
+        const message = this.errorMessage(error, false);
+        this._saveError = message;
+        this.toast(message, "bad");
+      }
+    });
+    this.announceChange();
+  }
+
+  async doDuplicate(versionId) {
+    if (this.roleReadOnly || this._busy || !this._current) return;
+    if (!(await this.confirmLeave())) return;
+    this._dirty = false;
+    const source = this._current.versions.find((v) => v.id === versionId);
+    await this.setBusy("duplicate", async () => {
+      try {
+        const full = await api.getChecklistVersion(versionId);
+        const created = await api.saveChecklistVersion(this._current.id, full.config, { status: "draft" });
+        this.toast(this.t("builder.toast.duplicated", { version: `v${created.version}`, base: `v${source ? source.version : full.version}` }));
+        await this.load();
+      } catch (error) {
+        const message = this.errorMessage(error, true);
+        this._saveError = message;
+        this.toast(message, "bad");
+      }
+    });
+  }
+
+  async doActivate(versionId) {
+    if (this.roleReadOnly || this._busy || !this._current) return;
+    await this.setBusy("activate", async () => {
+      try {
+        const done = await api.setActiveVersion(this._current.id, versionId);
+        await this.refreshLists();
+        this.toast(this.t("builder.toast.activated", { version: `v${done.version}` }));
+      } catch (error) {
+        this.toast(this.errorMessage(error, false), "bad");
+      }
+    });
+  }
+
+  async doDiscard() {
+    if (this.roleReadOnly || this._busy || !this._dirty) return;
+    if (!(await this.confirmLeave())) return;
+    this._dirty = false;
+    await this.load();
+    if (this._phase === "ready") this.toast(this.t("builder.toast.discarded"));
+  }
+
+  async doChannels(kind, on) {
+    if (this.roleReadOnly || this._busy || !this._current) return;
+    const bound = new Set(this._current.channels.map(channelKind));
+    if (on) bound.add(kind);
+    else bound.delete(kind);
+    const next = ["chat", "call"].filter((k) => bound.has(k)).map((k) => (this._current.channels.find((c) => channelKind(c) === k) || CHANNEL_RAW[k]));
+    await this.setBusy("channels", async () => {
+      try {
+        await api.setChecklistChannels(this._current.id, next);
+        await this.refreshLists();
+        this.toast(this.t("builder.toast.channels"));
+      } catch (error) {
+        this.toast(this.errorMessage(error, false), "bad");
+      }
+    });
+  }
+
   onInput(field) {
-    if (this.readOnly) return;
+    if (this.readOnly || this._busy) return;
     const name = field.getAttribute("data-field");
     const draft = this._draft;
     if (name === "row-weight") {

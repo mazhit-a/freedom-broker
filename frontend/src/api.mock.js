@@ -1093,6 +1093,15 @@ export function createMock(options = {}) {
       return mapVersion(found.raw, cl.name);
     },
 
+    async setChecklistChannels(checklistId, channels) {
+      await behave();
+      allowRole("reviewer");
+      const cl = store.checklists.find((c) => c.id === Number(checklistId));
+      if (!cl) throw fail(404, "http_404", "Checklist not found");
+      cl.channels = (channels || []).slice();
+      return mapChecklist(rawChecklist(store, cl));
+    },
+
     async listDatasets() {
       await behave();
       return state === "empty" ? [] : store.datasets.map(mapDataset);
@@ -1193,6 +1202,8 @@ export function createMock(options = {}) {
         items,
         averageTotal: null
       };
+      found.v.appliedCount += total - run.skipped;
+      if (!found.v.firstAppliedAt) found.v.firstAppliedAt = iso(store.nowMs());
       store.nextRun += 1;
       store.runs.unshift(run);
       return mapRun(rawRun(store, run, { offset: 0, limit: 50 }));

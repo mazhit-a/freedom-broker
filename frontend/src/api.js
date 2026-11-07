@@ -351,6 +351,10 @@ const real = {
     return mapVersion(raw);
   },
 
+  async setChecklistChannels() {
+    throw notImplemented("BG-23", "checklist channel binding");
+  },
+
   async listDatasets() {
     return (await getJson("/datasets")).map(mapDataset);
   },

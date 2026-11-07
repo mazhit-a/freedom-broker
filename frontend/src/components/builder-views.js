@@ -29,14 +29,17 @@ export function topBar(ctx) {
   const sum = view.validation.sum;
   const blocked = !view.validation.valid;
   let reason = "";
-  if (ctx.readOnly) reason = t("builder.readOnly");
+  if (ctx.roleReadOnly) reason = t("builder.readOnly");
+  else if (ctx.locked) reason = t("builder.lockedReason", { version });
+  else if (ctx.busy) reason = t("builder.busy");
   else if (blocked) {
     const onlySum = view.validation.errors.every((e) => e.code === "sum");
     reason = onlySum ? t("builder.saveBlockedSum", { sum: sumText }) : t("builder.saveBlockedErrors", { count: integer(view.validation.errors.length, ctx.locale) });
   }
-  const saveOff = blocked || ctx.readOnly || ctx.status !== "draft";
-  const resetOff = ctx.readOnly || draft.baseNumber === null;
-  const applyOff = ctx.readOnly || ctx.status !== "saved";
+  const saveOff = blocked || ctx.readOnly || ctx.busy || ctx.status !== "draft";
+  const resetOff = ctx.readOnly || ctx.busy || draft.baseNumber === null;
+  const applyOff = ctx.readOnly || ctx.busy || ctx.status !== "saved";
+  const discardOff = ctx.readOnly || ctx.busy || !ctx.dirty;
   const resetLabel = draft.baseNumber === null ? t("builder.reset", { version }) : t("builder.reset", { version: `v${draft.baseNumber}` });
   return html`
     <div class="bar-in">
@@ -45,8 +48,9 @@ export function topBar(ctx) {
       <span class="tnum meta" data-meta>${base}</span>
       <div role="status" class="sum sum-${sumTone(sum)} tnum" data-sum data-tone="${sumTone(sum)}">${t("builder.sum", { sum: sumText })}</div>
       <div class="actions">
+        <button type="button" class="btn" data-action="discard" data-focus-id="discard" ${flag(discardOff, "disabled")}>${t("builder.discard")}</button>
         <button type="button" class="btn" data-action="reset" data-focus-id="reset" ${flag(resetOff, "disabled")}>${resetLabel}</button>
-        <button type="button" class="btn btn-primary" data-action="save" data-focus-id="save" aria-describedby="save-reason" ${flag(saveOff, "disabled")}>${t("builder.save", { version })}</button>
+        <button type="button" class="btn btn-primary" data-action="save" data-focus-id="save" aria-describedby="save-reason" ${ctx.busy ? raw('aria-busy="true"') : ""} ${flag(saveOff, "disabled")}>${t("builder.save", { version })}</button>
         <button type="button" class="btn btn-apply" data-action="apply" data-focus-id="apply" ${flag(applyOff, "disabled")}>${t("builder.apply")}</button>
       </div>
       <p class="reason" id="save-reason" data-save-reason>${reason}</p>
@@ -56,9 +60,10 @@ export function topBar(ctx) {
 export function alertBox(ctx) {
   const { t, view } = ctx;
   const errors = view.validation.errors;
-  if (errors.length === 0) return html``;
+  if (errors.length === 0 && !ctx.saveError) return html``;
+  const server = ctx.saveError ? html`<span data-error="server">${ctx.saveError}</span>` : html``;
   const items = errors.map((e) => html`<span data-error="${e.code}">${errorText(e.code === "sum" ? { ...e, sumText: formatHundredths(e.sum, ctx.locale) } : e, t)}</span>`);
-  return html`<div role="alert" class="alert" data-alerts>${items}</div>`;
+  return html`<div role="alert" class="alert" data-alerts>${server}${items}</div>`;
 }
 
 function rowHtml(ctx, c, index, siblings) {
@@ -209,7 +214,7 @@ function dateText(value, locale) {
   return value ? formatDate(value, locale) : "";
 }
 
-function versionRow(ctx, checklist, v, active) {
+function versionRow(ctx, v, options = {}) {
   const { t, locale } = ctx;
   const n = integer(v.appliedCount || 0, locale);
   const when = dateText(v.firstAppliedAt, locale);
@@ -225,22 +230,60 @@ function versionRow(ctx, checklist, v, active) {
     tone = "brand";
     label = t("builder.status.saved");
   }
+  if (options.status === "applied" && !v.isDefault) {
+    tone = "ok";
+    label = t("builder.status.applied");
+  }
   let line = t("builder.side.notApplied");
   if (v.appliedCount > 0) line = t(v.isDefault ? "builder.side.appliedActive" : "builder.side.appliedPast", { count: v.appliedCount, n, date: when });
+  else if (options.editing && v.status === "saved") line = t("builder.side.savedNotApplied");
   const lock = v.locked && v.appliedCount > 0
     ? html`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="${t("builder.side.locked")}" class="lockic"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>`
     : html``;
-  const duplicate = v.isDefault
-    ? html`<button type="button" class="btn btn-sm dup" data-action="duplicate" data-version="${v.id}" data-seam="duplicate" disabled>${t("builder.side.duplicate")}</button>`
+  const off = ctx.roleReadOnly || ctx.busy;
+  const duplicate = v.isDefault || options.editing
+    ? html`<button type="button" class="btn btn-sm dup" data-action="duplicate" data-version="${v.id}" data-focus-id="dup-${v.id}" ${flag(off, "disabled")}>${t("builder.side.duplicate")}</button>`
+    : html``;
+  const activate = v.status === "saved" && !v.isDefault
+    ? html`<button type="button" class="btn btn-sm dup" data-action="activate" data-version="${v.id}" data-focus-id="act-${v.id}" aria-label="${t("builder.side.activateLabel", { version: `v${v.version}` })}" ${flag(off, "disabled")}>${t("builder.side.activate")}</button>`
     : html``;
   const note = v.isDefault ? html`<span class="dim12">${t("builder.side.immutable")}</span>` : html``;
+  const cls = options.editing ? "vrow vedit" : "vrow";
   return html`
-    <div class="vrow" data-version-row="${v.id}">
+    <div class="${cls}" data-version-row="${v.id}" ${options.editing ? raw("data-editing") : raw("")}>
       <div class="vline"><b class="tnum">v${v.version}</b>${chip({ tone, text: label })}${lock}</div>
       <span class="tnum sub2">${line}</span>
       ${note}
-      ${duplicate}
+      ${duplicate}${activate}
     </div>`;
+}
+
+const CHANNELS = [
+  ["chat", "chat"],
+  ["call", "call"]
+];
+
+export function channelKind(value) {
+  return /call|voice|звон/i.test(String(value)) ? "call" : "chat";
+}
+
+function channelsBlock(ctx, cl, current) {
+  const { t } = ctx;
+  const bound = new Set((cl.channels || []).map(channelKind));
+  if (!current) {
+    const names = CHANNELS.filter(([k]) => bound.has(k)).map(([k]) => t(`builder.channel.${k}`));
+    return html`<span class="dim12" data-channels-text="${cl.id}">${names.length ? names.join(" · ") : t("builder.side.channelsNone")}</span>`;
+  }
+  const off = ctx.roleReadOnly || ctx.busy;
+  const boxes = CHANNELS.map(
+    ([k]) => html`<label class="chan"><input type="checkbox" data-field="channel" data-channel="${k}" data-focus-id="chan-${k}" ${flag(bound.has(k), "checked")} ${flag(off, "disabled")}>${t(`builder.channel.${k}`)}</label>`
+  );
+  return html`
+    <fieldset class="chans" data-channels>
+      <legend class="dim12">${t("builder.side.channels")}</legend>
+      ${boxes}
+      <span class="dim12">${t("builder.side.channelsHint")}</span>
+    </fieldset>`;
 }
 
 export function sidebar(ctx) {
@@ -252,21 +295,22 @@ export function sidebar(ctx) {
       : html`<button type="button" class="side-t side-link" data-action="open-checklist" data-id="${cl.id}" data-focus-id="open-${cl.id}" aria-label="${t("builder.side.open", { name: cl.name })}">${cl.name}</button>`;
     let rows = html``;
     if (isCurrent) {
-      const editing = draft.versionId === null || cl.versions.some((v) => v.id === draft.versionId && v.status === "draft");
-      const shown = cl.versions.filter((v) => v.id !== draft.versionId);
-      const first = editing
+      const own = cl.versions.find((v) => v.id === draft.versionId);
+      const base = own || { id: draft.versionId, version: draft.versionNumber, status: "draft", isDefault: false, appliedCount: 0, firstAppliedAt: null, locked: false };
+      const first = ctx.status === "draft"
         ? html`
-          <div class="vrow vedit" data-editing>
-            <div class="vline"><b class="tnum">v${draft.versionNumber}</b>${chip({ tone: ctx.status === "draft" ? "warn" : ctx.status === "saved" ? "brand" : "ok", text: t(`builder.status.${ctx.status}`) })}</div>
+          <div class="vrow vedit" data-editing data-version-row="${draft.versionId ?? "new"}">
+            <div class="vline"><b class="tnum">v${draft.versionNumber}</b>${chip({ tone: "warn", text: t("builder.status.draft") })}</div>
             <span class="sub2">${t("builder.side.editing", { date: dateText(draft.createdAt, ctx.locale) })}</span>
           </div>`
-        : html``;
-      const history = [...shown].sort((a, b) => b.version - a.version).map((v) => versionRow(ctx, cl, v));
+        : versionRow(ctx, { ...base, locked: ctx.status === "applied" || base.locked }, { editing: true, status: ctx.status });
+      const shown = cl.versions.filter((v) => v.id !== draft.versionId);
+      const history = [...shown].sort((a, b) => b.version - a.version).map((v) => versionRow(ctx, v));
       rows = html`${first}${history}`;
     } else {
-      rows = [...cl.versions].sort((a, b) => b.version - a.version).map((v) => versionRow(ctx, cl, v));
+      rows = [...cl.versions].sort((a, b) => b.version - a.version).map((v) => versionRow(ctx, v));
     }
-    return html`<div class="side-block">${title}${rows}</div>`;
+    return html`<div class="side-block">${title}${channelsBlock(ctx, cl, isCurrent)}${rows}</div>`;
   });
   return html`
     ${blocks}

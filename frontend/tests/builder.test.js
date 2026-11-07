@@ -315,3 +315,118 @@ test("builder source files carry no comments", () => {
     assert.ok(!/(^|\s)\/\/|\/\*/.test(text.replace(/https?:\/\//g, "")), file);
   }
 });
+
+import { configure, api, resetMock } from "../src/api.js";
+import { topBar, sidebar, alertBox, channelKind } from "../src/components/builder-views.js";
+import { t as translate } from "../src/i18n/index.js";
+
+function viewContext(over = {}) {
+  const config = makeConfig("Чек-лист");
+  const draft = createDraft(config, config, META, "ru");
+  const lists = [
+    {
+      id: 1,
+      name: "Чаты",
+      channels: ["agent chat"],
+      defaultVersionId: 12,
+      versions: [
+        { id: 11, version: 1, status: "archived", isDefault: false, appliedCount: 412, firstAppliedAt: "2026-08-12T10:00:00+05:00", locked: true },
+        { id: 12, version: 2, status: "saved", isDefault: true, appliedCount: 1248, firstAppliedAt: "2026-10-01T10:00:00+05:00", locked: true },
+        { id: 13, version: 3, status: "draft", isDefault: false, appliedCount: 0, firstAppliedAt: null, locked: false }
+      ]
+    }
+  ];
+  return {
+    t: (key, params) => translate(key, params, "ru"),
+    locale: "ru",
+    draft,
+    view: { validation: validate(draft), preview: computePreview(draft), changedCount: 0 },
+    selectedKey: "k0",
+    readOnly: false,
+    roleReadOnly: false,
+    locked: false,
+    busy: false,
+    dirty: false,
+    saveError: null,
+    status: "draft",
+    lists,
+    current: lists[0],
+    ...over
+  };
+}
+
+test("channelKind separates chats and calls", () => {
+  assert.equal(channelKind("agent chat"), "chat");
+  assert.equal(channelKind("voice call"), "call");
+});
+
+test("top bar: discard follows dirty, apply needs a saved version, locked explains itself", () => {
+  const clean = String(topBar(viewContext()));
+  assert.match(clean, /data-action="discard"[^>]*disabled/);
+  assert.match(clean, /data-action="apply"[^>]*disabled/);
+  const dirty = String(topBar(viewContext({ dirty: true })));
+  assert.doesNotMatch(dirty, /data-action="discard"[^>]*disabled/);
+  const saved = String(topBar(viewContext({ status: "saved" })));
+  assert.doesNotMatch(saved, /data-action="apply"[^>]*disabled/);
+  assert.match(saved, /data-action="save"[^>]*disabled/);
+  const locked = String(topBar(viewContext({ status: "applied", readOnly: true, locked: true })));
+  assert.match(locked, /заблокирована/);
+  assert.match(locked, /data-action="reset"[^>]*disabled/);
+  const viewer = String(topBar(viewContext({ readOnly: true, roleReadOnly: true })));
+  assert.match(viewer, /Только просмотр/);
+});
+
+test("sidebar: editing row, active with duplicate, saved offers Make active, viewers cannot act", () => {
+  const html1 = String(sidebar(viewContext()));
+  assert.match(html1, /data-editing/);
+  assert.match(html1, /data-version="12"/);
+  assert.doesNotMatch(html1, /data-action="activate"/);
+  assert.match(html1, /data-channel="chat"[^>]*checked/);
+  const saved = viewContext({ status: "saved" });
+  saved.lists[0].versions[2] = { ...saved.lists[0].versions[2], status: "saved" };
+  const html2 = String(sidebar(saved));
+  assert.match(html2, /data-action="activate" data-version="13"/);
+  assert.match(html2, /Сохранена · не применялась/);
+  const viewer = String(sidebar(viewContext({ roleReadOnly: true })));
+  assert.match(viewer, /data-action="duplicate"[^>]*disabled/);
+  assert.match(viewer, /data-field="channel"[^>]*disabled/);
+});
+
+test("alert box shows a server error even when the checklist itself is valid", () => {
+  const empty = String(alertBox(viewContext()));
+  assert.equal(empty.trim(), "");
+  const shown = String(alertBox(viewContext({ saveError: "Ничего не сохранено." })));
+  assert.match(shown, /data-error="server"/);
+});
+
+test("mock lifecycle: draft to saved to applied, channels, activation, role gate", async () => {
+  configure({ mock: true, role: "reviewer" });
+  resetMock();
+  const [chat] = await api.listChecklists();
+  const draft = chat.versions.find((v) => v.status === "draft");
+  const config = (await api.getChecklistVersion(draft.id)).config;
+  await api.updateDraft(draft.id, config);
+  const saved = await api.finalizeVersion(draft.id);
+  assert.equal(saved.status, "saved");
+  await assert.rejects(() => api.updateDraft(draft.id, config), (e) => e.status === 409);
+  const run = await api.startRun({ versionId: draft.id, groupId: "control" });
+  assert.equal(run.total, 25);
+  const after = (await api.listChecklists())[0].versions.find((v) => v.id === draft.id);
+  assert.equal(after.appliedCount, 25);
+  assert.ok(after.firstAppliedAt);
+  const updated = await api.setChecklistChannels(chat.id, ["agent chat", "voice call"]);
+  assert.deepEqual(updated.channels, ["agent chat", "voice call"]);
+  await api.setActiveVersion(chat.id, draft.id);
+  const again = (await api.listChecklists())[0];
+  assert.equal(again.defaultVersionId, draft.id);
+  assert.equal(again.versions.find((v) => v.id === 12).status, "archived");
+  const created = await api.saveChecklistVersion(chat.id, config, { status: "draft" });
+  assert.equal(created.status, "draft");
+  assert.equal(created.version, 4);
+  configure({ mock: true, role: "exec" });
+  resetMock();
+  await assert.rejects(() => api.saveChecklistVersion(chat.id, config), (e) => e.code === "role_forbidden");
+  await assert.rejects(() => api.setChecklistChannels(chat.id, []), (e) => e.code === "role_forbidden");
+  configure({ mock: true });
+  resetMock();
+});
