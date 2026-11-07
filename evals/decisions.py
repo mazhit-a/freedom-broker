@@ -2,13 +2,14 @@ import json
 import math
 import os
 import random
+import re
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
 
 from backend.app.schemas.checklist import ChecklistConfig, Criterion
-from backend.app.services.evaluator import transcript_lines
+from backend.app.services.evaluator import RULES, transcript_lines
 
 DECISIONS_URL = "https://openrouter.ai/api/alpha/decisions"
 JEV_MODEL = "typesafe/jev-1.14"
@@ -25,6 +26,26 @@ RULES_HEADER = (
     "Answer no when an action was needed but skipped or done wrong. Answer na only when its stated condition is actually met.\n"
     "If a needed precondition is not confirmed anywhere in the conversation, the answer is no, not na."
 )
+
+JUDGING_RULE_INDEXES = (0, 1, 2, 3, 4, 6, 7, 8)
+STYLES = ("default", "rich", "split", "rich_split")
+FRAMING_RE = re.compile(r"^\s*(?:Да|Нет)\s*[—–-]\s*")
+DETECTED_RE = re.compile(r"^выявлен[оы]?\s+", re.IGNORECASE)
+LIST_SPLIT_RE = re.compile(r",\s*|\s+или\s+")
+YES_NO_SPLIT_RE = re.compile(r"^\s*Да\s*[—–-]\s*(.*?)\s*Нет\s*[—–-]\s*(.*)$")
+SCALE_REF_RE = re.compile(r"по шкале(?:\s+на\s+стр\.\s*\d+)?(?!\s+ниже)")
+PAGE_REF_RE = re.compile(r"\s*(?:на\s+)?стр\.\s*\d+")
+
+
+def rich_rules_header() -> str:
+    lines = [RULES[i].replace("against the checklist below", "against the questions asked") for i in JUDGING_RULE_INDEXES]
+    return "\n".join(lines)
+
+
+def style_flags(style: str) -> tuple[bool, bool]:
+    if style not in STYLES:
+        raise ValueError(f"unknown jev style {style!r}, known: {list(STYLES)}")
+    return style in ("rich", "rich_split"), style in ("split", "rich_split")
 
 
 class DecisionsError(Exception):
@@ -238,48 +259,131 @@ def qname(cid: str) -> str:
     return f"q_{cid}"
 
 
-def build_questions(cfg: ChecklistConfig) -> list[QuestionSpec]:
+def condition_text(text: str | None) -> str:
+    return FRAMING_RE.sub("", one_line(text)).rstrip(". ").strip()
+
+
+def clean_scale_text(text: str | None) -> str:
+    out = SCALE_REF_RE.sub("по шкале ниже", one_line(text))
+    return PAGE_REF_RE.sub("", out).strip()
+
+
+def rich_yes_no(c: Criterion) -> tuple[str, dict]:
+    cond = condition_text(c.description)
+    yes = f"Да: {cond}." if cond else "Да: требование выполнено."
+    no = (
+        f"Нет: условие не выполнено (не так, что {cond}); действие требовалось, но было пропущено или выполнено неверно."
+        if cond
+        else "Нет: действие требовалось, но было пропущено или выполнено неверно."
+    )
+    options = {"yes": yes, "no": no}
+    parts = [f"{c.title.strip()}.", f"Условие для yes: {cond}." if cond else "Условие для yes: требование выполнено."]
+    parts.append("Выберите yes, если условие выполнено. Выберите no, если действие требовалось, но было пропущено или выполнено неверно.")
+    if c.na_allowed:
+        na_cond = condition_text(c.na_condition)
+        options["na"] = f"N/A: {na_cond}; критерий не применим, обычный ответ не нужен."
+        parts.append(f"Выберите na только если: {na_cond}. Иначе выберите yes или no.")
+    else:
+        parts.append("Ответ na недопустим.")
+    return " ".join(parts), options
+
+
+def rich_flag(c: Criterion) -> tuple[str, dict]:
+    raw = one_line(c.description)
+    m = YES_NO_SPLIT_RE.match(raw)
+    if m:
+        yes_cond, no_cond = m.group(1).rstrip(". ").strip(), m.group(2).rstrip(". ").strip()
+    else:
+        yes_cond, no_cond = condition_text(raw), ""
+    yes_cond = DETECTED_RE.sub("", yes_cond)
+    kinds = [k.strip() for k in LIST_SPLIT_RE.split(yes_cond) if k.strip()]
+    if len(kinds) > 1:
+        yes_cond = "; ".join(f"({i}) {k}" for i, k in enumerate(kinds, 1))
+    true_text = f"Нарушение есть, выявлено одно из: {yes_cond}." if len(kinds) > 1 else (f"Нарушение есть: {yes_cond}." if yes_cond else "Нарушение есть.")
+    false_text = f"Нарушения нет: {no_cond}." if no_cond else "Нарушения нет: условие нарушения не выявлено."
+    lead = "нарушение выявлено, то есть выявлено одно из" if len(kinds) > 1 else "нарушение выявлено"
+    instr = (
+        f"{c.title.strip()}. Ответ true означает, что {lead}: {yes_cond}. "
+        f"Ответ false означает, что нарушения нет: {no_cond or 'условие нарушения не выявлено'}."
+    )
+    return instr, {"true": true_text, "false": false_text}
+
+
+def rich_scale(c: Criterion) -> tuple[str, list[str], list]:
+    steps = sorted(c.scale_steps, key=lambda s: s.value)
+    desc = clean_scale_text(c.description).rstrip(". ")
+    listing = "; ".join(f"{s.value} — {one_line(s.descriptor).rstrip('.')}" for s in steps)
+    parts = [f"{c.title.strip()}."]
+    if desc:
+        parts.append(f"{desc}.")
+    parts.append(f"Шаги шкалы (значение — описание): {listing}.")
+    parts.append("Выберите наивысший шаг, описание которого выполняется полностью.")
+    return " ".join(parts), [one_line(s.descriptor) for s in steps], steps
+
+
+def build_questions(cfg: ChecklistConfig, style: str = "default") -> list[QuestionSpec]:
+    rich, _ = style_flags(style)
     specs: list[QuestionSpec] = []
     for c in cfg.criteria:
         instr = question_instructions(c)
         if c.type == "yes_no":
-            options = {
-                "yes": one_line(c.description) or "The requirement is met.",
-                "no": "The requirement was needed but skipped or done wrong.",
-            }
-            if c.na_allowed:
-                options["na"] = one_line(c.na_condition)
+            if rich:
+                instr, options = rich_yes_no(c)
+            else:
+                options = {
+                    "yes": one_line(c.description) or "The requirement is met.",
+                    "no": "The requirement was needed but skipped or done wrong.",
+                }
+                if c.na_allowed:
+                    options["na"] = one_line(c.na_condition)
             specs.append(
                 QuestionSpec(qname(c.id), c.id, "choice", {"type": "choice", "instructions": instr, "criteria": options})
             )
         elif c.type == "flag":
-            criteria = {
-                "true": one_line(c.description) or "A violation is present.",
-                "false": "No violation is present.",
-            }
+            if rich:
+                instr, criteria = rich_flag(c)
+            else:
+                criteria = {
+                    "true": one_line(c.description) or "A violation is present.",
+                    "false": "No violation is present.",
+                }
             specs.append(
                 QuestionSpec(qname(c.id), c.id, "flag", {"type": "noul", "instructions": instr, "criteria": criteria})
             )
         else:
             steps = sorted(c.scale_steps, key=lambda s: s.value)
+            descriptors = [one_line(s.descriptor) for s in steps]
+            if rich:
+                instr, descriptors, _ = rich_scale(c)
             specs.append(
                 QuestionSpec(
                     qname(c.id),
                     c.id,
                     "scale",
-                    {"type": "score", "instructions": instr, "criteria": [one_line(s.descriptor) for s in steps]},
+                    {"type": "score", "instructions": instr, "criteria": descriptors},
                     [s.value for s in steps],
                 )
             )
             if c.na_allowed:
-                na_body = {
-                    "type": "noul",
-                    "instructions": f"Is the N/A condition for '{c.title.strip()}' met?",
-                    "criteria": {
-                        "true": one_line(c.na_condition),
-                        "false": "The N/A condition is not met; a real answer applies.",
-                    },
-                }
+                if rich:
+                    na_cond = condition_text(c.na_condition)
+                    na_body = {
+                        "type": "noul",
+                        "instructions": f"Выполняется ли условие N/A для критерия «{c.title.strip()}»? Условие N/A: {na_cond}.",
+                        "criteria": {
+                            "true": f"Условие N/A выполнено: {na_cond}.",
+                            "false": "Условие N/A не выполнено; применим обычный ответ по шкале.",
+                        },
+                    }
+                else:
+                    na_body = {
+                        "type": "noul",
+                        "instructions": f"Is the N/A condition for '{c.title.strip()}' met?",
+                        "criteria": {
+                            "true": one_line(c.na_condition),
+                            "false": "The N/A condition is not met; a real answer applies.",
+                        },
+                    }
                 specs.append(QuestionSpec(qname(c.id) + NA_SUFFIX, c.id, "scale_na", na_body))
     return specs
 
@@ -288,20 +392,39 @@ def questions_payload(specs: list[QuestionSpec]) -> dict:
     return {s.name: s.body for s in specs}
 
 
-def build_state(conversation: dict, messages: list[dict] | None = None) -> list[str]:
+def build_state(conversation: dict, messages: list[dict] | None = None, header: str | None = None) -> list[str]:
     msgs = messages if messages is not None else conversation.get("messages") or []
     meta = (
         f"Conversation metadata: channel={conversation.get('channel')}, "
         f"language={conversation.get('language')}, messages={len(msgs)}"
     )
     transcript = "Transcript:\n" + "\n".join(transcript_lines(msgs))
-    return [RULES_HEADER, meta, transcript]
+    return [header if header is not None else RULES_HEADER, meta, transcript]
 
 
-def build_request(conversation: dict, cfg: ChecklistConfig, model: str = JEV_MODEL) -> tuple[dict, list[QuestionSpec]]:
-    specs = build_questions(cfg)
-    payload = {"model": model, "state": build_state(conversation), "questions": questions_payload(specs)}
+def build_request(
+    conversation: dict, cfg: ChecklistConfig, model: str = JEV_MODEL, style: str = "default"
+) -> tuple[dict, list[QuestionSpec]]:
+    rich, _ = style_flags(style)
+    specs = build_questions(cfg, style)
+    header = rich_rules_header() if rich else None
+    payload = {"model": model, "state": build_state(conversation, header=header), "questions": questions_payload(specs)}
     return payload, specs
+
+
+def build_split_requests(
+    conversation: dict, cfg: ChecklistConfig, model: str = JEV_MODEL, style: str = "split"
+) -> list[tuple[str, dict, list[QuestionSpec]]]:
+    rich, _ = style_flags(style)
+    specs = build_questions(cfg, "rich" if rich else "default")
+    header = rich_rules_header() if rich else None
+    state = build_state(conversation, header=header)
+    out: list[tuple[str, dict, list[QuestionSpec]]] = []
+    for c in cfg.criteria:
+        group = [s for s in specs if s.criterion_id == c.id]
+        payload = {"model": model, "state": list(state), "questions": questions_payload(group)}
+        out.append((c.id, payload, group))
+    return out
 
 
 def malformed(msg: str) -> DecisionsError:

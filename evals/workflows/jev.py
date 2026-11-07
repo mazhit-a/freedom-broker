@@ -10,7 +10,7 @@ from backend.app.services.evaluator import (
     transcript_lines,
     validate_item,
 )
-from evals.decisions import JEV_MODEL, build_request
+from evals.decisions import JEV_MODEL, build_request, build_split_requests, style_flags
 from evals.workflows.base import JEV, LLMRequest, Stage, Workflow, build_candidate, record_calls, resolve_profile
 from evals.workflows.review import ReviewPass
 from evals.workflows.single_call import conversation_of
@@ -74,16 +74,38 @@ def jev_rows(cfg, answers: dict[str, dict]) -> tuple[dict[str, dict], dict[str, 
     return rows, problems
 
 
+def jev_style(workflow: Workflow) -> str:
+    style = workflow.params.get("style", "default")
+    style_flags(style)
+    return style
+
+
+def jev_request_count(workflow: Workflow) -> int:
+    _, split = style_flags(jev_style(workflow))
+    return len(workflow.cfg.criteria) if split else 1
+
+
 def jev_stage(workflow: Workflow, case: dict) -> Stage:
-    payload, _ = build_request(case["conversation"], workflow.cfg)
-    request = LLMRequest("jev", JEV, JEV_MODEL, payload, "jev")
+    style = jev_style(workflow)
+    _, split = style_flags(style)
+    if split:
+        requests = [
+            LLMRequest(f"jev_{cid}", JEV, JEV_MODEL, payload, "jev")
+            for cid, payload, _ in build_split_requests(case["conversation"], workflow.cfg, style=style)
+        ]
+    else:
+        payload, _ = build_request(case["conversation"], workflow.cfg, style=style)
+        requests = [LLMRequest("jev", JEV, JEV_MODEL, payload, "jev")]
 
     def reduce_jev(state, responses):
         record_calls(state, "jev", responses)
-        state["jev_answers"] = responses["jev"].data["answers"]
+        merged: dict[str, Any] = {}
+        for rid in sorted(responses):
+            merged.update(responses[rid].data["answers"])
+        state["jev_answers"] = merged
         return state
 
-    return Stage("jev", [request], reduce_jev)
+    return Stage("jev", requests, reduce_jev)
 
 
 class JevOnly(Workflow):
@@ -97,8 +119,11 @@ class JevOnly(Workflow):
         rows, problems = jev_rows(self.cfg, state["jev_answers"])
         return build_candidate(case, self.variant, self.cfg, rows, problems, state, False, explained=False)
 
+    def expected_calls(self):
+        return jev_request_count(self)
+
     def estimate_plan(self):
-        return [("jev", JEV_MODEL, 1)]
+        return [("jev", JEV_MODEL, jev_request_count(self))]
 
 
 def lenient_row(c: Criterion, item: dict, answer: Any) -> dict:
@@ -218,7 +243,7 @@ class JevExplain(Workflow):
         )
 
     def expected_calls(self):
-        return 2
+        return jev_request_count(self) + 1
 
     def estimate_plan(self):
-        return [("jev", JEV_MODEL, 1), ("explain", self.profile.model, 1)]
+        return [("jev", JEV_MODEL, jev_request_count(self)), ("explain", self.profile.model, 1)]

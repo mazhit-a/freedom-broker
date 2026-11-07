@@ -311,7 +311,8 @@ class Executor:
         if isinstance(served, str) and served and not model_matches(served, JEV_MODEL):
             return error_response(request, f"served model {served!r} does not match requested model {JEV_MODEL!r}", call.get("attempts", 1))
         try:
-            answers = map_answers(body, build_questions(self.cfg))
+            asked = request.params["questions"]
+            answers = map_answers(body, [q for q in build_questions(self.cfg) if q.name in asked])
         except DecisionsError as exc:
             return error_response(request, str(exc), call.get("attempts", 1))
         detail = compute_cost(call.get("usage"), request.params["state"], request.params["questions"])

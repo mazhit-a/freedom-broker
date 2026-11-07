@@ -38,5 +38,20 @@
     "name": "per_criterion",
     "workflow": "per_criterion",
     "params": {"profile": "claude-opus-5-5", "effort": "medium"}
+  },
+  {
+    "name": "jev_rich",
+    "workflow": "jev_only",
+    "params": {"style": "rich"}
+  },
+  {
+    "name": "jev_split",
+    "workflow": "jev_only",
+    "params": {"style": "split"}
+  },
+  {
+    "name": "jev_rich_split",
+    "workflow": "jev_only",
+    "params": {"style": "rich_split"}
   }
 ]
