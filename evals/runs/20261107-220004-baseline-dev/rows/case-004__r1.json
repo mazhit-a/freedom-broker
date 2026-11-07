@@ -1,0 +1,125 @@
+{
+ "case_id": "case-004",
+ "variant": "baseline",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на казахском языке клиента и представился по имени.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Сәлеметсіз бе! Менің атым — Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл выбранную клиентом тему (тарифы и комиссии) и уточнил, что именно клиент хочет узнать.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Тарифтер мен комиссиялар бөлімін таңдаған екенсіз. Нақты нені білгіңіз келеді?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Клиент не сформулировал запрос, данные не раскрывались и защищённые действия не выполнялись.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: клиент покинул чат до формулирования вопроса, данные не раскрывались."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Клиент вышел из чата, не успев сформулировать свой вопрос.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Чат закончился до того, как клиент сформулировал запрос (клиент покинул чат в #7)."
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив, доброжелательно согласился подождать, пока клиент пишет вопрос; недовольства клиент не выражал.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Реплики оператора ясные и связные, ожидание инициировал клиент, оператор корректно на него отреагировал.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Нақты нені білгіңіз келеді?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Клиент покинул чат, пока писал вопрос, у оператора не было возможности завершить диалог.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Чат оборвался до возможности его завершить: клиент вышел из чата (#7)."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании или раскрытия конфиденциальной информации нет.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Менің атым — Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 402,
+   "output_tokens": 1145,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.012538,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 1
+}

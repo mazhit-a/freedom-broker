@@ -1,0 +1,295 @@
+[
+ {
+  "case_id": "case-001",
+  "variant": "baseline",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор в первом ответе поздоровался на русском языке клиента и назвал своё имя.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте! Меня зовут Алия."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор учёл известную тему возврата документов и до ответа уточнил, где подавалась заявка.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Уточните, заявку подавали в приложении или на сайте?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Оператор запросил проверку через защищённую форму. Данные заявки раскрыты только после системного подтверждения личности.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 6,
+      "quote": "В вашей заявке указана причина возврата"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 15,
+    "rationale": "Основной вопрос решён: оператор назвал причину возврата и подробно объяснил, как заменить фото. Второй вопрос клиента — о допустимых форматах файлов — остался без ответа.",
+    "evidence": [
+     {
+      "message_index": 0,
+      "quote": "И какие форматы файлов можно загружать?"
+     },
+     {
+      "message_index": 8,
+      "quote": "«Документы» → «Удостоверение личности» → «Заменить фото лицевой стороны»"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив и отреагировал на конкретное неудобство повторной загрузки, уточнив, что анкету заново заполнять не нужно.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Понимаю, повторно загружать удостоверение неудобно."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Из-за расплывчатой формулировки «туда же» клиенту пришлось переспрашивать, какой экран открыть.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "загрузите его туда же"
+     },
+     {
+      "message_index": 7,
+      "quote": "Туда же — это куда именно? Не понял, какой экран открыть."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "Оператор закрыл чат, не предложив дальнейшую помощь и не попрощавшись.",
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Чат закрыт оператором."
+     }
+    ],
+    "checked_range": {
+     "from": 8,
+     "to": 9
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "Извините, не указала путь."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-opus-5-5",
+    "input_tokens": 726,
+    "output_tokens": 1510,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 2841,
+    "latency_ms": 14215,
+    "cost": 0.047309,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-002",
+  "variant": "baseline",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор в первом ответе поздоровался на русском языке клиента и представился по имени.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте! Меня зовут Алия."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "na",
+    "rationale": "Клиент задал общий, полностью сформулированный вопрос, поэтому уточнения не требовались.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Данных для ответа хватало с самого начала: общий вопрос о безопасности реквизитов, клиент указал, что проверять его счёт не нужно."
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "na",
+    "rationale": "Вопрос общий, данные по счёту не раскрывались и защищённых действий не было.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Запрос не требовал идентификации: общий вопрос без обращения к данным счёта."
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 20,
+    "rationale": "Оператор дал корректную рекомендацию: брать реквизиты только в официальном приложении или личном кабинете брокера, не использовать реквизиты из сторонних чатов и сверять получателя.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Для пополнения берите актуальные реквизиты только в официальном приложении или личном кабинете брокера, в разделе пополнения счёта."
+     },
+     {
+      "message_index": 5,
+      "quote": "Реквизиты из стороннего чата не используйте: они могут быть подменены."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив и в ответ на замешательство клиента извинился за путаницу, после чего ответил по существу.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Извините за путаницу."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 0,
+    "rationale": "Каждая реплика оператора содержит взаимоисключающие утверждения: «ответ будет, но его не будет», «пишите и не пишите», «диалог окончен, не уходите». Клиент прямо запутался, и ход диалога остаётся непонятным даже в финальном сообщении.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Ответ будет следующим сообщением, но следующего сообщения не будет."
+     },
+     {
+      "message_index": 4,
+      "quote": "Я совсем запутался. Мне ждать ответа или писать?"
+     },
+     {
+      "message_index": 5,
+      "quote": "Это ответ на ваш вопрос, но ответа ещё нет"
+     },
+     {
+      "message_index": 6,
+      "quote": "Диалог окончен, не уходите"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог и попрощался.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Итог: используйте реквизиты из официального приложения, а не из стороннего чата. Всего доброго, до свидания!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложения платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Перед переводом сверяйте получателя и назначение платежа с официальной инструкцией."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-opus-5-5",
+    "input_tokens": 632,
+    "output_tokens": 1712,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 2841,
+    "latency_ms": 16078,
+    "cost": 0.050973,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ }
+]

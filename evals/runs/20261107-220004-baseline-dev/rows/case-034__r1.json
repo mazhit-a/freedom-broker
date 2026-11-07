@@ -1,0 +1,196 @@
+{
+ "case_id": "case-034",
+ "variant": "baseline",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первой реплике поздоровался на русском и представился по имени.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Здравствуйте, меня зовут Данияр, служба поддержки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор уточнил год, страну декларации, виды операций, тип бумаг и формат нужных документов до ответа.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Уточните, пожалуйста, за какой год нужны документы и для какой страны готовите декларацию?"
+    },
+    {
+     "message_index": 8,
+     "quote": "Вам нужны сами документы с операциями и удержаниями или также расчёт сумм для заполнения декларации?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность подтверждена системой до проверки сведений по счёту.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Личность клиента подтверждена."
+    },
+    {
+     "message_index": 22,
+     "quote": "По вашему счёту отчётность за 2025 год доступна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Дан лишь общий ориентир «личный кабинет», без названия документов, пути выгрузки, информации о подписи, заявки, перевода или канала обращения; клиент прямо говорит, что остался там же.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Общий ориентир — личный кабинет и его отчётные разделы."
+    },
+    {
+     "message_index": 58,
+     "quote": "Точный файл, путь его получения и канал отдельного запроса сейчас не уточняю."
+    },
+    {
+     "message_index": 59,
+     "quote": "Но практически я остался там же, где был до звонка."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент неоднократно выражал недовольство и нервозность из-за сроков, но оператор ни разу не отреагировал на конкретную проблему, отвечая формально.",
+   "evidence": [
+    {
+     "message_index": 35,
+     "quote": "Я нервничаю, сроки поджимают, а у меня опять просто общие слова."
+    },
+    {
+     "message_index": 36,
+     "quote": "Годовая отчётность относится к календарному году."
+    },
+    {
+     "message_index": 65,
+     "quote": "Очень неприятно. Мне теперь снова искать всё самому, а время уже ушло."
+    },
+    {
+     "message_index": 66,
+     "quote": "Дополнительных сведений о порядке получения файлов у меня нет."
+    }
+   ],
+   "checked_range": {
+    "from": 18,
+    "to": 66
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ожидание оператор предупредил, но ответы уклончивые и не по сути вопросов, клиенту приходилось многократно переспрашивать и уточнять (о названии файла, подписи, пути); реплика #36 не связана с вопросом клиента.",
+   "evidence": [
+    {
+     "message_index": 19,
+     "quote": "Ожидайте примерно минуту."
+    },
+    {
+     "message_index": 36,
+     "quote": "Для запроса за 2025 год рассматривается период с первого января по тридцать первое декабря."
+    },
+    {
+     "message_index": 57,
+     "quote": "То есть я правильно услышал: отчёт есть, но ни название, ни путь, ни куда запрос отправить вы не даёте?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор не подвёл итог, не предложил помощь и не попрощался — ответил только «Принято.»",
+   "evidence": [
+    {
+     "message_index": 69,
+     "quote": "Принято."
+    }
+   ],
+   "checked_range": {
+    "from": 66,
+    "to": 69
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании или раскрытия конфиденциальной информации не выявлено.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Код мне не называйте."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 4731,
+   "output_tokens": 1401,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.023756,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  },
+  {
+   "stage": "repair",
+   "request_id": "main_repair",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 6249,
+   "output_tokens": 277,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.015552,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 1
+}

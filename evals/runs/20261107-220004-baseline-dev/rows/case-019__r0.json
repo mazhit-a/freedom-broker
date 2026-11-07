@@ -1,0 +1,121 @@
+{
+ "case_id": "case-019",
+ "variant": "baseline",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на русском языке клиента и назвал своё имя.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл выбранный раздел IPO и уточнил, что именно хочет узнать клиент.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Вы выбрали раздел об участии в IPO. Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос не был сформулирован, данные не раскрывались, защищённых действий не было.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: клиент не успел сформулировать вопрос, данные не раскрывались."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Соединение прервалось до того, как клиент сформулировал запрос.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Чат закончился до того, как клиент сформулировал запрос: соединение потеряно после «Да, я... э...»."
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив, недовольства клиент не выражал.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Единственная реплика оператора ясная и связная, ожидания не было.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Звонок оборвался из-за потери соединения, возможности завершить разговор не было.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Чат оборвался до возможности его завершить: системное событие «Соединение потеряно»."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации нет.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 360,
+   "output_tokens": 907,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.010074,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

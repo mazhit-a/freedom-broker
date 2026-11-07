@@ -1,0 +1,170 @@
+{
+ "case_id": "case-010",
+ "variant": "baseline",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на русском языке и представился.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Здравствуйте, меня зовут Арман."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил, о какой из сделок идёт речь и какой был тип заявки. Вместо этого он сразу дал общее объяснение, на что клиент прямо указал.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Но вы даже не спросили, какая заявка."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 10
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до того, как оператор раскрыл данные по счёту.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Даны только общие объяснения о типах заявок. Причина по конкретной сделке не установлена, конкретный порядок подачи претензии не назван, и клиент так и не понял, как действовать.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Точного раздела или адреса для претензии я сейчас не назову."
+    },
+    {
+     "message_index": 23,
+     "quote": "Ни причину не выяснили, ни как претензию отправить не объяснили."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент выразил недовольство и описал неудобство: денег не хватает, разбор добивается второй раз. Оператор ответил пренебрежительно и на проблему клиента не отреагировал.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Очень неприятно. Я рассчитывал на другую сумму, теперь денег на следующую покупку не хватает."
+    },
+    {
+     "message_index": 12,
+     "quote": "Обсуждать ваши переживания я не буду."
+    }
+   ],
+   "checked_range": {
+    "from": 11,
+    "to": 12
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Оператор молчал более трёх минут без предупреждения об ожидании. Клиенту приходилось переспрашивать, относится ли ответ к его сделке и каков порядок действий.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Вы больше трёх минут молчали, я думал чат завис."
+    },
+    {
+     "message_index": 21,
+     "quote": "Я понял слова, но не порядок действий."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор закрыл чат, не подведя итог, не предложив дальнейшую помощь и не попрощавшись.",
+   "evidence": [],
+   "checked_range": {
+    "from": 24,
+    "to": 26
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор предложил платную частную консультацию в обход компании с оплатой на личную карту.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Это моя частная консультация вне компании: оплатите переводом на мою личную карту"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 1499,
+   "output_tokens": 1055,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.013832,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  },
+  {
+   "stage": "repair",
+   "request_id": "main_repair",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 2671,
+   "output_tokens": 214,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.007766,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 1
+}

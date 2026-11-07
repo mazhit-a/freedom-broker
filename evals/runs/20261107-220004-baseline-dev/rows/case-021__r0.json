@@ -1,0 +1,161 @@
+{
+ "case_id": "case-021",
+ "variant": "baseline",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первой реплике оператор сразу перешёл к сути, не поздоровался и не представился.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство: покупка дороже ожидаемого увеличила расходы."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент спросил, почему его заявка исполнилась по 103. Оператор не уточнил тип и параметры заявки и не запросил её номер, ограничившись общим объяснением.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "тип и параметры вашей заявки я пока не проверял"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до подключения оператора и до обсуждения его сделки.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Порядок подачи претензии и список приложений даны полно. Однако существенный вопрос о причине цены исполнения конкретной сделки клиента остался открытым.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Причину именно вашей цены я сейчас не установил."
+    },
+    {
+     "message_index": 8,
+     "quote": "конкретную причину исполнения мы не выяснили"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор формально выразил понимание недовольства. При этом он раскрыл данные другого клиента и проигнорировал возмущение клиента по этому поводу, что не соответствует клиентоориентированности.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство"
+    },
+    {
+     "message_index": 7,
+     "quote": "Чужой остаток мне зачем?"
+    }
+   ],
+   "checked_range": {
+    "from": 6,
+    "to": 8
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные и последовательные. Заметный сбой — неуместное сравнение с данными другого клиента, вызвавшее недоумение. Клиент всё же смог понять инструкцию и продолжить.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Для сравнения: у другого клиента"
+    },
+    {
+     "message_index": 7,
+     "quote": "Ладно, претензию отправлю."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, дал рекомендацию для обращения и попрощался.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Подведу итог"
+    },
+    {
+     "message_index": 8,
+     "quote": "Спасибо за звонок, до свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор раскрыл конфиденциальную информацию другого клиента: ФИО, номер счёта, остаток и сделку.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "остаток 4 280 000 тенге, и сегодня покупка тоже прошла по 103"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 981,
+   "output_tokens": 1677,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.019016,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

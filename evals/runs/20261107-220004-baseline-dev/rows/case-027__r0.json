@@ -1,0 +1,167 @@
+{
+ "case_id": "case-027",
+ "variant": "baseline",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первой реплике поздоровался на английском языке клиента и представился по имени.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex. How can I help you today?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл срочность и уточнил недостающие данные: дату, сумму, валюту, статус, счёт получателя и доступность отмены.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "When did you submit it, what amount and currency, and what status does the app show?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Is the destination a bank account in your own name, and is there an active Cancel button on the withdrawal?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор запросил проверку личности, но клиент её не прошёл. Тем не менее оператор отправил инструкцию на отмену вывода, то есть выполнил защищённое действие без подтверждения личности.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "I haven't approved anything."
+    },
+    {
+     "message_index": 10,
+     "quote": "I'll go ahead and send the cancellation instruction anyway."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 14
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ключевая рекомендация ошибочна. Оператор советовал создать дублирующий вывод, проигнорировать предупреждение приложения и внести ещё 50 000 тенге, ссылаясь на несуществующее «слияние» заявок.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "A duplicate request moves the original to the front of the payment queue, and the system automatically merges the two into one payment."
+    },
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    },
+    {
+     "message_index": 20,
+     "quote": "Then you would need to deposit another fifty thousand tenge first and submit the duplicate after that."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и дважды отреагировал на конкретную проблему клиента: деньги нужны для оплаты аренды.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "I understand why having your rent money tied up is worrying."
+    },
+    {
+     "message_index": 22,
+     "quote": "putting in more money isn't workable when you need it for rent."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Об ожидании оператор предупредил, реплики в целом ясные. Заметный сбой: рекомендации менялись по ходу диалога — сначала создать дубликат, затем пополнить счёт, затем ничего не делать. Клиент при этом смог понять итог и продолжить.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "I'll put you on hold for about thirty seconds while I submit it."
+    },
+    {
+     "message_index": 22,
+     "quote": "leave the existing request in place while the cancellation instruction is considered."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, предложил обращаться за дальнейшей помощью и попрощался.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "To recap, I've sent a cancellation instruction"
+    },
+    {
+     "message_index": 26,
+     "quote": "Please contact us if you need further help. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Please contact us if you need further help."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 1802,
+   "output_tokens": 1768,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.021568,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

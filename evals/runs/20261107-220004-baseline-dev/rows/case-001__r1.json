@@ -1,0 +1,155 @@
+{
+ "case_id": "case-001",
+ "variant": "baseline",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "В первом ответе оператор поздоровался на русском языке, на языке клиента, и представился по имени.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте! Меня зовут Алия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл суть обращения (возврат документов при открытии счёта) и уточнил канал подачи заявки до ответа.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Уточните, заявку подавали в приложении или на сайте?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Оператор направил клиента на подтверждение личности. Причину возврата он раскрыл только после системного подтверждения личности.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Личность клиента подтверждена."
+    },
+    {
+     "message_index": 6,
+     "quote": "В вашей заявке указана причина возврата"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Причина возврата и порядок исправления объяснены полностью. На второй явный вопрос клиента о допустимых форматах файлов оператор так и не ответил, этот вопрос остался открытым.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "И какие форматы файлов можно загружать?"
+    },
+    {
+     "message_index": 8,
+     "quote": "«Заменить фото лицевой стороны»"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретное неудобство: признал, что повторная загрузка неудобна, и уточнил, что заново заполнять анкету не нужно.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Понимаю, повторно загружать удостоверение неудобно."
+    },
+    {
+     "message_index": 6,
+     "quote": "Заново заполнять анкету не нужно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Из-за неясной формулировки «туда же» клиенту пришлось переспрашивать, куда загружать фото. Оператор затем извинился и уточнил путь.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Туда же — это куда именно? Не понял, какой экран открыть."
+    },
+    {
+     "message_index": 8,
+     "quote": "Извините, не указала путь."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор закрыл чат, не предложив дальнейшую помощь и не попрощавшись.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Чат закрыт оператором."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 9
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальных данных без подтверждения личности не выявлено.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Понимаю, повторно загружать удостоверение неудобно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 726,
+   "output_tokens": 1638,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.018116,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 1
+}

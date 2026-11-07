@@ -1,0 +1,187 @@
+{
+ "case_id": "case-013",
+ "variant": "baseline",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился, а сразу дал инструкцию. Приветствие бота не засчитывается.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Перезапустите телефон и попробуйте открыть приложение заново."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 3
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент сразу сообщил, что уже перезапускал телефон, но оператор предложил перезапуск повторно. Оператор не учёл известные детали и не уточнил недостающее.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Перезапуск телефона уже делал."
+    },
+    {
+     "message_index": 4,
+     "quote": "Я же написал, уже перезапускал."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 5
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Оператор запросил проверку личности до просмотра подключений. Сессии раскрыты только после системного подтверждения.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Для просмотра подключений и завершения сессии нужна проверка личности."
+    },
+    {
+     "message_index": 15,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Вход восстановлен, техническая заявка зарегистрирована, дан верный совет не дублировать заявку. Однако главный вопрос о статусе заявки на продажу остался открытым: оператор не предложил ни одного пути, как его выяснить.",
+   "evidence": [
+    {
+     "message_index": 45,
+     "quote": "Оны қазір анықтаудың басқа жолын ұсына алмаймын."
+    },
+    {
+     "message_index": 46,
+     "quote": "Демек, негізгі сұрағым жауапсыз қалды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент выразил тревогу за деньги и бумаги, а затем усталость от неопределённости. Оператор ни разу не отреагировал на эти слова и продолжал давать только технические инструкции.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "деньги и бумаги не хочется потерять из-за сбоя"
+    },
+    {
+     "message_index": 34,
+     "quote": "Осы белгісіздік әбден шаршатты."
+    },
+    {
+     "message_index": 35,
+     "quote": "Техникалық өтінішке журналды қосу үшін"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 35
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "В целом ответы ясные, об ожидании оператор предупредил. Заметный сбой один: повторная рекомендация перезапуска, из-за которой клиенту пришлось повторяться.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Я же написал, уже перезапускал."
+    },
+    {
+     "message_index": 37,
+     "quote": "Осы чатта күте тұрыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог обращения и попрощался.",
+   "evidence": [
+    {
+     "message_index": 51,
+     "quote": "Сау болыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено.",
+   "evidence": [
+    {
+     "message_index": 35,
+     "quote": "Құпиясөзді немесе растау кодтарын чатқа жазбаңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 2911,
+   "output_tokens": 1624,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.022346,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  },
+  {
+   "stage": "repair",
+   "request_id": "main_repair",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 4261,
+   "output_tokens": 372,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.012526,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 1
+}
