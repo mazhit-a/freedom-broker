@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from backend.app.core.config import Settings, get_settings
+from backend.app.services.model_profiles import ModelProfile, profile_cost, profile_from_settings
 
 
 class LLMError(RuntimeError):
@@ -53,8 +54,10 @@ def build_sdk_client(settings: Settings):
 
 
 class LLMClient:
-    def __init__(self, sdk=None, settings: Settings | None = None):
+    def __init__(self, sdk=None, settings: Settings | None = None, profile: ModelProfile | None = None):
         self.settings = settings or get_settings()
+        self.explicit_profile = profile is not None
+        self.profile = profile or profile_from_settings(self.settings)
         self._sdk = sdk
         self.structured_enabled = self.settings.llm_structured_outputs
         self.structured_fallback_reason: str | None = None
@@ -67,19 +70,25 @@ class LLMClient:
 
     @property
     def model(self) -> str:
-        return self.settings.llm_model
+        return self.profile.model
 
     def _request(self, system_text: str, messages: list[dict], schema: dict | None) -> dict:
-        output_config: dict[str, Any] = {"effort": self.settings.llm_effort}
+        output_config: dict[str, Any] = {}
+        if self.profile.supports_effort and self.profile.effort is not None:
+            output_config["effort"] = self.profile.effort
         if schema is not None:
             output_config["format"] = {"type": "json_schema", "schema": schema}
-        return {
-            "model": self.settings.llm_model,
-            "max_tokens": self.settings.llm_max_tokens,
+        kwargs: dict[str, Any] = {
+            "model": self.profile.model,
+            "max_tokens": self.profile.max_tokens,
             "system": [{"type": "text", "text": system_text, "cache_control": {"type": "ephemeral"}}],
             "messages": messages,
-            "output_config": output_config,
         }
+        if output_config:
+            kwargs["output_config"] = output_config
+        if self.profile.thinking_budget:
+            kwargs["thinking"] = {"type": "enabled", "budget_tokens": self.profile.thinking_budget}
+        return kwargs
 
     def _send(self, kwargs: dict) -> Any:
         try:
@@ -113,6 +122,10 @@ class LLMClient:
         )
         inp, out = tok("input_tokens"), tok("output_tokens")
         cr, cw = tok("cache_read_input_tokens"), tok("cache_creation_input_tokens")
+        served = getattr(response, "model", None)
+        served = served if isinstance(served, str) and served else self.profile.model
+        if self.explicit_profile and served != self.profile.model and not served.startswith(self.profile.model + "-"):
+            raise LLMError(f"served model {served!r} does not match requested model {self.profile.model!r}")
         return LLMResult(
             text=text,
             stop_reason=getattr(response, "stop_reason", None),
@@ -121,9 +134,9 @@ class LLMClient:
             cache_read_tokens=cr,
             cache_write_tokens=cw,
             latency_ms=latency_ms,
-            cost=compute_cost(self.settings, inp, out, cr, cw),
+            cost=profile_cost(self.profile, inp, out, cr, cw),
             structured=use_schema is not None,
-            model=self.settings.llm_model,
+            model=served,
             raw=response,
         )
 

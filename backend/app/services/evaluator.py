@@ -3,12 +3,12 @@ import json
 import re
 import sqlite3
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Callable
 
 from backend.app.schemas.checklist import ChecklistConfig, Criterion
 from backend.app.services.checklist import get_version
 from backend.app.services.llm_client import LLMClient, LLMError, LLMResult
-from backend.app.services.scoring import score
+from backend.app.services.scoring import ScoreResult, score
 
 PROMPT_VERSION = "v1"
 FUZZY_THRESHOLD = 0.85
@@ -299,10 +299,25 @@ def _validate_pass(cfg: ChecklistConfig, text: str, messages: list[dict], wanted
     return ok, bad
 
 
-def run_evaluation(client: LLMClient, cfg: ChecklistConfig, conv: dict, messages: list[dict]) -> Outcome:
+SystemPromptBuilder = Callable[[ChecklistConfig], str]
+UserPromptBuilder = Callable[[dict, list[dict]], str]
+
+
+def score_results(cfg: ChecklistConfig, results: dict[str, dict]) -> ScoreResult:
+    return score(cfg, {cid: res["answer"] for cid, res in results.items()})
+
+
+def run_evaluation(
+    client: LLMClient,
+    cfg: ChecklistConfig,
+    conv: dict,
+    messages: list[dict],
+    system_builder: SystemPromptBuilder = build_system_prompt,
+    user_builder: UserPromptBuilder = build_user_prompt,
+) -> Outcome:
     out = Outcome()
-    system_text = build_system_prompt(cfg)
-    user_text = build_user_prompt(conv, messages)
+    system_text = system_builder(cfg)
+    user_text = user_builder(conv, messages)
     schema = build_schema(cfg)
     convo = [{"role": "user", "content": user_text}]
     ids = [c.id for c in cfg.criteria]
@@ -379,10 +394,7 @@ def evaluate_conversation(conn: sqlite3.Connection, conversation_pk: int, versio
     cfg = version.config
     outcome = run_evaluation(client, cfg, conv, messages)
 
-    answers: dict[str, Any] = {}
-    for cid, res in outcome.results.items():
-        answers[cid] = res["answer"]
-    result = score(cfg, answers)
+    result = score_results(cfg, outcome.results)
 
     inp = sum(c.input_tokens for c in outcome.calls)
     outp = sum(c.output_tokens for c in outcome.calls)
