@@ -5,11 +5,15 @@ import { duration } from "../format.js";
 import { can } from "../roles.js";
 import { SHARED_CSS } from "../shared/styles.js";
 import { chip, langChip } from "../shared/chip.js";
-import { emptyPanel, errorPanel, loadingPanel } from "../shared/state-panel.js";
+import { emptyPanel, errorPanel } from "../shared/state-panel.js";
 import { CARD_EVENTS, buildCard, enterTarget, moveSelection, paintState, wallClock } from "./card-model.js";
-import { chatIcon, criteriaSection, scoreSection, transcriptSection } from "./card-view.js";
+import { chatIcon, criteriaSection, loadingSkeleton, scoreSection, transcriptSection } from "./card-view.js";
+import { LEDGER_CSS, buildLedger, ledgerView } from "./card-ledger.js";
+import { HISTORY_CSS, buildHistory, historyView, openAppeals } from "./card-history.js";
+import { CallChannel, isCall } from "./call-controller.js";
+import { CALL_CSS } from "./call-view.js";
 
-const STYLES = `${SHARED_CSS}
+const STYLES = `${SHARED_CSS}${LEDGER_CSS}${HISTORY_CSS}${CALL_CSS}
 :host { display: block; container-type: normal !important; font-size: var(--cqa-fs-14); color: var(--cqa-ink); }
 [hidden] { display: none !important; }
 .page { container-type: inline-size; display: flex; flex-direction: column; gap: 16px; }
@@ -123,6 +127,7 @@ export class CqaConversationCard extends CqaElement {
     this._hover = null;
     this._msg = null;
     this._busy = false;
+    this._ledgerOpen = true;
     this._token = 0;
     this._versionId = null;
     this._nodes = null;
@@ -225,11 +230,31 @@ export class CqaConversationCard extends CqaElement {
     if (this._phase === "ready" && this._conversation) {
       this._view = buildCard(this._conversation, this._evaluation, this.locale);
       if (!this._view.byId[this._sel]) this._sel = this._view.order[0] || null;
+      this.syncCall();
     }
     super.renderNow();
   }
 
+  syncCall() {
+    const conv = this._conversation;
+    if (!isCall(conv)) {
+      if (this._call) this._call.dispose();
+      this._call = null;
+      return;
+    }
+    if (this._call && this._call.conversationId !== conv.id) {
+      this._call.dispose();
+      this._call = null;
+    }
+    if (!this._call) {
+      this._call = new CallChannel(this);
+      this._call.conversationId = conv.id;
+    }
+    this._call.update(conv, this._evaluation, this._view);
+  }
+
   channelChip() {
+    if (this._call) return this._call.channelChip();
     const call = this._conversation.channel === "call";
     const text = this.t(call ? "card.channelCall" : "card.channelChat");
     return html`<span class="chip c-na">${call ? html`` : chatIcon()}${text}</span>`;
@@ -241,8 +266,16 @@ export class CqaConversationCard extends CqaElement {
     const crumbs = html`<nav class="crumb" aria-label="${this.t("card.breadcrumb")}"><a href="#/conversations" data-action="crumb">${this.t("nav.conversations")}</a><span aria-hidden="true">/</span><span class="cur tnum" aria-current="page">${id}</span></nav>`;
     if (!conv) return html`<div class="card strip">${crumbs}</div>`;
     const dataset = this._datasetName ? html`<span class="tnum strip-meta muted">${this.t("card.dataset", { name: this._datasetName })}</span>` : html``;
-    const when = conv.occurredAt ? html`<span class="tnum strip-meta muted">${this.t("card.occurredAt", { when: wallClock(conv.occurredAt, this.locale) })}</span>` : html``;
-    return html`<div class="card strip" data-strip>${crumbs}${langChip(conv.language)}${this.channelChip()}<span class="strip-meta">${this.t("card.operatorLabel")}: <b>${this.t("actor.operator")}</b></span>${dataset}${when}${this.versionTools()}<span class="hint" data-role-hint>${this.t(`card.hint.${this.role}`)}</span></div>`;
+    const when = this._call
+      ? this._call.metaTemplate()
+      : conv.occurredAt ? html`<span class="tnum strip-meta muted">${this.t("card.occurredAt", { when: wallClock(conv.occurredAt, this.locale) })}</span>` : html``;
+    return html`<div class="card strip" data-strip>${crumbs}${langChip(conv.language)}${this.channelChip()}<span class="strip-meta">${this.t("card.operatorLabel")}: <b>${this.t("actor.operator")}</b></span>${dataset}${when}${this.versionTools()}<span class="hint" data-role-hint>${this.hintText()}</span></div>`;
+  }
+
+  hintText() {
+    const pending = this.role === "reviewer" && this._evaluation ? openAppeals(this._evaluation) : [];
+    if (pending.length) return this.t("card.hint.reviewerAppeal", { id: pending[0].criterionId });
+    return this.t(`card.hint.${this.role}`);
   }
 
   versionTools() {
@@ -263,23 +296,25 @@ export class CqaConversationCard extends CqaElement {
   }
 
   transcriptBanner() {
-    return html``;
+    return this._call ? this._call.banner() : html``;
   }
 
-  messageExtra() {
-    return null;
+  messageExtra(message) {
+    return this._call ? this._call.extra(message) : null;
   }
 
   reviewSection() {
     return html``;
   }
 
-  ledgerSection() {
-    return html``;
+  ledgerSection(view, ev) {
+    const model = buildLedger(view, ev);
+    if (!model.reconciled && globalThis.console) console.warn(`ledger total does not reconcile with the score panel for ${this.conversationId()}`);
+    return ledgerView(model, { locale: this.locale, open: this._ledgerOpen });
   }
 
-  historySection() {
-    return html``;
+  historySection(view, ev) {
+    return historyView(buildHistory(view, ev, this.locale), this.locale);
   }
 
   overlays() {
@@ -290,7 +325,7 @@ export class CqaConversationCard extends CqaElement {
     const phase = this._phase;
     const locale = this.locale;
     if (phase === "loading") {
-      return html`<div class="page"><div class="card strip">${loadingPanel(locale)}</div></div>`;
+      return loadingSkeleton(locale, this.stripTemplate());
     }
     if (phase === "error") {
       return html`<div class="page">${this.stripTemplate()}${errorPanel(locale)}</div>`;
@@ -305,8 +340,10 @@ export class CqaConversationCard extends CqaElement {
     const transcript = transcriptSection(view, { locale, durationText, banner: this.transcriptBanner(), messageExtra: (m) => this.messageExtra(m) });
     let right;
     if (ev) {
-      const ctx = { locale, canAppeal: can(this.role, "file-appeal") };
-      right = html`${scoreSection(view, ev, ctx)}${this.reviewSection(view, ev)}${criteriaSection(view, ctx)}${this.ledgerSection(view, ev)}${this.historySection(view, ev)}`;
+      const ctx = { locale, canAppeal: can(this.role, "file-appeal"), hideGross: Boolean(this._call && this._call.hidesGross()) };
+      const lead = this._call ? this._call.lead() : html``;
+      const criteria = this._call ? this._call.criteria(view, ctx) : criteriaSection(view, ctx);
+      right = html`${lead}${scoreSection(view, ev, ctx)}${this.reviewSection(view, ev)}${criteria}${this.ledgerSection(view, ev)}${this.historySection(view, ev)}`;
     } else {
       right = emptyPanel(locale, { title: this.t("card.noEvaluation"), hint: this.t("card.noEvaluationHint") });
     }
@@ -325,6 +362,7 @@ export class CqaConversationCard extends CqaElement {
       transcript: region.querySelector("[data-transcript]")
     };
     this.paint();
+    if (this._call) this._call.afterRender(region);
   }
 
   paint() {
@@ -419,6 +457,7 @@ export class CqaConversationCard extends CqaElement {
     const action = el.getAttribute("data-action");
     const crit = el.getAttribute("data-crit");
     const msg = el.getAttribute("data-msg");
+    if (this._call && this._call.handleClick(action, el, event)) return;
     if (action === "pick-crit") this.select(crit);
     else if (action === "pick-msg") {
       this._msg = this._msg === Number(msg) ? null : Number(msg);
@@ -436,6 +475,9 @@ export class CqaConversationCard extends CqaElement {
       const ev = this._evaluation;
       this.select(crit);
       emit(this, CARD_EVENTS.appealRequest, { criterionId: crit, evaluationId: ev ? ev.id : null, conversationId: this._conversation ? this._conversation.id : null });
+    } else if (action === "toggle-ledger") {
+      this._ledgerOpen = !this._ledgerOpen;
+      this.renderNow();
     } else if (action === "crumb") {
       event.preventDefault();
       navigate(this, "conversations");

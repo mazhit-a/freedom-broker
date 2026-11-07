@@ -18,8 +18,9 @@ export function speakerKind(speaker) {
 }
 
 export function messageTime(message, channel) {
-  if (channel === "call" && message.offsetSeconds !== null && message.offsetSeconds !== undefined) {
-    return duration(message.offsetSeconds);
+  if (channel === "call") {
+    const at = message.audioStart ?? message.offsetSeconds;
+    if (at !== null && at !== undefined) return duration(at);
   }
   return message.time || "";
 }

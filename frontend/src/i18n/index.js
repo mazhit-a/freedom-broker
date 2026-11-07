@@ -3,14 +3,16 @@ import ru from "./ru.js";
 import kk from "./kk.js";
 import en from "./en.js";
 import card from "./screens/card.js";
+import cardLedger from "./screens/card-ledger.js";
 import builder from "./screens/builder.js";
 import list from "./screens/list.js";
 import overview from "./screens/overview.js";
 import runs from "./screens/runs.js";
+import call from "./screens/call.js";
 
 export const LOCALES = Object.freeze(["ru", "kk", "en"]);
 export const DEFAULT_LOCALE = "ru";
-const SCREENS = [card, builder, list, overview, runs];
+const SCREENS = [card, cardLedger, builder, list, overview, runs, call];
 
 function merge(base, lang) {
   return Object.assign({}, base, ...SCREENS.map((screen) => screen[lang] || {}));

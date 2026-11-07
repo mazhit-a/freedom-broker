@@ -59,9 +59,13 @@ function totalBlock(evaluation, locale) {
       ? chip({ tone: "ok", text: t("card.wasChanged", { value: number(evaluation.originalTotal, locale) }, locale) })
       : html``;
   const provisional = evaluation.provisional ? provisionalChip(locale) : html``;
-  const note = evaluation.provisional ? html`<span class="fs12 warn-text" data-provisional-note>${t("state.lowConfidenceNote", {}, locale)}</span>` : html``;
+  const conf = evaluation.confidence;
+  const missing = conf && conf.total ? Math.max(0, conf.total - (conf.withRationale ?? 0)) : 0;
+  const detail = evaluation.provisional && missing > 0 ? html`<span class="fs12 muted2" data-provisional-detail>${t("state.lowConfidenceDetail", { count: integer(missing, locale), total: integer(conf.total, locale) }, locale)}</span>` : html``;
+  const note = evaluation.provisional ? html`<span class="fs12 warn-text" data-provisional-note>${t("state.lowConfidenceNote", {}, locale)}</span>${detail}` : html``;
   if (!calculated) {
-    return html`<div class="col gap-1"><span class="fs13 muted2">${t("card.total", {}, locale)}</span><div class="total-row"><span class="total-na" data-total>${t("state.notCalculated", {}, locale)}</span>${provisional}</div>${note}</div>`;
+    const hint = evaluation.provisional ? html`` : html`<span class="fs12 muted2" data-not-calculated-hint>${t("state.notCalculatedHint", {}, locale)}</span>`;
+    return html`<div class="col gap-1"><span class="fs13 muted2">${t("card.total", {}, locale)}</span><div class="total-row"><span class="total-na" data-total>${t("state.notCalculated", {}, locale)}</span>${provisional}</div>${note}${hint}</div>`;
   }
   return html`<div class="col gap-1"><span class="fs13 muted2">${t("card.total", {}, locale)}</span><div class="total-row"><span class="total tnum" data-total>${number(evaluation.total, locale)}</span><span class="out-of">${t("card.outOf", {}, locale)}</span>${provisional}${changed}</div>${note}</div>`;
 }
@@ -105,7 +109,7 @@ export function scoreSection(view, evaluation, ctx) {
   const modelText = t("card.model", { model: evaluation.modelLabel || "", time: when }, locale);
   const modelLine = model.length ? modelText.replace(/ · $/, "") : "";
   const tiles = view.tiles.map((s) => tile(s, locale));
-  return html`<div class="card score-card" data-score><div class="score-top">${totalBlock(evaluation, locale)}<div class="score-meta"><span data-version-chip>${checklist}</span><span class="tnum">${modelLine}</span><span data-confidence>${confidenceText(evaluation, locale)}</span></div></div><div class="tiles" data-tiles>${tiles}</div>${grossStrip(view, evaluation, locale)}</div>`;
+  return html`<div class="card score-card" data-score><div class="score-top">${totalBlock(evaluation, locale)}<div class="score-meta"><span data-version-chip>${checklist}</span><span class="tnum">${modelLine}</span><span data-confidence>${confidenceText(evaluation, locale)}</span></div></div><div class="tiles" data-tiles>${tiles}</div>${ctx.hideGross ? html`` : grossStrip(view, evaluation, locale)}</div>`;
 }
 
 function answerBadge(c, locale) {
@@ -151,7 +155,7 @@ function criterionArticle(c, ctx) {
     canAppeal && !c.appeal
       ? html`<button type="button" class="btn btn-sm" data-action="appeal" data-crit="${c.id}" aria-label="${t("criterion.appeal", {}, locale)} ${c.id}">${icon("flag")}${t("criterion.appeal", {}, locale)}</button>`
       : html``;
-  return html`<article class="crit-row" data-crit-row="${c.id}" id="crit-${c.id}"><div class="crit-top"><button type="button" class="crit-pick" data-action="pick-crit" data-crit="${c.id}" aria-pressed="false" data-focus-id="pick-${c.id}"><span class="crit-no">${c.id}</span><span class="crit-name">${c.title}</span><span class="chip cites-chip" data-cites-chip hidden></span></button>${answerBadge(c, locale)}<span class="tnum crit-pts"><b>${points}</b> <span class="muted">/ ${maxText}</span></span></div><div class="crit-rest">${c.rationale ? html`<p class="crit-why">${c.rationale}</p>` : html``}${na}${stepsRow(c, locale)}<div class="row gap-2"><span class="crit-weight">${weightText(c, locale)}</span>${chips}${expected}<span class="grow"></span>${appealChips(c, locale)}${appeal}</div></div></article>`;
+  return html`<article class="crit-row" data-crit-row="${c.id}" id="crit-${c.id}"><div class="crit-top"><button type="button" class="crit-pick" data-action="pick-crit" data-crit="${c.id}" aria-pressed="false" data-focus-id="pick-${c.id}"><span class="crit-no">${c.id}</span><span class="crit-name">${c.title}</span><span class="chip cites-chip" data-cites-chip hidden></span></button>${answerBadge(c, locale)}<span class="tnum crit-pts"><b>${points}</b> <span class="muted">/ ${maxText}</span></span></div><div class="crit-rest">${c.rationale ? html`<p class="crit-why">${c.rationale}</p>` : c.needsReview ? html`<p class="crit-why warn-text" data-no-rationale>${t("card.noRationale", {}, locale)}</p>` : html``}${na}${stepsRow(c, locale)}<div class="row gap-2"><span class="crit-weight">${weightText(c, locale)}</span>${chips}${expected}<span class="grow"></span>${appealChips(c, locale)}${appeal}</div></div></article>`;
 }
 
 export function criteriaSection(view, ctx) {
@@ -165,4 +169,15 @@ export function criteriaSection(view, ctx) {
     return html`<div class="sec-row"><h3 class="sub-h">${s.title}</h3><span class="tnum muted fs12">${sum}</span></div>${s.criteria.map((c) => criterionArticle(c, ctx))}`;
   });
   return html`<section class="card criteria" aria-labelledby="cr-h"><div class="cr-head"><h2 id="cr-h" class="blk-h">${t("card.criteria", {}, locale)}</h2><span class="fs12 muted">${t("card.keysHint", {}, locale)}</span></div><div class="crit-list" tabindex="0" role="group" data-crit-list data-focus-id="crit-list" aria-label="${t("card.listLabel", {}, locale)}">${groups}</div></section>`;
+}
+
+function skeletonBars(widths) {
+  return widths.map((w) => html`<span class="skel" style="height:10px;width:${w}%"></span>`);
+}
+
+export function loadingSkeleton(locale, strip) {
+  const name = t("state.loading", {}, locale);
+  const messages = [70, 55, 80, 45, 65, 75].map((w, i) => html`<div class="col gap-2" style="align-items:${i % 2 ? "flex-end" : "flex-start"}"><span class="skel" style="height:10px;width:60px"></span><span class="skel" style="height:44px;width:${w}%"></span></div>`);
+  const rows = [1, 2, 3, 4].map(() => html`<div class="col gap-2" style="padding:12px 20px"><span class="skel" style="height:14px;width:45%"></span>${skeletonBars([90, 70])}</div>`);
+  return html`<div class="page" aria-busy="true" role="status" aria-label="${name}" data-card-loading>${strip}<div class="cols"><section class="card transcript"><div class="t-head"><span class="skel" style="height:16px;width:120px"></span></div><div class="msgs">${messages}</div></section><section class="evalcol"><div class="card score-card"><span class="skel" style="height:44px;width:40%"></span><div class="tiles"><span class="skel" style="height:56px"></span><span class="skel" style="height:56px"></span><span class="skel" style="height:56px"></span></div></div><div class="card criteria">${rows}</div></section></div></div>`;
 }

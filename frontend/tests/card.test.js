@@ -218,3 +218,98 @@ test("card source files carry no comments", () => {
   const screen = readFileSync(new URL("../src/screens/card.js", import.meta.url), "utf8");
   assert.ok(!/\/\/|\/\*/.test(screen));
 });
+
+import { buildLedger, ledgerView } from "../src/components/card-ledger.js";
+import { buildHistory, historyView, openAppeals } from "../src/components/card-history.js";
+
+test("ledger: p1-ru-001 reconciles to 81,88 with N/A redistribution 100 / 80", async () => {
+  const { conversation, evaluation } = await load();
+  const view = buildCard(conversation, evaluation, "ru");
+  const model = buildLedger(view, evaluation);
+  assert.equal(model.total, 81.88);
+  assert.equal(model.applicable, 80);
+  assert.equal(model.factor, 1.25);
+  assert.equal(model.reconciled, true);
+  const html = norm(ledgerView(model, { locale: "ru", open: true }));
+  assert.match(html, /role="table"/);
+  assert.match(html, /aria-expanded="true"/);
+  assert.match(html, /исключён · вес перераспределён/);
+  assert.match(html, /81,88/);
+  assert.match(html, /Применимый вес: 80 из 100 · коэффициент перераспределения 100 \/ 80 = 1,25/);
+  const closed = String(ledgerView(model, { locale: "ru", open: false }));
+  assert.match(closed, /aria-expanded="false"/);
+  assert.doesNotMatch(closed, /role="table"/);
+});
+
+test("ledger: every sample conversation with an evaluation reconciles to its total", async () => {
+  configure({ mock: true });
+  for (const id of ["p1-ru-001", "p3-ru-call-014"]) {
+    const conversation = await api.getConversation(id);
+    const evaluation = await api.getEvaluation(id);
+    const model = buildLedger(buildCard(conversation, evaluation, "ru"), evaluation);
+    assert.equal(model.reconciled, true, id);
+  }
+});
+
+test("ledger: provisional total still reconciles, review row is marked", async () => {
+  const { conversation, evaluation } = await load("p1-ru-001", { state: "lowconf" });
+  const view = buildCard(conversation, evaluation, "ru");
+  const model = buildLedger(view, evaluation);
+  assert.equal(model.provisional, true);
+  assert.equal(model.reconciled, true);
+  const html = norm(ledgerView(model, { locale: "ru", open: true }));
+  assert.match(html, /ожидает проверки/);
+  assert.match(html, /Предварительный расчёт/);
+  const score = norm(scoreSection(view, evaluation, { locale: "ru" }));
+  assert.match(score, /data-provisional-note/);
+  assert.match(score, /data-provisional-detail/);
+  const bare = { ...view, sections: [{ id: "s", title: "S", points: 0, max: 0, ratio: 0, criteria: [{ ...view.byId["04"], rationale: "" }] }] };
+  assert.match(norm(criteriaSection(bare, { locale: "ru", canAppeal: false })), /data-no-rationale/);
+});
+
+test("ledger: all weighted N/A shows the not-calculated total and no factor", () => {
+  const view = { sections: [{ id: "s", title: "S", criteria: [{ id: "01", title: "A", answer: "na", na: true, needsReview: false, weight: 100, effWeight: null, effPoints: null, scale: false, max: null }] }] };
+  const model = buildLedger(view, { calculated: false, total: null, applicableWeight: 0, factor: null, provisional: false });
+  const html = norm(ledgerView(model, { locale: "ru", open: true }));
+  assert.match(html, /Итог не рассчитан/);
+  assert.match(html, /коэффициент не определён/);
+  assert.equal(model.reconciled, true);
+});
+
+test("history: model entry, open appeal, none and decided appeal", async () => {
+  const one = await load();
+  const v1 = buildCard(one.conversation, one.evaluation, "ru");
+  const h1 = buildHistory(v1, one.evaluation, "ru");
+  assert.equal(h1.entries[0].title, "Оценка модели");
+  assert.match(norm(h1.entries[0].meta), /чек-лист v2/);
+  assert.equal(norm(h1.entries[0].body), "Итог 81,88 из 100");
+  assert.equal(h1.entries[1].kind, "appeal");
+  assert.equal(openAppeals(one.evaluation).length, 1);
+  const bare = { ...one.evaluation, appeals: [] };
+  const h0 = buildHistory(v1, bare, "ru");
+  assert.equal(h0.entries.length, 1);
+  assert.match(h0.none, /в течение 5 рабочих дней/);
+  assert.match(norm(historyView(h0, "ru")), /data-history-none/);
+  configure({ mock: true, role: "reviewer" });
+  await api.decideAppeal(1, { decision: "change", newAnswer: "yes", reason: "Клиент сам завершил диалог." });
+  const evaluation = await api.getEvaluation("p1-ru-001");
+  const conversation = await api.getConversation("p1-ru-001");
+  const view = buildCard(conversation, evaluation, "ru");
+  const hd = buildHistory(view, evaluation, "ru");
+  const decision = hd.entries.find((e) => e.kind === "changed");
+  assert.ok(decision);
+  assert.equal(norm(decision.body), "Ответ: Нет → Да. Клиент сам завершил диалог. Итог: 81,88 → 88,13.");
+  assert.equal(evaluation.total, 88.13);
+  const model = buildLedger(view, evaluation);
+  assert.equal(model.total, 88.13);
+  assert.equal(model.reconciled, true);
+  assert.doesNotMatch(norm(historyView(hd, "ru")), /руководителя группы/);
+});
+
+test("ledger and history keys exist in every locale", () => {
+  for (const locale of LOCALES) {
+    for (const key of ["ledger.title", "ledger.footer", "history.title", "history.none", "card.noRationale", "card.hint.reviewerAppeal"]) {
+      assert.ok(DICTIONARIES[locale][key], `${locale}:${key}`);
+    }
+  }
+});
