@@ -12,6 +12,8 @@ import {
   mapEvaluationSummary,
   mapListResponse,
   mapOverview,
+  mapEstimate,
+  mapModel,
   mapRun,
   mapVersion,
   runNumber,
@@ -124,14 +126,23 @@ function url(path, params) {
   const target = new URL(base() + path, documentBase());
   if (params) {
     for (const [key, value] of Object.entries(params)) {
-      if (value !== undefined && value !== null && value !== "") target.searchParams.set(key, value);
+      if (Array.isArray(value)) {
+        for (const item of value) target.searchParams.append(key, item);
+      } else if (value !== undefined && value !== null && value !== "") target.searchParams.set(key, value);
     }
   }
   return target.toString();
 }
 
+function detailObject(body) {
+  const detail = body && body.detail;
+  return detail && typeof detail === "object" && !Array.isArray(detail) && typeof detail.code === "string" ? detail : null;
+}
+
 function messageFrom(body, status) {
   if (body && typeof body.detail === "string") return body.detail;
+  const nested = detailObject(body);
+  if (nested) return typeof nested.message === "string" ? nested.message : nested.code;
   if (body && Array.isArray(body.detail)) return body.detail.map((item) => item.msg || JSON.stringify(item)).join("; ");
   if (body && typeof body.error === "string") return body.error;
   return "Request failed with HTTP " + status;
@@ -154,7 +165,8 @@ async function request(path, options = {}, params) {
     }
   }
   if (!response.ok) {
-    const code = body && typeof body.code === "string" ? body.code : "http_" + response.status;
+    const nested = detailObject(body);
+    const code = nested ? nested.code : body && typeof body.code === "string" ? body.code : "http_" + response.status;
     throw new ApiError(response.status, code, messageFrom(body, response.status));
   }
   if (body && body.isSuccess === false) throw new ApiError(502, "source_failure", body.error || "The data source reported a failure");
@@ -351,8 +363,9 @@ const real = {
     return mapVersion(raw);
   },
 
-  async setChecklistChannels() {
-    throw notImplemented("BG-23", "checklist channel binding");
+  async setChecklistChannels(checklistId, channels) {
+    const raw = await sendJson("PUT", "/checklists/" + encodeURIComponent(checklistId) + "/channels", { channels: (channels || []).map((c) => wireChannel(c)) });
+    return mapChecklist(raw);
   },
 
   async listDatasets() {
@@ -375,23 +388,52 @@ const real = {
   },
 
   async listModels() {
-    throw notImplemented("BG-18", "model catalog");
+    return (await getJson("/models")).map(mapModel);
   },
 
-  async estimateRun() {
-    throw notImplemented("BG-18", "run cost estimate");
+  async estimateRun(input = {}) {
+    const pks = input.conversationIds && input.conversationIds.length ? await Promise.all(input.conversationIds.map((id) => resolvePk(id))) : undefined;
+    if (!input.groupId && !pks) {
+      const models = await real.listModels();
+      const model = models.find((m) => m.id === input.model) || models.find((m) => m.default) || models[0];
+      if (!model) throw new ApiError(422, "unknown_model", "No model is configured");
+      const count = Number(input.count) || 0;
+      return { count, total: count, skipped: 0, model: model.id, pricePerEvaluation: model.pricePerEvaluation, cost: Math.round(count * model.pricePerEvaluation * 10000) / 10000, secondsEstimate: null, currency: "USD", priceSource: model.priceSource };
+    }
+    const raw = await getJson("/runs/estimate", {
+      dataset: pks ? undefined : input.groupId,
+      conversation_pks: pks,
+      checklist_version_id: input.versionId,
+      force: input.force ? "true" : undefined,
+      model: input.model
+    });
+    return mapEstimate(raw);
   },
 
   async startRun(input = {}) {
     let dataset = input.groupId;
     if (input.file) dataset = (await real.importDataset({ file: input.file, groupId: input.groupId })).groupId;
+    else if (dataset && !(input.conversationIds && input.conversationIds.length)) {
+      const known = await getJson("/datasets");
+      if (!known.some((d) => d.group_id === dataset)) dataset = (await real.importDataset({ groupId: dataset })).groupId;
+    }
     const pks = input.conversationIds ? await Promise.all(input.conversationIds.map((id) => resolvePk(id))) : undefined;
-    const raw = await sendJson("POST", "/runs", {
-      dataset: pks && pks.length ? undefined : dataset,
-      checklist_version_id: input.versionId,
-      force: Boolean(input.force),
-      conversation_pks: pks
-    });
+    let raw;
+    try {
+      raw = await sendJson("POST", "/runs", {
+        dataset: pks && pks.length ? undefined : dataset,
+        checklist_version_id: input.versionId,
+        force: Boolean(input.force),
+        conversation_pks: pks,
+        model: input.model
+      });
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 422) {
+        if (/draft checklist versions/i.test(error.message)) throw new ApiError(422, "draft_version", error.message);
+        if (/dataset or conversation_pks/i.test(error.message)) throw new ApiError(422, "dataset_required", error.message);
+      }
+      throw error;
+    }
     return mapRun(raw);
   },
 
@@ -405,8 +447,13 @@ const real = {
     return list.map(mapRun);
   },
 
-  async retryRunItem() {
-    throw notImplemented("BG-19", "run item retry");
+  async retryRunItem(runId, conversationId) {
+    const number = runNumber(runId);
+    const current = await getJson("/runs/" + number, { limit: 500 });
+    const item = (current.items || []).find((i) => i.conversation_id === conversationId || i.conversation_pk === conversationId);
+    if (!item) throw new ApiError(404, "item_not_found", "Run item not found");
+    await sendJson("POST", "/runs/" + number + "/items/" + item.conversation_pk + "/retry");
+    return mapRun(await getJson("/runs/" + number, { limit: 500 }));
   },
 
   async getWaveform() {
@@ -436,6 +483,6 @@ api.audioUrl = (id, mode) => {
   return url("/conversations/" + pk + "/audio", mode ? { mode } : undefined);
 };
 
-export const REAL_METHODS = METHODS.filter((name) => !["listModels", "estimateRun", "retryRunItem", "getWaveform"].includes(name)).concat(["audioUrl"]);
-export const GAP_METHODS = { listModels: "BG-18", estimateRun: "BG-18", retryRunItem: "BG-19", getWaveform: "BG-30" };
+export const REAL_METHODS = METHODS.filter((name) => !["getWaveform"].includes(name)).concat(["audioUrl"]);
+export const GAP_METHODS = { getWaveform: "BG-30" };
 export const ADAPTER_METHODS = METHODS.concat(["audioUrl"]);

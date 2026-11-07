@@ -1,0 +1,1 @@
+{"detail": [{"type": "value_error", "loc": ["body"], "msg": "Value error, duplicate criterion ids: 01", "ctx": {"error": {}}}]}

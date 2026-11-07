@@ -1,0 +1,1 @@
+[{"id":"claude-opus-5-5","label":"claude-opus-5-5","paid":true,"default":true,"price_per_evaluation":0.032558,"price_source":"history","measured_evaluations":73,"avg_latency_s":12.0,"price_input_per_mtok":4.0,"price_output_per_mtok":20.0}]

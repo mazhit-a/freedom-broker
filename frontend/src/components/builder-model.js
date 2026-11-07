@@ -43,7 +43,9 @@ export function sectionTitle(section, locale) {
 }
 
 function normalizeSteps(steps) {
-  return (steps || []).map((s) => ({ value: String(s.value ?? ""), description: String(s.descriptor ?? s.description ?? "") }));
+  const list = (steps || []).map((s) => ({ value: String(s.value ?? ""), description: String(s.descriptor ?? s.description ?? "") }));
+  if (list.every((s) => parseStepValue(s.value) !== null)) list.sort((x, y) => parseStepValue(x.value) - parseStepValue(y.value));
+  return list;
 }
 
 function fromCriterion(c, index, locale) {
@@ -59,8 +61,26 @@ function fromCriterion(c, index, locale) {
     naCondition: c.na_condition ?? "",
     naAllowed: Boolean(c.na_allowed),
     steps: type === "scale" ? normalizeSteps(c.scale_steps) : [],
-    labels: c.labels ?? null
+    labels: c.labels ?? null,
+    origName: c.title ?? "",
+    origNa: c.na_condition ?? ""
   };
+}
+
+export function staleLabels(c) {
+  if (!c.labels) return null;
+  const titleChanged = c.name !== c.origName;
+  const naChanged = (hasNa(c.type) ? c.naCondition : "") !== c.origNa;
+  if (!titleChanged && !naChanged) return c.labels;
+  const out = {};
+  for (const [lang, entry] of Object.entries(c.labels)) {
+    if (!entry || typeof entry !== "object") continue;
+    const next = { ...entry };
+    if (titleChanged) delete next.title;
+    if (naChanged) delete next.na_condition;
+    if (Object.keys(next).length) out[lang] = next;
+  }
+  return Object.keys(out).length ? out : null;
 }
 
 export function snapshot(c) {
@@ -229,7 +249,7 @@ export function toConfig(draft) {
       na_condition: hasNa(c.type) && c.naCondition.trim() !== "" ? c.naCondition : null,
       scale_steps: [],
       max_step: null,
-      labels: c.labels
+      labels: staleLabels(c)
     };
     if (c.type === "scale") {
       const steps = c.steps.map((s) => ({ value: parseStepValue(s.value), descriptor: s.description }));

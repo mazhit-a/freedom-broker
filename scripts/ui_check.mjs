@@ -617,8 +617,12 @@ async function main() {
           mobile: false
         });
         await cdp.send("Page.navigate", { url: args.url });
+        const allowedConsole = [];
         const page = {
           requests,
+          allowConsole(pattern) {
+            allowedConsole.push(pattern);
+          },
           assert(cond, message) {
             if (!cond) problems.push(`assertion failed: ${message}`);
           },
@@ -683,7 +687,8 @@ async function main() {
           await new Promise((r) => setTimeout(r, 200));
           const overflow = await page.eval(`({ sw: document.documentElement.scrollWidth, iw: window.innerWidth })`);
           page.assert(overflow.sw <= overflow.iw, `no horizontal overflow (scrollWidth ${overflow.sw} > ${overflow.iw})`);
-          page.assert(consoleErrors.length === 0, `console errors: ${consoleErrors.join(" | ")}`);
+          const unexpected = consoleErrors.filter((m) => !allowedConsole.some((re) => re.test(m)));
+          page.assert(unexpected.length === 0, `console errors: ${unexpected.join(" | ")}`);
           page.assert(external.length === 0, `requests left the origin: ${external.join(", ")}`);
           page.assert(failed.length === 0, `failed requests: ${failed.join(", ")}`);
         } catch (error) {

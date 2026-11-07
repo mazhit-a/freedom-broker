@@ -99,6 +99,13 @@ const ru = {
   "runs.error.draft_version": "Черновик чек-листа нельзя применять. Выберите сохранённую версию.",
   "runs.error.dataset_required": "Выберите набор данных или файл.",
   "runs.error.not_implemented": "Эта операция пока недоступна на сервере ({gap}).",
+  "runs.error.unknown_model": "Модель не найдена на сервере.",
+  "runs.error.item_not_failed": "Повторить можно только диалог с ошибкой.",
+  "runs.error.item_not_found": "Диалог не найден в этом запуске.",
+  "runs.error.run_not_found": "Запуск не найден.",
+  "runs.error.no_checklist_version": "Нет доступной версии чек-листа.",
+  "runs.error.network": "Сервер недоступен. Проверьте соединение.",
+  "runs.error.source_failure": "Источник данных вернул ошибку: {detail}",
   "runs.error.generic": "Не удалось выполнить операцию. Повторите попытку.",
   "runs.error.start": "Не удалось запустить оценку"
 };
@@ -204,6 +211,13 @@ const kk = {
   "runs.error.draft_version": "Чек-листтің жобасын қолдануға болмайды. Сақталған нұсқаны таңдаңыз.",
   "runs.error.dataset_required": "Деректер жинағын немесе файлды таңдаңыз.",
   "runs.error.not_implemented": "Бұл әрекет серверде әлі қолжетімсіз ({gap}).",
+  "runs.error.unknown_model": "Модель серверде табылмады.",
+  "runs.error.item_not_failed": "Қатесі бар диалогты ғана қайталауға болады.",
+  "runs.error.item_not_found": "Диалог бұл іске қосуда табылмады.",
+  "runs.error.run_not_found": "Іске қосу табылмады.",
+  "runs.error.no_checklist_version": "Қолжетімді чек-лист нұсқасы жоқ.",
+  "runs.error.network": "Сервер қолжетімсіз. Байланысты тексеріңіз.",
+  "runs.error.source_failure": "Дерек көзі қате қайтарды: {detail}",
   "runs.error.generic": "Әрекетті орындау мүмкін болмады. Қайталап көріңіз.",
   "runs.error.start": "Бағалауды іске қосу мүмкін болмады"
 };
@@ -309,6 +323,13 @@ const en = {
   "runs.error.draft_version": "A draft checklist cannot be applied. Pick a saved version.",
   "runs.error.dataset_required": "Choose a dataset or a file.",
   "runs.error.not_implemented": "This operation is not available on the server yet ({gap}).",
+  "runs.error.unknown_model": "The model was not found on the server.",
+  "runs.error.item_not_failed": "Only a conversation with an error can be retried.",
+  "runs.error.item_not_found": "The conversation is not part of this run.",
+  "runs.error.run_not_found": "Run not found.",
+  "runs.error.no_checklist_version": "No checklist version is available.",
+  "runs.error.network": "The server is unreachable. Check the connection.",
+  "runs.error.source_failure": "The data source reported an error: {detail}",
   "runs.error.generic": "The operation failed. Try again.",
   "runs.error.start": "Could not start the evaluation"
 };

@@ -97,7 +97,8 @@ export function latencyText(ms) {
 
 export function errorKey(error) {
   const code = error && error.code ? String(error.code) : "";
-  if (["role_forbidden", "draft_version", "dataset_required", "not_implemented"].includes(code)) return code;
+  if (["role_forbidden", "draft_version", "dataset_required", "not_implemented", "unknown_model", "item_not_failed", "item_not_found", "run_not_found", "no_checklist_version", "network", "source_failure"].includes(code)) return code;
+  if (error && error.status === 502) return "source_failure";
   return "generic";
 }
 

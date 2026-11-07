@@ -472,6 +472,36 @@ export function mapRun(raw) {
   };
 }
 
+export function mapModel(raw) {
+  return {
+    id: raw.id,
+    label: raw.label || raw.id,
+    paid: Boolean(raw.paid),
+    default: Boolean(raw.default),
+    pricePerEvaluation: raw.price_per_evaluation ?? 0,
+    priceSource: raw.price_source ?? null,
+    measuredEvaluations: raw.measured_evaluations ?? 0,
+    avgLatencySeconds: raw.avg_latency_s ?? null,
+    note: null
+  };
+}
+
+export function mapEstimate(raw) {
+  return {
+    count: raw.to_run,
+    total: raw.total,
+    skipped: raw.skipped ?? 0,
+    model: raw.model,
+    pricePerEvaluation: raw.price_per_evaluation,
+    priceSource: raw.price_source ?? null,
+    cost: raw.cost_estimate,
+    secondsEstimate: raw.seconds_estimate ?? null,
+    concurrency: raw.concurrency ?? null,
+    versionId: raw.checklist_version_id ?? null,
+    currency: raw.currency || "USD"
+  };
+}
+
 export function mapOverview(raw) {
   const k = raw.kpis || {};
   return {

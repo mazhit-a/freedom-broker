@@ -272,7 +272,7 @@ export class CqaEvalRuns extends CqaElement {
     }
     const groupId = f.source === "api" ? this.activeGroup() : undefined;
     try {
-      const result = await api.estimateRun({ groupId, model: f.modelId, count });
+      const result = await api.estimateRun({ groupId, model: f.modelId, count, versionId: f.versionId === null ? undefined : f.versionId, force: f.force });
       if (token !== this._estimateToken) return;
       f.estimate = { cost: result.cost, count: result.count };
     } catch (error) {
@@ -370,7 +370,7 @@ export class CqaEvalRuns extends CqaElement {
   errorText(error, scope = "") {
     const key = errorKey(error);
     if (key === "generic" && scope === "start") return `${this.t("runs.error.start")} (${error && error.code ? error.code : "error"})`;
-    return this.t(`runs.error.${key}`, { gap: error && error.gap ? error.gap : "" });
+    return this.t(`runs.error.${key}`, { gap: error && error.gap ? error.gap : "", detail: error && error.message ? error.message : "" });
   }
 
   toast(message, tone) {
@@ -423,6 +423,7 @@ export class CqaEvalRuns extends CqaElement {
     } else if (field === "version") {
       f.versionId = Number(el.value);
       this.renderNow();
+      this.refreshEstimate();
     } else if (field === "model") {
       f.modelId = el.value;
       this.renderNow();
@@ -430,6 +431,7 @@ export class CqaEvalRuns extends CqaElement {
     } else if (field === "force") {
       f.force = el.checked;
       this.renderNow();
+      this.refreshEstimate();
     } else if (field === "file") {
       const file = el.files && el.files[0];
       el.value = "";

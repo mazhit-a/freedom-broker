@@ -64,9 +64,6 @@ test("error without a code falls back to http_<status>", async () => {
 
 test("gaps throw explicit not-implemented errors with the gap id", async () => {
   real();
-  await rejects(api.listModels(), { status: 501, code: "not_implemented", gap: "BG-18", message: "BG-18 not implemented" });
-  await rejects(api.estimateRun({ count: 1 }), { gap: "BG-18" });
-  await rejects(api.retryRunItem("R-0001", "x"), { gap: "BG-19", message: "BG-19 not implemented" });
   await rejects(api.getWaveform("1"), { gap: "BG-30", message: "BG-30 not implemented" });
 });
 
@@ -196,6 +193,7 @@ test("overview, checklists, versions and datasets use the existing endpoints", a
 test("runs use /runs and map the persisted run payload", async () => {
   const run = sample("run");
   const calls = stub({
+    "GET /api/v1/datasets": sample("datasets"),
     "POST /api/v1/runs": sample("batch_snapshot"),
     "GET /api/v1/runs/412": run,
     "GET /api/v1/runs": [run],
@@ -203,7 +201,7 @@ test("runs use /runs and map the persisted run payload", async () => {
   });
   real();
   const started = await api.startRun({ groupId: "DEV", versionId: 1, force: true });
-  assert.deepEqual(calls[0].body, { dataset: "DEV", checklist_version_id: 1, force: true });
+  assert.deepEqual(calls.find((c) => c.method === "POST").body, { dataset: "DEV", checklist_version_id: 1, force: true });
   assert.equal(started.id, "R-0412");
   const got = await api.getRun("R-0412", { limit: 8 });
   assert.equal(got.items.length, 2);

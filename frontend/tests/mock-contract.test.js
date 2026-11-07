@@ -58,7 +58,7 @@ test("configure reads mock switches", () => {
 
 test("every adapter method exists and the real/mock-only split is declared", () => {
   assert.deepEqual(Object.keys(api).sort(), ADAPTER_METHODS.slice().sort());
-  assert.deepEqual(Object.keys(GAP_METHODS).sort(), ["estimateRun", "getWaveform", "listModels", "retryRunItem"]);
+  assert.deepEqual(Object.keys(GAP_METHODS).sort(), ["getWaveform"]);
   for (const name of Object.keys(GAP_METHODS)) assert.ok(!REAL_METHODS.includes(name));
   for (const name of ADAPTER_METHODS) assert.ok(REAL_METHODS.includes(name) || name in GAP_METHODS, name);
 });
