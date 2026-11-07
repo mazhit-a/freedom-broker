@@ -3,6 +3,8 @@ from typing import Optional
 
 MAX_UTTERANCE_SECONDS = 60.0
 SPEAKING = ("operator", "client", "bot")
+ANCHORED = ("operator", "bot")
+WORDS_PER_SECOND = 2.5
 
 PAUSE_RE = re.compile(r"приостановлен|paused", re.I)
 RESUME_RE = re.compile(r"возобновлен|resumed", re.I)
@@ -74,7 +76,11 @@ def compute_audio_timing(messages: list[dict]) -> dict[int, dict]:
             result[m["message_index"]] = {"audio_start_seconds": None, "audio_end_seconds": None}
             continue
         end = max(0.0, offset - _paused_before(offset, intervals) - start_audio)
-        if _speaker(m) in SPEAKING:
+        if _speaker(m) in ANCHORED:
+            start = end
+            end = start + min(len((m.get("text") or "").split()) / WORDS_PER_SECOND, MAX_UTTERANCE_SECONDS)
+            previous_end = max(previous_end, end)
+        elif _speaker(m) in SPEAKING:
             start = min(max(previous_end, end - MAX_UTTERANCE_SECONDS, 0.0), end)
             previous_end = max(previous_end, end)
         else:

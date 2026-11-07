@@ -25,8 +25,8 @@ def fixture():
 
 def test_pause_and_start_offset_applied():
     timing = compute_audio_timing(fixture())
-    assert timing[16]["audio_end_seconds"] == pytest.approx(59.3, abs=0.5)
-    assert timing[16]["audio_end_seconds"] == pytest.approx(72.483 - 13.01 - 0.19, abs=0.01)
+    assert timing[16]["audio_start_seconds"] == pytest.approx(59.3, abs=0.5)
+    assert timing[16]["audio_start_seconds"] == pytest.approx(72.483 - 13.01 - 0.19, abs=0.01)
     assert timing[0]["audio_end_seconds"] == 0
     assert timing[12]["audio_end_seconds"] == pytest.approx(53.522, abs=0.01)
     assert timing[13]["audio_end_seconds"] == pytest.approx(53.522, abs=0.01)
@@ -34,11 +34,12 @@ def test_pause_and_start_offset_applied():
 
 def test_start_estimated_from_previous_turn_end():
     timing = compute_audio_timing(fixture())
-    assert timing[17]["audio_end_seconds"] == pytest.approx(timing[18]["audio_start_seconds"], abs=0.001)
-    assert timing[18]["audio_start_seconds"] == pytest.approx(64.4, abs=5)
+    assert timing[18]["audio_start_seconds"] == pytest.approx(timing[17]["audio_end_seconds"], abs=0.001)
+    assert timing[18]["audio_start_seconds"] == pytest.approx(65, abs=5)
     assert timing[18]["audio_end_seconds"] == pytest.approx(102.218 - 13.01 - 0.19, abs=0.01)
     assert timing[18]["audio_start_seconds"] <= timing[18]["audio_end_seconds"]
-    assert timing[16]["audio_start_seconds"] == pytest.approx(timing[15]["audio_end_seconds"], abs=0.001)
+    assert timing[19]["audio_start_seconds"] == pytest.approx(107.314 - 13.01 - 0.19, abs=0.01)
+    assert timing[19]["audio_start_seconds"] == pytest.approx(97, abs=4)
 
 
 def test_utterance_capped_at_sixty_seconds():
@@ -53,7 +54,7 @@ def test_missing_start_text_falls_back_to_zero():
         {"message_index": 0, "speaker": "system", "offset_seconds": 0.0, "text": "Агент присоединился"},
         {"message_index": 1, "speaker": "operator", "offset_seconds": 5.0, "text": "Hi"},
     ]
-    assert compute_audio_timing(messages)[1]["audio_end_seconds"] == 5.0
+    assert compute_audio_timing(messages)[1]["audio_start_seconds"] == 5.0
 
 
 def test_unmatched_pause_and_null_offset():
@@ -80,8 +81,7 @@ def test_pause_free_voice_call_only_shifts_by_start():
         {"message_index": 1, "speaker": "operator", "offset_seconds": 12.0, "text": "a"},
     ]
     out = annotate_messages(messages, "voice call", None)
-    assert out[1]["audio_end_seconds"] == 10.0
-    assert out[1]["audio_start_seconds"] == 0.0
+    assert out[1]["audio_start_seconds"] == 10.0
 
 
 @pytest.fixture
@@ -114,7 +114,7 @@ def client(tmp_path, monkeypatch):
 def test_api_returns_audio_fields_for_voice_only(client):
     call = client.get(f"/api/v1/conversations/{client.ids['call']}").json()
     by_index = {m["message_index"]: m for m in call["messages"]}
-    assert by_index[16]["audio_end_seconds"] == pytest.approx(59.283, abs=0.01)
+    assert by_index[16]["audio_start_seconds"] == pytest.approx(59.283, abs=0.01)
     assert by_index[18]["audio_start_seconds"] == pytest.approx(by_index[17]["audio_end_seconds"], abs=0.001)
     chat = client.get(f"/api/v1/conversations/{client.ids['chat']}").json()
     assert all("audio_start_seconds" not in m for m in chat["messages"])
