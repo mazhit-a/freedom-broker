@@ -1,0 +1,271 @@
+{
+ "case_id": "case-013",
+ "variant": "jev_split",
+ "results": {
+  "01": {
+   "answer": "no",
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99
+   },
+   "rationale": "",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": null,
+   "unexplained": true
+  },
+  "02": {
+   "answer": "no",
+   "confidence": 0.72,
+   "distribution": {
+    "yes": 0.26,
+    "no": 0.72,
+    "na": 0.02
+   },
+   "rationale": "",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": null,
+   "unexplained": true
+  },
+  "03": {
+   "answer": "yes",
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01,
+    "na": 0.0
+   },
+   "rationale": "",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": null,
+   "unexplained": true
+  },
+  "04": {
+   "answer": 10,
+   "confidence": 0.8736,
+   "distribution": {
+    "na": 0.04,
+    "0": 0.0192,
+    "5": 0.0096,
+    "10": 0.8736,
+    "15": 0.0096,
+    "20": 0.048
+   },
+   "rationale": "",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": null,
+   "unexplained": true
+  },
+  "05": {
+   "answer": "no",
+   "confidence": 0.64,
+   "distribution": {
+    "yes": 0.36,
+    "no": 0.64
+   },
+   "rationale": "",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": null,
+   "unexplained": true
+  },
+  "06": {
+   "answer": 10,
+   "confidence": 0.66,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.08,
+    "7": 0.26,
+    "10": 0.66
+   },
+   "rationale": "",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": null,
+   "unexplained": true
+  },
+  "07": {
+   "answer": "yes",
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   },
+   "rationale": "",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": null,
+   "unexplained": true
+  },
+  "08": {
+   "answer": "no",
+   "confidence": 0.85,
+   "distribution": {
+    "yes": 0.15,
+    "no": 0.85
+   },
+   "rationale": "",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": null,
+   "unexplained": true
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev_01",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4366,
+   "output_tokens": 34,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 524,
+   "cost": 0.000183,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "jev",
+   "request_id": "jev_02",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4394,
+   "output_tokens": 41,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 522,
+   "cost": 0.000185,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "jev",
+   "request_id": "jev_03",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4411,
+   "output_tokens": 41,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 523,
+   "cost": 0.000185,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "jev",
+   "request_id": "jev_04",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4643,
+   "output_tokens": 41,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 490,
+   "cost": 0.000195,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "jev",
+   "request_id": "jev_05",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4458,
+   "output_tokens": 34,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 486,
+   "cost": 0.000187,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "jev",
+   "request_id": "jev_06",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4519,
+   "output_tokens": 20,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 489,
+   "cost": 0.00019,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "jev",
+   "request_id": "jev_07",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4414,
+   "output_tokens": 41,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 506,
+   "cost": 0.000185,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "jev",
+   "request_id": "jev_08",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4424,
+   "output_tokens": 23,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 474,
+   "cost": 0.000186,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "explained": false,
+ "rep": 0
+}
