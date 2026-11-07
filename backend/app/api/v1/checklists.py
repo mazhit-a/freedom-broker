@@ -1,7 +1,7 @@
 import sqlite3
 from typing import Literal
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from backend.app.core.database import get_db
 from backend.app.schemas.checklist import ChannelsIn, ChecklistConfig, ChecklistOut, DefaultIn, VersionOut
@@ -16,8 +16,16 @@ def list_checklists(conn: sqlite3.Connection = Depends(get_db)):
 
 
 @router.post("/checklists", response_model=VersionOut, status_code=201)
-def create_checklist(config: ChecklistConfig, conn: sqlite3.Connection = Depends(get_db)):
-    return svc.create_checklist(conn, config)
+def create_checklist(
+    config: ChecklistConfig,
+    status: Literal["draft", "saved"] = "saved",
+    channels: list[str] = Query(default_factory=list),
+    conn: sqlite3.Connection = Depends(get_db),
+):
+    try:
+        return svc.create_checklist(conn, config, status, channels)
+    except svc.Incomplete as e:
+        raise HTTPException(422, str(e))
 
 
 @router.get("/checklists/{checklist_id}", response_model=ChecklistOut)
@@ -39,6 +47,8 @@ def create_version(
         return svc.add_version(conn, checklist_id, config, status)
     except svc.NotFound as e:
         raise HTTPException(404, str(e))
+    except svc.Incomplete as e:
+        raise HTTPException(422, str(e))
 
 
 @router.get("/checklist-versions/{version_id}", response_model=VersionOut)
@@ -63,6 +73,18 @@ def update_draft(version_id: int, config: ChecklistConfig, conn: sqlite3.Connect
 def save_draft(version_id: int, conn: sqlite3.Connection = Depends(get_db)):
     try:
         return svc.save_draft(conn, version_id)
+    except svc.NotFound as e:
+        raise HTTPException(404, str(e))
+    except svc.NotDraft as e:
+        raise HTTPException(409, str(e))
+    except svc.Incomplete as e:
+        raise HTTPException(422, str(e))
+
+
+@router.delete("/checklist-versions/{version_id}", status_code=204)
+def delete_draft(version_id: int, conn: sqlite3.Connection = Depends(get_db)):
+    try:
+        svc.delete_draft(conn, version_id)
     except svc.NotFound as e:
         raise HTTPException(404, str(e))
     except svc.NotDraft as e:

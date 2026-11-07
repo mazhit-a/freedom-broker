@@ -24,11 +24,25 @@ class DraftVersion(Exception):
     pass
 
 
-def _derive_status(stored: str, version: int, version_id: int, default_id: int | None, default_version: int | None) -> str:
+class Incomplete(Exception):
+    pass
+
+
+def ensure_complete(config: ChecklistConfig) -> None:
+    errors = config.completeness_errors()
+    if errors:
+        raise Incomplete("; ".join(errors))
+
+
+def _derive_status(
+    stored: str, version: int, version_id: int, default_id: int | None, default_version: int | None, was_active: bool = False
+) -> str:
     if stored == "draft":
         return "draft"
     if version_id == default_id:
         return "active"
+    if was_active:
+        return "archived"
     if default_version is not None and version < default_version:
         return "archived"
     return "saved"
@@ -49,7 +63,7 @@ def _version_out(row: sqlite3.Row, default_id: int | None, default_version: int 
         version=row["version"],
         created_at=row["created_at"],
         is_default=row["id"] == default_id,
-        status=_derive_status(row["status"], row["version"], row["id"], default_id, default_version),
+        status=_derive_status(row["status"], row["version"], row["id"], default_id, default_version, bool(row["was_active"])),
         config=config,
         warnings=config.warnings(),
     )
@@ -62,18 +76,37 @@ def _default_id(conn: sqlite3.Connection, checklist_id: int) -> int | None:
     return row["default_version_id"]
 
 
-def create_checklist(conn: sqlite3.Connection, config: ChecklistConfig) -> VersionOut:
-    cur = conn.execute("INSERT INTO checklist(name) VALUES (?)", (config.name,))
+def create_checklist(
+    conn: sqlite3.Connection, config: ChecklistConfig, status: str = "saved", channels: list[str] | None = None
+) -> VersionOut:
+    if status != "draft":
+        ensure_complete(config)
+    cur = conn.execute(
+        "INSERT INTO checklist(name, channels) VALUES (?, ?)",
+        (config.name, json.dumps(_clean_channels(channels or []), ensure_ascii=False)),
+    )
     checklist_id = cur.lastrowid
-    version = add_version(conn, checklist_id, config)
-    set_default(conn, checklist_id, version.id)
+    version = add_version(conn, checklist_id, config, status)
+    if status != "draft":
+        set_default(conn, checklist_id, version.id)
     return get_version(conn, version.id)
+
+
+def _clean_channels(channels: list[str]) -> list[str]:
+    cleaned: list[str] = []
+    for ch in channels:
+        ch = ch.strip()
+        if ch and ch.lower() not in [c.lower() for c in cleaned]:
+            cleaned.append(ch)
+    return cleaned
 
 
 def add_version(
     conn: sqlite3.Connection, checklist_id: int, config: ChecklistConfig, status: str = "saved"
 ) -> VersionOut:
     _default_id(conn, checklist_id)
+    if status != "draft":
+        ensure_complete(config)
     row = conn.execute(
         "SELECT COALESCE(MAX(version), 0) + 1 AS n FROM checklist_version WHERE checklist_id = ?",
         (checklist_id,),
@@ -112,8 +145,20 @@ def update_draft(conn: sqlite3.Connection, version_id: int, config: ChecklistCon
     return get_version(conn, version_id)
 
 
+def delete_draft(conn: sqlite3.Connection, version_id: int) -> None:
+    row = _draft_row(conn, version_id)
+    conn.execute("DELETE FROM checklist_version WHERE id = ?", (version_id,))
+    left = conn.execute(
+        "SELECT COUNT(*) AS n FROM checklist_version WHERE checklist_id = ?", (row["checklist_id"],)
+    ).fetchone()["n"]
+    if left == 0:
+        conn.execute("DELETE FROM checklist WHERE id = ?", (row["checklist_id"],))
+    conn.commit()
+
+
 def save_draft(conn: sqlite3.Connection, version_id: int) -> VersionOut:
-    _draft_row(conn, version_id)
+    row = _draft_row(conn, version_id)
+    ensure_complete(ChecklistConfig.model_validate_json(row["config_json"]))
     conn.execute("UPDATE checklist_version SET status = 'saved' WHERE id = ?", (version_id,))
     conn.commit()
     return get_version(conn, version_id)
@@ -121,11 +166,7 @@ def save_draft(conn: sqlite3.Connection, version_id: int) -> VersionOut:
 
 def set_channels(conn: sqlite3.Connection, checklist_id: int, channels: list[str]) -> ChecklistOut:
     _default_id(conn, checklist_id)
-    cleaned = []
-    for ch in channels:
-        ch = ch.strip()
-        if ch and ch.lower() not in [c.lower() for c in cleaned]:
-            cleaned.append(ch)
+    cleaned = _clean_channels(channels)
     conn.execute("UPDATE checklist SET channels = ? WHERE id = ?", (json.dumps(cleaned, ensure_ascii=False), checklist_id))
     conn.commit()
     return get_checklist(conn, checklist_id)
@@ -161,6 +202,10 @@ def set_default(conn: sqlite3.Connection, checklist_id: int, version_id: int) ->
         raise NotFound(f"version {version_id} not found in checklist {checklist_id}")
     if row["status"] == "draft":
         raise DraftVersion(f"version {version_id} is a draft and cannot be made default")
+    previous = _default_id(conn, checklist_id)
+    if previous is not None and previous != version_id:
+        conn.execute("UPDATE checklist_version SET was_active = 1 WHERE id = ?", (previous,))
+    conn.execute("UPDATE checklist_version SET was_active = 0 WHERE id = ?", (version_id,))
     conn.execute("UPDATE checklist SET default_version_id = ? WHERE id = ?", (version_id, checklist_id))
     conn.commit()
     return get_version(conn, version_id)
@@ -196,7 +241,9 @@ def get_checklist(conn: sqlite3.Connection, checklist_id: int) -> ChecklistOut:
                 is_default=v["id"] == c["default_version_id"],
                 criteria_count=len(cfg.criteria),
                 weight_sum=cfg.weight_sum(),
-                status=_derive_status(v["status"], v["version"], v["id"], c["default_version_id"], default_version),
+                status=_derive_status(
+                    v["status"], v["version"], v["id"], c["default_version_id"], default_version, bool(v["was_active"])
+                ),
                 applied_count=applied["n"] or 0,
                 first_applied_at=applied["first"],
             )

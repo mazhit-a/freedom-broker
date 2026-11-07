@@ -56,6 +56,7 @@ export class CqaApp extends CqaElement {
       h1 { margin: 0; font-size: var(--cqa-fs-24); font-weight: 600; letter-spacing: -0.01em; }
       p { margin: 0; color: var(--cqa-ink-3); font-size: var(--cqa-fs-13); }
       .placeholder { display: flex; flex-direction: column; gap: 4px; }
+      .btn[hidden] { display: none; }
       @container (max-width: 1100px) { main { padding: 16px 16px 32px; } }
     `;
   }
@@ -70,6 +71,7 @@ export class CqaApp extends CqaElement {
       <cqa-modal data-confirm>
         <button slot="footer" type="button" class="btn" data-confirm-cancel></button>
         <button slot="footer" type="button" class="btn btn-primary" data-confirm-ok></button>
+        <button slot="footer" type="button" class="btn btn-primary" data-confirm-extra hidden>${this.t("action.confirm")}</button>
       </cqa-modal>
     `;
   }
@@ -235,13 +237,14 @@ export class CqaApp extends CqaElement {
     };
     this.shadowRoot.querySelector("[data-confirm-ok]").addEventListener("click", () => finish(true));
     this.shadowRoot.querySelector("[data-confirm-cancel]").addEventListener("click", () => finish(false));
+    this.shadowRoot.querySelector("[data-confirm-extra]").addEventListener("click", () => finish("extra"));
     modal.addEventListener(EVENTS.close, (event) => {
       event.stopPropagation();
       finish(false);
     });
   }
 
-  confirm({ heading = "", description = "", confirmLabel = null, cancelLabel = null } = {}) {
+  confirm({ heading = "", description = "", confirmLabel = null, cancelLabel = null, extraLabel = null } = {}) {
     const modal = this.shadowRoot.querySelector("[data-confirm]");
     if (this._confirm) this._confirm.settle(false);
     return new Promise((resolve) => {
@@ -249,7 +252,12 @@ export class CqaApp extends CqaElement {
       modal.setAttribute("heading", heading);
       if (description) modal.setAttribute("description", description);
       else modal.removeAttribute("description");
-      this.shadowRoot.querySelector("[data-confirm-ok]").textContent = confirmLabel || this.t("action.confirm");
+      const extra = this.shadowRoot.querySelector("[data-confirm-extra]");
+      const okButton = this.shadowRoot.querySelector("[data-confirm-ok]");
+      extra.hidden = !extraLabel;
+      extra.textContent = extraLabel || this.t("action.confirm");
+      okButton.classList.toggle("btn-primary", !extraLabel);
+      okButton.textContent = confirmLabel || this.t("action.confirm");
       this.shadowRoot.querySelector("[data-confirm-cancel]").textContent = cancelLabel || this.t("action.cancel");
       modal.show();
     });

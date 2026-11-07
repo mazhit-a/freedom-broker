@@ -53,6 +53,7 @@ export function scoringConfig(draft) {
 }
 
 export function computePreview(draft, answers = SAMPLE_ANSWERS, answerFor = sampleAnswer) {
+  if (draft.criteria.length === 0) return { ok: false, reason: "empty" };
   const blocked = draft.criteria.some((c) => c.type === "scale" && stepProblems(c).length > 0);
   if (blocked) return { ok: false, reason: "scale" };
   const config = scoringConfig(draft);

@@ -130,6 +130,7 @@ export function createDraft(config, baseConfig, meta, locale) {
     versionNumber: meta.versionNumber,
     baseNumber: meta.baseNumber ?? null,
     createdAt: meta.createdAt ?? null,
+    isNew: Boolean(meta.isNew),
     config,
     sections,
     criteria,
@@ -139,6 +140,22 @@ export function createDraft(config, baseConfig, meta, locale) {
     sectionInput: new Map(),
     counter: criteria.length
   };
+}
+
+export function blankConfig(name, sectionTitle) {
+  return { name, sections: [{ id: "section-1", title: sectionTitle, labels: null }], criteria: [] };
+}
+
+export function createBlankDraft({ name, sectionTitle }, locale, createdAt) {
+  const draft = createDraft(blankConfig(name, sectionTitle), null, { checklistId: null, versionId: null, versionNumber: 1, baseNumber: null, createdAt, isNew: true }, locale);
+  draft.sections.forEach((s) => {
+    s.touched = true;
+  });
+  return draft;
+}
+
+export function setChecklistName(draft, name) {
+  draft.config = { ...draft.config, name };
 }
 
 export function reset(draft, baseConfig, locale) {
@@ -410,4 +427,25 @@ export function toConfig(draft) {
     return out;
   });
   return { ...draft.config, sections: draft.sections.map(sectionOut), criteria };
+}
+
+export function toDraftConfig(draft) {
+  const config = toConfig(draft);
+  let dropped = 0;
+  for (const c of config.criteria) {
+    if (c.type !== "scale") continue;
+    const seen = new Set();
+    const kept = [];
+    for (const step of c.scale_steps) {
+      if (Number.isInteger(step.value) && step.value >= 0 && !seen.has(step.value)) {
+        seen.add(step.value);
+        kept.push(step);
+      } else {
+        dropped += 1;
+      }
+    }
+    c.scale_steps = kept;
+    c.max_step = kept.length ? Math.max(...kept.map((x) => x.value)) : null;
+  }
+  return { config, dropped };
 }

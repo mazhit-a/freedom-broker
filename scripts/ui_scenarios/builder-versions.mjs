@@ -102,6 +102,9 @@ const raw = {
     await editName(page, "Другое название");
     await save(page);
     await page.click(`${B} >>> [data-editing] [data-action=activate]`);
+    await until(() => confirmOpen(page));
+    page.assert((await page.eval(`${APP}.querySelector('[data-confirm]').getAttribute('description')`)) === "Новые оценки будут идти по v4; прошлые оценки не изменятся.", "activate confirm text");
+    await page.eval(`${APP}.querySelector('[data-confirm-ok]').click()`);
     await until(async () => (await rowsText(page)).some((r) => r.startsWith("v4") && r.includes("Активная")));
     page.assert((await toasts(page)).includes("Версия v4 назначена активной."), "activate toast");
     const rows2 = await rowsText(page);

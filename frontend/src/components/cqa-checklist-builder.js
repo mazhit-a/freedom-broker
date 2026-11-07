@@ -5,7 +5,7 @@ import { integer } from "../format.js";
 import { can } from "../roles.js";
 import { SHARED_CSS } from "../shared/styles.js";
 import { emptyPanel, errorPanel, loadingPanel } from "../shared/state-panel.js";
-import { canRemoveSection, addCriterion, addSection, changedCount, createDraft, moveCriterion, moveSection, removeCriterion, removeSection, renameSection, reset, sectionCriteria, sectionTitleDraft, setNaCondition, setSectionInput, setSectionWeight, setType, toConfig, parseHundredths, sectionInputFor } from "./builder-model.js";
+import { canRemoveSection, addCriterion, addSection, changedCount, createBlankDraft, createDraft, moveCriterion, setChecklistName, toDraftConfig, moveSection, removeCriterion, removeSection, renameSection, reset, sectionCriteria, sectionTitleDraft, setNaCondition, setSectionInput, setSectionWeight, setType, toConfig, parseHundredths, sectionInputFor } from "./builder-model.js";
 import { validate } from "./builder-validate.js";
 import { computePreview } from "./builder-preview.js";
 import { alertBox, channelKind, editor, preview, sidebar, structure, topBar } from "./builder-views.js";
@@ -13,8 +13,11 @@ import { alertBox, channelKind, editor, preview, sidebar, structure, topBar } fr
 export const BUILDER_EVENTS = Object.freeze({
   change: "cqa:builder-change",
   saved: "cqa:builder-saved",
-  applied: "cqa:builder-applied"
+  applied: "cqa:builder-applied",
+  draftSaved: "cqa:builder-draft-saved"
 });
+
+let handoff = null;
 
 const KNOWN_ERRORS = new Set(["role_forbidden", "draft_version", "dataset_required", "not_implemented", "http_409", "http_404"]);
 const CHANNEL_RAW = { chat: "agent chat", call: "voice call" };
@@ -58,6 +61,15 @@ const CSS = `${SHARED_CSS}
   .side-link:hover { color: var(--cqa-ink); background: var(--cqa-surface-2); }
   .vrow { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 10px; border: 1px solid transparent; }
   .vedit { background: var(--cqa-brand-tint); border-color: var(--cqa-brand); }
+  .vcur { border-color: var(--cqa-brand); background: var(--cqa-surface-2); }
+  .vopen { display: flex; flex-direction: column; gap: 4px; width: 100%; text-align: left; background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; border-radius: 6px; }
+  .vrow:not(.vedit):not(.vcur):hover { background: var(--cqa-surface-2); }
+  .banner { flex-basis: 100%; margin: 0; padding: 8px 12px; border-radius: 8px; background: var(--cqa-brand-tint); color: var(--cqa-ink); font-size: var(--cqa-fs-13); }
+  .card.edit:empty { display: none; }
+  .reason.note { color: var(--cqa-ink-3); }
+  .reason.bad { color: var(--cqa-bad); }
+  .h1-input { font-size: var(--cqa-fs-20); font-weight: 600; width: min(420px, 100%); height: 36px; }
+  .newname { display: inline-flex; }
   .vline { display: flex; align-items: center; gap: 6px; }
   .vline b { font-weight: 600; }
   .lockic { color: var(--cqa-ink-3); }
@@ -152,6 +164,9 @@ export class CqaChecklistBuilder extends CqaElement {
     this._dirty = false;
     this._busy = null;
     this._saveError = null;
+    this._mode = "edit";
+    this._viewed = null;
+    this._newChannel = "chat";
     this._onNavCapture = (event) => this.guardNavigation(event);
     this._onBeforeUnload = (event) => {
       if (!this._dirty) return;
@@ -193,8 +208,12 @@ export class CqaChecklistBuilder extends CqaElement {
     return Boolean(this._view && this._view.validation.valid);
   }
 
+  get viewing() {
+    return this._mode === "view";
+  }
+
   get readOnly() {
-    return this.roleReadOnly || this.locked;
+    return this.roleReadOnly || this.locked || this.viewing;
   }
 
   getConfig() {
@@ -220,25 +239,48 @@ export class CqaChecklistBuilder extends CqaElement {
   guardNavigation(event) {
     const detail = event.detail || {};
     if (!this._dirty || detail.guarded) return;
-    const stays = detail.to === "checklists" && (!detail.id || (this._current && String(detail.id) === String(this._current.id)));
+    const isNew = Boolean(this._draft && this._draft.isNew);
+    const stays = !isNew && detail.to === "checklists" && (!detail.id || (this._current && String(detail.id) === String(this._current.id)));
     if (stays) return;
     event.stopImmediatePropagation();
     this.confirmLeave().then((ok) => {
       if (!ok) return;
       this._dirty = false;
+      const here = String(this.getAttribute("checklist-id") ?? "");
+      if (isNew && detail.to === "checklists" && String(detail.id ?? "") === here) {
+        this.load({ checklistId: here || undefined });
+        return;
+      }
       this.dispatchEvent(new CustomEvent(EVENTS.navigate, { detail: { ...detail, guarded: true }, bubbles: true, composed: true }));
     });
   }
 
-  confirmLeave() {
-    if (!this._dirty) return Promise.resolve(true);
+  canSaveDraftNow() {
+    return Boolean(this._draft) && !this.readOnly && this._status === "draft" && Boolean(this._view) && this._view.validation.draftValid;
+  }
+
+  async confirmLeave() {
+    if (!this._dirty) return true;
     const t = (key) => this.t(key);
-    return this.askConfirm({
+    const canSave = this.canSaveDraftNow();
+    const choice = await this.askConfirm({
       heading: t("builder.confirm.heading"),
-      description: t("builder.confirm.description"),
+      description: t(canSave ? "builder.confirm.description" : "builder.confirm.descriptionNoDraft"),
       confirmLabel: t("builder.confirm.leave"),
-      cancelLabel: t("builder.confirm.stay")
+      cancelLabel: t("builder.confirm.stay"),
+      extraLabel: canSave ? t("builder.saveDraft") : null
     });
+    if (choice === "extra") return this.doSaveDraft({ leaving: true });
+    return Boolean(choice);
+  }
+
+  inApp() {
+    let node = this;
+    while (node) {
+      if (node.localName === "cqa-app") return true;
+      node = node.parentNode || node.host || null;
+    }
+    return false;
   }
 
   askConfirm(detail) {
@@ -276,57 +318,97 @@ export class CqaChecklistBuilder extends CqaElement {
     super.attributeChangedCallback(name, previous, next);
   }
 
-  async load() {
+  async load(options = {}) {
     const token = (this._token += 1);
-    this._phase = "loading";
-    this._dirty = false;
-    this._busy = null;
-    this._saveError = null;
-    this.renderNow();
+    const soft = Boolean(options.soft) && this._phase === "ready";
+    if (!soft) {
+      this._phase = "loading";
+      this._dirty = false;
+      this._busy = null;
+      this._saveError = null;
+      this.renderNow();
+    }
     try {
       const lists = await api.listChecklists();
       if (token !== this._token) return;
-      const wanted = this.getAttribute("checklist-id");
-      const current = wanted ? lists.find((c) => String(c.id) === String(wanted)) : lists[0];
-      this._lists = lists;
+      const wanted = options.checklistId ?? this.getAttribute("checklist-id");
+      const current = wanted !== null && wanted !== undefined && wanted !== "" ? lists.find((c) => String(c.id) === String(wanted)) : lists[0];
       if (!current) {
+        this._lists = lists;
+        this._current = null;
         this._phase = "notfound";
         this.renderNow();
         return;
       }
       if (current.versions.length === 0) {
+        this._lists = lists;
         this._current = current;
         this._phase = "noversions";
         this.renderNow();
         return;
       }
+      let wantVersion = options.versionId ?? null;
+      if (wantVersion === null && handoff && String(handoff.checklistId) === String(current.id)) wantVersion = handoff.versionId;
+      handoff = null;
       const versions = [...current.versions].sort((a, b) => b.version - a.version);
-      const draftVersion = versions.find((v) => v.status === "draft") || null;
-      const baseVersion = versions.find((v) => v.id === current.defaultVersionId) || versions.find((v) => v.status !== "draft" && v !== draftVersion) || null;
-      const [baseFull, draftFull] = await Promise.all([
-        baseVersion ? api.getChecklistVersion(baseVersion.id) : null,
-        draftVersion ? api.getChecklistVersion(draftVersion.id) : null
-      ]);
-      if (token !== this._token) return;
-      const source = draftFull || baseFull;
-      this._current = current;
-      this._baseConfig = baseFull ? baseFull.config : null;
-      this._draft = createDraft(source.config, this._baseConfig, {
-        checklistId: current.id,
-        versionId: draftVersion ? draftVersion.id : null,
-        versionNumber: draftVersion ? draftVersion.version : Math.max(...versions.map((v) => v.version)) + 1,
-        baseNumber: baseVersion ? baseVersion.version : null,
-        createdAt: draftVersion ? draftVersion.createdAt : new Date().toISOString()
-      }, this.locale);
+      const target = wantVersion !== null ? versions.find((v) => String(v.id) === String(wantVersion)) || null : null;
+      if (target && target.status !== "draft") {
+        const full = await api.getChecklistVersion(target.id);
+        if (token !== this._token) return;
+        this._lists = lists;
+        this._current = current;
+        this._baseConfig = null;
+        this._draft = createDraft(full.config, null, {
+          checklistId: current.id,
+          versionId: target.id,
+          versionNumber: target.version,
+          baseNumber: null,
+          createdAt: target.createdAt
+        }, this.locale);
+        this._mode = "view";
+        this._viewed = target;
+      } else {
+        const draftVersion = target || versions.find((v) => v.status === "draft") || null;
+        const baseVersion = versions.find((v) => v.id === current.defaultVersionId) || versions.find((v) => v.status !== "draft" && v !== draftVersion) || null;
+        const [baseFull, draftFull] = await Promise.all([
+          baseVersion ? api.getChecklistVersion(baseVersion.id) : null,
+          draftVersion ? api.getChecklistVersion(draftVersion.id) : null
+        ]);
+        if (token !== this._token) return;
+        const source = draftFull || baseFull;
+        this._lists = lists;
+        this._current = current;
+        this._baseConfig = baseFull ? baseFull.config : null;
+        this._draft = createDraft(source.config, this._baseConfig, {
+          checklistId: current.id,
+          versionId: draftVersion ? draftVersion.id : null,
+          versionNumber: draftVersion ? draftVersion.version : Math.max(...versions.map((v) => v.version)) + 1,
+          baseNumber: baseVersion ? baseVersion.version : null,
+          createdAt: draftVersion ? draftVersion.createdAt : new Date().toISOString()
+        }, this.locale);
+        this._mode = "edit";
+        this._viewed = null;
+      }
+      this._dirty = false;
+      this._saveError = null;
       this._status = "draft";
       this._selected = null;
       this._openSections = new Set();
+      this._newChannel = "chat";
       this.recompute();
       this._selected = this.firstKey();
       this._phase = "ready";
-      this.renderNow();
+      if (soft) {
+        this.refreshAll();
+      } else {
+        this.renderNow();
+      }
     } catch (error) {
       if (token !== this._token) return;
+      if (soft) {
+        this.toast(this.errorMessage(error, false), "bad");
+        return;
+      }
       this._phase = "error";
       this._error = error;
       this.renderNow();
@@ -341,7 +423,7 @@ export class CqaChecklistBuilder extends CqaElement {
 
   recompute() {
     const draft = this._draft;
-    const validation = validate(draft);
+    const validation = validate(draft, { otherNames: draft.isNew ? this._lists.map((c) => c.name) : [] });
     this._view = {
       validation,
       preview: computePreview(draft),
@@ -365,6 +447,10 @@ export class CqaChecklistBuilder extends CqaElement {
       roleReadOnly: this.roleReadOnly,
       locked: this.locked,
       busy: this.busy,
+      busyName: this._busy,
+      viewing: this.viewing,
+      viewed: this._viewed,
+      newChannel: this._newChannel,
       dirty: this._dirty,
       saveError: this._saveError,
       status: this._status,
@@ -538,6 +624,7 @@ export class CqaChecklistBuilder extends CqaElement {
       if (!field) return;
       const name = field.getAttribute("data-field");
       if (name === "e-type") this.onType(field.value);
+      else if (name === "new-channel") this.onNewChannel(field.getAttribute("data-channel"));
       else if (name === "channel") this.doChannels(field.getAttribute("data-channel"), field.checked);
       else if (name === "sec-weight") this.commitSectionWeight(field.getAttribute("data-section"));
     });
@@ -620,6 +707,14 @@ export class CqaChecklistBuilder extends CqaElement {
       this._dirty = draft.versionId !== null;
       this.refreshAll();
       this.announceChange();
+    } else if (action === "open-version") {
+      this.openVersion(button.getAttribute("data-version"));
+    } else if (action === "save-draft") {
+      this.doSaveDraft();
+    } else if (action === "delete-draft") {
+      this.doDeleteDraft();
+    } else if (action === "new-checklist") {
+      this.startNewChecklist();
     } else if (action === "save") {
       this.doSave();
     } else if (action === "apply") {
@@ -631,7 +726,7 @@ export class CqaChecklistBuilder extends CqaElement {
     } else if (action === "discard") {
       this.doDiscard();
     } else if (action === "open-checklist") {
-      navigate(this, "checklists", button.getAttribute("data-id"));
+      this.openChecklist(button.getAttribute("data-id"));
     }
   }
 
@@ -719,14 +814,178 @@ export class CqaChecklistBuilder extends CqaElement {
   async refreshLists() {
     try {
       const lists = await api.listChecklists();
+      if (!this._current) {
+        this._lists = lists;
+        return;
+      }
       const current = lists.find((c) => c.id === this._current.id);
       if (current) {
         this._lists = lists;
         this._current = current;
+        if (this._viewed) this._viewed = current.versions.find((v) => v.id === this._viewed.id) || this._viewed;
       }
     } catch (error) {
       return;
     }
+  }
+
+  gotoChecklist(checklistId, versionId) {
+    handoff = { checklistId, versionId };
+    if (this.inApp()) navigate(this, "checklists", checklistId);
+    else this.load({ checklistId, versionId });
+  }
+
+  async openChecklist(id) {
+    if (!this._draft || !this._draft.isNew) {
+      navigate(this, "checklists", id);
+      return;
+    }
+    if (!(await this.confirmLeave())) return;
+    this._dirty = false;
+    if (!this.inApp() || String(this.getAttribute("checklist-id") ?? "") === String(id)) await this.load({ checklistId: id });
+    else navigate(this, "checklists", id);
+  }
+
+  async openVersion(raw) {
+    if (this._busy || raw === "new" || raw === null) return;
+    const id = Number(raw);
+    const owner = this._lists.find((c) => c.versions.some((v) => v.id === id));
+    if (!owner) return;
+    if (!this._current || owner.id !== this._current.id) {
+      if (!(await this.confirmLeave())) return;
+      this._dirty = false;
+      this.gotoChecklist(owner.id, id);
+      return;
+    }
+    const shown = this.viewing ? this._viewed.id : this._draft.versionId;
+    if (shown === id) return;
+    if (!(await this.confirmLeave())) return;
+    this._dirty = false;
+    await this.load({ soft: true, checklistId: owner.id, versionId: id });
+  }
+
+  async startNewChecklist() {
+    if (this.roleReadOnly || this._busy) return;
+    if (!(await this.confirmLeave())) return;
+    const taken = new Set(this._lists.map((c) => c.name.trim().toLowerCase()));
+    const base = this.t("builder.new.defaultName");
+    let name = base;
+    for (let n = 2; taken.has(name.toLowerCase()); n += 1) name = `${base} ${n}`;
+    this._token += 1;
+    this._draft = createBlankDraft({ name, sectionTitle: this.t("builder.new.sectionName") }, this.locale, new Date().toISOString());
+    this._current = null;
+    this._baseConfig = null;
+    this._mode = "edit";
+    this._viewed = null;
+    this._status = "draft";
+    this._selected = null;
+    this._openSections = new Set();
+    this._newChannel = "chat";
+    this._saveError = null;
+    this._dirty = true;
+    this._phase = "ready";
+    this.recompute();
+    this.renderNow();
+    this.announceChange();
+    const input = this.shadowRoot.querySelector('[data-field="new-name"]');
+    if (input) {
+      input.focus();
+      input.select();
+    }
+  }
+
+  async createNewDraft(draft, config) {
+    const channels = [CHANNEL_RAW[this._newChannel]];
+    const created = await api.createChecklistDraft(config, { channels });
+    draft.checklistId = created.checklistId;
+    draft.versionId = created.id;
+    draft.versionNumber = created.version;
+    draft.isNew = false;
+    return created;
+  }
+
+  async doSaveDraft({ leaving = false } = {}) {
+    const draft = this._draft;
+    if (!draft || this.readOnly || this._status !== "draft" || this._busy) return false;
+    if (!this._view.validation.draftValid) {
+      const input = this.shadowRoot.querySelector('[data-field="new-name"]');
+      if (input) input.focus();
+      return false;
+    }
+    const { config, dropped } = toDraftConfig(draft);
+    const wasNew = draft.isNew;
+    let ok = false;
+    let created = null;
+    await this.setBusy("draft", async () => {
+      try {
+        let saved;
+        if (wasNew) {
+          saved = await this.createNewDraft(draft, config);
+          created = saved;
+        } else if (draft.versionId !== null) {
+          saved = await api.updateDraft(draft.versionId, config);
+        } else {
+          saved = await api.saveChecklistVersion(draft.checklistId, config, { status: "draft" });
+          draft.versionId = saved.id;
+          draft.versionNumber = saved.version;
+          draft.createdAt = saved.createdAt || draft.createdAt;
+        }
+        this._dirty = false;
+        this._saveError = null;
+        if (wasNew) {
+          if (leaving) await this.refreshLists();
+        } else {
+          await this.refreshLists();
+        }
+        const key = dropped > 0 ? "builder.toast.draftSavedDropped" : "builder.toast.draftSaved";
+        this.toast(this.t(key, { count: dropped }));
+        emit(this, BUILDER_EVENTS.draftSaved, { checklistId: draft.checklistId, versionId: saved.id, version: saved.version });
+        ok = true;
+      } catch (error) {
+        const message = this.errorMessage(error, true);
+        this._saveError = message;
+        this.toast(message, "bad");
+      }
+    });
+    this.announceChange();
+    if (ok && created && !leaving) this.gotoChecklist(created.checklistId, created.id);
+    return ok;
+  }
+
+  async doDeleteDraft() {
+    const draft = this._draft;
+    if (!draft || this.roleReadOnly || this._busy || this._status !== "draft" || draft.versionId === null) return;
+    const version = `v${draft.versionNumber}`;
+    const ok = await this.askConfirm({
+      heading: this.t("builder.confirm.deleteHeading", { version }),
+      description: this.t("builder.confirm.deleteDescription"),
+      confirmLabel: this.t("builder.deleteDraft"),
+      cancelLabel: this.t("builder.confirm.cancel")
+    });
+    if (!ok || this._draft !== draft) return;
+    let deleted = false;
+    await this.setBusy("delete", async () => {
+      try {
+        await api.deleteDraft(draft.versionId);
+        deleted = true;
+      } catch (error) {
+        const message = this.errorMessage(error, false);
+        this._saveError = message;
+        this.toast(message, "bad");
+      }
+    });
+    if (!deleted) return;
+    this._dirty = false;
+    this.toast(this.t("builder.toast.draftDeleted", { version }));
+    const checklistId = this._current.id;
+    const lists = await api.listChecklists();
+    if (lists.some((c) => c.id === checklistId)) {
+      await this.load({ checklistId });
+      return;
+    }
+    const next = lists[0];
+    if (this.inApp()) navigate(this, "checklists", next ? next.id : null);
+    else await this.load({ checklistId: next ? next.id : undefined });
   }
 
   async doSave() {
@@ -734,10 +993,18 @@ export class CqaChecklistBuilder extends CqaElement {
     if (!draft || !this.valid || this.readOnly || this._status !== "draft" || this._busy) return;
     const config = toConfig(draft);
     const base = draft.baseNumber;
+    const wasNew = draft.isNew;
+    let landed = null;
     await this.setBusy("save", async () => {
       try {
         let saved;
-        if (draft.versionId !== null) {
+        if (wasNew) {
+          const created = await this.createNewDraft(draft, config);
+          this._current = { id: created.checklistId, name: config.name, channels: [], defaultVersionId: null, versions: [] };
+          this._dirty = false;
+          await this.refreshLists();
+          saved = await api.finalizeVersion(created.id);
+        } else if (draft.versionId !== null) {
           await api.updateDraft(draft.versionId, config);
           saved = await api.finalizeVersion(draft.versionId);
         } else {
@@ -752,13 +1019,15 @@ export class CqaChecklistBuilder extends CqaElement {
         const version = `v${saved.version}`;
         this.toast(base === null ? this.t("builder.toast.savedNoBase", { version }) : this.t("builder.toast.saved", { version, base: `v${base}` }));
         emit(this, BUILDER_EVENTS.saved, { checklistId: draft.checklistId, versionId: saved.id, version: saved.version });
+        if (wasNew) landed = saved;
       } catch (error) {
-        const message = this.errorMessage(error, true);
+        const message = this.errorMessage(error, !(wasNew && !draft.isNew));
         this._saveError = message;
         this.toast(message, "bad");
       }
     });
     this.announceChange();
+    if (landed) this.gotoChecklist(landed.checklistId, landed.id);
   }
 
   async doApply() {
@@ -809,6 +1078,16 @@ export class CqaChecklistBuilder extends CqaElement {
 
   async doActivate(versionId) {
     if (this.roleReadOnly || this._busy || !this._current) return;
+    const target = this._current.versions.find((v) => v.id === versionId);
+    if (!target || target.status === "draft" || target.isDefault) return;
+    const version = `v${target.version}`;
+    const ok = await this.askConfirm({
+      heading: this.t("builder.confirm.activateHeading", { version }),
+      description: this.t("builder.confirm.activateDescription", { version }),
+      confirmLabel: this.t("builder.side.activate"),
+      cancelLabel: this.t("builder.confirm.cancel")
+    });
+    if (!ok || this._busy) return;
     await this.setBusy("activate", async () => {
       try {
         const done = await api.setActiveVersion(this._current.id, versionId);
@@ -822,10 +1101,22 @@ export class CqaChecklistBuilder extends CqaElement {
 
   async doDiscard() {
     if (this.roleReadOnly || this._busy || !this._dirty) return;
-    if (!(await this.confirmLeave())) return;
+    if (!(await this.confirmDiscard())) return;
     this._dirty = false;
-    await this.load();
+    const wasNew = Boolean(this._draft && this._draft.isNew);
+    if (wasNew) await this.load({ checklistId: this.getAttribute("checklist-id") || undefined });
+    else await this.load({ checklistId: this._current.id, versionId: this._draft.versionId });
     if (this._phase === "ready") this.toast(this.t("builder.toast.discarded"));
+  }
+
+  async confirmDiscard() {
+    const choice = await this.askConfirm({
+      heading: this.t("builder.confirm.heading"),
+      description: this.t("builder.confirm.descriptionNoDraft"),
+      confirmLabel: this.t("builder.confirm.leave"),
+      cancelLabel: this.t("builder.confirm.stay")
+    });
+    return Boolean(choice);
   }
 
   async doChannels(kind, on) {
@@ -849,7 +1140,9 @@ export class CqaChecklistBuilder extends CqaElement {
     if (this.readOnly || this._busy) return;
     const name = field.getAttribute("data-field");
     const draft = this._draft;
-    if (name === "sec-name") {
+    if (name === "new-name") {
+      setChecklistName(draft, field.value);
+    } else if (name === "sec-name") {
       renameSection(draft, field.getAttribute("data-section"), field.value);
     } else if (name === "sec-weight") {
       const id = field.getAttribute("data-section");
@@ -870,6 +1163,13 @@ export class CqaChecklistBuilder extends CqaElement {
       else return;
     }
     this.edited();
+  }
+
+  onNewChannel(kind) {
+    if (this.readOnly || this._busy || !this._draft || !this._draft.isNew || !["chat", "call"].includes(kind)) return;
+    this._newChannel = kind;
+    this._dirty = true;
+    this.refreshAll({ editor: false });
   }
 
   commitSectionWeight(id) {

@@ -64,6 +64,7 @@ function freshStore(options) {
     options,
     nextAppealId: 6,
     nextVersionId: 100,
+    nextChecklistId: 50,
     nextRun: 413,
     appeals: [],
     checklists: clone(F.CHECKLISTS),
@@ -502,9 +503,39 @@ function versionRaw(store, versionId) {
 function statusOf(cl, v) {
   if (v.status === "draft") return "draft";
   if (cl.defaultVersionId === v.id) return "active";
+  if (v.wasActive) return "archived";
   const active = cl.versions.find((x) => x.id === cl.defaultVersionId);
   if (active && v.version < active.version) return "archived";
   return "saved";
+}
+
+function structuralProblem(config) {
+  const criteria = (config && config.criteria) || [];
+  const ids = criteria.map((c) => c.id);
+  const dupes = [...new Set(ids.filter((id, i) => ids.indexOf(id) !== i))];
+  if (dupes.length) return "duplicate criterion ids: " + dupes.join(", ");
+  const sections = ((config && config.sections) || []).map((s) => s.id);
+  if (new Set(sections).size !== sections.length) return "duplicate section ids";
+  if (!config || !String(config.name || "").trim()) return "name is required";
+  return null;
+}
+
+function completenessProblem(config) {
+  const structural = structuralProblem(config);
+  if (structural) return structural;
+  const problems = [];
+  if (!config.criteria.length) problems.push("checklist needs at least 1 criterion");
+  for (const s of config.sections || []) if (!String(s.title || "").trim()) problems.push("section " + s.id + ": title is required");
+  for (const c of config.criteria) {
+    if (!String(c.title || "").trim()) problems.push("criterion " + c.id + ": title is required");
+    if (c.na_allowed && !String(c.na_condition || "").trim()) problems.push("criterion " + c.id + ": na_allowed requires a non-empty na_condition");
+    if (c.type === "scale") {
+      const steps = c.scale_steps || [];
+      if (steps.length < 2) problems.push("criterion " + c.id + ": scale type requires at least 2 steps");
+      else if (steps.some((st) => !String(st.descriptor || "").trim())) problems.push("criterion " + c.id + ": scale step descriptors are required");
+    }
+  }
+  return problems.length ? problems.join("; ") : null;
 }
 
 function weightSum(config) {
@@ -1050,6 +1081,8 @@ export function createMock(options = {}) {
       const cl = store.checklists.find((c) => c.id === Number(checklistId));
       if (!cl) throw fail(404, "http_404", "Checklist not found");
       const status = options2.status === "draft" ? "draft" : "saved";
+      const problem = status === "draft" ? structuralProblem(config) : completenessProblem(config);
+      if (problem) throw fail(422, "http_422", problem);
       const id = store.nextVersionId;
       store.nextVersionId += 1;
       const version = Math.max(0, ...cl.versions.map((v) => v.version)) + 1;
@@ -1059,12 +1092,52 @@ export function createMock(options = {}) {
       return mapVersion(found.raw, cl.name);
     },
 
+    async createChecklistDraft(config, options2 = {}) {
+      await behave();
+      allowRole("reviewer");
+      const problem = structuralProblem(config);
+      if (problem) throw fail(422, "http_422", problem);
+      const channels = [];
+      for (const ch of options2.channels || []) {
+        const text = String(ch).trim();
+        if (text && !channels.some((c) => c.toLowerCase() === text.toLowerCase())) channels.push(text);
+      }
+      const checklistId = store.nextChecklistId;
+      store.nextChecklistId += 1;
+      const id = store.nextVersionId;
+      store.nextVersionId += 1;
+      const cl = {
+        id: checklistId,
+        name: config.name,
+        channels,
+        defaultVersionId: null,
+        versions: [{ id, version: 1, createdAt: iso(store.nowMs()), status: "draft", appliedCount: 0, firstAppliedAt: null }]
+      };
+      store.checklists.push(cl);
+      store.configs[id] = clone(config);
+      const found = versionRaw(store, id);
+      return mapVersion(found.raw, cl.name);
+    },
+
+    async deleteDraft(versionId) {
+      await behave();
+      allowRole("reviewer");
+      const found = versionRaw(store, Number(versionId));
+      if (!found) throw fail(404, "http_404", "Checklist version not found");
+      if (found.v.status !== "draft") throw fail(409, "http_409", "Only drafts can be deleted");
+      found.cl.versions = found.cl.versions.filter((v) => v.id !== found.v.id);
+      delete store.configs[found.v.id];
+      if (found.cl.versions.length === 0) store.checklists = store.checklists.filter((c) => c.id !== found.cl.id);
+    },
+
     async updateDraft(versionId, config) {
       await behave();
       allowRole("reviewer");
       const found = versionRaw(store, Number(versionId));
       if (!found) throw fail(404, "http_404", "Checklist version not found");
       if (found.v.status !== "draft") throw fail(409, "http_409", "Only drafts can be edited");
+      const problem = structuralProblem(config);
+      if (problem) throw fail(422, "http_422", problem);
       store.configs[found.v.id] = clone(config);
       const again = versionRaw(store, found.v.id);
       return mapVersion(again.raw, found.cl.name);
@@ -1076,6 +1149,8 @@ export function createMock(options = {}) {
       const found = versionRaw(store, Number(versionId));
       if (!found) throw fail(404, "http_404", "Checklist version not found");
       if (found.v.status !== "draft") throw fail(409, "http_409", "Only drafts can be saved");
+      const problem = completenessProblem(store.configs[found.v.id]);
+      if (problem) throw fail(422, "http_422", problem);
       found.v.status = "saved";
       const again = versionRaw(store, found.v.id);
       return mapVersion(again.raw, found.cl.name);
@@ -1088,6 +1163,9 @@ export function createMock(options = {}) {
       const v = cl && cl.versions.find((x) => x.id === Number(versionId));
       if (!v) throw fail(404, "http_404", "Checklist version not found");
       if (v.status === "draft") throw fail(422, "http_422", "A draft cannot be made default");
+      const previous = cl.versions.find((x) => x.id === cl.defaultVersionId);
+      if (previous && previous.id !== v.id) previous.wasActive = true;
+      v.wasActive = false;
       cl.defaultVersionId = v.id;
       const found = versionRaw(store, v.id);
       return mapVersion(found.raw, cl.name);

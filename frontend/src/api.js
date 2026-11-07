@@ -345,6 +345,17 @@ const real = {
     return mapVersion(raw);
   },
 
+  async createChecklistDraft(config, options = {}) {
+    const raw = await sendJson("POST", "/checklists", config, { status: "draft", channels: (options.channels || []).map((c) => wireChannel(c)) });
+    versionCache.clear();
+    return mapVersion(raw);
+  },
+
+  async deleteDraft(versionId) {
+    await sendJson("DELETE", "/checklist-versions/" + encodeURIComponent(versionId));
+    versionCache.delete(Number(versionId));
+  },
+
   async updateDraft(versionId, config) {
     const raw = await sendJson("PUT", "/checklist-versions/" + encodeURIComponent(versionId), config);
     versionCache.delete(Number(versionId));

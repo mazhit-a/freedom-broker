@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field, model_validator
 
 class ScaleStep(BaseModel):
     value: int = Field(ge=0)
-    descriptor: str = Field(min_length=1)
+    descriptor: str = ""
 
 
 class SectionLabel(BaseModel):
@@ -19,13 +19,13 @@ class CriterionLabel(BaseModel):
 
 class Section(BaseModel):
     id: str = Field(min_length=1)
-    title: str = Field(min_length=1)
+    title: str = ""
     labels: dict[str, SectionLabel] | None = None
 
 
 class Criterion(BaseModel):
     id: str = Field(min_length=1)
-    title: str = Field(min_length=1)
+    title: str = ""
     description: str = ""
     section: str | None = None
     weight: float = Field(default=0, ge=0)
@@ -38,27 +38,22 @@ class Criterion(BaseModel):
 
     @model_validator(mode="after")
     def check_consistency(self):
-        if self.na_allowed and not (self.na_condition and self.na_condition.strip()):
-            raise ValueError(f"criterion {self.id}: na_allowed requires a non-empty na_condition")
         if self.type == "flag":
             if self.weight != 0:
                 raise ValueError(f"criterion {self.id}: flag criterion must have weight 0")
             if self.na_allowed:
                 raise ValueError(f"criterion {self.id}: flag criterion cannot allow N/A")
         if self.type == "scale":
-            if len(self.scale_steps) < 2:
-                raise ValueError(f"criterion {self.id}: scale type requires at least 2 steps")
             values = [s.value for s in self.scale_steps]
             if len(set(values)) != len(values):
                 raise ValueError(f"criterion {self.id}: duplicate scale step values")
-            top = max(values)
-            if top <= 0:
-                raise ValueError(f"criterion {self.id}: top scale step must be positive")
-            if self.max_step is not None and self.max_step != top:
-                raise ValueError(
-                    f"criterion {self.id}: max_step {self.max_step} does not match top scale step {top}"
-                )
-            self.max_step = top
+            if values:
+                top = max(values)
+                if self.max_step is not None and self.max_step != top:
+                    raise ValueError(
+                        f"criterion {self.id}: max_step {self.max_step} does not match top scale step {top}"
+                    )
+                self.max_step = top
         elif self.scale_steps:
             raise ValueError(f"criterion {self.id}: scale_steps only allowed for scale type")
         if self.type == "yes_no" and self.max_step is not None:
@@ -69,7 +64,7 @@ class Criterion(BaseModel):
 class ChecklistConfig(BaseModel):
     name: str = Field(min_length=1)
     sections: list[Section] = Field(default_factory=list)
-    criteria: list[Criterion] = Field(min_length=1)
+    criteria: list[Criterion] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def check_unique(self):
@@ -84,6 +79,27 @@ class ChecklistConfig(BaseModel):
             if self.sections and c.section not in section_ids:
                 raise ValueError(f"criterion {c.id}: unknown section {c.section!r}")
         return self
+
+    def completeness_errors(self) -> list[str]:
+        errors = []
+        if not self.criteria:
+            errors.append("checklist needs at least 1 criterion")
+        for s in self.sections:
+            if not s.title.strip():
+                errors.append(f"section {s.id}: title is required")
+        for c in self.criteria:
+            if not c.title.strip():
+                errors.append(f"criterion {c.id}: title is required")
+            if c.na_allowed and not (c.na_condition and c.na_condition.strip()):
+                errors.append(f"criterion {c.id}: na_allowed requires a non-empty na_condition")
+            if c.type == "scale":
+                if len(c.scale_steps) < 2:
+                    errors.append(f"criterion {c.id}: scale type requires at least 2 steps")
+                elif any(not st.descriptor.strip() for st in c.scale_steps):
+                    errors.append(f"criterion {c.id}: scale step descriptors are required")
+                elif (c.max_step or 0) <= 0:
+                    errors.append(f"criterion {c.id}: top scale step must be positive")
+        return errors
 
     def weight_sum(self) -> float:
         return round(sum(c.weight for c in self.criteria if c.type != "flag"), 6)

@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS checklist_version (
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     config_json TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'saved',
+    was_active INTEGER NOT NULL DEFAULT 0,
     UNIQUE (checklist_id, version)
 );
 CREATE TABLE IF NOT EXISTS evaluation (
@@ -153,6 +154,7 @@ CREATE INDEX IF NOT EXISTS idx_eval_run_item_run ON eval_run_item(run_id);
 ADDITIVE_COLUMNS = [
     ("checklist", "channels", "TEXT NOT NULL DEFAULT '[]'"),
     ("checklist_version", "status", "TEXT NOT NULL DEFAULT 'saved'"),
+    ("checklist_version", "was_active", "INTEGER NOT NULL DEFAULT 0"),
 ]
 
 

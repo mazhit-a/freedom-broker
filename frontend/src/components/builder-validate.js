@@ -18,10 +18,19 @@ export function stepProblems(c) {
   return problems;
 }
 
-export function validate(draft) {
+export const DRAFT_ERROR_CODES = Object.freeze(["listNameEmpty", "listNameDup"]);
+
+export function validate(draft, options = {}) {
   const numOf = numbering(draft);
   const sum = sumHundredths(draft);
   const errors = [];
+  if (draft.isNew) {
+    const name = String(draft.config.name ?? "").trim();
+    const taken = (options.otherNames || []).map((n) => String(n).trim().toLowerCase());
+    if (!name) errors.push({ code: "listNameEmpty", key: null });
+    else if (taken.includes(name.toLowerCase())) errors.push({ code: "listNameDup", key: null, name });
+  }
+  if (draft.criteria.length === 0) errors.push({ code: "noCriteria", key: null });
   if (sum !== TARGET_HUNDREDTHS) errors.push({ code: "sum", key: null, sum });
   const badWeight = new Set();
   const badName = new Set();
@@ -83,10 +92,14 @@ export function validate(draft) {
       errors.push({ code: "scale", key: c.key, name: c.name.trim() || `№ ${numOf.get(c.key)}`, problem });
     }
   }
-  return { sum, errors, warnings, valid: errors.length === 0, badWeight, badName, badSection, badSectionWeight, scaleBad, numOf };
+  const draftValid = !errors.some((e) => DRAFT_ERROR_CODES.includes(e.code));
+  return { sum, errors, warnings, valid: errors.length === 0, draftValid, badWeight, badName, badSection, badSectionWeight, scaleBad, numOf };
 }
 
 export function errorText(error, t) {
+  if (error.code === "listNameEmpty") return t("builder.err.listNameEmpty");
+  if (error.code === "listNameDup") return t("builder.err.listNameDup", { name: error.name });
+  if (error.code === "noCriteria") return t("builder.err.noCriteria");
   if (error.code === "sum") return t("builder.err.sum", { sum: error.sumText });
   if (error.code === "nameEmpty") return t("builder.err.nameEmpty", { num: error.num });
   if (error.code === "nameDup") return t("builder.err.nameDup", { name: error.name });

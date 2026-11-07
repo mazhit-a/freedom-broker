@@ -392,7 +392,9 @@ test("sidebar: editing row, active with duplicate, saved offers Make active, vie
   const html1 = String(sidebar(viewContext()));
   assert.match(html1, /data-editing/);
   assert.match(html1, /data-version="12"/);
-  assert.doesNotMatch(html1, /data-action="activate"/);
+  assert.doesNotMatch(html1, /data-action="activate" data-version="12"/);
+  assert.match(html1, /data-action="activate" data-version="11"/);
+  assert.doesNotMatch(html1, /data-action="activate" data-version="13"/);
   assert.match(html1, /data-channel="chat"[^>]*checked/);
   const saved = viewContext({ status: "saved" });
   saved.lists[0].versions[2] = { ...saved.lists[0].versions[2], status: "saved" };

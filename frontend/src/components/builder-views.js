@@ -19,7 +19,48 @@ export function sumTone(sum) {
   return sum > 10000 ? "bad" : "warn";
 }
 
+function viewTone(status) {
+  if (status === "active") return "ok";
+  if (status === "saved") return "brand";
+  return "na";
+}
+
+function appliedLine(ctx, v) {
+  const { t, locale } = ctx;
+  if (!v || !(v.appliedCount > 0)) return t("builder.side.notApplied");
+  return t(v.isDefault ? "builder.side.appliedActive" : "builder.side.appliedPast", { count: v.appliedCount, n: integer(v.appliedCount, locale), date: dateText(v.firstAppliedAt, locale) });
+}
+
+function viewBar(ctx) {
+  const { t, draft, view, viewed } = ctx;
+  const version = `v${viewed.version}`;
+  const sumText = formatHundredths(view.validation.sum, ctx.locale);
+  const sum = view.validation.sum;
+  const isActive = viewed.status === "active" || viewed.isDefault;
+  const status = isActive ? "active" : viewed.status;
+  const canAct = !ctx.roleReadOnly;
+  const activate = canAct && !isActive
+    ? html`<button type="button" class="btn btn-primary" data-action="activate" data-version="${viewed.id}" data-focus-id="view-activate" ${ctx.busy ? raw('aria-busy="true" disabled') : ""}>${t("builder.side.activate")}</button>`
+    : html``;
+  const marker = isActive ? html`<span data-active-marker>${chip({ tone: "ok", text: t("builder.status.active") })}</span>` : html``;
+  const duplicate = canAct
+    ? html`<button type="button" class="btn" data-action="duplicate" data-version="${viewed.id}" data-focus-id="view-duplicate" ${flag(ctx.busy, "disabled")}>${t("builder.view.duplicate")}</button>`
+    : html``;
+  const note = isActive ? t("builder.view.activeNote", { version }) : t("builder.view.inactiveNote", { version });
+  return html`
+    <div class="bar-in">
+      <h1 class="h1">${draft.config.name}</h1>
+      <span data-chip="status">${chip({ tone: viewTone(status), text: `${version} · ${t(`builder.status.${status}`)}` })}</span>
+      <span class="tnum meta" data-meta>${appliedLine(ctx, viewed)}</span>
+      <div role="status" class="sum sum-${sumTone(sum)} tnum" data-sum data-tone="${sumTone(sum)}">${t("builder.sum", { sum: sumText })}</div>
+      <div class="actions">${marker}${duplicate}${activate}</div>
+      <p class="banner" data-view-banner role="status"><b>${t("builder.view.title", { version, status: t(`builder.status.${status}`) })}</b> ${t("builder.view.locked")} ${note} <span class="tnum">${appliedLine(ctx, viewed)}.</span></p>
+      <p class="reason" id="save-reason" data-save-reason>${ctx.roleReadOnly ? t("builder.readOnly") : ""}</p>
+    </div>`;
+}
+
 export function topBar(ctx) {
+  if (ctx.viewing && ctx.viewed) return viewBar(ctx);
   const { t, draft, view } = ctx;
   const version = `v${draft.versionNumber}`;
   const sumText = formatHundredths(view.validation.sum, ctx.locale);
@@ -40,20 +81,32 @@ export function topBar(ctx) {
   const resetOff = ctx.readOnly || ctx.busy || draft.baseNumber === null;
   const applyOff = ctx.readOnly || ctx.busy || ctx.status !== "saved";
   const discardOff = ctx.readOnly || ctx.busy || !ctx.dirty;
+  const draftOff = ctx.readOnly || ctx.busy || ctx.status !== "draft" || !(ctx.dirty || draft.isNew) || !view.validation.draftValid;
+  const showDelete = !ctx.roleReadOnly && ctx.status === "draft" && draft.versionId !== null;
+  const applyNote = ctx.status === "draft" && !ctx.roleReadOnly ? t("builder.applyDraftReason") : "";
   const resetLabel = draft.baseNumber === null ? t("builder.reset", { version }) : t("builder.reset", { version: `v${draft.baseNumber}` });
+  const nameBad = view.validation.errors.find((e) => e.code === "listNameEmpty" || e.code === "listNameDup");
+  const title = draft.isNew && !ctx.roleReadOnly
+    ? html`<label class="newname"><span class="sr">${t("builder.new.nameLabel")}</span><input class="field h1-input" type="text" data-field="new-name" data-focus-id="new-name" value="${draft.config.name}" maxlength="120" aria-label="${t("builder.new.nameLabel")}" aria-describedby="name-error" ${nameBad ? raw('aria-invalid="true"') : ""}></label>`
+    : html`<h1 class="h1">${draft.config.name}</h1>`;
+  const nameError = nameBad ? html`<p class="reason bad" id="name-error" data-name-error role="alert">${errorText(nameBad, t)}</p>` : html``;
   return html`
     <div class="bar-in">
-      <h1 class="h1">${draft.config.name}</h1>
+      ${title}
       <span data-chip="status">${chip({ tone: chipTone, text: chipText })}</span>
       <span class="tnum meta" data-meta>${base}</span>
       <div role="status" class="sum sum-${sumTone(sum)} tnum" data-sum data-tone="${sumTone(sum)}">${t("builder.sum", { sum: sumText })}</div>
       <div class="actions">
         <button type="button" class="btn" data-action="discard" data-focus-id="discard" ${flag(discardOff, "disabled")}>${t("builder.discard")}</button>
+        ${showDelete ? html`<button type="button" class="btn btn-danger" data-action="delete-draft" data-focus-id="delete-draft" ${flag(ctx.busy, "disabled")}>${t("builder.deleteDraft")}</button>` : html``}
         <button type="button" class="btn" data-action="reset" data-focus-id="reset" ${flag(resetOff, "disabled")}>${resetLabel}</button>
+        <button type="button" class="btn" data-action="save-draft" data-focus-id="save-draft" ${ctx.busyName === "draft" ? raw('aria-busy="true"') : ""} ${flag(draftOff, "disabled")}>${t("builder.saveDraft")}</button>
         <button type="button" class="btn btn-primary" data-action="save" data-focus-id="save" aria-describedby="save-reason" ${ctx.busy ? raw('aria-busy="true"') : ""} ${flag(saveOff, "disabled")}>${t("builder.save", { version })}</button>
-        <button type="button" class="btn btn-apply" data-action="apply" data-focus-id="apply" ${flag(applyOff, "disabled")}>${t("builder.apply")}</button>
+        <button type="button" class="btn btn-apply" data-action="apply" data-focus-id="apply" aria-describedby="apply-reason" ${flag(applyOff, "disabled")}>${t("builder.apply")}</button>
       </div>
+      ${nameError}
       <p class="reason" id="save-reason" data-save-reason>${reason}</p>
+      <p class="reason note" id="apply-reason" data-apply-reason>${applyNote}</p>
     </div>`;
 }
 
@@ -234,7 +287,7 @@ export function preview(ctx) {
   const p = view.preview;
   const head = html`<div class="pv-h"><h2 class="h3">${t("builder.pv.title")}</h2><span class="dim12">${t("builder.pv.sub")}</span></div>`;
   if (!p.ok) {
-    return html`${head}<p class="pv-note" data-preview-state="invalid">${t("builder.pv.invalid")}</p>`;
+    return html`${head}<p class="pv-note" data-preview-state="invalid">${t(p.reason === "empty" ? "builder.pv.empty" : "builder.pv.invalid")}</p>`;
   }
   const dash = "—";
   const cell = (value) => (value === null || value === undefined ? dash : number(value, ctx.locale));
@@ -300,19 +353,26 @@ function versionRow(ctx, v, options = {}) {
     ? html`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="${t("builder.side.locked")}" class="lockic"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>`
     : html``;
   const off = ctx.roleReadOnly || ctx.busy;
-  const duplicate = v.isDefault || options.editing
+  const duplicate = !options.foreign && (v.isDefault || options.editing)
     ? html`<button type="button" class="btn btn-sm dup" data-action="duplicate" data-version="${v.id}" data-focus-id="dup-${v.id}" ${flag(off, "disabled")}>${t("builder.side.duplicate")}</button>`
     : html``;
-  const activate = v.status === "saved" && !v.isDefault
-    ? html`<button type="button" class="btn btn-sm dup" data-action="activate" data-version="${v.id}" data-focus-id="act-${v.id}" aria-label="${t("builder.side.activateLabel", { version: `v${v.version}` })}" ${flag(off, "disabled")}>${t("builder.side.activate")}</button>`
+  const canActivate = !options.foreign && (v.status === "saved" || v.status === "archived") && !v.isDefault && !ctx.roleReadOnly;
+  const activate = canActivate
+    ? html`<button type="button" class="btn btn-sm dup" data-action="activate" data-version="${v.id}" data-focus-id="act-${v.id}" aria-label="${t("builder.side.activateLabel", { version: `v${v.version}` })}" ${flag(ctx.busy, "disabled")}>${t("builder.side.activate")}</button>`
     : html``;
   const note = v.isDefault ? html`<span class="dim12">${t("builder.side.immutable")}</span>` : html``;
-  const cls = options.editing ? "vrow vedit" : "vrow";
+  const draftNote = v.status === "draft" && !ctx.roleReadOnly && !options.foreign ? html`<span class="dim12" data-draft-note>${t("builder.side.draftNote")}</span>` : html``;
+  const viewedId = ctx.viewing && ctx.viewed ? ctx.viewed.id : null;
+  const current = Boolean(options.editing) || v.id === viewedId;
+  const cls = `vrow${options.editing ? " vedit" : ""}${!options.editing && current ? " vcur" : ""}`;
   return html`
     <div class="${cls}" data-version-row="${v.id}" ${options.editing ? raw("data-editing") : raw("")}>
-      <div class="vline"><b class="tnum">v${v.version}</b>${chip({ tone, text: label })}${lock}</div>
-      <span class="tnum sub2">${line}</span>
+      <button type="button" class="vopen" data-action="open-version" data-version="${v.id}" data-focus-id="ver-${v.id}" ${current ? raw('aria-current="true"') : raw("")}>
+        <span class="vline"><b class="tnum">v${v.version}</b>${chip({ tone, text: label })}${lock}</span>
+        <span class="tnum sub2">${line}</span>
+      </button>
       ${note}
+      ${draftNote}
       ${duplicate}${activate}
     </div>`;
 }
@@ -345,33 +405,65 @@ function channelsBlock(ctx, cl, current) {
     </fieldset>`;
 }
 
+function newChecklistBlock(ctx) {
+  const { t, draft } = ctx;
+  const name = String(draft.config.name ?? "").trim() || t("builder.new.defaultName");
+  const kind = ctx.newChannel || "chat";
+  const off = ctx.roleReadOnly || ctx.busy;
+  const radios = CHANNELS.map(
+    ([k]) => html`<label class="chan"><input type="radio" name="new-channel" data-field="new-channel" data-channel="${k}" data-focus-id="newchan-${k}" ${flag(kind === k, "checked")} ${flag(off, "disabled")}>${t(`builder.channel.${k}`)}</label>`
+  );
+  return html`
+    <div class="side-block" data-new-block>
+      <span class="side-t" data-checklist-title="new">${name} ${chip({ tone: "brand", text: t("builder.new.badge") })}</span>
+      <fieldset class="chans" data-channels>
+        <legend class="dim12">${t("builder.new.channelLabel")}</legend>
+        ${radios}
+        <span class="dim12">${t("builder.side.channelsHint")}</span>
+      </fieldset>
+      <div class="vrow vedit" data-editing data-version-row="new">
+        <button type="button" class="vopen" data-action="open-version" data-version="new" data-focus-id="ver-new" aria-current="true">
+          <span class="vline"><b class="tnum">v${draft.versionNumber}</b>${chip({ tone: "warn", text: t("builder.status.draft") })}</span>
+          <span class="sub2">${t("builder.new.unsaved")}</span>
+        </button>
+      </div>
+    </div>`;
+}
+
 export function sidebar(ctx) {
   const { t, lists, current, draft } = ctx;
   const blocks = lists.map((cl) => {
-    const isCurrent = cl.id === current.id;
+    const isCurrent = Boolean(current) && cl.id === current.id;
     const title = isCurrent
       ? html`<span class="side-t" data-checklist-title="${cl.id}">${cl.name}</span>`
       : html`<button type="button" class="side-t side-link" data-action="open-checklist" data-id="${cl.id}" data-focus-id="open-${cl.id}" aria-label="${t("builder.side.open", { name: cl.name })}">${cl.name}</button>`;
     let rows = html``;
-    if (isCurrent) {
+    if (isCurrent && !ctx.viewing) {
       const own = cl.versions.find((v) => v.id === draft.versionId);
       const base = own || { id: draft.versionId, version: draft.versionNumber, status: "draft", isDefault: false, appliedCount: 0, firstAppliedAt: null, locked: false };
       const first = ctx.status === "draft"
         ? html`
           <div class="vrow vedit" data-editing data-version-row="${draft.versionId ?? "new"}">
-            <div class="vline"><b class="tnum">v${draft.versionNumber}</b>${chip({ tone: "warn", text: t("builder.status.draft") })}</div>
-            <span class="sub2">${t("builder.side.editing", { date: dateText(draft.createdAt, ctx.locale) })}</span>
+            <button type="button" class="vopen" data-action="open-version" data-version="${draft.versionId ?? "new"}" data-focus-id="ver-${draft.versionId ?? "new"}" aria-current="true">
+              <span class="vline"><b class="tnum">v${draft.versionNumber}</b>${chip({ tone: "warn", text: t("builder.status.draft") })}</span>
+              <span class="sub2">${t("builder.side.editing", { date: dateText(draft.createdAt, ctx.locale) })}</span>
+            </button>
           </div>`
         : versionRow(ctx, { ...base, locked: ctx.status === "applied" || base.locked }, { editing: true, status: ctx.status });
       const shown = cl.versions.filter((v) => v.id !== draft.versionId);
       const history = [...shown].sort((a, b) => b.version - a.version).map((v) => versionRow(ctx, v));
       rows = html`${first}${history}`;
     } else {
-      rows = [...cl.versions].sort((a, b) => b.version - a.version).map((v) => versionRow(ctx, v));
+      rows = [...cl.versions].sort((a, b) => b.version - a.version).map((v) => versionRow(ctx, v, { foreign: !isCurrent }));
     }
     return html`<div class="side-block">${title}${channelsBlock(ctx, cl, isCurrent)}${rows}</div>`;
   });
+  const created = draft && draft.isNew ? newChecklistBlock(ctx) : html``;
+  const add = ctx.roleReadOnly
+    ? html`<button type="button" class="btn btn-sm btn-ghost newc" data-action="new-checklist" data-focus-id="new-checklist" disabled title="${t("builder.readOnly")}">${icon("plus", 14)}${t("builder.side.newChecklist")}</button>`
+    : html`<button type="button" class="btn btn-sm btn-ghost newc" data-action="new-checklist" data-focus-id="new-checklist" ${flag(ctx.busy, "disabled")}>${icon("plus", 14)}${t("builder.side.newChecklist")}</button>`;
   return html`
     ${blocks}
-    <button type="button" class="btn btn-sm btn-ghost newc" data-action="new-checklist" data-seam="new-checklist" disabled>${icon("plus", 14)}${t("builder.side.newChecklist")}</button>`;
+    ${created}
+    ${add}`;
 }
