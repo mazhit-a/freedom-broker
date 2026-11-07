@@ -1,0 +1,43 @@
+{
+  "error": "",
+  "isSuccess": true,
+  "data": {
+    "dataset_group_id": "FIX",
+    "total_records": 3,
+    "records": [
+      {
+        "conversation_id": "p1-ru-001",
+        "channel": "agent chat",
+        "language": "RU",
+        "transcript": [
+          {"timestamp": "00:02", "speaker": "client", "text": "Здравствуйте, нужна консультация"},
+          {"timestamp": "00:10", "speaker": "bot", "text": "Добро пожаловать"},
+          {"timestamp": "01:05", "speaker": "system", "text": "Эскалация на оператора."},
+          {"timestamp": "12:30", "speaker": "operator", "text": "Здравствуйте, меня зовут Анна"}
+        ],
+        "audio_url": null
+      },
+      {
+        "conversation_id": "p1-en-001",
+        "channel": "agent chat",
+        "language": "EN",
+        "transcript": [
+          {"timestamp": "00:00", "speaker": "client", "text": "Hello"},
+          {"timestamp": "00:07", "speaker": "operator", "text": "Hi, this is Sam"}
+        ],
+        "audio_url": null
+      },
+      {
+        "conversation_id": "p4-ru-001",
+        "channel": "voice call",
+        "language": "RU",
+        "transcript": [
+          {"timestamp": "2026-11-03T13:10:00.6388245+00:00", "speaker": "system", "text": "Agent joined"},
+          {"timestamp": "2026-11-03T13:10:05.1000000+00:00", "speaker": "operator", "text": "Алло"},
+          {"timestamp": "2026-11-03T13:12:10.6388245+00:00", "speaker": "client", "text": "Добрый день"}
+        ],
+        "audio_url": "https://audio.example.invalid/p4-ru-001.mp3"
+      }
+    ]
+  }
+}
