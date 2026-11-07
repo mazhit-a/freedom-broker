@@ -10,7 +10,8 @@ from backend.app.services.evaluator import (
     transcript_lines,
     validate_item,
 )
-from evals.decisions import JEV_MODEL, build_request, build_split_requests, style_flags
+from evals.compiler import CompiledError, load_compiled
+from evals.decisions import COMPILED_STYLE, JEV_MODEL, build_request, build_split_requests, style_flags
 from evals.workflows.base import JEV, LLMRequest, Stage, Workflow, build_candidate, record_calls, resolve_profile
 from evals.workflows.review import ReviewPass
 from evals.workflows.single_call import conversation_of
@@ -76,6 +77,18 @@ def jev_rows(cfg, answers: dict[str, dict]) -> tuple[dict[str, dict], dict[str, 
     return rows, problems
 
 
+def init_compiled(workflow: Workflow) -> None:
+    workflow.compiled = None
+    workflow.compiled_path = None
+    if workflow.params.get("style", "default") != COMPILED_STYLE:
+        return
+    path = workflow.params.get("compiled")
+    if not path:
+        raise CompiledError(f"variant {workflow.variant}: style 'compiled' needs the 'compiled' param with the compiled file path")
+    workflow.compiled = load_compiled(path, workflow.cfg)
+    workflow.compiled_path = workflow.compiled["path"]
+
+
 def jev_style(workflow: Workflow) -> str:
     style = workflow.params.get("style", "default")
     style_flags(style)
@@ -96,7 +109,7 @@ def jev_stage(workflow: Workflow, case: dict) -> Stage:
             for cid, payload, _ in build_split_requests(case["conversation"], workflow.cfg, style=style)
         ]
     else:
-        payload, _ = build_request(case["conversation"], workflow.cfg, style=style)
+        payload, _ = build_request(case["conversation"], workflow.cfg, style=style, compiled=workflow.compiled)
         requests = [LLMRequest("jev", JEV, JEV_MODEL, payload, "jev")]
 
     def reduce_jev(state, responses):
@@ -113,6 +126,10 @@ def jev_stage(workflow: Workflow, case: dict) -> Stage:
 class JevOnly(Workflow):
     name = "jev_only"
     stage_count = 1
+
+    def __init__(self, cfg, variant, params=None):
+        super().__init__(cfg, variant, params)
+        init_compiled(self)
 
     def stage(self, index, case, state):
         return jev_stage(self, case)
@@ -178,6 +195,7 @@ class JevExplain(Workflow):
 
     def __init__(self, cfg, variant, params=None):
         super().__init__(cfg, variant, params)
+        init_compiled(self)
         self.profile_name = self.params.get("profile", "claude-sonnet-5-5")
         self.profile = resolve_profile(self.profile_name, self.params.get("effort"))
         self.schema = explain_schema(cfg)

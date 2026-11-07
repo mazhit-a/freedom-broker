@@ -11,6 +11,7 @@ from typing import Any, Callable
 
 from backend.app.schemas.checklist import ChecklistConfig, Criterion
 from backend.app.services.evaluator import RULES, transcript_lines
+from evals import compiler as compiler_mod
 
 DECISIONS_URL = "https://openrouter.ai/api/alpha/decisions"
 JEV_MODEL = "typesafe/jev-1.14"
@@ -32,6 +33,7 @@ JUDGING_RULE_INDEXES = (0, 1, 2, 3, 4, 6, 7, 8)
 STYLES = ("default", "rich", "split", "rich_split", "temporal_choice", "temporal_split", "obs", "gaps", "obs_gaps")
 OBS_STYLES = ("obs", "obs_gaps")
 GAPS_STYLES = ("gaps", "obs_gaps")
+COMPILED_STYLE = "compiled"
 TEMPORAL_CHOICE_STYLES = ("temporal_choice", "obs", "gaps", "obs_gaps")
 GAP_THRESHOLD_SECONDS = 60
 HOLD_START_TEXTS = frozenset({"Клиент поставлен на удержание.", "Клиент күтуге қойылды.", "Customer put on hold."})
@@ -54,6 +56,8 @@ def rich_rules_header() -> str:
 
 
 def style_flags(style: str) -> tuple[bool, bool]:
+    if style == COMPILED_STYLE:
+        return False, False
     if style not in STYLES:
         raise ValueError(f"unknown jev style {style!r}, known: {list(STYLES)}")
     return style in ("rich", "rich_split"), style in ("split", "rich_split")
@@ -401,6 +405,7 @@ class QuestionSpec:
     role: str
     body: dict
     steps: list[int] = field(default_factory=list)
+    mapping: dict = field(default_factory=dict)
 
 
 def question_instructions(c: Criterion) -> str:
@@ -480,7 +485,28 @@ def rich_scale(c: Criterion) -> tuple[str, list[str], list]:
     return " ".join(parts), [one_line(s.descriptor) for s in steps], steps
 
 
-def build_questions(cfg: ChecklistConfig, style: str = "default") -> list[QuestionSpec]:
+def compiled_questions(cfg: ChecklistConfig, compiled: dict) -> list[QuestionSpec]:
+    specs: list[QuestionSpec] = []
+    for c in cfg.criteria:
+        spec = compiled["specs"][c.id]
+        options = {o["key"]: o["text"] for o in spec["options"]}
+        if c.type == "flag":
+            criteria = {"true": options["true"], "false": options["false"]}
+            body = {"type": "noul", "instructions": spec["instructions"], "criteria": criteria}
+            specs.append(QuestionSpec(qname(c.id), c.id, "flag", body))
+        else:
+            body = {"type": "choice", "instructions": spec["instructions"], "criteria": options}
+            mapping = {o["key"]: o["maps_to"] for o in spec["options"]}
+            steps = sorted(s.value for s in c.scale_steps)
+            specs.append(QuestionSpec(qname(c.id), c.id, "compiled_choice", body, steps, mapping))
+    return specs
+
+
+def build_questions(cfg: ChecklistConfig, style: str = "default", compiled: dict | None = None) -> list[QuestionSpec]:
+    if style == COMPILED_STYLE:
+        if compiled is None:
+            raise compiler_mod.CompiledError("style 'compiled' needs a loaded compiled file")
+        return compiled_questions(cfg, compiled)
     rich, _ = style_flags(style)
     specs: list[QuestionSpec] = []
     for c in cfg.criteria:
@@ -572,12 +598,13 @@ def build_state(
 
 
 def build_request(
-    conversation: dict, cfg: ChecklistConfig, model: str = JEV_MODEL, style: str = "default"
+    conversation: dict, cfg: ChecklistConfig, model: str = JEV_MODEL, style: str = "default", compiled: dict | None = None
 ) -> tuple[dict, list[QuestionSpec]]:
     rich, _ = style_flags(style)
-    specs = build_questions(cfg, style)
+    specs = build_questions(cfg, style, compiled)
     header = rich_rules_header() if rich else None
-    state = build_state(conversation, header=header, gaps=style in GAPS_STYLES)
+    gaps = style in GAPS_STYLES or (style == COMPILED_STYLE and bool(compiled and compiled["needs_pause_marks"]))
+    state = build_state(conversation, header=header, gaps=gaps)
     payload = {"model": model, "state": state, "questions": questions_payload(specs)}
     return payload, specs
 
@@ -690,9 +717,10 @@ def combine_temporal(needed: float, before: float, pushed: float) -> dict:
     }
 
 
-def specs_for_questions(cfg: ChecklistConfig, asked: dict) -> list[QuestionSpec]:
-    for style in STYLES:
-        specs = build_questions(cfg, style)
+def specs_for_questions(cfg: ChecklistConfig, asked: dict, compiled_paths: Any = ()) -> list[QuestionSpec]:
+    candidates = [build_questions(cfg, style) for style in STYLES]
+    candidates += [build_questions(cfg, COMPILED_STYLE, compiler_mod.load_compiled(p, cfg)) for p in compiled_paths]
+    for specs in candidates:
         by_name = {s.name: s for s in specs}
         if all(n in by_name and by_name[n].body == b for n, b in asked.items()):
             return [by_name[n] for n in asked]
@@ -721,6 +749,14 @@ def map_answers(response_body: dict, specs: list[QuestionSpec]) -> dict:
             s = roles["choice"]
             options = list(s.body["criteria"].keys())
             out[cid] = map_choice(get_answer(answers, s.name, "choice"), options)
+        elif "compiled_choice" in roles:
+            s = roles["compiled_choice"]
+            mapped = map_choice(get_answer(answers, s.name, "choice"), list(s.body["criteria"].keys()))
+            out[cid] = {
+                "answer": str(s.mapping[mapped["answer"]]),
+                "confidence": mapped["confidence"],
+                "distribution": {str(s.mapping[k]): v for k, v in mapped["distribution"].items()},
+            }
         elif "flag" in roles:
             s = roles["flag"]
             out[cid] = map_flag(noul_probability(get_answer(answers, s.name, "noul")))

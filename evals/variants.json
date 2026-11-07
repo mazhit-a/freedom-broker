@@ -78,5 +78,15 @@
     "name": "jev_obs_gaps",
     "workflow": "jev_only",
     "params": {"style": "obs_gaps"}
+  },
+  {
+    "name": "jev_compiled_naive",
+    "workflow": "jev_only",
+    "params": {"style": "compiled", "compiled": "evals/compiled/8bf8fc9a-naive.json"}
+  },
+  {
+    "name": "jev_compiled_principled",
+    "workflow": "jev_only",
+    "params": {"style": "compiled", "compiled": "evals/compiled/8bf8fc9a-principled.json"}
   }
 ]

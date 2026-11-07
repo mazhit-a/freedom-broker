@@ -193,6 +193,7 @@ class Executor:
         self.rng = rng
         self.spent = 0.0
         self.lock = threading.Lock()
+        self.compiled_paths: list[str] = []
 
     @property
     def sdk(self):
@@ -312,7 +313,7 @@ class Executor:
             return error_response(request, f"served model {served!r} does not match requested model {JEV_MODEL!r}", call.get("attempts", 1))
         try:
             asked = request.params["questions"]
-            answers = map_answers(body, specs_for_questions(self.cfg, asked))
+            answers = map_answers(body, specs_for_questions(self.cfg, asked, list(self.compiled_paths)))
         except DecisionsError as exc:
             return error_response(request, str(exc), call.get("attempts", 1))
         detail = compute_cost(call.get("usage"), request.params["state"], request.params["questions"])
@@ -507,9 +508,12 @@ class Runner:
     def run(self, variant: dict, cases: list[dict], split: str, reps: int = 1, run_id: str | None = None, limit: int | None = None, estimate: float | None = None) -> dict:
         run_id = run_id or make_run_id(variant["name"], split)
         run_dir = self.runs_dir / run_id
+        workflow = build_workflow(variant, self.cfg)
         (run_dir / "rows").mkdir(parents=True, exist_ok=True)
         meta_path = run_dir / "meta.json"
-        workflow = build_workflow(variant, self.cfg)
+        compiled_path = getattr(workflow, "compiled_path", None)
+        if compiled_path and compiled_path not in self.executor.compiled_paths:
+            self.executor.compiled_paths.append(compiled_path)
         meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
         expect = {"variant": variant["name"], "split": split, "reps": reps, "mode": self.executor.mode, "dataset_hash": self.dataset["hash"]}
         for k, v in expect.items():

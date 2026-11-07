@@ -7,10 +7,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from evals import judge, judge_run, report, runner
+from evals import compiler, judge, judge_run, report, runner
 from evals.gen import ambiguity
 from evals.gen.common import DATASET_PATH, SONNET_MODEL
-from evals.graders import index_cases, load_checklist
+from evals.graders import CHECKLIST_PATH, index_cases, load_checklist
 from evals.ledger import BudgetError, Ledger
 from evals.workflows import build_workflow
 
@@ -50,7 +50,10 @@ def cmd_run(args, factory=None) -> int:
     ledger = Ledger(args.ledger)
     plans = []
     for name in names:
-        wf = build_workflow(variants[name], cfg)
+        try:
+            wf = build_workflow(variants[name], cfg)
+        except compiler.CompiledError as exc:
+            raise SystemExit(f"refused to start variant {name}: {exc}")
         est = ledger.estimate_plan(wf.estimate_plan(), len(cases) * args.reps, args.mode)
         plans.append((name, wf, est))
     total = round(sum(p[2] for p in plans), 6)
@@ -92,6 +95,54 @@ def cmd_run(args, factory=None) -> int:
         if out["stopped"]:
             break
     return code
+
+
+def cmd_compile(args, factory=None) -> int:
+    cfg = load_checklist(args.checklist)
+    ledger = Ledger(args.ledger)
+    out = compiler.compiled_path(cfg, args.compiler, args.out_dir)
+    estimate = compiler.estimate_cost(cfg)
+    exists = out.exists()
+    print("dry run: nothing is sent, add --execute to run" if not args.execute else "execute: requests will be sent")
+    print(f"checklist: {args.checklist} (hash {compiler.hash8(cfg)}, criteria {len(cfg.criteria)})")
+    print(f"compiler: {args.compiler} ({compiler.COMPILER_VERSIONS[args.compiler]}), model {compiler.COMPILER_MODEL}, effort {compiler.COMPILER_EFFORT}")
+    print(
+        f"requests: {len(cfg.criteria)} (plus at most one repair request per criterion), "
+        f"estimated {money(estimate)} at {compiler.ESTIMATE_INPUT_TOKENS} input and {compiler.ESTIMATE_OUTPUT_TOKENS} output tokens each"
+    )
+    print(f"output: {out}{' (exists, needs --force)' if exists and not args.force else ''}")
+    print(f"spent so far: {money(ledger.spent())} of {money(ledger.budget)} budget, remaining {money(ledger.remaining())}")
+    print(f"max-spend: {money(args.max_spend) if args.max_spend is not None else 'not given'}")
+    if not args.execute:
+        return 0
+    if exists and not args.force:
+        print(f"refused: {out} already exists; pass --force to overwrite it")
+        return 2
+    try:
+        ledger.check(estimate, args.max_spend)
+    except BudgetError as exc:
+        print(f"refused: {exc}")
+        return 2
+    if factory is not None:
+        client = factory()
+    else:
+        from backend.app.core.config import get_settings
+        from backend.app.services.llm_client import build_sdk_client
+
+        client = build_sdk_client(get_settings())
+    data = compiler.compile_checklist(cfg, args.compiler, client, ledger, None, args.max_spend, args.concurrency)
+    compiler.write_compiled(out, data, force=True)
+    failed = [cid for cid, rec in data["criteria"].items() if rec["status"] != "ok"]
+    for cid, rec in data["criteria"].items():
+        note = "" if rec["status"] == "ok" else f": {'; '.join(rec['errors'])}"
+        print(f"  {cid}: {rec['status']}, attempts {rec['attempts']}, cost {money(rec['usage']['cost'])}{note}")
+        for w in rec["warnings"]:
+            print(f"    warning: {w}")
+    print(f"wrote {out}: {len(data['criteria']) - len(failed)}/{len(data['criteria'])} compiled, cost {money(data['usage']['cost'])}, run {data['run_id']}")
+    if failed:
+        print(f"failed criteria {failed}: variants using this file will refuse to start")
+        return 1
+    return 0
 
 
 def run_dir_for(args, run_id: str) -> Path:
@@ -297,6 +348,15 @@ def build_parser() -> argparse.ArgumentParser:
     money_args(s)
     s.set_defaults(func=cmd_run)
 
+    s = sub.add_parser("compile", help="compile a checklist into Jev questions with the LLM compiler (dry run unless --execute)")
+    s.add_argument("--compiler", choices=list(compiler.COMPILER_NAMES), required=True)
+    s.add_argument("--checklist", default=str(CHECKLIST_PATH))
+    s.add_argument("--out-dir", default=str(compiler.COMPILED_DIR))
+    s.add_argument("--ledger", default=str(Ledger().path))
+    s.add_argument("--force", action="store_true", help="overwrite an existing compiled file")
+    money_args(s)
+    s.set_defaults(func=cmd_compile)
+
     s = sub.add_parser("judge", help="judge finished runs (dry run unless --execute)")
     common(s)
     s.add_argument("run_ids", nargs="+")
@@ -340,7 +400,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv=None, factory=None) -> int:
     args = build_parser().parse_args(argv)
-    if args.command in ("run", "judge", "blind-check"):
+    if args.command in ("run", "judge", "blind-check", "compile"):
         return args.func(args, factory)
     return args.func(args)
 
