@@ -24,7 +24,7 @@ def is_throttle_error(message: str | None) -> bool:
 @dataclass
 class BatchJob:
     id: int
-    dataset: str
+    dataset: str | None
     checklist_version_id: int
     force: bool
     retry_failed: bool
@@ -51,6 +51,7 @@ class BatchJob:
             to_run = self.total - self.skipped
             return {
                 "id": self.id,
+                "run_id": self.id,
                 "dataset": self.dataset,
                 "checklist_version_id": self.checklist_version_id,
                 "force": self.force,
@@ -91,6 +92,17 @@ def list_jobs() -> list[dict]:
 def reset_jobs() -> None:
     with _jobs_lock:
         _jobs.clear()
+
+
+def select_by_pks(conn: sqlite3.Connection, pks: list[int]) -> list[dict]:
+    if not pks:
+        return []
+    marks = ",".join("?" for _ in pks)
+    rows = conn.execute(
+        f"SELECT c.id, c.conversation_id, d.group_id FROM conversation c JOIN dataset d ON d.id = c.dataset_id WHERE c.id IN ({marks}) ORDER BY c.id",
+        list(pks),
+    ).fetchall()
+    return [dict(r) for r in rows]
 
 
 def select_conversations(conn: sqlite3.Connection, dataset: str) -> list[dict]:
@@ -188,11 +200,16 @@ def _process_item(job: BatchJob, item: dict, client: LLMClient, max_retries: int
             job.failures.append({"conversation_pk": item["id"], "conversation_id": item["conversation_id"], "error": error or status})
 
 
-def create_job(conn: sqlite3.Connection, dataset: str, version_id: int, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, conversation_pks: list[int] | None = None) -> tuple[BatchJob, list[dict]]:
-    items = select_conversations(conn, dataset)
-    if conversation_pks is not None:
-        wanted = set(conversation_pks)
-        items = [i for i in items if i["id"] in wanted]
+def create_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, conversation_pks: list[int] | None = None) -> tuple[BatchJob, list[dict]]:
+    if dataset:
+        items = select_conversations(conn, dataset)
+        if conversation_pks is not None:
+            wanted = set(conversation_pks)
+            items = [i for i in items if i["id"] in wanted]
+    else:
+        items = select_by_pks(conn, conversation_pks or [])
+        groups = {i["group_id"] for i in items}
+        dataset = groups.pop() if len(groups) == 1 else "mixed"
     if not items:
         raise LookupError(f"No conversations found for dataset {dataset}")
     statuses = existing_statuses(conn, version_id)
@@ -233,7 +250,7 @@ def run_job(job: BatchJob, todo: list[dict], client: LLMClient, max_retries: int
         job.finished_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def start_job(conn: sqlite3.Connection, dataset: str, version_id: int, client: LLMClient, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, max_retries: int = 4, backoff_base: float = 2.0, conversation_pks: list[int] | None = None) -> BatchJob:
+def start_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, client: LLMClient, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, max_retries: int = 4, backoff_base: float = 2.0, conversation_pks: list[int] | None = None) -> BatchJob:
     job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency, conversation_pks)
     thread = threading.Thread(target=run_job, args=(job, todo, client, max_retries, backoff_base), daemon=True, name=f"batch-{job.id}")
     thread.start()

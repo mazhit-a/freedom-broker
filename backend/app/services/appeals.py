@@ -1,4 +1,5 @@
 import json
+import re
 import sqlite3
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
@@ -241,6 +242,10 @@ def evaluation_appeals(conn: sqlite3.Connection, evaluation_id: int) -> list[dic
     return [_appeal_row(conn, r["id"]) for r in rows]
 
 
+def model_label(model: Optional[str]) -> Optional[str]:
+    return get_settings().llm_label or model
+
+
 def _num(value: Optional[Decimal]) -> Optional[float]:
     return float(value) if value is not None else None
 
@@ -265,6 +270,14 @@ def with_review(conn: sqlite3.Connection, ev: dict) -> dict:
     ev["decisions"] = [a for a in appeals if a["status"] == "resolved"]
     open_ids = {a["criterion_id"] for a in appeals if a["status"] == "open"}
     ev["appealed_criteria"] = sorted(open_ids)
+    meta = conversation_meta(conn, ev["conversation_id"])
+    ev["model_label"] = model_label(ev.get("model"))
+    ev["occurred_at"] = meta["occurred_at"]
+    ev["duration_seconds"] = meta["duration_seconds"]
+    ev["confidence"] = confidence(original_criteria, ev["provisional"])
+    ev["display_appeal_status"] = display_appeal_status(appeals)
+    ev["final_total"] = None
+    ev["total_changed"] = False
     cfg = _config(conn, ev["id"])
     answers = {c["criterion_id"]: c["answer"] for c in original_criteria if c["answer"] not in (None, "")}
     try:
@@ -299,11 +312,83 @@ def with_review(conn: sqlite3.Connection, ev: dict) -> dict:
         "changed": bool(overrides),
         "criteria": final_criteria,
         "sections": [
-            {"id": s.id, "title": s.title, "earned": _num(s.earned), "applicable_max": _num(s.applicable_max), "percent": _num(s.percent)}
+            {
+                "id": s.id,
+                "title": s.title,
+                "earned": _num(s.earned),
+                "applicable_max": _num(s.applicable_max),
+                "percent": _num(s.percent),
+                **effective_section(cfg, result, s.id),
+            }
             for s in result.sections
         ],
     }
+    ev["final_total"] = ev["final"]["total"]
+    ev["total_changed"] = ev["final"]["changed"]
     return ev
+
+
+def effective_section(cfg: ChecklistConfig, result, section_id: Optional[str]) -> dict:
+    applicable = sum((c.weight for c in result.criteria if c.type != "flag" and c.status == "answered"), Decimal(0))
+    members = [c for c in result.criteria if c.type != "flag" and c.status == "answered" and _section_of(cfg, c.id) == section_id]
+    if applicable <= 0 or not members:
+        return {"effective_points": None, "effective_max": 0.0}
+    points = sum((c.effective_points for c in members), Decimal(0))
+    maximum = (sum((c.weight for c in members), Decimal(0)) * Decimal(100) / applicable).quantize(Decimal("0.01"))
+    return {"effective_points": float(points), "effective_max": float(maximum)}
+
+
+def _section_of(cfg: ChecklistConfig, criterion_id: str) -> Optional[str]:
+    for c in cfg.criteria:
+        if c.id == criterion_id:
+            return c.section
+    return None
+
+
+def confidence(criteria: list[dict], provisional: bool) -> dict:
+    total = len(criteria)
+    with_rationale = sum(1 for c in criteria if (c.get("rationale") or "").strip())
+    low = bool(provisional) or any(c.get("needs_review") for c in criteria)
+    return {"level": "low" if low else "high", "with_rationale": with_rationale, "total": total}
+
+
+def display_appeal_status(appeals: list[dict]) -> str:
+    if not appeals:
+        return "none"
+    open_ones = [a for a in appeals if a["status"] == "open"]
+    if open_ones:
+        return display_status(open_ones[-1])
+    return display_status(appeals[-1])
+
+
+ISO_FRACTION = re.compile(r"(\.\d{6})\d+")
+
+
+def _parse_iso(value: Optional[str]) -> Optional[datetime]:
+    if not value or "T" not in value:
+        return None
+    try:
+        return datetime.fromisoformat(ISO_FRACTION.sub(r"\1", value))
+    except ValueError:
+        return None
+
+
+def conversation_meta(conn: sqlite3.Connection, conversation_pk: int) -> dict:
+    rows = conn.execute(
+        "SELECT timestamp_raw, offset_seconds FROM message WHERE conversation_id = ? ORDER BY message_index",
+        (conversation_pk,),
+    ).fetchall()
+    stamps = [(r["timestamp_raw"], _parse_iso(r["timestamp_raw"])) for r in rows]
+    parsed = [p for _, p in stamps if p is not None]
+    occurred = next((raw for raw, p in stamps if p is not None), None)
+    duration = None
+    if len(parsed) >= 2:
+        duration = round((max(parsed) - min(parsed)).total_seconds(), 2)
+    else:
+        offsets = [r["offset_seconds"] for r in rows if r["offset_seconds"] is not None]
+        if offsets:
+            duration = round(float(max(offsets)), 2)
+    return {"occurred_at": occurred, "duration_seconds": duration}
 
 
 def queue(conn: sqlite3.Connection, status: str = "open") -> list[dict]:
@@ -351,7 +436,7 @@ def queue(conn: sqlite3.Connection, status: str = "open") -> list[dict]:
                 "language": ev["language"],
                 "age_hours": age_hours(a),
                 "checklist_version_label": version_label(conn, ev["checklist_version_id"]),
-                "model_label": ev["model"],
+                "model_label": model_label(ev["model"]),
                 "criterion": crit.model_dump() if crit else None,
                 "original": {
                     "answer": res["answer"],

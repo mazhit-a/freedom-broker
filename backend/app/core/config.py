@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     llm_api_key: str = ""
     llm_base_url: str = "https://api.anthropic.com"
     llm_model: str = "claude-opus-5-5"
+    llm_label: str = ""
     llm_effort: str = "medium"
     llm_structured_outputs: bool = True
     llm_max_tokens: int = 8192

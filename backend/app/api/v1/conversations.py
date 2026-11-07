@@ -1,9 +1,11 @@
 from typing import Optional
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 
 from backend.app.core.errors import ApiError
 from backend.app.core.database import get_db
+from backend.app.services.appeals import with_review
+from backend.app.services.evaluator import get_evaluation
 from backend.app.services.audio_timing import annotate_messages
 
 router = APIRouter(prefix="/conversations", tags=["conversations"])
@@ -14,6 +16,9 @@ APPEAL_EXPR = (
     "WHEN EXISTS (SELECT 1 FROM appeal ap WHERE ap.evaluation_id = e.id) THEN 'resolved' "
     "ELSE 'none' END"
 )
+
+
+SORT_KEYS = {"final_total", "total", "conversation_id", "language", "channel", "id", "dataset_id", "eval_status", "message_count", "occurred_at", "duration_seconds"}
 
 
 @router.get("")
@@ -27,6 +32,11 @@ def list_conversations(
     max_total: Optional[float] = None,
     checklist_version_id: Optional[int] = None,
     appeal_status: Optional[str] = None,
+    q: Optional[str] = None,
+    sort: Optional[str] = None,
+    limit: Optional[int] = Query(None, ge=1, le=1000),
+    offset: int = Query(0, ge=0),
+    envelope: bool = False,
     conn=Depends(get_db),
 ):
     sql = (
@@ -77,6 +87,19 @@ def list_conversations(
             raise ApiError(422, "appeal_status must be none, open or resolved", "invalid_appeal_status")
         sql += " AND " + APPEAL_EXPR + " = ?"
         args.append(appeal_status)
+    if q and q.strip():
+        needle = q.strip().lower()
+        like = "%" + needle.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
+        prefix = like[1:]
+        conn.create_function("pylower", 1, lambda v: v.lower() if isinstance(v, str) else v)
+        sql += (
+            " AND (pylower(c.conversation_id) LIKE ? ESCAPE '\\' OR EXISTS (SELECT 1 FROM message mq "
+            "WHERE mq.conversation_id = c.id AND pylower(mq.text) LIKE ? ESCAPE '\\'))"
+        )
+        args += [prefix, like]
+    sort_key = (sort or "").lstrip("-+")
+    if sort_key and sort_key not in SORT_KEYS:
+        raise ApiError(422, "unknown sort field", "invalid_sort")
     sql += " ORDER BY c.dataset_id, c.id"
     rows = conn.execute(sql, args).fetchall()
     out = []
@@ -88,8 +111,44 @@ def list_conversations(
         d["checklist_version_label"] = (
             f"{d['checklist_name']} v{d['checklist_version_number']}" if d["evaluation_id"] else None
         )
+        d["model_label"] = None
+        d["confidence"] = None
+        d["final_total"] = None
+        d["total_changed"] = None
+        d["sections"] = None
+        d["display_appeal_status"] = "none" if d["evaluation_id"] else None
+        d["occurred_at"] = None
+        d["duration_seconds"] = None
+        if d["evaluation_id"]:
+            ev = with_review(conn, get_evaluation(conn, d["evaluation_id"]))
+            final = ev["final"]
+            d["model_label"] = ev["model_label"]
+            d["confidence"] = ev["confidence"]
+            d["final_total"] = ev["final_total"]
+            d["total_changed"] = ev["total_changed"]
+            d["display_appeal_status"] = ev["display_appeal_status"]
+            d["occurred_at"] = ev["occurred_at"]
+            d["duration_seconds"] = ev["duration_seconds"]
+            d["sections"] = (
+                [{"id": x["id"], "effective_points": x["effective_points"], "effective_max": x["effective_max"]} for x in final["sections"]]
+                if final
+                else []
+            )
         out.append(d)
-    return out
+    if sort_key:
+        desc = sort.startswith("-")
+        present = [r for r in out if r.get(sort_key) is not None]
+        missing = [r for r in out if r.get(sort_key) is None]
+        present.sort(key=lambda r: (r[sort_key].lower() if isinstance(r[sort_key], str) else r[sort_key]), reverse=desc)
+        out = present + missing
+    if not envelope and limit is None and not offset:
+        return out
+    total = len(out)
+    evaluated = sum(1 for r in out if r["eval_status"] in ("completed", "needs_review"))
+    page = out[offset : offset + limit] if limit else out[offset:]
+    if envelope:
+        return {"items": page, "total": total, "evaluated": evaluated}
+    return page
 
 
 def _conversation_body(conn, row) -> dict:

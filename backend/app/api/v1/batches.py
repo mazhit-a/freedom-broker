@@ -12,7 +12,7 @@ router = APIRouter(prefix="/batches", tags=["batches"])
 
 
 class BatchStart(BaseModel):
-    dataset: str
+    dataset: Optional[str] = None
     checklist_version_id: Optional[int] = None
     force: bool = False
     retry_failed: bool = True
@@ -41,6 +41,8 @@ def _batch_channel(conn, body) -> Optional[str]:
 
 @router.post("", status_code=202)
 def start_batch(body: BatchStart, conn=Depends(get_db), client: LLMClient = Depends(get_llm_client)):
+    if not body.dataset and not body.conversation_pks:
+        raise HTTPException(status_code=422, detail="dataset or conversation_pks is required")
     version_id = checklist_service.resolve_version_id(conn, body.checklist_version_id, _batch_channel(conn, body))
     if version_id is None:
         raise HTTPException(status_code=422, detail="No checklist version available")
