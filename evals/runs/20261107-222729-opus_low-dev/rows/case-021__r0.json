@@ -1,0 +1,150 @@
+{
+ "case_id": "case-021",
+ "variant": "opus_low",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился, сразу перешёл к сути.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил номер заявки или тип ордера и не проверил сделку, хотя это требовалось для ответа «почему так у меня».",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "тип и параметры вашей заявки я пока не проверял"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 8
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность подтверждена системой до подключения оператора.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Порядок подачи претензии дан полно, но причина цены по сделке клиента так и не выяснена — существенный вопрос остался открытым.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Отправьте обращение через раздел «Поддержка» в личном кабинете."
+    },
+    {
+     "message_index": 7,
+     "quote": "Только причина моей цены так и не ясна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретное неудобство — увеличение расходов.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство: покупка дороже ожидаемого увеличила расходы."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные, но вставка с чужими данными нарушила связность, клиент удивился, однако продолжил.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Чужой остаток мне зачем?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог и попрощался.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Подведу итог"
+    },
+    {
+     "message_index": 8,
+     "quote": "Спасибо за звонок, до свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор раскрыл конфиденциальную информацию другого клиента: ФИО, счёт и остаток.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "на счёте [Номер скрыт] остаток 4 280 000 тенге"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 981,
+   "output_tokens": 988,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.012126,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

@@ -1,0 +1,158 @@
+{
+ "case_id": "case-022",
+ "variant": "sonnet_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился, сразу начал с замечания клиенту.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил детали: не выяснил текст ошибки и не спросил про уведомления о входе; клиент просил два действия. Данных для безопасного действия было недостаточно.",
+   "evidence": [],
+   "checked_range": {
+    "from": 1,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Подтверждения личности в диалоге нет, а оператор снял блокировку аккаунта (защищённое действие).",
+   "evidence": [],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Блокировка снята и вход восстановлен, но вопрос про включение уведомлений о входе остался без ответа.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "The failed-attempt lock has been removed"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент сказал, что замучился, но оператор не выразил сочувствия и ответил резко, не проявив вежливости к конкретной проблеме клиента.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Первый ответ был невнятным («заново, заново войдите», «Теперь там»), клиенту пришлось переспрашивать; вопрос про уведомления проигнорирован.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Теперь там заново, заново войдите."
+    },
+    {
+     "message_index": 2,
+     "quote": "Где там?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор лишь попрощался, не подвёл итог и не предложил дальнейшую помощь, при этом вопрос об уведомлениях остался открытым.",
+   "evidence": [],
+   "checked_range": {
+    "from": 6,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных не выявлено.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Your access is restored"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "input_tokens": 573,
+   "output_tokens": 920,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.005457,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  },
+  {
+   "stage": "repair",
+   "request_id": "main_repair",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "input_tokens": 1610,
+   "output_tokens": 144,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.002614,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

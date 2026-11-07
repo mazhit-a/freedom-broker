@@ -1,0 +1,142 @@
+{
+ "case_id": "case-009",
+ "variant": "sonnet_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператора (#4) нет приветствия и представления; он сразу перешёл к сути. Приветствие бота не засчитывается.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document and proof of address."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил недостающие детали (какой адрес, формат, что видит клиент на экране) до ответа, дал общий ответ. Клиент сам сообщил детали позже, а оператор не задавал уточняющих вопросов.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "you generally need a valid identity document and proof of address"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 15
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до передачи оператору и до раскрытия статуса заявки.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор назвал недостающий пункт (подтверждение адреса), но не ответил, подойдёт ли PDF-выписка, какой адрес использовать, как загрузить документ. Клиент остался без понятного шага.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I don't have a confirmed upload route for the screen you've described."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретное неудобство клиента (двойная загрузка паспорта, отсутствие кнопки загрузки).",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные, но один заметный сбой: оператор отправил клиента к разделу с требованиями, которого у клиента нет, и общие ответы не продвинули диалог.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "File-format and size requirements are normally displayed in the KYC upload section."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог статуса заявки и попрощался.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Your application remains pending KYC, with proof of address outstanding."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании или раскрытия конфиденциальных данных не выявлено.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "input_tokens": 1036,
+   "output_tokens": 1064,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.00664,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

@@ -1,0 +1,143 @@
+{
+ "case_id": "case-025",
+ "variant": "sonnet_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался по-русски и представился именем в первом ответе.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Алия, служба поддержки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор дал общую формулу, не уточнив тариф, биржу и сумму; клиент сам указал недостающие данные и заметил это.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "А какой тариф и биржа вы даже не спросили."
+    }
+   ],
+   "checked_range": {
+    "from": 5,
+    "to": 5
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Клиент просил объяснить расчёт, данные счёта не требовались.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Ничего по моему счёту смотреть не надо, объясните сам расчёт."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос общий, не требовал идентификации и раскрытия данных счёта."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Расчёты корректны по условиям тарифа, все вопросы клиента закрыты, включая минимум, продажу, сбор и отмену заявки.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Она выше минимума, поэтому берётся 200 тенге."
+    },
+    {
+     "message_index": 22,
+     "quote": "выбирается большая из двух сумм, а не их сумма"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив, признал неудобство и извинился за непонятную таблицу.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Простите, что условия изложены неудобно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы ясные и связные, но первый ответ был общим и не по делу, из-за чего клиенту пришлось самому давать условия. Ожидания не было.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "я начала с общей формулы, не уточнив ваши условия"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, предложил помощь и попрощался.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Если понадобятся другие расчёты, обращайтесь. До свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальной информации нет.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Да, вы правильно поняли"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "input_tokens": 2461,
+   "output_tokens": 1012,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.007805,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

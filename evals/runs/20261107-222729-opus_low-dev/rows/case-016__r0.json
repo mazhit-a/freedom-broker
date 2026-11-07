@@ -1,0 +1,153 @@
+{
+ "case_id": "case-016",
+ "variant": "opus_low",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Первый ответ оператора не содержит ни приветствия, ни представления; приветствие бота не засчитывается.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Үзіндіні қосымшадағы «Құжаттар» бөлімінен жүктей аласыз."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 3
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент сразу сообщил, что не знает, какие документы нужны, но оператор не уточнил это и дал ответ про месячную выписку. Клиенту пришлось самому пояснять запрос.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Айлық үзіндіні таңдап, PDF батырмасын басыңыз."
+    },
+    {
+     "message_index": 4,
+     "quote": "Маған бір ай емес, 2024 жылдың толық есебі"
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 3
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед проверкой документов по счёту оператор запросил верификацию, и она была подтверждена.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "жеке басты растау сұрауын орындаңыз"
+    },
+    {
+     "message_index": 9,
+     "quote": "Клиенттің жеке басы расталды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Оба документа клиент получил, на большинство вопросов даны ответы. Однако вопрос о возможности переименовать файлы остался без ответа.",
+   "evidence": [
+    {
+     "message_index": 33,
+     "quote": "атауын өзім қысқартып өзгертуге бола ма?"
+    },
+    {
+     "message_index": 35,
+     "quote": "Электронды құжат туралы белгі соңғы бетте орналасқан."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретное неудобство клиента — потерянное накануне время.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Кеше уақыт жоғалтып, бүгін құжаттарды шұғыл жинауға мәжбүр болғаныңыз үшін кешірім сұраймын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные, об ожидании оператор предупредил. Заметный сбой — первый ответ не по запросу.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Бұл шамамен екі минут алады"
+    },
+    {
+     "message_index": 3,
+     "quote": "Айлық үзіндіні таңдап"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Клиент покинул чат до того, как диалог можно было завершить.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Клиент вышел из чата в процессе решения вопроса, до возможности завершения."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено.",
+   "evidence": [
+    {
+     "message_index": 51,
+     "quote": "кодтың өзін чатқа жіберудің қажеті жоқ"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 3484,
+   "output_tokens": 1192,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.019172,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

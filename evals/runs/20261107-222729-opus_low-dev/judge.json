@@ -1,0 +1,2210 @@
+{
+ "case-001": {
+  "c08_score": 8,
+  "case_id": "case-001",
+  "case_score": 8.4,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites the greeting and self-introduction in message 3.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes; correctly notes the operator took the document-return topic into account and clarified the submission channel; cites the right question.",
+    "weaknesses": "Does not state that the answer made it possible to give app-specific instructions; minor."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes; correctly ties disclosure of the return reason to the system identity confirmation at message 5.",
+    "weaknesses": "Does not cite the disclosure at message 6, though it is implied in the rationale."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 15 matches; correctly identifies the unanswered file-format question as a secondary gap; cites messages 0 and 6.",
+    "weaknesses": "Does not cite the instruction in message 8, which gave the concrete steps."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes; cites the operator's reaction to the inconvenience of re-uploading.",
+    "weaknesses": "Omits the statement that the form does not need to be refilled; minor."
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 3,
+    "strengths": "Identifies the \"туда же\" failure and the client's clarification request.",
+    "weaknesses": "Gives 4 instead of 7. Ignores that the operator immediately fixed the lapse with a clear path, so the client could continue; the severity is overstated."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer no matches; correct range 8-9 and evidence that the chat was closed without a summary, offer of help or farewell.",
+    "weaknesses": "none"
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 8,
+    "strengths": "Answer no matches; correctly finds no insult, paid service or confidential disclosure.",
+    "weaknesses": "The cited evidence (an apology) is irrelevant, since the expected evidence is empty; minor."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-002": {
+  "c08_score": 9,
+  "case_id": "case-002",
+  "case_score": 9.8,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 3 greeting and name; correct speaker.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correctly N/A; reason matches that the general question was fully formulated.",
+    "weaknesses": "none"
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correctly N/A; no account data disclosed and no protected action.",
+    "weaknesses": "none"
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Score 20 matches; reasoning matches the official-source advice and checking the recipient; cites the right message 5.",
+    "weaknesses": "Quote is shorter than expected and omits the warning about the third-party chat, but it is still valid."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Yes matches; cites the apology in message 5 after the client's confusion.",
+    "weaknesses": "none"
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 0 matches; reasoning about incoherent, contradictory statements is correct; evidence covers messages 3, 6 and the client's confusion.",
+    "weaknesses": "Omits the contradictory phrase from message 5. It cites client message 4 as evidence, but that only shows the consequence and is supporting context."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Yes matches; cites the farewell in message 6 and mentions the summary.",
+    "weaknesses": "Quote includes only the farewell, not the summary text."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Correct no; rationale covers all three violation types.",
+    "weaknesses": "Evidence quote is unnecessary for a no and no checked range is given, a minor omission."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-003": {
+  "c08_score": 10,
+  "case_id": "case-003",
+  "case_score": 7.2,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'no' matches; correctly notes operator did not greet or introduce, and bot greeting doesn't count; range 4-4 correct.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'no' matches; cites the client's request to clarify delivery method in message 0; checked range 4-5 correct.",
+    "weaknesses": "Quote is partial but accurate."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer 'yes' matches; cites system identity confirmation at message 3 before operator disclosed data.",
+    "weaknesses": "Does not cite operator message 4 as the disclosure point, though the ordering is stated."
+   },
+   "04": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 3,
+    "strengths": "Recognizes the fee explanation was correct and the tariff copy was missed.",
+    "weaknesses": "Gives 10 instead of 15; treats the tariff copy as a substantial open issue, whereas the reference considers it secondary, so the main question was resolved."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'no' matches; cites the client's dissatisfaction and notes the operator did not react to it.",
+    "weaknesses": "none"
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 2,
+    "strengths": "Notes the replies were clear and coherent.",
+    "weaknesses": "Gives 7 instead of 10; penalizes the missed tariff copy, which is a content issue rather than a clarity or order failure; no wait occurred."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'yes' matches; correctly cites the summary, offer of help and goodbye in message 5.",
+    "weaknesses": "none"
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correctly answers 'no' with no insult, paid-service offer or improper disclosure.",
+    "weaknesses": "none"
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-004": {
+  "c08_score": 10,
+  "case_id": "case-004",
+  "case_score": 9.85,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; correctly cites message 4 greeting in Kazakh and self-introduction.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; reasoning that operator accounted for chosen topic and asked for clarification is right; cites message 4.",
+    "weaknesses": "none"
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct N/A; reasoning that no request requiring identification was made and no data disclosed.",
+    "weaknesses": "none"
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct N/A; the client left before formulating the question.",
+    "weaknesses": "none"
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; polite operator, cites message 6, notes no dissatisfaction expressed.",
+    "weaknesses": "none"
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 10 matches; cites message 6 as clear and appropriate.",
+    "weaknesses": "Rationale is terse and evidence omits message 4, though message 6 is a valid supporting moment."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct N/A; client left before the operator could close.",
+    "weaknesses": "none"
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct no; rationale covers all three violation types and none were present.",
+    "weaknesses": "Cites an unnecessary quote as evidence, though harmless."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-007": {
+  "c08_score": 10,
+  "case_id": "case-007",
+  "case_score": 9.45,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 3 greeting and introduction in Kazakh.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer no matches; correct range 3-11; notes the operator chose the main account without clarifying and the client had to point it out.",
+    "weaknesses": "Quote is shortened but still from message 10."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes; cites system verification at message 4 before data disclosure.",
+    "weaknesses": "Does not cite message 5, where the data were disclosed, but the stated order is correct."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 10 matches; reasoning that 1500 was explained while 2000 and the refund went unanswered with no next step is correct.",
+    "weaknesses": "Evidence only from message 13, omits message 7, which shows the explanation of 1500."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer no; cites the client's anger (8) and the generic reply (9); range 3-15 matches.",
+    "weaknesses": "Does not mention the lack of apology or acknowledgment, though this is implied."
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 4 matches; the unclear phrase «бұған қоспайсыз» made the client ask again; cites message 6.",
+    "weaknesses": "Does not cite message 5, where the unclear wording appears; the extra remark about message 9 is acceptable."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes; cites the summary and farewell in message 15.",
+    "weaknesses": "Quote is partial, and the rationale is brief."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer no matches; correctly finds no insult, paid-service offer or improper disclosure.",
+    "weaknesses": "Cites the farewell as evidence although expected evidence is empty; this is minor."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-008": {
+  "c08_score": 9,
+  "case_id": "case-008",
+  "case_score": 9.55,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; greeting and self-introduction in the operator's first reply correctly identified with message 3.",
+    "weaknesses": "Candidate wrote the operator in masculine form, a minor slip, though the operator is female. Quote is shorter than expected but valid."
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correctly N/A; cites the client's first message with order number, time, volume and price details.",
+    "weaknesses": "none"
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes; correctly notes that the system confirmed identity (msg 5) before data was disclosed.",
+    "weaknesses": "Does not cite message 8 as the first disclosure, but the key moment is covered."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 20 matches; reasoning covers the calculation, the claim registration with number and term, and the path to the trades. Cites messages 12 and 16.",
+    "weaknesses": "Does not cite message 18 in the evidence, though the rationale mentions it."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer no matches; correctly points out the absence of a reaction to the budget complaint in msg 7; range 3-18 matches.",
+    "weaknesses": "Rationale is brief, but the substance is correct."
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Score 10 matches; cites the wait warnings in msgs 6 and 14.",
+    "weaknesses": "none"
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; correctly notes that the chat was closed without a farewell or offer of further help; cites msg 19.",
+    "weaknesses": "Range 18-19 is narrower than expected 16-19, but it covers the closing moment."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; no insult, paid service or disclosure.",
+    "weaknesses": "Evidence quote is a weak, tangential one, but it does not change the verdict."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-009": {
+  "c08_score": 9,
+  "case_id": "case-009",
+  "case_score": 7.1,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'no' matches. Correctly notes no greeting or introduction in the first operator reply (message 4). Evidence is the right message.",
+    "weaknesses": "Quote is truncated, but it still points to the right message."
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer 'no' matches. Notes the operator gave a generic answer and did not ask which address or clarify the statement details. Cites messages 4 and 9 over the range 4-15.",
+    "weaknesses": "Slightly loose claim that the operator did not take the request into account, but the core reasoning matches."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'yes' matches. Cites the system verification at message 2 and the status disclosure at message 7. Correct order of events.",
+    "weaknesses": "none"
+   },
+   "04": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 3,
+    "strengths": "Correctly lists what stayed unresolved: statement acceptability, address, format and upload route. Cites message 15.",
+    "weaknesses": "Gives 10 instead of the expected 5. The client was left without a practical next step, so the answer is overrated. The candidate itself notes that no next step was offered, which supports a lower score."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'yes' matches. Cites messages 6 and 13, both specific empathetic reactions to the client's problems.",
+    "weaknesses": "none"
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 1,
+    "strengths": "Cites the client's message 14 that shows remaining confusion.",
+    "weaknesses": "Gives 4 instead of 10. The operator's wording was clear and coherent. The incompleteness came from the content, not from the formulation. The candidate blames the operator's phrasing for the client's repeated questions. This conflates a consultation gap with a dialogue-management gap."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'yes' matches. Cites the summary and the farewell in message 17.",
+    "weaknesses": "none"
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Correctly answers 'no'. Reasoning covers all three violation types and finds none.",
+    "weaknesses": "The checked range is not given (null), and the evidence is a weakly relevant quote from message 17. Minor."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-010": {
+  "c08_score": 10,
+  "case_id": "case-010",
+  "case_score": 6.8,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; correctly notes greeting in Russian and self-introduction in message 4.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; reasoning that the operator never asked which order is disputed; cites client's remark at message 5.",
+    "weaknesses": "Checked range 4-10 is narrower than expected 4-24, though the evidence is still valid."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes matches; identifies system confirmation at message 2 before the operator disclosed account data.",
+    "weaknesses": "Does not cite message 6 where data (three executed orders) was disclosed, but the reasoning refers to it implicitly."
+   },
+   "04": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 2,
+    "strengths": "Identifies that the cause was not established and the claim procedure was not explained; cites messages 22 and 24.",
+    "weaknesses": "Score 0 vs expected 5: the operator did give a general hint (appeal to the broker, report and order parameters), so 0 is wrong. The rationale also wrongly treats the paid offer as part of consultation quality."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; cites message 12 where the operator refuses to discuss the client's concerns.",
+    "weaknesses": "Range 11-12 is narrower than the expected 11-24, a minor difference."
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 3,
+    "strengths": "Correctly spots the 3+ minute pause without warning (message 15).",
+    "weaknesses": "Score 4 vs expected 7: it treats the dialogue as requiring repeated questions due to wording, whereas the expected view is a single noticeable failure; the answer is therefore wrong."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; correct range 24-26; reasoning that the chat was closed without a summary, offer of help or farewell.",
+    "weaknesses": "Cites the system closure message, a reasonable fit though the expected evidence is empty."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correctly flags the gross violation: the paid private consultation with transfer to a personal card, citing message 18.",
+    "weaknesses": "none"
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-013": {
+  "c08_score": 9,
+  "case_id": "case-013",
+  "case_score": 8.05,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer no matches; correct reason (no greeting or introduction in the operator's first reply); correct message 3 cited.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 8,
+    "strengths": "Answer no matches; notes the operator ignored the client's earlier restart and did not clarify details.",
+    "weaknesses": "Checked range 3-5 is narrower than expected 0-7. The rationale says the operator should have asked about the request (instrument, time) rather than the OS/app version and the nature of the failure. It still cites message 3 and the client's reply in 4."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes; correctly says data was disclosed and the session ended only after the system confirmed identity; cites messages 15 and 16.",
+    "weaknesses": "Does not cite message 18 (session termination), although the rationale mentions it."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 10 matches; correct reasoning (login restored, ticket created, but the main question about the sale order status unanswered with no next step); cites messages 45 and 49.",
+    "weaknesses": "Omits message 19 as evidence that login was restored."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no; correct reasoning that the operator did not react to the client's anxiety and fatigue; cites messages 34 and 35 as expected.",
+    "weaknesses": "Checked range ends at 35 rather than 51, a minor gap."
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 3,
+    "strengths": "Notes the operator warned about the wait (message 37) and that replies were generally clear.",
+    "weaknesses": "Gives 7 instead of the expected 10. It penalises the repeated restart advice, which is an empathy/needs-discovery issue rather than clarity. The expected assessment found no clarity failure."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes; correctly says the operator summarised and said goodbye; cites message 51.",
+    "weaknesses": "The quote is truncated and omits the farewell, though the rationale mentions it."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; correctly finds no insults, no paid services and no disclosure.",
+    "weaknesses": "Cites message 11 as evidence, which is an irrelevant warning rather than the absence of a violation. Does not mention that disclosure came after identity confirmation."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-014": {
+  "c08_score": 7,
+  "case_id": "case-014",
+  "case_score": 9.45,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 3 with greeting and introduction; correct speaker.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; reasoning that the operator gave a general explanation without clarifying the order; cites client's message 4.",
+    "weaknesses": "Checked range 3-3 is narrower than expected 0-8, though the key moment is covered."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites system confirmation at 7 and disclosure at 9; correctly notes data was disclosed after the system confirmation.",
+    "weaknesses": "Quote from message 9 is truncated, a minor issue."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score of 20 matches; cites the calculation in 13 and the claim registration in 23; rationale mentions the claim, deadline, attachments and commission.",
+    "weaknesses": "Does not cite the deadline explanation (29) or the commission addition (45), but they are mentioned in the rationale."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes matches; cites valid moments (5 and 29) where the operator acknowledged the mistake and responded to the client's concern.",
+    "weaknesses": "Does not cite the empathy in message 3; the rationale is short."
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Score of 7 matches; correctly identifies the single failure of an unannounced three-minute wait and the apology; cites 18 and 19.",
+    "weaknesses": "none"
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "N/A matches; reason that the client left the chat before the operator could wrap up.",
+    "weaknesses": "Rationale is brief and does not mention that the operator was still helping with the attachment check."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 7,
+    "strengths": "Answer no matches; correctly states no insults, no paid services and no disclosure of confidential data.",
+    "weaknesses": "Checked range is not given (expected 0-59); the cited evidence (message 5) is an irrelevant safety reminder rather than a violation."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-015": {
+  "c08_score": 9,
+  "case_id": "case-015",
+  "case_score": 9.55,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct yes; greeting in English and self-introduction at message 4.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct yes; cites account type/amount clarification at 4 and screen/error clarification at 15.",
+    "weaknesses": "none"
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Correct yes; cites system verification at 8 and the operator's request at 6 before balance disclosure at 9.",
+    "weaknesses": "Does not cite message 9 where data is disclosed, though this is minor."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct 15; identifies the unanswered PDF timestamp question as the missed minor detail; cites 32 and 33.",
+    "weaknesses": "Does not cite message 49 confirming submission, though the evidence is still valid."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct yes; cites the empathetic reaction at message 15 to the disabled button.",
+    "weaknesses": "none"
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Correct 7; notes the roughly 3-minute pause without a wait warning and cites message 41.",
+    "weaknesses": "Adds the ignored PDF question as a reason, which is not the expected reason (it belongs to criterion 04). Does not cite message 40 where the question preceded the pause."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 8,
+    "strengths": "Correct no; right checked range 61-65; notes no goodbye before the chat closed.",
+    "weaknesses": "Claims the operator summarized, which is dubious because message 63 only repeats a path. Cites 63 as evidence although the expected evidence is empty. Mentions the missing offer of further help, which is consistent with the criterion."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Correct no; no insult, paid-service offer or confidential disclosure.",
+    "weaknesses": "The cited evidence at 37 is irrelevant but harmless."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-016": {
+  "c08_score": 10,
+  "case_id": "case-016",
+  "case_score": 8.25,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'no' matches; correctly notes no greeting or introduction and that the bot greeting does not count; cites message 3.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer 'no' matches; correctly says the operator did not clarify and gave the monthly statement answer; cites messages 3 and 4.",
+    "weaknesses": "Says the client immediately said they did not know which documents were needed, which is accurate. Checked range ends at 3 rather than 4, a minor gap."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer 'yes' matches; cites the system verification at message 9 and the operator's verification request at message 7, which come before document checks.",
+    "weaknesses": "Does not cite message 12, but message 7 is an equally valid moment."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 15 matches; correctly identifies the unanswered file renaming question; cites message 33.",
+    "weaknesses": "Does not cite the confirmation at message 40, but message 35 and the rest are acceptable."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'yes' matches; cites the apology at message 6 for the client's lost time.",
+    "weaknesses": "none"
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 2,
+    "strengths": "Notes that the operator warned about the wait at message 10.",
+    "weaknesses": "Gave 7 where expected is 10. It treated the first reply as a notable failure, but that is a content issue covered by other criteria, and the instructions were clear and sequential."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'na' matches; the reason is correct, since the client left the chat before the operator could close.",
+    "weaknesses": "none"
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'no' matches; the rationale correctly states no insult, paid service or disclosure of confidential information.",
+    "weaknesses": "Cites message 51 as evidence, which is not needed for a 'no', but it is harmless and relevant, since the operator told the client not to send the code."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-019": {
+  "c08_score": 10,
+  "case_id": "case-019",
+  "case_score": 10.0,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 3 greeting and introduction; correctly attributes to the operator.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes; rationale notes the operator took the chosen IPO section into account and asked a clarifying question; cites the right part of message 3.",
+    "weaknesses": "none"
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer na matches; reason is that no request was formulated and no data was disclosed.",
+    "weaknesses": "none"
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer na matches; reason is that the connection dropped before the client formulated a request.",
+    "weaknesses": "none"
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; the operator was polite and the client expressed no dissatisfaction; cites the polite question in message 3.",
+    "weaknesses": "none"
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 10 matches; the operator's reply was clear and coherent with no waiting involved; cites message 3.",
+    "weaknesses": "none"
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer na matches; the connection was lost before the operator could close the call.",
+    "weaknesses": "none"
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer no matches; correctly finds no insult, no paid service offered outside the company and no confidential disclosure.",
+    "weaknesses": "Cites a greeting quote as evidence although the expected evidence is empty; this is harmless."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-020": {
+  "c08_score": 7,
+  "case_id": "case-020",
+  "case_score": 8.65,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 1 greeting and introduction correctly.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 2,
+    "strengths": "Identifies the client's question in message 2.",
+    "weaknesses": "Answered na, expected no. The operator did not ask about launch behavior, device or error, even though the app does not open. The candidate's reasoning that the data was sufficient contradicts the expected rationale."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "na matches; reasoning is correct (general advice, no account check).",
+    "weaknesses": "none"
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Score 10 matches. Notes that restart and network switch were given while the contact channel without the app remained unnamed. Cites messages 3 and 6.",
+    "weaknesses": "Minor: the quote from message 3 is truncated."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; correctly notes the client's irritation was ignored by the operator.",
+    "weaknesses": "Checked range starts at 3 instead of 2, a minor difference. The evidence quote is from the client message that supports the claim."
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Score 0 matches; cites the contradictory operator line in message 5 and the client's confusion in message 6.",
+    "weaknesses": "Rationale is brief and does not enumerate the contradictions."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; correct quote from message 7.",
+    "weaknesses": "none"
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 7,
+    "strengths": "Answer no matches; correctly states no insults, paid services or data disclosure.",
+    "weaknesses": "No checked range given; the evidence quote 'До свидания.' is weak and does not cover the conversation range."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-021": {
+  "c08_score": 10,
+  "case_id": "case-021",
+  "case_score": 8.25,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer no matches; correctly notes no greeting or introduction in the first operator reply (message 4).",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; reasoning that the operator did not ask for order number or type is right.",
+    "weaknesses": "Checked range starts at 4 rather than 1, a minor difference. It does not mention that the operator later only listed the details for the claim."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes matches. Cites the system message 2 confirming identity before the operator connected.",
+    "weaknesses": "Does not mention that the later disclosure of third-party data is handled under criterion 08, which is a minor omission."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 10 matches. It correctly says the claim procedure was given but the reason for the price stayed open.",
+    "weaknesses": "Evidence quotes a truncated part of message 6 and a client message instead of the operator's admission in message 8, though it is still valid."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches. Cites the empathetic reply in message 4 that addresses the higher expenses.",
+    "weaknesses": "none"
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 2,
+    "strengths": "It notes the replies were generally clear.",
+    "weaknesses": "Gives 7 instead of 10. It penalizes clarity for the disclosure of other client's data, which is a separate violation under 08, not a clarity failure."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches. Quotes the summary and the farewell in message 8.",
+    "weaknesses": "Does not mention that the unresolved question was acknowledged, a minor point."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correctly flags the violation and quotes the balance of another client in message 6.",
+    "weaknesses": "none"
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-022": {
+  "c08_score": 7,
+  "case_id": "case-022",
+  "case_score": 7.05,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'no' matches; the rationale is correct (no greeting or introduction in the first reply); range 1-1 is right.",
+    "weaknesses": "Cites the quote 'Не надо повторять, я услышал.' as evidence, although the expected evidence is empty. This is harmless, since the quote is from the right message."
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 8,
+    "strengths": "Answer 'no' is correct. It notes that the operator did not clarify the error details.",
+    "weaknesses": "Checked range starts at 1 instead of 0. It adds the ignored notifications request as a reason, which belongs to criterion 04. Evidence cites the client's message 0."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer 'no' is correct. It cites message 1, where the lock is removed with no prior verification.",
+    "weaknesses": "Range 0-1 is narrower than expected 0-4, but it covers the key moment."
+   },
+   "04": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 3,
+    "strengths": "It notes that access was restored and that the notifications question was left unanswered.",
+    "weaknesses": "Gives 10 instead of the expected 15. It treats the notifications question as a substantial open issue, although the expected assessment calls it secondary. It does not cite the client's confirmation of login."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'no' is correct. It notes the abrupt reply and the lack of reaction to the client's 'замучился', with the right quote.",
+    "weaknesses": "Range 1-6 vs expected 0-6, a minor difference."
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 3,
+    "strengths": "It identifies the vague 'заново войдите' that made the client ask again, with the right quote from message 2.",
+    "weaknesses": "Gives 4 instead of 7. It ignores that the operator fixed the failure in message 4, which was a single noticeable failure."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'yes' is correct. It cites message 6 with the summary and goodbye, and the rationale matches.",
+    "weaknesses": "none"
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 7,
+    "strengths": "Correctly 'no'. It states that there are no insults, paid services or disclosure of confidential data.",
+    "weaknesses": "No checked range given. The cited evidence 'your password has not changed' is irrelevant as support, since it is not a disclosure."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-025": {
+  "c08_score": 8,
+  "case_id": "case-025",
+  "case_score": 8.45,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 3 with greeting and introduction, in Russian.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; correctly notes the operator gave a general formula without asking about tariff, exchange or amount; cites message 6 and the operator's admission in 8.",
+    "weaknesses": "Checked range 5-5 is narrower than the expected 4-8, though it is still the key reply."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct N/A; general tariff calculation, no account data disclosed.",
+    "weaknesses": "none"
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 20 matches; reasoning covers minimum, sale, fees and cancellation; cites messages 10 and 20.",
+    "weaknesses": "Quotes are short fragments; it omits message 16 on the service fee and exchange fee, but the cited moments are valid."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites the operator's acknowledgement of the half hour spent on the table.",
+    "weaknesses": "Does not mention the apology, a minor point."
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 2,
+    "strengths": "Notes the replies were clear.",
+    "weaknesses": "Gives 7 instead of the expected 10. It penalizes the missing clarification, which is already covered in criterion 02, and the evidence is a client message rather than an operator reply."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites the closing message 24 with the offer of help and farewell.",
+    "weaknesses": "The quote omits the summary part, but the summary is mentioned in the rationale."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 8,
+    "strengths": "Correctly no violation; rationale lists all three violation types as absent.",
+    "weaknesses": "The cited evidence, message 22, is irrelevant, since no evidence is needed for a no."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-026": {
+  "c08_score": 9,
+  "case_id": "case-026",
+  "case_score": 5.9,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer no matches; correctly notes no greeting or introduction in message 3; correct range and message.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 1,
+    "strengths": "Identified that the operator did not clarify details.",
+    "weaknesses": "Expected na because the client gave all necessary data upfront; candidate answered no and demanded irrelevant clarifications (device model, app version). Also misreads the ignoring of the missing store as a clarification issue."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct answer no; correctly notes the operator skipped identity check and reset the login limit; cites message 4.",
+    "weaknesses": "Checked range 3-4 rather than 0-4, minor."
+   },
+   "04": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 3,
+    "strengths": "Correctly identifies the main question of where to get the update remained unanswered; cites messages 11 and 12.",
+    "weaknesses": "Scored 10 instead of expected 5; the operator gave only a general tip and the client still did not know how to act, which matches level 5. Candidate's reasoning that the lock was lifted fits level 10 but misjudges the rubric."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; reasoning on reacting to the inability to submit an order; correct evidence from messages 3 and 13.",
+    "weaknesses": "none"
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 1,
+    "strengths": "Noted the client repeated the question.",
+    "weaknesses": "Expected 10; candidate gave 4, blaming the operator's wording/order. The repeats were due to missing content, not unclear phrasing. Evidence cites client messages rather than operator ones."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; the summary and farewell in message 15 are correctly cited.",
+    "weaknesses": "Does not mention that the summary flagged the unresolved issue, minor."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; correctly says there were no insults, paid-service offers, or disclosures, and that the identity-check issue belongs in 03.",
+    "weaknesses": "Cites message 4 as evidence although none is needed; minor."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-027": {
+  "c08_score": 9,
+  "case_id": "case-027",
+  "case_score": 8.6,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 2 greeting and introduction in English.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes; cites messages 4 and 6 with the clarifying questions about date, amount, status and cancel button.",
+    "weaknesses": "Rationale mentions 'получателя' loosely, but this is minor."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; cites client's failed approval (9) and operator proceeding anyway (10), which is a valid moment.",
+    "weaknesses": "Checked range starts at 8 rather than 0-14, a slightly narrower range, but the key moments are covered."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Score 0 matches; reasoning correctly identifies the duplicate withdrawal advice and ignoring the app warning as erroneous; evidence from 16 and 18 is valid.",
+    "weaknesses": "Adds the deposit suggestion (20), which is extra but consistent."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes; cites the rent-related empathy in 8 and 22, matching expected evidence.",
+    "weaknesses": "none"
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 2,
+    "strengths": "Notes the hold warning in message 11.",
+    "weaknesses": "Gives 4 instead of 10; it penalizes wrong advice, which belongs in criterion 04. The operator's messages were clear and the hold warning was given, and the client's questions were about substance, not clarity."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes; cites recap and goodbye in message 26.",
+    "weaknesses": "none"
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; correctly finds no insult, off-company paid service or disclosure of confidential data.",
+    "weaknesses": "The evidence cited is irrelevant, as expected evidence is empty, and it does not mention that the identification failure is not a data disclosure."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-028": {
+  "c08_score": 10,
+  "case_id": "case-028",
+  "case_score": 7.9,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 3 greeting and introduction; correct speaker.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes; rationale notes amount, date, status and account were clarified; cites messages 3 and 5.",
+    "weaknesses": "Minor: evidence is split into fragments, but it is valid."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; notes data disclosed and request cancelled/created without identity verification; cites message 7.",
+    "weaknesses": "Checked range starts at 2 rather than 0; does not cite message 15 for the protected action, though the rationale mentions it."
+   },
+   "04": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 2,
+    "strengths": "Recognizes the main issue was resolved with timing and next steps.",
+    "weaknesses": "Gives 20 versus expected 15; misses the unanswered secondary question about where the notification arrives. Evidence also does not cover client's message 6."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no; correctly identifies the insult at message 17 by the operator and the client's reaction at 18.",
+    "weaknesses": "Checked range narrower than expected (16-19), but the key moment is covered."
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 7 matches; identifies the hold without prior warning (message 13).",
+    "weaknesses": "Evidence is thinner than expected, but the key hold moment is cited."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes; cites summary and farewell in message 25.",
+    "weaknesses": "Rationale is brief."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correctly flags the gross violation (yes) and cites the insult in message 17 by the operator.",
+    "weaknesses": "Rationale is very terse."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-031": {
+  "c08_score": 9,
+  "case_id": "case-031",
+  "case_score": 9.3,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 4 greeting and introduction correctly.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes; cites messages 6 and 10, with correct reasoning about a new client and clarifying questions.",
+    "weaknesses": "Omits message 8 (who the account is for), although it mentions the person type in the rationale."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Correct N/A; the reason is a general consultation with no data disclosed.",
+    "weaknesses": "none"
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 0 matches; correctly identifies the recommendation to skip KYC as erroneous; cites message 12.",
+    "weaknesses": "Does not cite the repeated claim at message 39; the reasoning is brief, but it reaches the right conclusion."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; the client's irritation and the operator's failure to react are correctly identified; cites messages 9, 23 and 24.",
+    "weaknesses": "The checked range ends at 24 rather than 49, a minor difference."
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 10 matches; the hold warning at message 28 is cited correctly.",
+    "weaknesses": "Does not mention that the operator returned within the stated time or cite the summary at message 37; minor."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes; cites the summary-less part of message 49 with the offer of help and the farewell.",
+    "weaknesses": "The quote omits the summary part, but the rationale mentions it."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; correctly finds no insult, paid service or disclosure of confidential information.",
+    "weaknesses": "The cited evidence at message 41 is not very relevant, but harmless."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-032": {
+  "c08_score": 9,
+  "case_id": "case-032",
+  "case_score": 9.3,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 2 greeting and introduction in Kazakh.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; reasoning that operator gave a general explanation without clarifying and the client supplied details; cites messages 4 and 5.",
+    "weaknesses": "Checked range 4-5 is narrower than expected 3-6, a minor difference."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; identity confirmation at 10 precedes disclosure at 12.",
+    "weaknesses": "Quote from 12 is brief but it is the right moment."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 20 matches; rationale covers execution, average price, commission, complaint, deadline and where to see the answer.",
+    "weaknesses": "Evidence omits messages 20, 30 and 32, though 22 and 28 are valid supporting moments."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes matches; cites message 24 empathy about the unexpected commission.",
+    "weaknesses": "Rationale says the operator apologized for the wait, which is not tied to message 24 and is a minor stray point."
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 4 matches; identifies the confusing message 14, the client's re-ask at 19, and the hold without warning (apology at 18).",
+    "weaknesses": "Calls the reply incoherent, which is a bit strong. Does not cite the hold message 15/16 directly, using the apology at 18 instead."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes matches; cites the closing at message 38 with thanks and goodbye.",
+    "weaknesses": "Quote omits the summary part, but the rationale mentions it. The offer of help at 36 is not cited."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; no violation flagged, so no missed gross violation.",
+    "weaknesses": "Evidence quote at 6 is only a warning not to share the code and does not itself show absence of disclosure. The rationale is generic."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-033": {
+  "c08_score": 10,
+  "case_id": "case-033",
+  "case_score": 9.45,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'no' matches; correctly notes no greeting or introduction by the operator and that the bot greeting does not count; cites message 4.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "N/A matches; reasoning that the client fully described the request is consistent with expected; cites the client's first message.",
+    "weaknesses": "Minor: the quote is partial and does not mention the currency or direction of withdrawal."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "N/A matches; reason is a general consultation with no protected actions; cites the client's statement that no account check is needed.",
+    "weaknesses": "none"
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 5 matches; reasoning is correct (only a general scheme, no section name, data list or confirmation method); cites message 50.",
+    "weaknesses": "Omits message 6 as evidence of the general hint, though message 50 alone is sufficient."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer 'yes' matches; cites the same key moments (messages 18 and 23) about the small screen and the apology for the unannounced hold.",
+    "weaknesses": "Adds 'incomplete instruction' as a reaction, which is a slight stretch, but it does not change the conclusion."
+   },
+   "06": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 7 matches; identifies the single noticeable failure, the hold without warning; cites client message 22.",
+    "weaknesses": "Does not cite the operator's apology in message 23 or the client's remark in message 50, though the main evidence is valid."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer 'yes' matches; cites the summary (55) and the farewell (58).",
+    "weaknesses": "Rationale is brief and does not mention that the summary honestly named the open issues."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer 'no' matches; correctly finds no insult, paid service or disclosure of confidential information.",
+    "weaknesses": "The cited evidence (message 29, a warning not to share codes) is not a strict proof of absence but is harmless and relevant."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ },
+ "case-034": {
+  "c08_score": 9,
+  "case_id": "case-034",
+  "case_score": 8.05,
+  "criteria": {
+   "01": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 10,
+    "strengths": "Answer yes matches; cites message 2 greeting and introduction; correct speaker.",
+    "weaknesses": "none"
+   },
+   "02": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes; cites messages 4 and 6 with year, country, operation types and origin of securities.",
+    "weaknesses": "Omits message 8 and says the format was clarified, but the operator asked about documents versus calculation; the format (PDF) came from the client. Minor inaccuracy."
+   },
+   "03": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer yes; cites message 15 identity confirmation before account data checked.",
+    "weaknesses": "Does not cite message 22 where data was disclosed, though the main support is present."
+   },
+   "04": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Score 5 matches; reasoning of only a general pointer with no path or channel is consistent; cites messages 46 and 58.",
+    "weaknesses": "Omits message 24 where the general pointer was first given."
+   },
+   "05": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; correct checked range 18-69; cites messages 35, 36 and 66; reasoning about formal replies without reacting to the problem is correct.",
+    "weaknesses": "Omits message 65 and the repeated complaints about lost time, but the evidence is adequate."
+   },
+   "06": {
+    "answer_correct": false,
+    "answer_exact_code": false,
+    "evidence_correct": false,
+    "judge_bug": false,
+    "reasoning_correct": false,
+    "score": 2,
+    "strengths": "Notes the hold warning at message 17 and that the replies are clear.",
+    "weaknesses": "Gives 7 instead of the expected 10. Treats the reply about the period as a notable failure, though it was an answer to the client's question about period, and the operator replies were clear and coherent."
+   },
+   "07": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; correctly notes no summary, no offer of help, no farewell, only \"Принято\".",
+    "weaknesses": "The range starts at 66 instead of 67-70 and does not cite the client's farewell at 68, though it covers the key message 69."
+   },
+   "08": {
+    "answer_correct": true,
+    "answer_exact_code": true,
+    "evidence_correct": true,
+    "judge_bug": false,
+    "reasoning_correct": true,
+    "score": 9,
+    "strengths": "Answer no matches; reasoning that there were no insults, paid services or disclosure is correct.",
+    "weaknesses": "Cited evidence \"Код мне не называйте\" is only tangentially relevant, but the expected evidence was empty."
+   }
+  },
+  "invalid": [],
+  "issues": [],
+  "judge_bugs": [],
+  "missing": [],
+  "rep": 0
+ }
+}

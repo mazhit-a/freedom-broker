@@ -1,0 +1,154 @@
+{
+ "case_id": "case-021",
+ "variant": "sonnet_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился, сразу перешёл к сути.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил тип и параметры заявки, хотя сам признал, что их не проверял; дал общее объяснение.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "тип и параметры вашей заявки я пока не проверял"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до ответа оператора.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Порядок подачи претензии объяснён, но причина цены не установлена, а оператор раскрыл чужие данные, что сильно подрывает качество консультации. Дана общая подсказка, ключевой вопрос остался открытым.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Причину именно вашей цены я сейчас не установил."
+    },
+    {
+     "message_index": 7,
+     "quote": "Только причина моей цены так и не ясна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежливо отреагировал на недовольство клиента, признал конкретную проблему (покупка дороже ожидаемого).",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство: покупка дороже ожидаемого увеличила расходы."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Клиенту пришлось переспрашивать, так как первое объяснение было общим; также оператор вставил нерелевантную информацию о чужом счёте, что запутало диалог.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "но у меня-то почему так?"
+    },
+    {
+     "message_index": 7,
+     "quote": "Чужой остаток мне зачем?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог и попрощался.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Подведу итог: порядок подачи претензии и список приложений я сообщил"
+    },
+    {
+     "message_index": 8,
+     "quote": "Спасибо за звонок, до свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор раскрыл конфиденциальные данные другого клиента: ФИО и остаток на счёте.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "у другого клиента, [ФИО скрыто], на счёте [Номер скрыт] остаток 4 280 000 тенге"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "input_tokens": 981,
+   "output_tokens": 1099,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.00676,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

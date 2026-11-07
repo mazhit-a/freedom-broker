@@ -1,0 +1,151 @@
+{
+ "case_id": "case-016",
+ "variant": "sonnet_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился, сразу перешёл к инструкции.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Үзіндіні қосымшадағы «Құжаттар» бөлімінен жүктей аласыз."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 3
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл, что нужны годовой отчёт и справка об удержанном налоге, и уточнил детали шаг за шагом.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Айлық үзінді сіздің сұрағыңызды толық жаппайды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Оператор запросил подтверждение личности до проверки документов, система подтвердила личность до раскрытия данных.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "жеке басты растау сұрауын орындаңыз"
+    },
+    {
+     "message_index": 9,
+     "quote": "Клиенттің жеке басы расталды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оба документа получены, даны корректные пояснения по дивидендам, налоговой справке, электронной версии и коду проверки.",
+   "evidence": [
+    {
+     "message_index": 29,
+     "quote": "Ол барлық салық міндеттемеңіз орындалғанын растамайды"
+    },
+    {
+     "message_index": 47,
+     "quote": "«Құжатты тексеру» блогын қараңыз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив, извинился за потерянное время и отреагировал на конкретную проблему клиента.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "кешірім сұраймын"
+    },
+    {
+     "message_index": 45,
+     "quote": "бірден байқалмай қалғанын түсінемін"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы ясные и последовательные, об ожидании предупредил (около двух минут).",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Бұл шамамен екі минут алады"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Клиент сам вышел из чата во время диалога, возможности завершить не было.",
+   "evidence": [
+    {
+     "message_index": 52,
+     "quote": "Клиент чаттан шығып кетті."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат оборвался: клиент покинул чат до завершения."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет; оператор просил не отправлять коды в чат.",
+   "evidence": [
+    {
+     "message_index": 51,
+     "quote": "кодтың өзін чатқа жіберудің қажеті жоқ"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "input_tokens": 3484,
+   "output_tokens": 1090,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.009218,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

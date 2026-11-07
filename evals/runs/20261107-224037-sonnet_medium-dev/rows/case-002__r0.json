@@ -1,0 +1,134 @@
+{
+ "case_id": "case-002",
+ "variant": "sonnet_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался по-русски и представился в первом ответе.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте! Меня зовут Алия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "na",
+   "rationale": "Вопрос клиента был общим и достаточным для ответа, уточнения не требовались.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Данных для ответа хватало с самого начала: клиент сам указал, что по счёту ничего проверять не надо."
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Общий вопрос, данные по счёту не раскрывались, идентификация не требовалась.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос решён в сообщении 5: брать реквизиты только в официальном приложении. Но в конце есть путаные и противоречивые фразы, не относящиеся к существу.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "берите актуальные реквизиты только в официальном приложении или личном кабинете брокера"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и извинился за путаницу, на которую пожаловался клиент.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Извините за путаницу."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 0,
+   "rationale": "Реплики оператора бессвязны и противоречивы (ответ будет и не будет, «мы уже закончили, поэтому начинаем»), клиент запутался и переспрашивал. Ход диалога непонятен.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Ответ будет следующим сообщением, но следующего сообщения не будет."
+    },
+    {
+     "message_index": 6,
+     "quote": "Диалог окончен, не уходите"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог и попрощался, хотя в конце добавил путаную фразу.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Итог: используйте реквизиты из официального приложения"
+    },
+    {
+     "message_index": 6,
+     "quote": "Всего доброго, до свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Реквизиты из стороннего чата не используйте"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "input_tokens": 632,
+   "output_tokens": 999,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.005911,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

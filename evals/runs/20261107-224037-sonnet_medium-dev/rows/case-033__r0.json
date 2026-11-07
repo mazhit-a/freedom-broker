@@ -1,0 +1,150 @@
+{
+ "case_id": "case-033",
+ "variant": "sonnet_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился, сразу перешёл к сути. Приветствие бота не засчитывается.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Иә, сұрағыңызды естідім."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил недостающее: клиент говорил о карте или реквизитах счёта, а оператор не прояснил детали и дал только общие сведения.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Сізге нақты қай деректемені енгізу керегін осы әңгімеде растап айта алмаймын."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 16
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Клиент просил только общую информацию без доступа к счёту, идентификация не требовалась.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Менің шотымды қараудың қажеті жоқ."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос общий, данные счёта не раскрывались и защищённых действий не было."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Дана лишь общая схема; название раздела, перечень данных и способ подтверждения не названы, клиенту непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 49,
+     "quote": "сіз сұраған толық қадамдық нұсқаулықты бере алмадым"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив, посочувствовал по поводу мелкого экрана, извинился за удержание без предупреждения и за неудобство.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Ұсақ экранда ұзын нөмірді тексеру қиын екенін түсінемін."
+    },
+    {
+     "message_index": 49,
+     "quote": "бұл қолайсыздық үшін кешіріңіз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Клиента поставили на удержание без предупреждения, и он переспрашивал о связи; ответы были расплывчатыми, и клиент несколько раз возвращался к своим вопросам.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "күтемін деп айтпаған соң үзіліп қалды ма дедім"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог и попрощался.",
+   "evidence": [
+    {
+     "message_index": 55,
+     "quote": "Қысқаша қорытынды"
+    },
+    {
+     "message_index": 58,
+     "quote": "Сау болыңыз, күніңіз жақсы өтсін."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет.",
+   "evidence": [
+    {
+     "message_index": 29,
+     "quote": "Құпия кодтарды ешкімге айтпаңыз, маған да қажет емес."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "input_tokens": 4784,
+   "output_tokens": 1146,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.010798,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

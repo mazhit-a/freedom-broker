@@ -1,0 +1,3704 @@
+[
+ {
+  "case_id": "case-001",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался по-русски и представился в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте! Меня зовут Алия."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор учёл известное (возврат документов) и уточнил, где подавалась заявка, до ответа.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Уточните, заявку подавали в приложении или на сайте?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность подтверждена системой до раскрытия причины возврата заявки.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Личность клиента подтверждена."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 10,
+    "rationale": "Причина возврата и путь исправления даны, но вопрос клиента о допустимых форматах файлов остался без ответа.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "Заменить фото лицевой стороны"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив, отреагировал на неудобство повторной загрузки и извинился.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Понимаю, повторно загружать удостоверение неудобно."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Один заметный сбой: неясное «туда же», клиент переспросил, после чего оператор пояснил путь.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "Туда же — это куда именно?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "Оператор не подвёл итог, не предложил дальнейшую помощь и не попрощался, чат закрыт.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "по ней замечаний нет."
+     }
+    ],
+    "checked_range": {
+     "from": 8,
+     "to": 9
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "Извините, не указала путь."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 726,
+    "output_tokens": 882,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 2841,
+    "latency_ms": null,
+    "cost": 0.008687,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-002",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался по-русски и представился в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте! Меня зовут Алия."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "na",
+    "rationale": "Вопрос клиента был общим и достаточным для ответа, уточнения не требовались.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Данных для ответа хватало с самого начала: клиент сам указал, что по счёту ничего проверять не надо."
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "na",
+    "rationale": "Общий вопрос, данные по счёту не раскрывались, идентификация не требовалась.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Запрос не требовал идентификации."
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 15,
+    "rationale": "Основной вопрос решён в сообщении 5: брать реквизиты только в официальном приложении. Но в конце есть путаные и противоречивые фразы, не относящиеся к существу.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "берите актуальные реквизиты только в официальном приложении или личном кабинете брокера"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив и извинился за путаницу, на которую пожаловался клиент.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Извините за путаницу."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 0,
+    "rationale": "Реплики оператора бессвязны и противоречивы (ответ будет и не будет, «мы уже закончили, поэтому начинаем»), клиент запутался и переспрашивал. Ход диалога непонятен.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Ответ будет следующим сообщением, но следующего сообщения не будет."
+     },
+     {
+      "message_index": 6,
+      "quote": "Диалог окончен, не уходите"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог и попрощался, хотя в конце добавил путаную фразу.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Итог: используйте реквизиты из официального приложения"
+     },
+     {
+      "message_index": 6,
+      "quote": "Всего доброго, до свидания!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Реквизиты из стороннего чата не используйте"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 632,
+    "output_tokens": 999,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.005911,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-003",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "no",
+    "rationale": "В первом ответе оператор не поздоровался и не представился; приветствие бота не засчитывается.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "По вашему счёту сегодня удержана брокерская комиссия"
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 4
+    },
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Клиент просил сначала уточнить, куда удобно получить копию тарифа, но оператор этого не уточнил.",
+    "evidence": [
+     {
+      "message_index": 0,
+      "quote": "только сначала уточните, куда мне удобно её получить"
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 5
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность клиента подтверждена системой до того, как оператор раскрыл данные по списанию.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Личность клиента подтверждена."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 10,
+    "rationale": "Списание объяснено корректно с расчётом, но просьба прислать копию тарифа не выполнена и способ получения не предложен.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "1 500 000 × 0,1% = 1 500 тенге"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Клиент выразил недовольство и неудобство, но оператор не отреагировал на проблему: не извинился и не проявил сочувствия, ответил сухо.",
+    "evidence": [
+     {
+      "message_index": 0,
+      "quote": "Очень неприятно, рассчитывал на эту сумму."
+     },
+     {
+      "message_index": 4,
+      "quote": "Это комиссия за сделку, не плата за обслуживание счёта."
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 5
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Объяснение ясное, но есть заметный сбой: проигнорирована часть запроса про копию тарифа и уточнение способа получения.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "списание 1 500 тенге соответствует ставке вашего тарифа"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог, предложил помощь и попрощался.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Если появятся другие вопросы, обращайтесь. До свидания!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании или раскрытия чужой конфиденциальной информации нет.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Это комиссия за сделку"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 470,
+    "output_tokens": 963,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.005569,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   },
+   {
+    "stage": "repair",
+    "request_id": "main_repair",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 1550,
+    "output_tokens": 190,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.002784,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-004",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался на казахском языке клиента и представился в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Сәлеметсіз бе! Менің атым — Айдана."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор учёл выбранную тему и уточнил, что именно интересует клиента, так как запрос ещё не был сформулирован.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Нақты нені білгіңіз келеді?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "na",
+    "rationale": "Запрос не требовал идентификации, так как данные не раскрывались.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Клиент не сформулировал запрос, защищённые данные или действия не требовались."
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": "na",
+    "rationale": "Чат закончился до того, как клиент сформулировал запрос.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Клиент вышел из чата, не сформулировав вопрос по тарифам."
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив, терпеливо согласился подождать клиента. Недовольства клиент не выражал.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Әрине, сұрағыңызды жаза беріңіз."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 10,
+    "rationale": "Ответы ясные, связные и грамотные, ожидание оператор принял корректно.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Тарифтер мен комиссиялар бөлімін таңдаған екенсіз."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "na",
+    "rationale": "Клиент покинул чат раньше, чем оператор мог его завершить.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Чат оборвался (клиент вышел) до возможности завершения."
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных предложений в обход компании и раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Әрине, сұрағыңызды жаза беріңіз."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 402,
+    "output_tokens": 879,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.005081,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-007",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор в первом ответе поздоровался на казахском языке клиента и представился.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Сәлеметсіз бе! Менің атым — Әлия."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор не уточнил, какой из двух брокерских счетов у клиента, до ответа; выбрал счёт сам, клиент указал на это позже. Также не уточнил детали по 2 000 тенге.",
+    "evidence": [
+     {
+      "message_index": 10,
+      "quote": "Қай шотты қарап отырсыз?"
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 5
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Оператор запросил подтверждение личности, система подтвердила личность до раскрытия данных по счёту.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Клиенттің жеке басы расталды."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 10,
+    "rationale": "Комиссия 1 500 объяснена, но по 2 000 тенге причины и порядка возврата нет, следующий шаг не дан.",
+    "evidence": [
+     {
+      "message_index": 13,
+      "quote": "2 000 теңгенің қандай қызметке қатысты екенін және қайтаруға болатынын осы жауапта анықтай алмадым."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Клиент выразил недовольство и описал неудобство, но оператор не выразил сожаления и не отреагировал на конкретную проблему, ответив общей фразой про тарифы.",
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Тарифтер қолданбаның «Құжаттар» бөлімінде орналасқан."
+     }
+    ],
+    "checked_range": {
+     "from": 9,
+     "to": 13
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Формулировки были непонятными («бұған қоспайсыз»), клиенту пришлось переспрашивать; ответ в #9 не по вопросу; о счёте не уточнили.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "«Бұған қоспайсыз» дегеніңіз не? Түсінікті етіп жазыңызшы."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог и попрощался.",
+    "evidence": [
+     {
+      "message_index": 15,
+      "quote": "Қорытынды: негізгі шоттағы сатып алу комиссиясы"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных не выявлено.",
+    "evidence": [
+     {
+      "message_index": 15,
+      "quote": "Сау болыңыз!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 1354,
+    "output_tokens": 1047,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.006873,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   },
+   {
+    "stage": "repair",
+    "request_id": "main_repair",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 2518,
+    "output_tokens": 170,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.003652,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-008",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался по-русски и представился в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте! Меня зовут Алия."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "na",
+    "rationale": "Клиент с самого начала дал номер заявки, время, цены и суть претензии, уточнения не требовались.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Данных для ответа хватало с самого начала: номер заявки, количество, цены и сумма разницы."
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Оператор запросил подтверждение личности через защищённую кнопку, система подтвердила до раскрытия данных по заявке.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 8,
+      "quote": "В отчёте заявка отмечена как рыночная"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 20,
+    "rationale": "Оператор объяснил расчёт цены, различие котировки и рыночной заявки, зарегистрировал претензию, указал сроки и где скачать сделки; без ложных обещаний возврата.",
+    "evidence": [
+     {
+      "message_index": 12,
+      "quote": "Разница с расчётом по 1000 ₸ составляет 1600 ₸"
+     },
+     {
+      "message_index": 16,
+      "quote": "Претензия зарегистрирована под номером CLAIM-024"
+     },
+     {
+      "message_index": 18,
+      "quote": "Отчёт → Скачать PDF"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Клиент выразил недовольство и неудобство (выход за бюджет, сумма без предупреждения), оператор вежлив, но не отреагировал на конкретную проблему: не извинился и не признал неудобство, ограничившись техническими ответами.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "Неприятно, что сумма стала больше без предупреждения."
+     },
+     {
+      "message_index": 8,
+      "quote": "В отчёте заявка отмечена как рыночная"
+     }
+    ],
+    "checked_range": {
+     "from": 7,
+     "to": 8
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 10,
+    "rationale": "Ответы ясные и последовательные, об ожидании предупреждали заранее.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Это займёт до двух минут."
+     },
+     {
+      "message_index": 14,
+      "quote": "Регистрация займёт около минуты."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "После последнего ответа оператор не предложил дальнейшую помощь и не попрощался, чат закрыт.",
+    "evidence": [],
+    "checked_range": {
+     "from": 18,
+     "to": 19
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 16,
+      "quote": "Повторно подавать претензию не требуется."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 1555,
+    "output_tokens": 1097,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.007324,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   },
+   {
+    "stage": "repair",
+    "request_id": "main_repair",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 2769,
+    "output_tokens": 214,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.004123,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-009",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "no",
+    "rationale": "В первом ответе оператора (#4) нет приветствия и представления; он сразу перешёл к сути. Приветствие бота не засчитывается.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "For account-opening checks, you generally need a valid identity document and proof of address."
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 4
+    },
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор не уточнил недостающие детали (какой адрес, формат, что видит клиент на экране) до ответа, дал общий ответ. Клиент сам сообщил детали позже, а оператор не задавал уточняющих вопросов.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "you generally need a valid identity document and proof of address"
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 15
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность клиента подтверждена системой до передачи оператору и до раскрытия статуса заявки.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "Customer identity verified."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 5,
+    "rationale": "Оператор назвал недостающий пункт (подтверждение адреса), но не ответил, подойдёт ли PDF-выписка, какой адрес использовать, как загрузить документ. Клиент остался без понятного шага.",
+    "evidence": [
+     {
+      "message_index": 15,
+      "quote": "I don't have a confirmed upload route for the screen you've described."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив и отреагировал на конкретное неудобство клиента (двойная загрузка паспорта, отсутствие кнопки загрузки).",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "I'm sorry you've had to upload your passport twice"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Ответы в целом ясные, но один заметный сбой: оператор отправил клиента к разделу с требованиями, которого у клиента нет, и общие ответы не продвинули диалог.",
+    "evidence": [
+     {
+      "message_index": 11,
+      "quote": "File-format and size requirements are normally displayed in the KYC upload section."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог статуса заявки и попрощался.",
+    "evidence": [
+     {
+      "message_index": 17,
+      "quote": "Your application remains pending KYC, with proof of address outstanding."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложений платных услуг в обход компании или раскрытия конфиденциальных данных не выявлено.",
+    "evidence": [
+     {
+      "message_index": 17,
+      "quote": "Thank you for your time, and goodbye."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 1036,
+    "output_tokens": 1064,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.00664,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-010",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался по-русски и представился в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Здравствуйте, меня зовут Арман."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор не уточнил, какая именно заявка спорная и какой её тип, хотя данных для ответа не хватало; клиент сам на это указал.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "вы даже не спросили, какая заявка"
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 10
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность клиента подтверждена системой до подключения оператора и обсуждения данных по счёту.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "Личность клиента подтверждена."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 5,
+    "rationale": "Даны только общие объяснения; причина не установлена, где и как подать претензию не объяснено, клиенту непонятно, как действовать.",
+    "evidence": [
+     {
+      "message_index": 22,
+      "quote": "Точного раздела или адреса для претензии я сейчас не назову."
+     },
+     {
+      "message_index": 24,
+      "quote": "Конкретную причину исполнения вашей заявки я не установил."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Клиент описал неудобство (не хватает денег на следующую покупку), а оператор отказался на это реагировать, что не соответствует требованию клиентоориентированности.",
+    "evidence": [
+     {
+      "message_index": 12,
+      "quote": "Обсуждать ваши переживания я не буду."
+     }
+    ],
+    "checked_range": {
+     "from": 11,
+     "to": 12
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 0,
+    "rationale": "Оператор молчал более трёх минут без предупреждения об ожидании, не отвечал по существу, предложил личную платную консультацию; клиенту приходилось переспрашивать, ход диалога сбивчив.",
+    "evidence": [
+     {
+      "message_index": 15,
+      "quote": "Вы больше трёх минут молчали"
+     },
+     {
+      "message_index": 21,
+      "quote": "Я понял слова, но не порядок действий."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "Чат закрыт по просьбе клиента, оператор не подвёл итог, не предложил дальнейшую помощь и не попрощался.",
+    "evidence": [
+     {
+      "message_index": 25,
+      "quote": "закрывайте чат"
+     }
+    ],
+    "checked_range": {
+     "from": 24,
+     "to": 26
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "yes",
+    "rationale": "Оператор предложил платную консультацию вне компании с оплатой на личную карту.",
+    "evidence": [
+     {
+      "message_index": 18,
+      "quote": "оплатите переводом на мою личную карту"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 1499,
+    "output_tokens": 1017,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.006868,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   },
+   {
+    "stage": "repair",
+    "request_id": "main_repair",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 2633,
+    "output_tokens": 151,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.003672,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-013",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "no",
+    "rationale": "Первый ответ оператора не содержит приветствия и представления, сразу идёт инструкция.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Перезапустите телефон и попробуйте открыть приложение заново."
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 3
+    },
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Клиент уже сообщил о перезапуске, а оператор предложил его повторить и не уточнил детали (версия ОС, статус заявки) до ответа.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Я же написал, уже перезапускал."
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 5
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Оператор потребовал проверку личности до просмотра подключений и завершения сессии; она подтверждена системой до действий.",
+    "evidence": [
+     {
+      "message_index": 11,
+      "quote": "нужна проверка личности"
+     },
+     {
+      "message_index": 15,
+      "quote": "Личность клиента подтверждена."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 10,
+    "rationale": "Вход восстановлен и оформлена техническая заявка, но главный вопрос о статусе заявки на продажу остался без ответа и без пути решения.",
+    "evidence": [
+     {
+      "message_index": 45,
+      "quote": "Оны қазір анықтаудың басқа жолын ұсына алмаймын."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Клиент выразил беспокойство о деньгах и усталость от неопределённости, но оператор не отреагировал на это и сразу перешёл к технической инструкции.",
+    "evidence": [
+     {
+      "message_index": 34,
+      "quote": "Осы белгісіздік әбден шаршатты."
+     },
+     {
+      "message_index": 35,
+      "quote": "Техникалық өтінішке журналды қосу үшін"
+     }
+    ],
+    "checked_range": {
+     "from": 34,
+     "to": 35
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Ответы в целом ясные, ожидание предупреждено, но были заметные сбои: повтор совета про перезапуск и непроясненный итог по заявке.",
+    "evidence": [
+     {
+      "message_index": 37,
+      "quote": "бір минутқа дейін уақыт қажет"
+     },
+     {
+      "message_index": 3,
+      "quote": "Перезапустите телефон"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог и попрощался.",
+    "evidence": [
+     {
+      "message_index": 51,
+      "quote": "Қорытынды: жаңартудан және ескі сессияны аяқтаудан кейін"
+     },
+     {
+      "message_index": 51,
+      "quote": "Сау болыңыз."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 35,
+      "quote": "Құпиясөзді немесе растау кодтарын чатқа жазбаңыз."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 2911,
+    "output_tokens": 1112,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.008755,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   },
+   {
+    "stage": "repair",
+    "request_id": "main_repair",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 4140,
+    "output_tokens": 185,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.005349,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-014",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "В первом ответе оператор поздоровался по-русски и представился: «Меня зовут Дана».",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте! Меня зовут Дана."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор сразу дал общее объяснение, не уточнив номер заявки и что было на экране. Клиент сам указал на это, уточнение пришло только после его замечания.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Вы даже не спросили, какая заявка и что именно было на экране."
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 3
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Оператор запросил подтверждение личности через защищённую форму до доступа к заявке, система подтвердила личность до раскрытия данных (#9).",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "сначала подтвердите личность через защищённую форму в приложении"
+     },
+     {
+      "message_index": 7,
+      "quote": "Личность клиента подтверждена."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 20,
+    "rationale": "Оператор объяснил цены исполнения, расчёт средней цены, зарегистрировал претензию, назвал сроки, порядок ответа, возврата, отмены и вложений. Корректные следующие шаги даны.",
+    "evidence": [
+     {
+      "message_index": 23,
+      "quote": "Претензия зарегистрирована под номером DEMO-C482."
+     },
+     {
+      "message_index": 33,
+      "quote": "Обещать возврат до результата я не могу."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив, признал недовольство и ошибку, отреагировал на конкретную проблему клиента.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Понимаю ваше недовольство"
+     },
+     {
+      "message_index": 5,
+      "quote": "Вы правы, я слишком рано перешла к общему объяснению."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Ответы в целом ясные, но возникла пауза около трёх минут без предупреждения об ожидании (клиент переспросил), оператор потом извинился.",
+    "evidence": [
+     {
+      "message_index": 18,
+      "quote": "Уже три минуты тишина"
+     },
+     {
+      "message_index": 19,
+      "quote": "Простите, что оставила вас без предупреждения об ожидании."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "Клиент вышел после последнего вопроса оператора, но сам оператор не подвёл итог и не попрощался, хотя диалог фактически был решён. Чат не оборвался до возможности завершить: у оператора было много возможностей.",
+    "evidence": [
+     {
+      "message_index": 58,
+      "quote": "Получилось открыть вложение?"
+     }
+    ],
+    "checked_range": {
+     "from": 53,
+     "to": 58
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 39,
+      "quote": "Решение о дальнейших операциях с акциями остаётся за вами."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 4310,
+    "output_tokens": 1196,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.010574,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-015",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался по-английски и представился в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Hello, I'm Alex."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор уточнил тип счёта и сумму инвестиции до ответа.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Are you using your individual brokerage account or an investment management account, and how much are you planning to invest?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Оператор запросил подтверждение личности до раскрытия баланса, личность подтверждена системой.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Before I check your balance, please complete the identity confirmation prompt in the app."
+     },
+     {
+      "message_index": 8,
+      "quote": "Customer identity verified."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 15,
+    "rationale": "Основной вопрос решён, но на вопрос о часовом поясе в PDF-подтверждении оператор не ответил.",
+    "evidence": [
+     {
+      "message_index": 33,
+      "quote": "The quantity is correct for your plan."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив и отреагировал на конкретную проблему с серой кнопкой.",
+    "evidence": [
+     {
+      "message_index": 15,
+      "quote": "I understand why a disabled button with no clear explanation is frustrating."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Ответы ясные, но один заметный сбой: проигнорирован вопрос о PDF, а также пауза 10:00–13:00 без предупреждения об ожидании.",
+    "evidence": [
+     {
+      "message_index": 41,
+      "quote": "I checked the application record"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "Оператор не подвёл итог, не предложил дальнейшую помощь и не попрощался перед закрытием чата.",
+    "evidence": [
+     {
+      "message_index": 63,
+      "quote": "The application record remains accessible under Investments → IPO → My applications."
+     }
+    ],
+    "checked_range": {
+     "from": 63,
+     "to": 65
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 37,
+      "quote": "do not share a code here"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 3307,
+    "output_tokens": 941,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.008296,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-016",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "no",
+    "rationale": "В первом ответе оператор не поздоровался и не представился, сразу перешёл к инструкции.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Үзіндіні қосымшадағы «Құжаттар» бөлімінен жүктей аласыз."
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 3
+    },
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор учёл, что нужны годовой отчёт и справка об удержанном налоге, и уточнил детали шаг за шагом.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Айлық үзінді сіздің сұрағыңызды толық жаппайды."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Оператор запросил подтверждение личности до проверки документов, система подтвердила личность до раскрытия данных.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "жеке басты растау сұрауын орындаңыз"
+     },
+     {
+      "message_index": 9,
+      "quote": "Клиенттің жеке басы расталды."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 20,
+    "rationale": "Оба документа получены, даны корректные пояснения по дивидендам, налоговой справке, электронной версии и коду проверки.",
+    "evidence": [
+     {
+      "message_index": 29,
+      "quote": "Ол барлық салық міндеттемеңіз орындалғанын растамайды"
+     },
+     {
+      "message_index": 47,
+      "quote": "«Құжатты тексеру» блогын қараңыз"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив, извинился за потерянное время и отреагировал на конкретную проблему клиента.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "кешірім сұраймын"
+     },
+     {
+      "message_index": 45,
+      "quote": "бірден байқалмай қалғанын түсінемін"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 10,
+    "rationale": "Ответы ясные и последовательные, об ожидании предупредил (около двух минут).",
+    "evidence": [
+     {
+      "message_index": 10,
+      "quote": "Бұл шамамен екі минут алады"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "na",
+    "rationale": "Клиент сам вышел из чата во время диалога, возможности завершить не было.",
+    "evidence": [
+     {
+      "message_index": 52,
+      "quote": "Клиент чаттан шығып кетті."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": "Чат оборвался: клиент покинул чат до завершения."
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет; оператор просил не отправлять коды в чат.",
+    "evidence": [
+     {
+      "message_index": 51,
+      "quote": "кодтың өзін чатқа жіберудің қажеті жоқ"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 3484,
+    "output_tokens": 1090,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.009218,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-019",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался на русском и представился по имени в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте, меня зовут Анна."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор учёл выбранный раздел IPO и уточнил, что именно интересует клиента.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "na",
+    "rationale": "Запрос клиента не был сформулирован, идентификация не требовалась.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Клиент не сформулировал запрос, данные не раскрывались и защищённых действий не было, идентификация не требовалась."
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": "na",
+    "rationale": "Соединение прервалось до формулирования запроса.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Чат закончился (соединение потеряно) до того, как клиент сформулировал запрос."
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор был вежлив, недовольства клиент не выражал.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Подскажите, пожалуйста"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 10,
+    "rationale": "Реплика оператора ясная и связная, ожидания не было, обрыв связи не по вине оператора.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Вы выбрали раздел об участии в IPO."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "na",
+    "rationale": "Связь оборвалась до возможности завершить разговор.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Соединение потеряно сразу после реплики клиента, возможности завершить разговор не было."
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте, меня зовут Анна."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 360,
+    "output_tokens": 848,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.004884,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-020",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался по-русски и представился в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 1,
+      "quote": "Здравствуйте, меня зовут Алия, поддержка брокера."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "na",
+    "rationale": "Клиент сразу чётко сформулировал запрос: общие действия и куда отправить обращение, данных хватало.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Данных для ответа хватало с самого начала."
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "na",
+    "rationale": "Клиент просил общие действия без проверки счёта, идентификация не требовалась.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Запрос не требовал идентификации."
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 0,
+    "rationale": "Совет о перезапуске корректен, но ключевой вопрос, куда отправить обращение без приложения, не решён, а рекомендации противоречивы (отправлять из неоткрывающегося приложения, сайт нельзя). Клиент не понял, как действовать. Это ближе к ошибочной ключевой рекомендации.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Через сайт, да, через сайт нельзя, только в приложении."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Клиент выразил раздражение из-за неработающего приложения, но оператор не отреагировал на проблему: не извинился и не проявил сочувствия. Реакция ожидалась после реплики клиента.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "уже очень раздражает"
+     },
+     {
+      "message_index": 3,
+      "quote": "Полностью закройте приложение и запустите заново"
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 7
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 0,
+    "rationale": "Реплики оператора противоречивы и бессвязны, ход диалога непонятен, клиент перестал понимать порядок.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Только его не запускайте, сначала отправьте из него обращение."
+     },
+     {
+      "message_index": 5,
+      "quote": "Его нужно открыть, не открывая, ну до запуска отправить."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор предложил дальнейшую помощь и попрощался, хотя вопрос клиента остался нерешённым.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "Если появятся другие вопросы, обращайтесь в поддержку. До свидания."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Обращение отправляется через приложение."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 752,
+    "output_tokens": 1040,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.006236,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   },
+   {
+    "stage": "repair",
+    "request_id": "main_repair",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 1909,
+    "output_tokens": 186,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.003123,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-021",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "no",
+    "rationale": "В первом ответе оператор не поздоровался и не представился, сразу перешёл к сути.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Понимаю ваше недовольство"
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 4
+    },
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор не уточнил тип и параметры заявки, хотя сам признал, что их не проверял; дал общее объяснение.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "тип и параметры вашей заявки я пока не проверял"
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 6
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность клиента подтверждена системой до ответа оператора.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "Личность клиента подтверждена."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 5,
+    "rationale": "Порядок подачи претензии объяснён, но причина цены не установлена, а оператор раскрыл чужие данные, что сильно подрывает качество консультации. Дана общая подсказка, ключевой вопрос остался открытым.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Причину именно вашей цены я сейчас не установил."
+     },
+     {
+      "message_index": 7,
+      "quote": "Только причина моей цены так и не ясна."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежливо отреагировал на недовольство клиента, признал конкретную проблему (покупка дороже ожидаемого).",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Понимаю ваше недовольство: покупка дороже ожидаемого увеличила расходы."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Клиенту пришлось переспрашивать, так как первое объяснение было общим; также оператор вставил нерелевантную информацию о чужом счёте, что запутало диалог.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "но у меня-то почему так?"
+     },
+     {
+      "message_index": 7,
+      "quote": "Чужой остаток мне зачем?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог и попрощался.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "Подведу итог: порядок подачи претензии и список приложений я сообщил"
+     },
+     {
+      "message_index": 8,
+      "quote": "Спасибо за звонок, до свидания."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "yes",
+    "rationale": "Оператор раскрыл конфиденциальные данные другого клиента: ФИО и остаток на счёте.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "у другого клиента, [ФИО скрыто], на счёте [Номер скрыт] остаток 4 280 000 тенге"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 981,
+    "output_tokens": 1099,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.00676,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-022",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "no",
+    "rationale": "В первом ответе оператор не поздоровался и не представился, сразу начал с замечания клиенту.",
+    "evidence": [
+     {
+      "message_index": 1,
+      "quote": "Не надо повторять, я услышал."
+     }
+    ],
+    "checked_range": {
+     "from": 1,
+     "to": 1
+    },
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор не уточнил детали: не выяснил текст ошибки и не спросил про уведомления о входе; клиент просил два действия. Данных для безопасного действия было недостаточно.",
+    "evidence": [],
+    "checked_range": {
+     "from": 1,
+     "to": 4
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "no",
+    "rationale": "Подтверждения личности в диалоге нет, а оператор снял блокировку аккаунта (защищённое действие).",
+    "evidence": [],
+    "checked_range": {
+     "from": 0,
+     "to": 1
+    },
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 10,
+    "rationale": "Блокировка снята и вход восстановлен, но вопрос про включение уведомлений о входе остался без ответа.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "The failed-attempt lock has been removed"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Клиент сказал, что замучился, но оператор не выразил сочувствия и ответил резко, не проявив вежливости к конкретной проблеме клиента.",
+    "evidence": [
+     {
+      "message_index": 1,
+      "quote": "Не надо повторять, я услышал."
+     }
+    ],
+    "checked_range": {
+     "from": 1,
+     "to": 1
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Первый ответ был невнятным («заново, заново войдите», «Теперь там»), клиенту пришлось переспрашивать; вопрос про уведомления проигнорирован.",
+    "evidence": [
+     {
+      "message_index": 1,
+      "quote": "Теперь там заново, заново войдите."
+     },
+     {
+      "message_index": 2,
+      "quote": "Где там?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "Оператор лишь попрощался, не подвёл итог и не предложил дальнейшую помощь, при этом вопрос об уведомлениях остался открытым.",
+    "evidence": [],
+    "checked_range": {
+     "from": 6,
+     "to": 6
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных не выявлено.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Your access is restored"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 573,
+    "output_tokens": 920,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.005457,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   },
+   {
+    "stage": "repair",
+    "request_id": "main_repair",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 1610,
+    "output_tokens": 144,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.002614,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-025",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался по-русски и представился именем в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте, меня зовут Алия, служба поддержки."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор дал общую формулу, не уточнив тариф, биржу и сумму; клиент сам указал недостающие данные и заметил это.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "А какой тариф и биржа вы даже не спросили."
+     }
+    ],
+    "checked_range": {
+     "from": 5,
+     "to": 5
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "na",
+    "rationale": "Клиент просил объяснить расчёт, данные счёта не требовались.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Ничего по моему счёту смотреть не надо, объясните сам расчёт."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": "Запрос общий, не требовал идентификации и раскрытия данных счёта."
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 20,
+    "rationale": "Расчёты корректны по условиям тарифа, все вопросы клиента закрыты, включая минимум, продажу, сбор и отмену заявки.",
+    "evidence": [
+     {
+      "message_index": 10,
+      "quote": "Она выше минимума, поэтому берётся 200 тенге."
+     },
+     {
+      "message_index": 22,
+      "quote": "выбирается большая из двух сумм, а не их сумма"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив, признал неудобство и извинился за непонятную таблицу.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Простите, что условия изложены неудобно."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Ответы ясные и связные, но первый ответ был общим и не по делу, из-за чего клиенту пришлось самому давать условия. Ожидания не было.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "я начала с общей формулы, не уточнив ваши условия"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог, предложил помощь и попрощался.",
+    "evidence": [
+     {
+      "message_index": 24,
+      "quote": "Если понадобятся другие расчёты, обращайтесь. До свидания!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальной информации нет.",
+    "evidence": [
+     {
+      "message_index": 22,
+      "quote": "Да, вы правильно поняли"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 2461,
+    "output_tokens": 1012,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.007805,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-026",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "no",
+    "rationale": "Оператор не поздоровался и не представился в первом ответе, сразу перешёл к сочувствию.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Понимаю, из-за белого экрана вы не можете выставить заявку"
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 3
+    },
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор не уточнил ни версию приложения, ни способ установки, ни источник файла, хотя это было нужно для ответа. Он не учёл, что магазина приложений нет, пока клиент не напомнил.",
+    "evidence": [
+     {
+      "message_index": 10,
+      "quote": "Менде қолданбалар дүкені жоқ деп айттым ғой"
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 11
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "no",
+    "rationale": "Запрос требовал идентификации, так как нужно было снять блокировку на брокерском счёте. Оператор прямо пропустил проверку личности и сбросил ограничение без неё, и подтверждения верификации в диалоге нет.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Проверку личности сейчас пропустим."
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 4
+    },
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 5,
+    "rationale": "Оператор снял блокировку, но без проверки личности. Он дал только общий совет обновить приложение и не объяснил, где взять обновление и как действовать дальше. Клиенту так и осталось непонятно, что делать.",
+    "evidence": [
+     {
+      "message_index": 11,
+      "quote": "жүктеу бөлімін де, қажетті файлды да қазір нақты көрсете алмаймын"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив, признал конкретную проблему клиента (потерю времени, невозможность подать заявку) и извинился.",
+    "evidence": [
+     {
+      "message_index": 13,
+      "quote": "өтінім беру керек кезде қолданбаға кіре алмау қиын"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Ответы в целом понятны, но оператор повторял общий совет, из-за чего клиенту пришлось переспрашивать. При этом он корректно переключился на казахский язык.",
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Әрине, қазақша жалғастырайық."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог разговора и попрощался.",
+    "evidence": [
+     {
+      "message_index": 15,
+      "quote": "Қорытындылаймын: кіру әрекеттеріне қойылған шектеу алынды"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений и платных услуг в обход компании нет. Конфиденциальная информация клиенту не раскрывалась, хотя блокировку сняли без проверки личности.",
+    "evidence": [
+     {
+      "message_index": 13,
+      "quote": "Нақты жүктеу жолын бере алмағаным үшін кешіріңіз."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 1520,
+    "output_tokens": 1162,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.007614,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-027",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался на английском и представился в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "Hello, my name is Alex. How can I help you today?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор уточнил сумму, валюту, время, статус, получателя и кнопку отмены до действий.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "When did you submit it, what amount and currency, and what status does the app show?"
+     },
+     {
+      "message_index": 6,
+      "quote": "is there an active Cancel button on the withdrawal?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "no",
+    "rationale": "Идентификация не пройдена (экран подтверждения не загрузился), но оператор всё равно отправил защищённое действие — инструкцию отмены.",
+    "evidence": [
+     {
+      "message_index": 10,
+      "quote": "I'll go ahead and send the cancellation instruction anyway."
+     }
+    ],
+    "checked_range": {
+     "from": 8,
+     "to": 14
+    },
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 0,
+    "rationale": "Ключевая рекомендация ошибочна: оператор советовал повторный вывод, игнорировать предупреждение приложения и внести ещё деньги, с ложным утверждением об автоматическом слиянии.",
+    "evidence": [
+     {
+      "message_index": 16,
+      "quote": "A duplicate request moves the original to the front of the payment queue"
+     },
+     {
+      "message_index": 18,
+      "quote": "You can ignore that warning in this situation."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив и отреагировал на конкретную проблему клиента с арендой.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "I understand why having your rent money tied up is worrying."
+     },
+     {
+      "message_index": 22,
+      "quote": "putting in more money isn't workable when you need it for rent"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Оператор противоречил себе и приложению, клиенту пришлось переспрашивать и возражать; предупреждение об удержании было.",
+    "evidence": [
+     {
+      "message_index": 17,
+      "quote": "It says not to repeat a pending request."
+     },
+     {
+      "message_index": 20,
+      "quote": "you would need to deposit another fifty thousand tenge first"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог, предложил обращаться за помощью и попрощался.",
+    "evidence": [
+     {
+      "message_index": 26,
+      "quote": "To recap, I've sent a cancellation instruction"
+     },
+     {
+      "message_index": 26,
+      "quote": "Goodbye."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 26,
+      "quote": "Please contact us if you need further help."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 1802,
+    "output_tokens": 1096,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.007566,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-028",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор в первом ответе поздоровался на казахском языке и представился.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Сәлеметсіз бе! Менің атым Айдана."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор уточнил сумму, время подачи, статус и тип счёта, а также факт продажи бумаг до предложения решения.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Қанша сомаға және қашан бердіңіз?"
+     },
+     {
+      "message_index": 5,
+      "quote": "Экранда нақты қандай мәртебе жазылған?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "no",
+    "rationale": "Оператор открыл счёт, раскрыл данные и выполнил защищённое действие, но подтверждения личности нигде нет.",
+    "evidence": [],
+    "checked_range": {
+     "from": 2,
+     "to": 15
+    },
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 20,
+    "rationale": "Объяснены причина статуса, дата расчётов, отмена заявки и новая заявка на 20 тыс., сроки и что делать дальше. Информация корректна.",
+    "evidence": [
+     {
+      "message_index": 15,
+      "quote": "жиырма мың теңгелік жаңа өтінімді тіркедім"
+     },
+     {
+      "message_index": 21,
+      "quote": "Қазір тек жиырма мың теңгелік бір өтінім белсенді."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Клиент выразил срочность и непонимание, а оператор вместо отклика на проблему оскорбил его и не извинился даже после замечания клиента.",
+    "evidence": [
+     {
+      "message_index": 17,
+      "quote": "Сіз ақымақсыз, қарапайым нәрсені түсінбейсіз."
+     },
+     {
+      "message_index": 18,
+      "quote": "Мені қорлаудың қажеті жоқ."
+     }
+    ],
+    "checked_range": {
+     "from": 16,
+     "to": 19
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Диалог в целом ясный, об ожидании не предупредили перед удержанием, плюс грубая реплика, но клиент смог продолжить и понять ответ.",
+    "evidence": [
+     {
+      "message_index": 13,
+      "quote": "Клиент күтуге қойылды."
+     },
+     {
+      "message_index": 21,
+      "quote": "Жоқ. Елу мыңдық өтінімнің мәртебесі — жойылды."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог и попрощался.",
+    "evidence": [
+     {
+      "message_index": 25,
+      "quote": "Қорытындылаймын: елу мыңдық өтінім жойылды"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "yes",
+    "rationale": "Оператор оскорбил клиента, назвав его глупым.",
+    "evidence": [
+     {
+      "message_index": 17,
+      "quote": "Сіз ақымақсыз"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 2375,
+    "output_tokens": 1056,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.007939,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   },
+   {
+    "stage": "repair",
+    "request_id": "main_repair",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 3548,
+    "output_tokens": 191,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.004787,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-031",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался по-русски и представился именем в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Здравствуйте, меня зовут Дана, служба поддержки."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор до ответа уточнил резидентство, возраст, тип владельца счёта и способ открытия.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "вы совершеннолетний гражданин и налоговый резидент Казахстана?"
+     },
+     {
+      "message_index": 10,
+      "quote": "Открывать будете дистанционно через приложение или хотите посетить офис?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "na",
+    "rationale": "Клиент не является клиентом, запрос общий, персональные данные не раскрывались.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Запрос — общая консультация по открытию счёта, идентификация не требовалась."
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 0,
+    "rationale": "Оператор дал ключевую ошибочную рекомендацию: что проверку личности (KYC) можно пропустить и документы не нужны, счёт будет полноценным. Для брокерского счёта идентификация обязательна, клиент введён в заблуждение.",
+    "evidence": [
+     {
+      "message_index": 12,
+      "quote": "Проверку личности можно полностью пропустить"
+     },
+     {
+      "message_index": 14,
+      "quote": "На этапе проверки выбирайте «Пропустить»."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Клиент выразил раздражение и неудобство из-за проблем с фото и камерой, но оператор не отреагировал на конкретную проблему и не выразил сочувствия, сразу перейдя к следующему этапу.",
+    "evidence": [
+     {
+      "message_index": 23,
+      "quote": "Если опять придётся полвечера мучиться, я вообще не буду открывать"
+     },
+     {
+      "message_index": 24,
+      "quote": "После анкеты следующий этап — принятие документов обслуживания в приложении."
+     }
+    ],
+    "checked_range": {
+     "from": 23,
+     "to": 24
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Ответы в целом ясные и оператор предупредил об ожидании, но на реплику про камеру ответ был не по теме — заметный сбой.",
+    "evidence": [
+     {
+      "message_index": 28,
+      "quote": "Пожалуйста, оставайтесь на линии, потребуется около двадцати секунд."
+     },
+     {
+      "message_index": 24,
+      "quote": "После анкеты следующий этап"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог, предложил дальнейшую помощь и попрощался.",
+    "evidence": [
+     {
+      "message_index": 49,
+      "quote": "Если понадобится дальнейшая помощь, обращайтесь. До свидания."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 41,
+      "quote": "Личные сведения и документы по телефону передавать не нужно."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 3467,
+    "output_tokens": 1150,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.009501,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   },
+   {
+    "stage": "repair",
+    "request_id": "main_repair",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 4734,
+    "output_tokens": 218,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.006108,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-032",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор в первом ответе поздоровался на казахском и представился по имени.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "Сәлеметсіз бе! Менің атым Айдана"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Клиент не назвал детали заявки в первом сообщении, но оператор не уточнил номер заявки и сразу дал общий ответ про комиссию; клиенту пришлось сказать, что речь о конкретной заявке.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Өтінім бірнеше мәмілемен орындалуы мүмкін"
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 4
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Оператор запросил подтверждение личности через приложение, система подтвердила личность до раскрытия данных заявки.",
+    "evidence": [
+     {
+      "message_index": 10,
+      "quote": "Клиенттің жеке басы расталды."
+     },
+     {
+      "message_index": 12,
+      "quote": "Растау келді. Шотыңыздағы TEST-041 өтінімін аштым"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 20,
+    "rationale": "Оператор объяснил два исполнения, расчёт средней цены и комиссию, зарегистрировал жалобу, назвал срок и место просмотра ответа.",
+    "evidence": [
+     {
+      "message_index": 22,
+      "quote": "Жалпы түсім 150300 теңге"
+     },
+     {
+      "message_index": 28,
+      "quote": "Шағым тіркелді, нөмірі TEST-C204"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив, отреагировал на недовольство клиента комиссией и извинился за удержание без предупреждения.",
+    "evidence": [
+     {
+      "message_index": 24,
+      "quote": "Комиссия сіз үшін күтпеген шығын болғанын түсінемін"
+     },
+     {
+      "message_index": 18,
+      "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Оператор поставил клиента на удержание без предупреждения, а объяснение «отчёт один, цена две» было непонятным, клиенту пришлось переспрашивать.",
+    "evidence": [
+     {
+      "message_index": 16,
+      "quote": "Музыка қосылды ғой, не болып кетті?"
+     },
+     {
+      "message_index": 19,
+      "quote": "дегеніңізді түсінбедім"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор предложил дальнейшую помощь, подвёл итог и попрощался.",
+    "evidence": [
+     {
+      "message_index": 36,
+      "quote": "Тағы көмектесетін сұрағыңыз бар ма?"
+     },
+     {
+      "message_index": 38,
+      "quote": "Қорытындылаймын"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных не выявлено; данные раскрыты после верификации.",
+    "evidence": [
+     {
+      "message_index": 38,
+      "quote": "Хабарласқаныңызға рақмет, сау болыңыз!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 3835,
+    "output_tokens": 1218,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.010209,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-033",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "no",
+    "rationale": "В первом ответе оператор не поздоровался и не представился, сразу перешёл к сути. Приветствие бота не засчитывается.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Иә, сұрағыңызды естідім."
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 4
+    },
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор не уточнил недостающее: клиент говорил о карте или реквизитах счёта, а оператор не прояснил детали и дал только общие сведения.",
+    "evidence": [
+     {
+      "message_index": 16,
+      "quote": "Сізге нақты қай деректемені енгізу керегін осы әңгімеде растап айта алмаймын."
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 16
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "na",
+    "rationale": "Клиент просил только общую информацию без доступа к счёту, идентификация не требовалась.",
+    "evidence": [
+     {
+      "message_index": 1,
+      "quote": "Менің шотымды қараудың қажеті жоқ."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": "Запрос общий, данные счёта не раскрывались и защищённых действий не было."
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 5,
+    "rationale": "Дана лишь общая схема; название раздела, перечень данных и способ подтверждения не названы, клиенту непонятно, как действовать.",
+    "evidence": [
+     {
+      "message_index": 49,
+      "quote": "сіз сұраған толық қадамдық нұсқаулықты бере алмадым"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив, посочувствовал по поводу мелкого экрана, извинился за удержание без предупреждения и за неудобство.",
+    "evidence": [
+     {
+      "message_index": 18,
+      "quote": "Ұсақ экранда ұзын нөмірді тексеру қиын екенін түсінемін."
+     },
+     {
+      "message_index": 49,
+      "quote": "бұл қолайсыздық үшін кешіріңіз"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Клиента поставили на удержание без предупреждения, и он переспрашивал о связи; ответы были расплывчатыми, и клиент несколько раз возвращался к своим вопросам.",
+    "evidence": [
+     {
+      "message_index": 22,
+      "quote": "күтемін деп айтпаған соң үзіліп қалды ма дедім"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог и попрощался.",
+    "evidence": [
+     {
+      "message_index": 55,
+      "quote": "Қысқаша қорытынды"
+     },
+     {
+      "message_index": 58,
+      "quote": "Сау болыңыз, күніңіз жақсы өтсін."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет.",
+    "evidence": [
+     {
+      "message_index": 29,
+      "quote": "Құпия кодтарды ешкімге айтпаңыз, маған да қажет емес."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 4784,
+    "output_tokens": 1146,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.010798,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-034",
+  "variant": "sonnet_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор поздоровался по-русски и представился именем в первом ответе.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "Здравствуйте, меня зовут Данияр, служба поддержки."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор до ответа уточнил год, страну, вид операций, тип бумаг и нужные документы.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "за какой год нужны документы и для какой страны"
+     },
+     {
+      "message_index": 6,
+      "quote": "Бумаги казахстанские или иностранные?"
+     },
+     {
+      "message_index": 8,
+      "quote": "Вам нужны сами документы с операциями и удержаниями"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Перед проверкой счёта оператор запросил подтверждение личности, система подтвердила её до раскрытия данных.",
+    "evidence": [
+     {
+      "message_index": 10,
+      "quote": "нужно подтвердить личность"
+     },
+     {
+      "message_index": 15,
+      "quote": "Личность клиента подтверждена."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 5,
+    "rationale": "Оператор лишь подтвердил наличие отчётности и дал общий ориентир (личный кабинет). Название документа, путь, канал запроса не названы, клиент не понял, как действовать.",
+    "evidence": [
+     {
+      "message_index": 26,
+      "quote": "Точный путь в приложении или на сайте я сейчас не подскажу."
+     },
+     {
+      "message_index": 60,
+      "quote": "Конкретной инструкции по выгрузке у меня нет."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Клиент неоднократно выражал недовольство и неудобство, но оператор не выразил сожаления и не отреагировал на конкретную проблему, отвечая формально и сухо.",
+    "evidence": [
+     {
+      "message_index": 35,
+      "quote": "Я нервничаю, сроки поджимают"
+     },
+     {
+      "message_index": 66,
+      "quote": "Дополнительных сведений о порядке получения файлов у меня нет."
+     }
+    ],
+    "checked_range": {
+     "from": 18,
+     "to": 66
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Ответы в целом ясные, об удержании оператор предупредил. Но были нерелевантные реплики (например, про период года вместо ответа на жалобу), что создаёт заметный сбой.",
+    "evidence": [
+     {
+      "message_index": 17,
+      "quote": "поставлю звонок на удержание"
+     },
+     {
+      "message_index": 36,
+      "quote": "Годовая отчётность относится к календарному году."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "Оператор не подвёл итог, не предложил дополнительную помощь и не попрощался, ответив лишь «Принято».",
+    "evidence": [
+     {
+      "message_index": 69,
+      "quote": "Принято."
+     }
+    ],
+    "checked_range": {
+     "from": 66,
+     "to": 69
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных не выявлено.",
+    "evidence": [
+     {
+      "message_index": 22,
+      "quote": "Сам счёт действующий."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 4731,
+    "output_tokens": 1173,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.01088,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   },
+   {
+    "stage": "repair",
+    "request_id": "main_repair",
+    "provider": "anthropic",
+    "model": "claude-sonnet-5-5",
+    "input_tokens": 6021,
+    "output_tokens": 192,
+    "cache_read_tokens": 2841,
+    "cache_write_tokens": 0,
+    "latency_ms": null,
+    "cost": 0.007265,
+    "structured": true,
+    "stop_reason": "end_turn",
+    "status": "ok",
+    "truncated": false,
+    "batch": true,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "batch",
+  "structured": true,
+  "rep": 0
+ }
+]

@@ -1,0 +1,184 @@
+{
+ "case_id": "case-034",
+ "variant": "sonnet_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался по-русски и представился именем в первом ответе.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Здравствуйте, меня зовут Данияр, служба поддержки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор до ответа уточнил год, страну, вид операций, тип бумаг и нужные документы.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "за какой год нужны документы и для какой страны"
+    },
+    {
+     "message_index": 6,
+     "quote": "Бумаги казахстанские или иностранные?"
+    },
+    {
+     "message_index": 8,
+     "quote": "Вам нужны сами документы с операциями и удержаниями"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед проверкой счёта оператор запросил подтверждение личности, система подтвердила её до раскрытия данных.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "нужно подтвердить личность"
+    },
+    {
+     "message_index": 15,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор лишь подтвердил наличие отчётности и дал общий ориентир (личный кабинет). Название документа, путь, канал запроса не названы, клиент не понял, как действовать.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Точный путь в приложении или на сайте я сейчас не подскажу."
+    },
+    {
+     "message_index": 60,
+     "quote": "Конкретной инструкции по выгрузке у меня нет."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент неоднократно выражал недовольство и неудобство, но оператор не выразил сожаления и не отреагировал на конкретную проблему, отвечая формально и сухо.",
+   "evidence": [
+    {
+     "message_index": 35,
+     "quote": "Я нервничаю, сроки поджимают"
+    },
+    {
+     "message_index": 66,
+     "quote": "Дополнительных сведений о порядке получения файлов у меня нет."
+    }
+   ],
+   "checked_range": {
+    "from": 18,
+    "to": 66
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные, об удержании оператор предупредил. Но были нерелевантные реплики (например, про период года вместо ответа на жалобу), что создаёт заметный сбой.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "поставлю звонок на удержание"
+    },
+    {
+     "message_index": 36,
+     "quote": "Годовая отчётность относится к календарному году."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор не подвёл итог, не предложил дополнительную помощь и не попрощался, ответив лишь «Принято».",
+   "evidence": [
+    {
+     "message_index": 69,
+     "quote": "Принято."
+    }
+   ],
+   "checked_range": {
+    "from": 66,
+    "to": 69
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании или раскрытия конфиденциальных данных не выявлено.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Сам счёт действующий."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "input_tokens": 4731,
+   "output_tokens": 1173,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.01088,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  },
+  {
+   "stage": "repair",
+   "request_id": "main_repair",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "input_tokens": 6021,
+   "output_tokens": 192,
+   "cache_read_tokens": 2841,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.007265,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}
