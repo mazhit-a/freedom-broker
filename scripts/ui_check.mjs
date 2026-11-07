@@ -135,21 +135,27 @@ export const scenarios = {
     page.assert(String(expected) === count, `badge equals adapter count (${count} vs ${expected})`);
     await page.eval(`window.__nav = []; document.addEventListener('cqa:navigate', (e) => window.__nav.push({ to: e.detail.to, id: e.detail.id }));`);
     const routes = [
-      ["#/overview", "overview", "overview"],
-      ["#/conversations", "conversations", "conversations"],
-      ["#/conversations/p1-ru-001", "conversations", "conversations/p1-ru-001"],
-      ["#/appeals", "appeals", "appeals"],
-      ["#/appeals/ap-1", "appeals", "appeals/ap-1"],
-      ["#/checklists", "checklists", "checklists"],
-      ["#/checklists/2", "checklists", "checklists/2"],
-      ["#/runs", "runs", "runs"],
-      ["#/runs/R-0001", "runs", "runs/R-0001"]
+      ["#/overview", "overview", "cqa-overview", null],
+      ["#/conversations", "conversations", "cqa-conversation-list", null],
+      ["#/conversations/p1-ru-001", "conversations", "cqa-conversation-card", ["conversation-id", "p1-ru-001"]],
+      ["#/appeals", "appeals", "cqa-appeal-queue", null],
+      ["#/appeals/1", "appeals", "cqa-appeal-queue", ["appeal-id", "1"]],
+      ["#/checklists", "checklists", "cqa-checklist-builder", null],
+      ["#/checklists/2", "checklists", "cqa-checklist-builder", ["checklist-id", "2"]],
+      ["#/runs", "runs", "cqa-eval-runs", null],
+      ["#/runs/R-0001", "runs", "cqa-eval-runs", ["run-id", "R-0001"]]
     ];
-    for (const [hash, current, path] of routes) {
+    for (const [hash, current, tag, attr] of routes) {
       await page.eval(`location.hash = ${JSON.stringify(hash)}`);
-      await waitFor(() => page.eval(`cqaDeep('cqa-app >>> [data-placeholder]')[0]?.getAttribute('data-placeholder') === ${JSON.stringify(path)}`));
+      await waitFor(() => page.eval(`cqaDeep('cqa-app >>> [data-outlet] > ${tag}').length === 1`));
       const cur = await page.eval(`cqaDeep('cqa-app >>> cqa-header >>> cqa-nav >>> a[aria-current=page]').map((a) => a.getAttribute('data-route')).join()`);
       page.assert(cur === current, `${hash}: aria-current is ${current} (${cur})`);
+      if (attr) {
+        const value = await page.eval(`cqaDeep('cqa-app >>> [data-outlet] > ${tag}')[0].getAttribute(${JSON.stringify(attr[0])})`);
+        page.assert(value === attr[1], `${hash}: ${attr[0]} is ${attr[1]} (${value})`);
+      }
+      const placeholders = await page.deepCount("cqa-app >>> [data-placeholder]");
+      page.assert(placeholders === 0, `${hash}: no placeholder is shown (${placeholders})`);
     }
     await page.eval(`location.hash = '#/nope/1/2'`);
     await waitFor(() => page.eval(`cqaDeep('cqa-app >>> [data-outlet] .panel-title')[0]?.textContent.trim() === 'Раздел не найден'`));
@@ -291,12 +297,11 @@ export const scenarios = {
   },
 
   async fonts(page) {
-    await page.waitForDeep("cqa-app >>> h1");
+    await page.waitForDeep("cqa-app >>> cqa-overview >>> h1");
     const result = await page.eval(`(async () => {
       await document.fonts.load('600 16px Inter', ${JSON.stringify(KAZAKH_SAMPLE)});
       await document.fonts.load('400 16px Inter', 'Abc');
-      const host = document.querySelector('cqa-app');
-      const h1 = host.shadowRoot.querySelector('h1');
+      const h1 = cqaDeep('cqa-app >>> cqa-overview >>> h1')[0];
       return {
         check: document.fonts.check('16px Inter', ${JSON.stringify(KAZAKH_SAMPLE)}),
         family: getComputedStyle(h1).fontFamily,

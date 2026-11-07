@@ -22,7 +22,6 @@ function merge(base, lang) {
 
 export const DICTIONARIES = { ru: merge(ru, "ru"), kk: merge(kk, "kk"), en: merge(en, "en") };
 
-const STORAGE_KEY = "cqa.locale";
 const listeners = new Set();
 let current = DEFAULT_LOCALE;
 
@@ -36,28 +35,12 @@ export function getLocale() {
   return current;
 }
 
-export function setLocale(value, { persist = false } = {}) {
+export function setLocale(value) {
   const next = normalizeLocale(value);
   const changed = next !== current;
   current = next;
   if (changed) listeners.forEach((fn) => fn(next));
-  if (persist) {
-    try {
-      globalThis.localStorage?.setItem(STORAGE_KEY, next);
-    } catch (error) {
-      return next;
-    }
-  }
   return next;
-}
-
-export function storedLocale() {
-  try {
-    const value = globalThis.localStorage?.getItem(STORAGE_KEY);
-    return value ? normalizeLocale(value) : null;
-  } catch (error) {
-    return null;
-  }
 }
 
 export function subscribe(fn) {

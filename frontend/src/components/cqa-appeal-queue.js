@@ -1,6 +1,6 @@
 import { CqaElement, html, raw } from "../base-element.js";
 import { api, ensureConfigured } from "../api.js";
-import { EVENTS, emit } from "../events.js";
+import { EVENTS, emit, navigate } from "../events.js";
 import { number } from "../format.js";
 import { can, wireRole } from "../roles.js";
 import { SHARED_CSS } from "../shared/styles.js";
@@ -290,7 +290,7 @@ export class CqaAppealQueue extends CqaElement {
       : html``;
     const tail = isClosed(appeal) ? this.closedBlock(appeal) : this.decisionArea(appeal, entry, evCrit);
     const link = `#/conversations/${encodeURIComponent(appeal.conversationId)}`;
-    return html`<section class="card detail" aria-labelledby="rv-h" data-detail="${appeal.id}"><div class="d-head"><h2 id="rv-h" tabindex="-1"><span class="tnum">${appeal.criterionId}</span> ${title}</h2>${statusChip(appeal.status, locale)}${start}<a class="open" href="${link}" data-open-card>${this.t("queue.openCard")} <span class="tnum">${appeal.conversationId}</span></a></div><span class="meta">${this.t("queue.meta", { actor: this.t("actor.operator"), age: ageText(appeal.ageHours, locale), conv: appeal.conversationId })}</span><div class="rv-grid"><div class="box"><span class="cap">${this.t("queue.original")}</span><div class="row gap-2">${original ? answerBadge(def, original.answer, locale) : html``}<span class="pts">${pts}</span></div><p class="ink2">${original ? original.rationale : ""}</p><span class="fs12 muted" data-version>${versionLine}</span></div><div class="box line"><span class="cap">${this.t("queue.argument")}</span><p>${appeal.comment}</p><span class="tnum fs12 muted">${refsText}</span></div></div>${frag}${tail}</section>`;
+    return html`<section class="card detail" aria-labelledby="rv-h" data-detail="${appeal.id}"><div class="d-head"><h2 id="rv-h" tabindex="-1"><span class="tnum">${appeal.criterionId}</span> ${title}</h2>${statusChip(appeal.status, locale)}${start}<a class="open" href="${link}" data-open-card data-conversation="${appeal.conversationId}">${this.t("queue.openCard")} <span class="tnum">${appeal.conversationId}</span></a></div><span class="meta">${this.t("queue.meta", { actor: this.t("actor.operator"), age: ageText(appeal.ageHours, locale), conv: appeal.conversationId })}</span><div class="rv-grid"><div class="box"><span class="cap">${this.t("queue.original")}</span><div class="row gap-2">${original ? answerBadge(def, original.answer, locale) : html``}<span class="pts">${pts}</span></div><p class="ink2">${original ? original.rationale : ""}</p><span class="fs12 muted" data-version>${versionLine}</span></div><div class="box line"><span class="cap">${this.t("queue.argument")}</span><p>${appeal.comment}</p><span class="tnum fs12 muted">${refsText}</span></div></div>${frag}${tail}</section>`;
   }
 
   closedBlock(appeal) {
@@ -348,6 +348,12 @@ export class CqaAppealQueue extends CqaElement {
   }
 
   onClick(event) {
+    const card = event.target.closest ? event.target.closest("[data-open-card]") : null;
+    if (card && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+      event.preventDefault();
+      navigate(this, "conversations", card.getAttribute("data-conversation"));
+      return;
+    }
     const el = event.target.closest ? event.target.closest("[data-action], [data-appeal-row]") : null;
     if (!el) return;
     if (el.hasAttribute("data-appeal-row")) {

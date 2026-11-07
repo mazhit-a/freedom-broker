@@ -119,7 +119,7 @@ function base() {
 function documentBase() {
   if (typeof document !== "undefined" && document.baseURI) return document.baseURI;
   if (globalThis.location && globalThis.location.href) return globalThis.location.href;
-  return "http://localhost/";
+  return "file:///";
 }
 
 function url(path, params) {

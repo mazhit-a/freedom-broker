@@ -117,7 +117,7 @@ export class CqaPlayground extends CqaElement {
     );
 
     const localeSwitch = LOCALES.map(
-      (code) => html`<button type="button" data-locale="${code}" aria-pressed="${code === l}">${code === "kk" ? "KZ" : code.toUpperCase()}</button>`
+      (code) => html`<button type="button" data-locale="${code}" aria-pressed="${String(code === l)}">${code === "kk" ? "KZ" : code.toUpperCase()}</button>`
     );
 
     return html`

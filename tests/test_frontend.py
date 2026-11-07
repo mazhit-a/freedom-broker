@@ -67,3 +67,13 @@ def test_components_use_shadow_dom_and_no_comments():
 
 def test_api_base_resolves_to_backend_from_app_path(client):
     assert client.get("/app/../api/v1/datasets").status_code == 200
+
+
+def test_new_pages_are_served_with_relative_references(client):
+    for page in ["next.html", "demo.html", "embed-test.html", "gallery.html"]:
+        response = client.get("/app/" + page)
+        assert response.status_code == 200, page
+        for ref in re.findall(r'(?:src|href)="([^"]+)"', response.text):
+            assert not ref.startswith(("/", "http:", "https:", "//")), (page, ref)
+    for rel in ["src/demo.js", "src/demo-steps.js", "src/embed-test.js", "styles/tokens.css", "src/fonts/OFL.txt"]:
+        assert client.get("/app/" + rel).status_code == 200, rel

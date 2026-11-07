@@ -85,9 +85,9 @@ function answerCell(row, locale) {
 }
 
 function pointsCell(row, locale) {
-  if (row.na) return html`<span class="tnum pts muted">${t("answer.na", {}, locale)}</span>`;
+  if (row.na) return html`<span class="tnum pts muted" role="cell">${t("answer.na", {}, locale)}</span>`;
   const points = row.effPoints === null || row.effPoints === undefined ? "—" : number(row.effPoints, locale);
-  return html`<span class="tnum pts">${points} / ${quantity(row.effWeight, locale)}</span>`;
+  return html`<span class="tnum pts" role="cell">${points} / ${quantity(row.effWeight, locale)}</span>`;
 }
 
 function grossRow(view, locale) {

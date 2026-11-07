@@ -64,7 +64,7 @@ export class CqaConversationList extends CqaElement {
       :host { display: block; }
       .page { display: flex; flex-direction: column; gap: 16px; }
       .head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-      .head h2 { margin: 0; font-size: var(--cqa-fs-24); font-weight: 600; letter-spacing: -0.01em; }
+      .head h1 { margin: 0; font-size: var(--cqa-fs-24); font-weight: 600; letter-spacing: -0.01em; }
       .counts { font-size: var(--cqa-fs-13); color: var(--cqa-ink-3); font-variant-numeric: tabular-nums; }
       .filters { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
       .search { position: relative; display: flex; align-items: center; }
@@ -215,7 +215,7 @@ export class CqaConversationList extends CqaElement {
     const total = this._data ? this._data.evaluated : 0;
     const shown = this.items().length;
     const counts = this._data ? countsText(total, shown, this.locale) : "";
-    return html`<div class="head"><div class="row gap-3" style="align-items:baseline"><h2>${this.t("list.title")}</h2><span class="counts" data-counts>${counts}</span></div><div class="row gap-2"><a class="btn" href="#/runs" data-nav="runs">${this.t("list.loadSet")}</a><a class="btn" href="#/checklists" data-nav="checklists">${this.t("list.checklists")}</a></div></div>`;
+    return html`<div class="head"><div class="row gap-3" style="align-items:baseline"><h1>${this.t("list.title")}</h1><span class="counts" data-counts>${counts}</span></div><div class="row gap-2"><a class="btn" href="#/runs" data-nav="runs">${this.t("list.loadSet")}</a><a class="btn" href="#/checklists" data-nav="checklists">${this.t("list.checklists")}</a></div></div>`;
   }
 
   filtersHtml() {
@@ -498,6 +498,8 @@ export class CqaConversationList extends CqaElement {
     if (!confirmed) {
       this._starting = false;
       this.renderNow();
+      const again = this.shadowRoot.querySelector("[data-bulk] [data-action=run]");
+      if (again) again.focus();
       return;
     }
     try {

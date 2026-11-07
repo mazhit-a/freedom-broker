@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CQA demo</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="src/fonts/fonts.css">
+<style>
+html, body { margin: 0; padding: 0; background: var(--cqa-surface-2); }
+body { font-family: var(--cqa-font); font-size: var(--cqa-fs-14); color: var(--cqa-ink); }
+*, *::before, *::after { box-sizing: border-box; }
+:focus-visible { outline: 2px solid var(--cqa-brand-strong); outline-offset: 2px; }
+h1, h2, h3, p, ol, ul { margin: 0; padding: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 8px; top: -48px; background: var(--cqa-surface); padding: 8px 12px; border-radius: var(--cqa-radius-control); z-index: 5; color: var(--cqa-ink); }
+.skip:focus { top: 8px; }
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 12px 16px; background: var(--cqa-surface); border-bottom: 1px solid var(--cqa-line); }
+.brand { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+.logo { width: 28px; height: 28px; border-radius: 8px; background: var(--cqa-brand-deep); color: var(--cqa-on-brand); display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+.brand h1 { font-size: 15px; font-weight: 600; line-height: 1.2; }
+.brand p { font-size: 12px; color: var(--cqa-ink-2); }
+.mode { font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: var(--cqa-brand-tint); color: var(--cqa-brand-deep); }
+.mode[data-mode=mock] { background: var(--cqa-warn-bg); color: var(--cqa-warn); }
+.ctl { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--cqa-ink-2); }
+.seg { display: inline-flex; border: 1px solid var(--cqa-line-strong); border-radius: var(--cqa-radius-control); overflow: hidden; background: var(--cqa-surface); }
+.seg button { height: 30px; padding: 0 10px; border: 0; border-right: 1px solid var(--cqa-line-strong); background: var(--cqa-surface); color: var(--cqa-ink); font: inherit; font-size: 13px; cursor: pointer; }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed=true] { background: var(--cqa-brand-deep); color: var(--cqa-on-brand); font-weight: 600; }
+.seg button:focus-visible { outline-offset: -3px; }
+.layout { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 16px; padding: 16px; align-items: start; }
+.guide { background: var(--cqa-surface); border: 1px solid var(--cqa-line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.guide h2 { font-size: 16px; font-weight: 600; }
+.steps { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.steps button { width: 100%; display: flex; gap: 8px; align-items: baseline; text-align: left; border: 1px solid transparent; background: transparent; color: var(--cqa-ink); font: inherit; font-size: 13px; padding: 7px 8px; border-radius: var(--cqa-radius-control); cursor: pointer; min-height: 34px; }
+.steps button:hover { background: var(--cqa-surface-2); }
+.steps button[aria-current=step] { background: var(--cqa-brand-tint); border-color: var(--cqa-brand-strong); font-weight: 600; }
+.steps .n { flex: none; width: 20px; color: var(--cqa-ink-2); font-variant-numeric: tabular-nums; }
+.steps .time { margin-left: auto; flex: none; font-size: 12px; color: var(--cqa-ink-2); font-weight: 400; }
+.detail { border-top: 1px solid var(--cqa-line); padding-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.detail h3 { font-size: 14px; font-weight: 600; }
+.detail p { color: var(--cqa-ink-2); font-size: 13px; line-height: 1.45; }
+.detail ul { padding-left: 18px; color: var(--cqa-ink); font-size: 13px; line-height: 1.5; }
+.detail .meta { font-size: 12px; color: var(--cqa-ink-2); }
+.detail code { font-size: 12px; background: var(--cqa-surface-3); padding: 1px 5px; border-radius: 4px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { height: var(--cqa-control-h); padding: 0 14px; border-radius: var(--cqa-radius-control); border: 1px solid var(--cqa-line-strong); background: var(--cqa-surface); color: var(--cqa-ink); font: inherit; font-size: 13px; cursor: pointer; }
+.btn-primary { background: var(--cqa-brand-deep); border-color: var(--cqa-brand-deep); color: var(--cqa-on-brand); font-weight: 600; }
+.btn:disabled { opacity: .5; cursor: default; }
+.stage { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.stage-note { font-size: 12px; color: var(--cqa-ink-2); min-height: 16px; }
+.viewport { position: relative; overflow: hidden; margin: 0 auto; background: var(--cqa-surface); border: 1px solid var(--cqa-line-strong); border-radius: 12px; }
+.viewport iframe { position: absolute; left: 0; top: 0; border: 0; display: block; transform-origin: 0 0; background: var(--cqa-surface-2); }
+@media (max-width: 1100px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body class="cqa">
+<a class="skip" id="skip" href="#stage">CQA</a>
+<header class="bar">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">FB</span>
+    <div><h1 id="demo-title"></h1><p id="demo-subtitle"></p></div>
+  </div>
+  <span class="mode" id="demo-mode"></span>
+  <div class="ctl"><span id="lbl-role"></span><div class="seg" role="group" aria-labelledby="lbl-role" id="seg-role"></div></div>
+  <div class="ctl"><span id="lbl-locale"></span><div class="seg" role="group" aria-labelledby="lbl-locale" id="seg-locale"></div></div>
+  <div class="ctl"><span id="lbl-width"></span><div class="seg" role="group" aria-labelledby="lbl-width" id="seg-width"></div></div>
+</header>
+<main class="layout">
+  <nav class="guide" id="guide" aria-labelledby="guide-title">
+    <h2 id="guide-title"></h2>
+    <ol class="steps" id="steps"></ol>
+    <section class="detail" id="detail" aria-live="polite"></section>
+    <div class="actions">
+      <button type="button" class="btn" id="btn-prev"></button>
+      <button type="button" class="btn btn-primary" id="btn-next"></button>
+      <button type="button" class="btn" id="btn-reset"></button>
+    </div>
+  </nav>
+  <section class="stage" id="stage" tabindex="-1" aria-label="CQA">
+    <p class="stage-note" id="stage-note" aria-live="polite"></p>
+    <div class="viewport" id="viewport"><iframe id="app" title="CQA"></iframe></div>
+  </section>
+</main>
+<div class="sr-only" role="status" id="live"></div>
+<script src="config.js"></script>
+<script type="module" src="src/demo.js"></script>
+</body>
+</html>

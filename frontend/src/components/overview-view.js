@@ -201,7 +201,7 @@ export function splitCard(data, locale) {
   const empty = !langRows.length && !channelRows.length;
   const body = empty
     ? html`<p class="muted pad">${t("overview.split.none", {}, locale)}</p>`
-    : html`<div class="dt-wrap"><table class="dt"><thead><tr><th scope="col">${t("overview.split.slice", {}, locale)}</th><th scope="col" class="num">${t("overview.split.count", {}, locale)}</th><th scope="col" class="num">${t("overview.split.avg", {}, locale)}</th><th scope="col" class="num">${t("overview.split.gross", {}, locale)}</th></tr></thead><tbody>${langRows}${channelRows}</tbody></table></div>`;
+    : html`<div class="dt-wrap"><table class="dt" aria-labelledby="h-split"><thead><tr><th scope="col">${t("overview.split.slice", {}, locale)}</th><th scope="col" class="num">${t("overview.split.count", {}, locale)}</th><th scope="col" class="num">${t("overview.split.avg", {}, locale)}</th><th scope="col" class="num">${t("overview.split.gross", {}, locale)}</th></tr></thead><tbody>${langRows}${channelRows}</tbody></table></div>`;
   return html`<section class="card block block-flush" aria-labelledby="h-split"><h2 id="h-split" class="pad-h">${t("overview.split.heading", {}, locale)}</h2>${body}</section>`;
 }
 
@@ -224,7 +224,7 @@ export function attentionCard(data, locale) {
       : html``;
   const provisional = data.attention.some((a) => a.provisional) ? html`<p class="block-note pad-h">${t("overview.provisional.note", {}, locale)}</p>` : html``;
   const body = shown
-    ? html`<div class="dt-wrap"><table class="dt"><thead><tr><th scope="col">${t("overview.att.conversation", {}, locale)}</th><th scope="col">${t("overview.att.reason", {}, locale)}</th><th scope="col" class="num">${t("overview.att.score", {}, locale)}</th><th scope="col"><span class="sr-only">${t("overview.att.open", {}, locale)}</span></th></tr></thead><tbody>${rows}</tbody></table></div>`
+    ? html`<div class="dt-wrap"><table class="dt" aria-labelledby="h-att"><thead><tr><th scope="col">${t("overview.att.conversation", {}, locale)}</th><th scope="col">${t("overview.att.reason", {}, locale)}</th><th scope="col" class="num">${t("overview.att.score", {}, locale)}</th><th scope="col"><span class="sr-only">${t("overview.att.open", {}, locale)}</span></th></tr></thead><tbody>${rows}</tbody></table></div>`
     : html`<p class="muted pad">${t("overview.att.empty", {}, locale)}</p>`;
   return html`<section class="card block block-flush" aria-labelledby="h-att"><div class="block-head pad-h"><h2 id="h-att">${t("overview.att.heading", {}, locale)}</h2><a href="#/conversations" data-action="all">${t("overview.att.all", {}, locale)}</a></div>${body}${more}${provisional}</section>`;
 }

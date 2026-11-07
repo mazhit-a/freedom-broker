@@ -56,7 +56,7 @@ export const scenarios = {
         heads: [...table.querySelectorAll('[role=columnheader]')].map((h) => h.textContent.trim()),
         rows: r.querySelectorAll('[data-row]').length,
         counts: r.querySelector('[data-counts]').textContent.trim(),
-        h2: r.querySelector('h2').textContent.trim(),
+        h2: r.querySelector('h1').textContent.trim(),
         a: cells('p1-ru-001'), b: cells('p2-en-003'), c: cells('p3-ru-call-014'), f: cells('p1-ru-019'), d: cells('p1-ru-002'), u: cells('p1-ru-015'),
         labels: [...r.querySelectorAll('[data-action=select-row]')].map((c) => c.getAttribute('aria-label')),
         selectAll: r.querySelector('[data-action=select-all]').getAttribute('aria-label'),
@@ -325,17 +325,17 @@ export const scenarios = {
   async "list-locales"(page) {
     await open(page, "mock=1&locale=en&role=reviewer");
     await rows(page);
-    const en = await page.eval(`(() => { const r = ${ROOT}; const row = [...r.querySelectorAll('[data-row]')][0]; return { h2: r.querySelector('h2').textContent.trim(), counts: r.querySelector('[data-counts]').textContent.trim(), heads: [...r.querySelectorAll('[role=columnheader]')].map((h) => h.textContent.trim()).slice(5, 9), cells: [...row.querySelectorAll('[role=cell]')].map((c) => c.textContent.replace(/\\s+/g, ' ').trim()), search: r.querySelector('[data-search]').getAttribute('aria-label'), views: [...r.querySelectorAll('[data-action=view]')].map((b) => b.textContent.trim()) }; })()`);
+    const en = await page.eval(`(() => { const r = ${ROOT}; const row = [...r.querySelectorAll('[data-row]')][0]; return { h2: r.querySelector('h1').textContent.trim(), counts: r.querySelector('[data-counts]').textContent.trim(), heads: [...r.querySelectorAll('[role=columnheader]')].map((h) => h.textContent.trim()).slice(5, 9), cells: [...row.querySelectorAll('[role=cell]')].map((c) => c.textContent.replace(/\\s+/g, ' ').trim()), search: r.querySelector('[data-search]').getAttribute('aria-label'), views: [...r.querySelectorAll('[data-action=view]')].map((b) => b.textContent.trim()) }; })()`);
     page.assert(en.h2 === "Conversations" && /^10 evaluated · 11 shown$/.test(en.counts), `English title and counts (${en.h2}, ${en.counts})`);
     page.assert(en.cells[5].startsWith("81.88") && en.cells[6] === "31.25" && en.cells[12] === "11/07/2026, 09:42", `English numbers and date (${en.cells})`);
     page.assert(en.cells[2] === "Chat" && en.cells[9] === "No" && en.cells[10] === "Under review", `English cell text (${en.cells})`);
     page.assert(en.views.join("|") === "All|Gross violations|With appeals", `English views (${en.views})`);
     await open(page, "mock=1&locale=kk&role=reviewer");
     await rows(page);
-    const kk = await page.eval(`(() => { const r = ${ROOT}; const row = [...r.querySelectorAll('[data-row]')][0]; return { h2: r.querySelector('h2').textContent.trim(), cells: [...row.querySelectorAll('[role=cell]')].map((c) => c.textContent.replace(/\\s+/g, ' ').trim()), counts: r.querySelector('[data-counts]').textContent.trim() }; })()`);
+    const kk = await page.eval(`(() => { const r = ${ROOT}; const row = [...r.querySelectorAll('[data-row]')][0]; return { h2: r.querySelector('h1').textContent.trim(), cells: [...row.querySelectorAll('[role=cell]')].map((c) => c.textContent.replace(/\\s+/g, ' ').trim()), counts: r.querySelector('[data-counts]').textContent.trim() }; })()`);
     page.assert(kk.h2 === "Диалогтар" && kk.cells[2] === "Чат" && kk.cells[5].startsWith("81,88") && kk.cells[10] === "Қарастырылуда", `Kazakh rendering (${kk.h2}, ${kk.cells})`);
     await page.eval(`document.querySelector('cqa-app').setAttribute('locale', 'ru')`);
-    await until(async () => (await page.eval(`${ROOT}.querySelector('h2').textContent.trim()`)) === "Диалоги");
+    await until(async () => (await page.eval(`${ROOT}.querySelector('h1').textContent.trim()`)) === "Диалоги");
     page.assert(true, "locale switch re-renders without reload");
     await page.assertAccessibleNames();
   }

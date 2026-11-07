@@ -26,7 +26,7 @@ const STYLES = `${SHARED_CSS}${LEDGER_CSS}${HISTORY_CSS}${CALL_CSS}${APPEAL_CSS}
 .warn-text { color: var(--cqa-warn); }
 .strip { padding: 10px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .crumb { font-size: var(--cqa-fs-13); color: var(--cqa-ink-3); display: flex; gap: 6px; align-items: center; }
-.crumb .cur { color: var(--cqa-ink); font-weight: 600; }
+.crumb .cur { color: var(--cqa-ink); font-weight: 600; margin: 0; font-size: inherit; line-height: inherit; }
 .strip-meta { font-size: var(--cqa-fs-13); color: var(--cqa-ink-2); }
 .strip-meta b { font-weight: 600; color: var(--cqa-ink); }
 .strip-tools { display: flex; gap: 8px; align-items: center; margin-left: auto; flex-wrap: wrap; }
@@ -267,7 +267,7 @@ export class CqaConversationCard extends CqaElement {
   stripTemplate() {
     const conv = this._conversation;
     const id = conv ? conv.id : this.conversationId() || "";
-    const crumbs = html`<nav class="crumb" aria-label="${this.t("card.breadcrumb")}"><a href="#/conversations" data-action="crumb">${this.t("nav.conversations")}</a><span aria-hidden="true">/</span><span class="cur tnum" aria-current="page">${id}</span></nav>`;
+    const crumbs = html`<nav class="crumb" aria-label="${this.t("card.breadcrumb")}"><a href="#/conversations" data-action="crumb">${this.t("nav.conversations")}</a><span aria-hidden="true">/</span><h1 class="cur tnum" aria-current="page">${id}</h1></nav>`;
     if (!conv) return html`<div class="card strip">${crumbs}</div>`;
     const dataset = this._datasetName ? html`<span class="tnum strip-meta muted">${this.t("card.dataset", { name: this._datasetName })}</span>` : html``;
     const when = this._call

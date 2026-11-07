@@ -6,13 +6,13 @@
   --cqa-on-brand: #FFFFFF;
   --cqa-ink: #111418;
   --cqa-ink-2: #4A5260;
-  --cqa-ink-3: #6B7480;
+  --cqa-ink-3: #5D6773;
   --cqa-surface: #FFFFFF;
   --cqa-surface-2: #F4F6F8;
   --cqa-surface-3: #EBEEF2;
   --cqa-line: #E3E7EC;
   --cqa-line-strong: #CDD3DA;
-  --cqa-ok: #0E7C7B;        --cqa-ok-bg: #E3F3F2;
+  --cqa-ok: #0C7675;        --cqa-ok-bg: #E3F3F2;
   --cqa-warn: #9A5B00;      --cqa-warn-bg: #FBF0DC;
   --cqa-bad: #B42318;       --cqa-bad-bg: #FCE9E7;
   --cqa-na: #5B6573;        --cqa-na-bg: #EEF0F3;
@@ -20,7 +20,7 @@
   --cqa-hl: #FFF4C2;
   --cqa-hl-line: #C99A00;
   --cqa-op-tint: #F1F8EE;
-  --cqa-focus: #51AF3D;
+  --cqa-focus: #2F7D22;
   --cqa-shadow: 0 8px 32px rgba(17, 20, 24, .14);
   --cqa-font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
   --cqa-fs-12: 12px; --cqa-fs-13: 13px; --cqa-fs-14: 14px; --cqa-fs-16: 16px;

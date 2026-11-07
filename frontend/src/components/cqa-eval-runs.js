@@ -1,7 +1,7 @@
 import { CqaElement, html, raw } from "../base-element.js";
 import { api } from "../api.js";
 import { can } from "../roles.js";
-import { EVENTS, emit } from "../events.js";
+import { EVENTS, emit, navigate } from "../events.js";
 import { duration, integer, number } from "../format.js";
 import { SHARED_CSS } from "../shared/styles.js";
 import { icon } from "../shared/icons.js";
@@ -378,6 +378,12 @@ export class CqaEvalRuns extends CqaElement {
   }
 
   onClick(event) {
+    const link = event.target.closest ? event.target.closest("a[data-conversation]") : null;
+    if (link && event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+      event.preventDefault();
+      navigate(this, "conversations", link.getAttribute("data-conversation") || null);
+      return;
+    }
     const target = event.target.closest("[data-action]");
     if (!target || !this.shadowRoot.contains(target)) return;
     const action = target.getAttribute("data-action");
@@ -531,7 +537,7 @@ export class CqaEvalRuns extends CqaElement {
     const locale = this.locale;
     const allowed = can(this.role, "start-run");
     const versions = savedVersionOptions(this._checklists);
-    const source = (value, label) => html`<button type="button" data-action="source" data-value="${value}" data-focus-id="source-${value}" aria-pressed="${f.source === value}">${label}</button>`;
+    const source = (value, label) => html`<button type="button" data-action="source" data-value="${value}" data-focus-id="source-${value}" aria-pressed="${String(f.source === value)}">${label}</button>`;
 
     const datasetOptions = this._datasets.map((d) => {
       const name = d.label && d.label !== d.groupId ? `${d.groupId} - ${d.label}` : d.groupId;
@@ -663,7 +669,7 @@ export class CqaEvalRuns extends CqaElement {
     const otherLabel = otherVersionLabel(run, this._checklists);
     const link = (item) => {
       const kind = itemKind(item);
-      if (kind === "done" || kind === "lowConfidence") return html`<a class="tnum" href="#/conversations/${encodeURIComponent(item.conversationId)}">${item.conversationId}</a>`;
+      if (kind === "done" || kind === "lowConfidence") return html`<a class="tnum" href="#/conversations/${encodeURIComponent(item.conversationId)}" data-conversation="${item.conversationId}">${item.conversationId}</a>`;
       return html`<span class="tnum">${item.conversationId}</span>`;
     };
     const columns = [
@@ -710,7 +716,7 @@ export class CqaEvalRuns extends CqaElement {
     ];
     const shown = run.items.length;
     return html`${dataTable({ label: this.t("runs.items.label"), columns, rows: run.items, rowId: (i) => i.conversationId }, locale)}
-      <div class="foot">${this.t("runs.items.shown", { shown: integer(shown, locale), total: integer(Math.max(run.total, shown), locale) })} · <a href="#/conversations">${this.t("runs.items.all")}</a></div>`;
+      <div class="foot">${this.t("runs.items.shown", { shown: integer(shown, locale), total: integer(Math.max(run.total, shown), locale) })} · <a href="#/conversations" data-conversation="">${this.t("runs.items.all")}</a></div>`;
   }
 
   noteCell(item, otherLabel, allowed) {
@@ -743,7 +749,7 @@ export class CqaEvalRuns extends CqaElement {
         label: this.t("runs.hcol.run"),
         width: "84px",
         minPx: 84,
-        cell: (r) => html`<button type="button" class="linkbtn" data-action="open-run" data-id="${r.id}" data-focus-id="open-${r.id}" aria-current="${r.id === current}" aria-label="${this.t("runs.history.open", { id: r.id })}">${r.id}</button>`
+        cell: (r) => html`<button type="button" class="linkbtn" data-action="open-run" data-id="${r.id}" data-focus-id="open-${r.id}" aria-current="${String(r.id === current)}" aria-label="${this.t("runs.history.open", { id: r.id })}">${r.id}</button>`
       },
       { key: "dataset", label: this.t("runs.hcol.dataset"), width: "minmax(120px, 1.2fr)", minPx: 120, cell: (r) => r.datasetLabel || r.groupId || "—" },
       {
