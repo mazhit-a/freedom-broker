@@ -17,7 +17,7 @@ def main() -> int:
             "[#0 | 00:01 | client] Здравствуйте\n[#1 | 00:10 | operator] Здравствуйте, меня зовут Анна\n\nEvaluate every criterion now.",
         }
     ]
-    report = {"model": client.model, "effort": client.settings.llm_effort, "region": client.settings.aws_region}
+    report = {"model": client.model, "effort": client.settings.llm_effort, "provider": client.settings.llm_provider}
     for label in ("first", "second"):
         try:
             res = client.complete(system_text, messages, build_schema(cfg))

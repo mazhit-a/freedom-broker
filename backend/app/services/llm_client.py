@@ -41,6 +41,8 @@ def compute_cost(settings: Settings, input_tokens: int, output_tokens: int, cach
 def build_sdk_client(settings: Settings):
     import anthropic
 
+    if settings.llm_provider != "bedrock":
+        return anthropic.Anthropic(api_key=settings.llm_api_key or None, base_url=settings.llm_base_url)
     kwargs: dict[str, Any] = {"aws_region": settings.aws_region}
     if settings.aws_access_key_id and settings.aws_secret_access_key:
         kwargs["aws_access_key"] = settings.aws_access_key_id

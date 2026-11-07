@@ -138,7 +138,7 @@ def test_prompt_structure_and_request_shape(db):
     result = evaluate_conversation(db, pk, version_id(db), client)
     assert len(sdk.calls) == 1
     call = sdk.calls[0]
-    assert call["model"] == "anthropic.claude-opus-5-5"
+    assert call["model"] == "claude-opus-5-5"
     assert call["output_config"]["effort"] == "medium"
     assert call["output_config"]["format"]["type"] == "json_schema"
     assert "thinking" not in call and "tool_choice" not in call and "temperature" not in call
@@ -161,9 +161,9 @@ def test_happy_path_persists_scores_tokens_cost(db):
     assert result["total"] == 88.13
     assert result["tokens_input"] == 1000 and result["tokens_output"] == 500
     assert result["tokens_cache_read"] == 2000 and result["tokens_cache_write"] == 300
-    expected = (1000 * 5 + 500 * 25 + 2000 * 0.5 + 300 * 6.25) / 1_000_000
+    expected = (1000 * 4 + 500 * 20 + 2000 * 0.2 + 300 * 5.0) / 1_000_000
     assert result["cost"] == pytest.approx(expected)
-    assert result["model"] == "anthropic.claude-opus-5-5" and result["prompt_version"]
+    assert result["model"] == "claude-opus-5-5" and result["prompt_version"]
     assert result["latency_ms"] is not None and result["gross_violation"] is False
     c3 = crit(result, "03")
     assert c3["answer"] == "na" and c3["na_reason"].startswith("Общий вопрос")
