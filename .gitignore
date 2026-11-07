@@ -1,0 +1,11 @@
+.env
+*.db
+*.db-journal
+dev.json
+/main.py
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+/context/
+/TASK.md
