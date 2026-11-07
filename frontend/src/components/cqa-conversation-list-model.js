@@ -4,7 +4,7 @@ export const VIEWS = Object.freeze(["all", "gross", "appeals"]);
 export const APPEAL_STATUSES = Object.freeze(["new", "under_review", "confirmed", "changed"]);
 export const LANGUAGES = Object.freeze(["RU", "KZ", "EN"]);
 export const CHANNELS = Object.freeze(["chat", "call"]);
-export const DEFAULT_PAGE_SIZE = 25;
+export const DEFAULT_PAGE_SIZE = 50;
 export const SECTION_COLUMNS = 3;
 
 export function normalizeView(value) {

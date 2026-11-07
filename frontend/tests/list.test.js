@@ -70,8 +70,8 @@ test("view and page size attributes are normalised", () => {
   assert.equal(normalizeView("gross"), "gross");
   assert.equal(normalizeView("mine"), "all");
   assert.equal(normalizePageSize("5"), 5);
-  assert.equal(normalizePageSize("0"), 25);
-  assert.equal(normalizePageSize(undefined), 25);
+  assert.equal(normalizePageSize("0"), 50);
+  assert.equal(normalizePageSize(undefined), 50);
 });
 
 test("with appeals view filters, sorts nulls last and pages on the client", async () => {
