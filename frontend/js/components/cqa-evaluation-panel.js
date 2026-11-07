@@ -1,4 +1,19 @@
+import { formStyles, openAppealDialog, buildDecisionForm } from "./cqa-appeal-form.js";
+
 const template = document.createElement("template");
+const extraStyles = `
+.recalc { margin-top: 10px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.recalc > div { background: #f4f5f7; border-radius: 6px; padding: 8px 10px; }
+.recalc .k { font-size: 11px; text-transform: uppercase; color: #55637a; }
+.recalc .v { font-size: 20px; font-weight: 700; }
+.recalc .final { background: #e1f3e8; }
+.review { margin-top: 10px; border-top: 1px dashed #b8c2d1; padding-top: 8px; font-size: 13px; }
+.review .rec { background: #f7f9fc; border: 1px solid #dde2ea; border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; overflow-wrap: anywhere; }
+.review .cols3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 6px; }
+.review .cols3 > div { background: #fff; border: 1px solid #dde2ea; border-radius: 6px; padding: 6px 8px; }
+.review .cols3 .k { font-size: 11px; text-transform: uppercase; color: #55637a; }
+button.appeal { margin-top: 8px; padding: 4px 12px; border: 1px solid #8a4a0a; background: #fff1e0; color: #8a4a0a; border-radius: 6px; cursor: pointer; font: inherit; font-size: 12px; }
+`;
 template.innerHTML = `
 <style>
 :host { display: block; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #1c2430; }
@@ -33,6 +48,7 @@ button.chip.range:hover { background: #d9822b; color: #fff; }
 .quote.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 button.more { flex: none; border: none; background: none; color: #1b5fb0; cursor: pointer; font: inherit; font-size: 12px; padding: 0; }
 .state { padding: 24px; text-align: center; color: #55637a; background: #fff; border: 1px solid #dde2ea; border-radius: 8px; }
+${extraStyles}${formStyles}
 </style>
 <div class="root"></div>
 `;
@@ -84,8 +100,28 @@ class CqaEvaluationPanel extends HTMLElement {
     meta.appendChild(el("span", "", "Prompt " + (evaluation.prompt_version || "-")));
     meta.appendChild(el("span", "", "Evaluated " + (evaluation.created_at || "-")));
     box.appendChild(meta);
+    const final = evaluation.final;
+    if (final && final.changed) {
+      const grid = el("div", "recalc");
+      const original = el("div");
+      original.appendChild(el("div", "k", "Original total"));
+      original.appendChild(el("div", "v", evaluation.original && evaluation.original.total != null ? num(evaluation.original.total) : "n/a"));
+      const arrow = el("div");
+      arrow.appendChild(el("div", "k", "Decisions applied"));
+      arrow.appendChild(el("div", "v", String((evaluation.decisions || []).filter((d) => d.decision === "change").length)));
+      const fin = el("div", "final");
+      fin.appendChild(el("div", "k", "Final total (recomputed)"));
+      const finalValue = el("div", "v", final.total === null || final.total === undefined ? "n/a" : num(final.total));
+      finalValue.dataset.final = "total";
+      fin.appendChild(finalValue);
+      grid.append(original, arrow, fin);
+      box.appendChild(grid);
+    }
     if (evaluation.gross_violation) {
       box.appendChild(el("div", "gross", "Gross violation flagged"));
+    }
+    if (final && final.gross_violation && !evaluation.gross_violation) {
+      box.appendChild(el("div", "gross", "Gross violation flagged after review"));
     }
     if (evaluation.provisional) {
       box.appendChild(el("div", "note", "The total is provisional: some criteria need review before it is final."));
@@ -127,6 +163,13 @@ class CqaEvaluationPanel extends HTMLElement {
     const tone = isNa ? "na" : answer.toLowerCase() === "yes" ? "ok" : answer.toLowerCase() === "no" ? "bad" : "";
     head.appendChild(el("span", "badge " + tone, answer));
     if (result.needs_review) head.appendChild(el("span", "badge warn", "needs review"));
+    const appeals = ((this.state.evaluation.appeals) || []).filter((a) => a.criterion_id === result.criterion_id);
+    const open = appeals.find((a) => a.status === "open");
+    if (open) {
+      const badge = el("span", "badge warn", "appealed");
+      badge.dataset.badge = "appealed";
+      head.appendChild(badge);
+    }
     box.appendChild(head);
 
     const nums = el("div", "nums");
@@ -152,7 +195,70 @@ class CqaEvaluationPanel extends HTMLElement {
     }
     for (const item of result.evidence || []) evidence.appendChild(this.quoteRow(item));
     if (evidence.childNodes.length) box.appendChild(evidence);
+    this.reviewBlock(box, result, def, appeals, open);
     return box;
+  }
+
+  describe(value) {
+    if (value === null || value === undefined) return "-";
+    const text = String(value);
+    return text.toLowerCase() === "na" ? "N/A" : text;
+  }
+
+  reviewBlock(box, result, def, appeals, open) {
+    const role = this.state.role;
+    const evaluation = this.state.evaluation;
+    const finalRow = evaluation.final && evaluation.final.criteria.find((c) => c.criterion_id === result.criterion_id);
+    if (appeals.length) {
+      const review = el("div", "review");
+      for (const a of appeals) {
+        const rec = el("div", "rec");
+        rec.dataset.appeal = a.id;
+        rec.appendChild(el("div", "", "Appeal #" + a.id + " (" + a.status + "): " + (a.comment || "")));
+        if (a.status === "resolved") {
+          const decisionText = a.decision === "change" ? "Changed to " + this.describe(a.new_answer) : "Confirmed original";
+          rec.appendChild(el("div", "", "Decision: " + decisionText));
+          rec.appendChild(el("div", "", "Reason: " + a.reason));
+        }
+        review.appendChild(rec);
+      }
+      if (finalRow && finalRow.overridden) {
+        const cols = el("div", "cols3");
+        cols.dataset.compare = result.criterion_id;
+        const mk = (k, v) => {
+          const d = el("div");
+          d.appendChild(el("div", "k", k));
+          d.appendChild(el("div", "", v));
+          return d;
+        };
+        cols.appendChild(mk("Original", this.describe(result.answer) + ", points " + num(result.points) + ", effective " + num(result.effective_points)));
+        const lastChange = appeals.filter((a) => a.status === "resolved" && a.decision === "change").pop();
+        cols.appendChild(mk("Decision", lastChange ? this.describe(lastChange.new_answer) : "-"));
+        cols.appendChild(mk("Final", this.describe(finalRow.answer) + ", points " + num(finalRow.points) + ", effective " + num(finalRow.effective_points)));
+        review.appendChild(cols);
+      }
+      box.appendChild(review);
+    }
+    if (role === "QA" && !open && evaluation.id) {
+      const button = el("button", "appeal", "Appeal this result");
+      button.type = "button";
+      button.addEventListener("click", () => {
+        openAppealDialog(this.shadowRoot, {
+          evaluationId: evaluation.id,
+          criterionId: result.criterion_id,
+          title: def ? def.title : "",
+          role: "QA"
+        }, () => this.emitChanged());
+      });
+      box.appendChild(button);
+    }
+    if (role === "Reviewer" && open) {
+      box.appendChild(buildDecisionForm({ appeal: open, def, role: "Reviewer" }, () => this.emitChanged()));
+    }
+  }
+
+  emitChanged() {
+    this.dispatchEvent(new CustomEvent("cqa-review-changed", { bubbles: true, composed: true }));
   }
 
   render() {

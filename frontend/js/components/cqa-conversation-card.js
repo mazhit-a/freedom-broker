@@ -51,7 +51,7 @@ button.act:disabled { opacity: 0.5; cursor: default; }
 
 class CqaConversationCard extends HTMLElement {
   static get observedAttributes() {
-    return ["conversation-id"];
+    return ["conversation-id", "role"];
   }
 
   constructor() {
@@ -71,6 +71,7 @@ class CqaConversationCard extends HTMLElement {
     });
     root.querySelector(".reeval").addEventListener("click", () => this.reevaluate());
     root.addEventListener("cqa-evidence", (e) => this.onEvidence(e.detail));
+    root.addEventListener("cqa-review-changed", () => this.refreshReview());
     root.addEventListener("cqa-seek", (e) => this.seek(e.detail.seconds, e.detail.play));
   }
 
@@ -79,7 +80,12 @@ class CqaConversationCard extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue !== newValue && this.isConnected) this.load();
+    if (oldValue === newValue || !this.isConnected) return;
+    if (name === "role") {
+      if (this.panel) this.showEvaluation();
+      return;
+    }
+    this.load();
   }
 
   get conversationId() {
@@ -241,7 +247,17 @@ class CqaConversationCard extends HTMLElement {
       }
     }
     if (ev.id !== this.selectedEvaluation) return;
-    this.panel.data = { evaluation: ev, config, versionLabel: this.versionLabel(ev.checklist_version_id) };
+    this.panel.data = { evaluation: ev, config, versionLabel: this.versionLabel(ev.checklist_version_id), role: this.getAttribute("role") || "QA" };
+  }
+
+  async refreshReview() {
+    try {
+      this.evaluations = (await api.listEvaluations(this.conversation.id)) || [];
+      this.buildSelects();
+      await this.showEvaluation();
+    } catch (err) {
+      this.setMessage("Could not refresh the evaluation: " + err.message);
+    }
   }
 
   onEvidence(detail) {

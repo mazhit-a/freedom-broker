@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from backend.app.api.v1 import batches, conversations, datasets, evaluations
 
+from backend.app.api.v1.appeals import router as appeals_router
 from backend.app.api.v1.audio import router as audio_router
 from backend.app.api.v1.checklists import router as checklists_router
 
@@ -12,3 +13,4 @@ router.include_router(conversations.router)
 router.include_router(evaluations.router)
 router.include_router(audio_router)
 router.include_router(batches.router)
+router.include_router(appeals_router)

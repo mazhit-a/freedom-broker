@@ -1,4 +1,5 @@
 import "./cqa-conversation-card.js";
+import "./cqa-reviewer-queue.js";
 import "./cqa-checklist-editor.js";
 
 const ROLES = ["QA", "Reviewer"];
@@ -56,6 +57,7 @@ class CqaApp extends HTMLElement {
       return { name: "conversation", id: parts[1] };
     }
     if (parts[0] === "checklist") return { name: "checklist" };
+    if (parts[0] === "queue") return { name: "queue" };
     return { name: "conversations" };
   }
 
@@ -82,6 +84,12 @@ class CqaApp extends HTMLElement {
     checklistLink.textContent = "Checklist";
     if (route.name === "checklist") checklistLink.className = "active";
     nav.appendChild(checklistLink);
+
+    const queueLink = document.createElement("a");
+    queueLink.href = "#/queue";
+    queueLink.textContent = "Reviewer queue";
+    if (route.name === "queue") queueLink.className = "active";
+    nav.appendChild(queueLink);
 
     const holder = this.shadowRoot.querySelector(".role-buttons");
     holder.innerHTML = "";
@@ -112,9 +120,19 @@ class CqaApp extends HTMLElement {
       this.currentKey = key;
       return;
     }
-    if (this.currentKey === key) return;
+    if (this.currentKey === key) {
+      const current = main.firstElementChild;
+      if (current && (route.name === "conversation" || route.name === "queue")) current.setAttribute("role", this.role);
+      return;
+    }
     this.currentKey = key;
     main.innerHTML = "";
+    if (route.name === "queue") {
+      const queue = document.createElement("cqa-reviewer-queue");
+      queue.setAttribute("role", this.role);
+      main.appendChild(queue);
+      return;
+    }
     if (route.name === "checklist") {
       main.appendChild(document.createElement("cqa-checklist-editor"));
       return;

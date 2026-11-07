@@ -6,6 +6,13 @@ from backend.app.core.database import get_db
 
 router = APIRouter(prefix="/conversations", tags=["conversations"])
 
+APPEAL_EXPR = (
+    "CASE WHEN e.id IS NULL THEN NULL "
+    "WHEN EXISTS (SELECT 1 FROM appeal ap WHERE ap.evaluation_id = e.id AND ap.status = 'open') THEN 'open' "
+    "WHEN EXISTS (SELECT 1 FROM appeal ap WHERE ap.evaluation_id = e.id) THEN 'resolved' "
+    "ELSE 'none' END"
+)
+
 
 @router.get("")
 def list_conversations(
@@ -17,6 +24,7 @@ def list_conversations(
     min_total: Optional[float] = None,
     max_total: Optional[float] = None,
     checklist_version_id: Optional[int] = None,
+    appeal_status: Optional[str] = None,
     conn=Depends(get_db),
 ):
     sql = (
@@ -24,7 +32,8 @@ def list_conversations(
         "c.audio_url IS NOT NULL AS has_audio, "
         "(SELECT COUNT(*) FROM message m WHERE m.conversation_id = c.id) AS message_count, "
         "e.id AS evaluation_id, e.checklist_version_id, cv.version AS checklist_version_number, cl.name AS checklist_name, "
-        "e.status AS eval_status, e.total, e.total_status, e.provisional, e.gross_violation "
+        "e.status AS eval_status, e.total, e.total_status, e.provisional, e.gross_violation, "
+        + APPEAL_EXPR + " AS appeal_status "
         "FROM conversation c JOIN dataset d ON d.id = c.dataset_id "
         "LEFT JOIN evaluation e ON e.id = (SELECT MAX(e2.id) FROM evaluation e2 WHERE e2.conversation_id = c.id"
         + (" AND e2.checklist_version_id = ?" if checklist_version_id else "")
@@ -61,6 +70,11 @@ def list_conversations(
     if max_total is not None:
         sql += " AND e.total <= ?"
         args.append(max_total)
+    if appeal_status:
+        if appeal_status not in ("none", "open", "resolved"):
+            raise HTTPException(status_code=422, detail="appeal_status must be none, open or resolved")
+        sql += " AND " + APPEAL_EXPR + " = ?"
+        args.append(appeal_status)
     sql += " ORDER BY c.dataset_id, c.id"
     rows = conn.execute(sql, args).fetchall()
     out = []

@@ -3,6 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
 
 from backend.app.core.database import get_db
+from backend.app.services.appeals import with_review
 from backend.app.services.evaluator import evaluate_conversation, get_evaluation
 from backend.app.services.llm_client import LLMClient, get_llm_client
 
@@ -35,12 +36,12 @@ def evaluate(
 @router.get("/conversations/{conversation_pk}/evaluations")
 def list_for_conversation(conversation_pk: int, conn=Depends(get_db)):
     rows = conn.execute("SELECT id FROM evaluation WHERE conversation_id = ? ORDER BY id DESC", (conversation_pk,)).fetchall()
-    return [get_evaluation(conn, r["id"]) for r in rows]
+    return [with_review(conn, get_evaluation(conn, r["id"])) for r in rows]
 
 
 @router.get("/evaluations/{evaluation_id}")
 def read_evaluation(evaluation_id: int, conn=Depends(get_db)):
     try:
-        return get_evaluation(conn, evaluation_id)
+        return with_review(conn, get_evaluation(conn, evaluation_id))
     except LookupError as exc:
         raise HTTPException(status_code=404, detail=str(exc))

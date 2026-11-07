@@ -31,6 +31,8 @@ tbody tr:hover { background: #f1f5fa; }
 .badge.completed { background: #e9f6ee; color: #1d5a35; }
 .badge.needs_review { background: #fff4d6; color: #7a5a00; }
 .badge.failed { background: #fdecec; color: #8a1f1f; }
+.badge.appeal-open { background: #fff0cc; color: #7a5200; font-weight: 600; }
+.badge.appeal-resolved { background: #e9f6ee; color: #1d5a35; }
 .badge.flag { background: #fdecec; color: #8a1f1f; font-weight: 600; }
 .provisional { color: #7a5a00; }
 input[type="number"] { padding: 6px 8px; border: 1px solid #b8c2d1; border-radius: 6px; font: inherit; width: 90px; }
@@ -76,6 +78,14 @@ a { color: #1b5fb0; }
         <option value="failed">Failed</option>
       </select>
     </label>
+    <label>Appeal status
+      <select class="appeal-status">
+        <option value="">All</option>
+        <option value="none">No appeals</option>
+        <option value="open">Open</option>
+        <option value="resolved">Resolved</option>
+      </select>
+    </label>
     <label>Gross violation
       <select class="gross">
         <option value="">All</option>
@@ -100,7 +110,7 @@ const COLUMNS = [
   { key: "total", label: "Total", kind: "total" },
   { key: "gross_violation", label: "Flag", kind: "flag" },
   { key: "eval_status", label: "Status", kind: "status" },
-  { key: "appeal_status", label: "Appeal status", pending: true }
+  { key: "appeal_status", label: "Appeal status", kind: "appeal" }
 ];
 
 class CqaConversationsList extends HTMLElement {
@@ -125,7 +135,7 @@ class CqaConversationsList extends HTMLElement {
     this.q(".dataset").addEventListener("change", () => this.datasetChanged());
     this.q(".language").addEventListener("change", () => this.loadList());
     this.q(".channel").addEventListener("change", () => this.loadList());
-    for (const sel of [".status", ".gross", ".version-filter"]) {
+    for (const sel of [".status", ".appeal-status", ".gross", ".version-filter"]) {
       this.q(sel).addEventListener("change", () => this.loadList());
     }
     for (const sel of [".min-total", ".max-total"]) {
@@ -322,6 +332,7 @@ class CqaConversationsList extends HTMLElement {
       language: this.q(".language").value,
       channel: this.q(".channel").value,
       status: this.q(".status").value,
+      appeal_status: this.q(".appeal-status").value,
       gross: this.q(".gross").value,
       min_total: this.q(".min-total").value,
       max_total: this.q(".max-total").value,
@@ -347,7 +358,7 @@ class CqaConversationsList extends HTMLElement {
       return;
     }
     if (seq !== this.requestSeq) return;
-    if (!filters.language && !filters.channel && !filters.status && !filters.gross && !filters.min_total && !filters.max_total) {
+    if (!filters.language && !filters.channel && !filters.status && !filters.appeal_status && !filters.gross && !filters.min_total && !filters.max_total) {
       this.languages = new Set(rows.map((r) => r.language).filter(Boolean));
       this.channels = new Set(rows.map((r) => r.channel).filter(Boolean));
       this.fillSelect(this.q(".language"), [...this.languages].sort(), "");
@@ -433,6 +444,13 @@ class CqaConversationsList extends HTMLElement {
     if (!evaluated) {
       td.className = "pending";
       td.textContent = "-";
+      return;
+    }
+    if (kind === "appeal") {
+      const badge = document.createElement("span");
+      badge.className = "badge appeal-" + row.appeal_status;
+      badge.textContent = row.appeal_status;
+      td.appendChild(badge);
       return;
     }
     if (kind === "version") {

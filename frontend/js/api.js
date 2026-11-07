@@ -60,6 +60,26 @@ export const api = {
   evaluate(id, versionId) {
     return request("/conversations/" + encodeURIComponent(id) + "/evaluate", { method: "POST" }, { checklist_version_id: versionId });
   },
+  getEvaluation(id) {
+    return request("/evaluations/" + encodeURIComponent(id));
+  },
+  createAppeal(evaluationId, payload) {
+    return request("/evaluations/" + encodeURIComponent(evaluationId) + "/appeals", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+  },
+  listAppeals(status) {
+    return request("/appeals", {}, { status });
+  },
+  decideAppeal(appealId, payload) {
+    return request("/appeals/" + encodeURIComponent(appealId) + "/decision", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+  },
   getChecklistVersion(id) {
     return request("/checklist-versions/" + encodeURIComponent(id));
   },
