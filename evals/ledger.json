@@ -273,6 +273,38 @@
    "cost": 0.030202,
    "ts": "2026-11-07T23:15:02+00:00",
    "counts": true
+  },
+  {
+   "run_id": "20261107-233316-jev_temporal_choice-dev",
+   "kind": "run",
+   "group": "jev",
+   "provider": "openrouter",
+   "model": "typesafe/jev-1.14",
+   "mode": "live",
+   "requests": 24,
+   "input_tokens": 128642,
+   "output_tokens": 6124,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "cost": 0.0054,
+   "ts": "2026-11-07T23:33:20+00:00",
+   "counts": true
+  },
+  {
+   "run_id": "20261107-233320-jev_temporal_split-dev",
+   "kind": "run",
+   "group": "jev",
+   "provider": "openrouter",
+   "model": "typesafe/jev-1.14",
+   "mode": "live",
+   "requests": 24,
+   "input_tokens": 134882,
+   "output_tokens": 6624,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "cost": 0.005664,
+   "ts": "2026-11-07T23:33:23+00:00",
+   "counts": true
   }
  ]
 }
