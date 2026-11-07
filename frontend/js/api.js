@@ -57,6 +57,22 @@ export const api = {
   listConversations(filters) {
     return request("/conversations", {}, filters);
   },
+  listChecklists() {
+    return request("/checklists");
+  },
+  startBatch(payload) {
+    return request("/batches", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+  },
+  getBatch(id) {
+    return request("/batches/" + id);
+  },
+  listBatches() {
+    return request("/batches");
+  },
   importByGroup(groupId) {
     return request("/datasets/import", {
       method: "POST",

@@ -12,15 +12,27 @@ def list_conversations(
     dataset: Optional[str] = None,
     language: Optional[str] = None,
     channel: Optional[str] = None,
+    status: Optional[str] = None,
+    gross: Optional[bool] = None,
+    min_total: Optional[float] = None,
+    max_total: Optional[float] = None,
+    checklist_version_id: Optional[int] = None,
     conn=Depends(get_db),
 ):
     sql = (
         "SELECT c.id, c.dataset_id, d.group_id, c.conversation_id, c.channel, c.language, "
         "c.audio_url IS NOT NULL AS has_audio, "
-        "(SELECT COUNT(*) FROM message m WHERE m.conversation_id = c.id) AS message_count "
-        "FROM conversation c JOIN dataset d ON d.id = c.dataset_id WHERE 1=1"
+        "(SELECT COUNT(*) FROM message m WHERE m.conversation_id = c.id) AS message_count, "
+        "e.id AS evaluation_id, e.checklist_version_id, cv.version AS checklist_version_number, cl.name AS checklist_name, "
+        "e.status AS eval_status, e.total, e.total_status, e.provisional, e.gross_violation "
+        "FROM conversation c JOIN dataset d ON d.id = c.dataset_id "
+        "LEFT JOIN evaluation e ON e.id = (SELECT MAX(e2.id) FROM evaluation e2 WHERE e2.conversation_id = c.id"
+        + (" AND e2.checklist_version_id = ?" if checklist_version_id else "")
+        + ") "
+        "LEFT JOIN checklist_version cv ON cv.id = e.checklist_version_id "
+        "LEFT JOIN checklist cl ON cl.id = cv.checklist_id WHERE 1=1"
     )
-    args: list = []
+    args: list = [checklist_version_id] if checklist_version_id else []
     if dataset:
         if dataset.isdigit():
             sql += " AND (c.dataset_id = ? OR d.group_id = ?)"
@@ -34,9 +46,34 @@ def list_conversations(
     if channel:
         sql += " AND LOWER(c.channel) = LOWER(?)"
         args.append(channel)
+    if status:
+        if status == "none":
+            sql += " AND e.id IS NULL"
+        else:
+            sql += " AND e.status = ?"
+            args.append(status)
+    if gross is not None:
+        sql += " AND e.id IS NOT NULL AND e.gross_violation = ?"
+        args.append(1 if gross else 0)
+    if min_total is not None:
+        sql += " AND e.total >= ?"
+        args.append(min_total)
+    if max_total is not None:
+        sql += " AND e.total <= ?"
+        args.append(max_total)
     sql += " ORDER BY c.dataset_id, c.id"
     rows = conn.execute(sql, args).fetchall()
-    return [{**dict(r), "has_audio": bool(r["has_audio"])} for r in rows]
+    out = []
+    for r in rows:
+        d = dict(r)
+        d["has_audio"] = bool(d["has_audio"])
+        d["provisional"] = bool(d["provisional"]) if d["evaluation_id"] else None
+        d["gross_violation"] = bool(d["gross_violation"]) if d["evaluation_id"] else None
+        d["checklist_version_label"] = (
+            f"{d['checklist_name']} v{d['checklist_version_number']}" if d["evaluation_id"] else None
+        )
+        out.append(d)
+    return out
 
 
 @router.get("/{conversation_pk}")
