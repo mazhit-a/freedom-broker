@@ -1,0 +1,212 @@
+{
+ "period": {
+  "basis": "evaluation_date",
+  "from": null,
+  "to": null,
+  "previous_from": null,
+  "previous_to": null
+ },
+ "kpis": {
+  "avg": 76.37,
+  "delta": null,
+  "previous_avg": null,
+  "evaluated": 65,
+  "not_calculated": 0,
+  "chats": 60,
+  "calls": 5,
+  "gross_count": 8,
+  "gross_share": 12.31,
+  "open_appeals": 0,
+  "older_than_hours": 0,
+  "aging_hours": 72,
+  "median_resolution_days": 0.0,
+  "target_days": 2
+ },
+ "distribution": [
+  {
+   "range_from": 0,
+   "range_to": 10,
+   "count": 0
+  },
+  {
+   "range_from": 10,
+   "range_to": 20,
+   "count": 2
+  },
+  {
+   "range_from": 20,
+   "range_to": 30,
+   "count": 4
+  },
+  {
+   "range_from": 30,
+   "range_to": 40,
+   "count": 3
+  },
+  {
+   "range_from": 40,
+   "range_to": 50,
+   "count": 4
+  },
+  {
+   "range_from": 50,
+   "range_to": 60,
+   "count": 4
+  },
+  {
+   "range_from": 60,
+   "range_to": 70,
+   "count": 1
+  },
+  {
+   "range_from": 70,
+   "range_to": 80,
+   "count": 4
+  },
+  {
+   "range_from": 80,
+   "range_to": 90,
+   "count": 8
+  },
+  {
+   "range_from": 90,
+   "range_to": 100,
+   "count": 35
+  }
+ ],
+ "per_criterion": [
+  {
+   "criterion_id": "07",
+   "title": "Closing",
+   "labels": null,
+   "avg_percent": 22.95,
+   "applicable_count": 61
+  },
+  {
+   "criterion_id": "02",
+   "title": "Needs discovery",
+   "labels": null,
+   "avg_percent": 59.38,
+   "applicable_count": 32
+  },
+  {
+   "criterion_id": "03",
+   "title": "Identification",
+   "labels": null,
+   "avg_percent": 61.54,
+   "applicable_count": 13
+  },
+  {
+   "criterion_id": "05",
+   "title": "Empathy and client focus",
+   "labels": null,
+   "avg_percent": 75.38,
+   "applicable_count": 65
+  },
+  {
+   "criterion_id": "06",
+   "title": "Dialogue management, speed, literacy",
+   "labels": null,
+   "avg_percent": 79.38,
+   "applicable_count": 65
+  },
+  {
+   "criterion_id": "04",
+   "title": "Correct and complete consultation",
+   "labels": null,
+   "avg_percent": 82.81,
+   "applicable_count": 64
+  },
+  {
+   "criterion_id": "01",
+   "title": "Rapport",
+   "labels": null,
+   "avg_percent": 92.31,
+   "applicable_count": 65
+  }
+ ],
+ "by_language": [
+  {
+   "language": "EN",
+   "count": 15,
+   "avg": 77.05,
+   "gross_count": 2,
+   "gross_share": 13.33
+  },
+  {
+   "language": "KZ",
+   "count": 15,
+   "avg": 80.81,
+   "gross_count": 2,
+   "gross_share": 13.33
+  },
+  {
+   "language": "RU",
+   "count": 35,
+   "avg": 74.19,
+   "gross_count": 4,
+   "gross_share": 11.43
+  }
+ ],
+ "by_channel": [
+  {
+   "channel": "call",
+   "count": 5,
+   "avg": 73.52,
+   "gross_count": 0,
+   "gross_share": 0.0
+  },
+  {
+   "channel": "chat",
+   "count": 60,
+   "avg": 76.61,
+   "gross_count": 8,
+   "gross_share": 13.33
+  }
+ ],
+ "attention": [
+  {
+   "conversation_pk": 22,
+   "conversation_id": "p1-ru-022",
+   "evaluation_id": 1,
+   "language": "RU",
+   "reason": "gross",
+   "reasons": [
+    "gross",
+    "low_score"
+   ],
+   "score": 12.5,
+   "provisional": false,
+   "appeal_status": "none"
+  },
+  {
+   "conversation_pk": 59,
+   "conversation_id": "p1-en-014",
+   "evaluation_id": 60,
+   "language": "EN",
+   "reason": "gross",
+   "reasons": [
+    "gross",
+    "low_score"
+   ],
+   "score": 21.0,
+   "provisional": false,
+   "appeal_status": "none"
+  },
+  {
+   "conversation_pk": 45,
+   "conversation_id": "p1-kz-015",
+   "evaluation_id": 46,
+   "language": "KZ",
+   "reason": "gross",
+   "reasons": [
+    "gross",
+    "low_score"
+   ],
+   "score": 21.0,
+   "provisional": false,
+   "appeal_status": "none"
+  }
+ ],
+ "attention_total": 16
+}

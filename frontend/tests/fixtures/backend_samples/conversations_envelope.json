@@ -1,0 +1,168 @@
+{
+ "items": [
+  {
+   "id": 1,
+   "dataset_id": 1,
+   "group_id": "DEV",
+   "conversation_id": "p1-ru-001",
+   "channel": "agent chat",
+   "language": "RU",
+   "has_audio": false,
+   "message_count": 12,
+   "evaluation_id": 4,
+   "checklist_version_id": 1,
+   "checklist_version_number": 1,
+   "checklist_name": "Default operator quality checklist",
+   "eval_status": "completed",
+   "total": 92.31,
+   "total_status": "calculated",
+   "provisional": false,
+   "gross_violation": false,
+   "appeal_status": "resolved",
+   "checklist_version_label": "Default operator quality checklist v1",
+   "model_label": "claude-opus-5-5",
+   "confidence": {
+    "level": "high",
+    "with_rationale": 8,
+    "total": 8
+   },
+   "final_total": 100.0,
+   "total_changed": true,
+   "sections": [
+    {
+     "id": "opening",
+     "effective_points": 15.38,
+     "effective_max": 15.38
+    },
+    {
+     "id": "security",
+     "effective_points": 30.77,
+     "effective_max": 30.77
+    },
+    {
+     "id": "conduct",
+     "effective_points": 53.85,
+     "effective_max": 53.85
+    },
+    {
+     "id": "gross",
+     "effective_points": null,
+     "effective_max": 0.0
+    }
+   ],
+   "display_appeal_status": "changed",
+   "occurred_at": null,
+   "duration_seconds": 124.0
+  },
+  {
+   "id": 2,
+   "dataset_id": 1,
+   "group_id": "DEV",
+   "conversation_id": "p1-ru-002",
+   "channel": "agent chat",
+   "language": "RU",
+   "has_audio": false,
+   "message_count": 19,
+   "evaluation_id": 6,
+   "checklist_version_id": 1,
+   "checklist_version_number": 1,
+   "checklist_name": "Default operator quality checklist",
+   "eval_status": "completed",
+   "total": 100.0,
+   "total_status": "calculated",
+   "provisional": false,
+   "gross_violation": false,
+   "appeal_status": "none",
+   "checklist_version_label": "Default operator quality checklist v1",
+   "model_label": "claude-opus-5-5",
+   "confidence": {
+    "level": "high",
+    "with_rationale": 8,
+    "total": 8
+   },
+   "final_total": 100.0,
+   "total_changed": false,
+   "sections": [
+    {
+     "id": "opening",
+     "effective_points": 25.0,
+     "effective_max": 25.0
+    },
+    {
+     "id": "security",
+     "effective_points": 40.0,
+     "effective_max": 40.0
+    },
+    {
+     "id": "conduct",
+     "effective_points": 35.0,
+     "effective_max": 35.0
+    },
+    {
+     "id": "gross",
+     "effective_points": null,
+     "effective_max": 0.0
+    }
+   ],
+   "display_appeal_status": "none",
+   "occurred_at": null,
+   "duration_seconds": 317.0
+  },
+  {
+   "id": 3,
+   "dataset_id": 1,
+   "group_id": "DEV",
+   "conversation_id": "p1-ru-003",
+   "channel": "agent chat",
+   "language": "RU",
+   "has_audio": false,
+   "message_count": 15,
+   "evaluation_id": 5,
+   "checklist_version_id": 1,
+   "checklist_version_number": 1,
+   "checklist_name": "Default operator quality checklist",
+   "eval_status": "completed",
+   "total": 70.0,
+   "total_status": "calculated",
+   "provisional": false,
+   "gross_violation": false,
+   "appeal_status": "none",
+   "checklist_version_label": "Default operator quality checklist v1",
+   "model_label": "claude-opus-5-5",
+   "confidence": {
+    "level": "high",
+    "with_rationale": 8,
+    "total": 8
+   },
+   "final_total": 70.0,
+   "total_changed": false,
+   "sections": [
+    {
+     "id": "opening",
+     "effective_points": 31.25,
+     "effective_max": 31.25
+    },
+    {
+     "id": "security",
+     "effective_points": 12.5,
+     "effective_max": 25.0
+    },
+    {
+     "id": "conduct",
+     "effective_points": 26.25,
+     "effective_max": 43.75
+    },
+    {
+     "id": "gross",
+     "effective_points": null,
+     "effective_max": 0.0
+    }
+   ],
+   "display_appeal_status": "none",
+   "occurred_at": null,
+   "duration_seconds": 307.0
+  }
+ ],
+ "total": 65,
+ "evaluated": 65
+}

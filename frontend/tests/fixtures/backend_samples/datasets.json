@@ -1,0 +1,14 @@
+[
+ {
+  "id": 1,
+  "group_id": "DEV",
+  "imported_at": "2026-11-07 10:51:22",
+  "source": "api",
+  "source_filename": null,
+  "label": "DEV",
+  "kind": "dev",
+  "conversations": 65,
+  "chats": 60,
+  "calls": 5
+ }
+]

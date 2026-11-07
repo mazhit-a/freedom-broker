@@ -239,6 +239,22 @@ export const scenarios = {
     page.assert(true, "locale attribute switches nav to English");
   },
 
+  async "mock-adapter"(page) {
+    const result = await page.eval(`(async () => {
+      const mod = await import(new URL('src/api.js', location.href).href);
+      mod.configure();
+      const list = await mod.api.listConversations();
+      const ev = await mod.api.getEvaluation('p1-ru-001');
+      const appeals = await mod.api.listAppeals();
+      return { mock: mod.getSettings().mock, total: list.total, evaluation: ev.total, appeals: appeals.length, first: list.items[0].id };
+    })()`);
+    page.assert(result.mock === true, "mock mode enabled by the ?mock=1 query");
+    page.assert(result.total === 11 && result.first === "p1-ru-001", `mock list served (${JSON.stringify(result)})`);
+    page.assert(result.evaluation === 81.88, `p1-ru-001 total computed by scoring.js (${result.evaluation})`);
+    page.assert(result.appeals === 5, "mock appeals served");
+    page.assert(!page.requests.some((u) => u.includes("/api/v1")), "mock mode made no backend requests");
+  },
+
   async keys(page) {
     await page.waitForDeep("cqa-app >>> header");
     await page.eval(`document.querySelector('cqa-app').shadowRoot.querySelector('nav a').focus()`);

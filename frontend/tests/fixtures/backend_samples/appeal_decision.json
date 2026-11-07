@@ -1,0 +1,23 @@
+{
+ "id": 3,
+ "evaluation_id": 4,
+ "criterion_id": "07",
+ "comment": "Проверка",
+ "status": "resolved",
+ "created_at": "2026-11-07 13:41:49",
+ "author_role": "operator",
+ "review_started_at": "2026-11-07 13:41:49",
+ "review_started_by": "reviewer",
+ "message_refs": [
+  10,
+  11
+ ],
+ "decision": "change",
+ "new_answer": "yes",
+ "reason": "Клиент сам попрощался",
+ "decided_at": "2026-11-07 13:41:58",
+ "decided_by_role": "reviewer",
+ "total_before": 92.31,
+ "total_after": 100.0,
+ "display_status": "changed"
+}

@@ -1,0 +1,516 @@
+{
+ "id": 4,
+ "conversation_id": 1,
+ "checklist_version_id": 1,
+ "model": "claude-opus-5-5",
+ "prompt_version": "v1",
+ "status": "completed",
+ "total": 92.31,
+ "total_status": "calculated",
+ "provisional": false,
+ "gross_violation": false,
+ "tokens_input": 616,
+ "tokens_output": 1466,
+ "tokens_cache_read": 2728,
+ "tokens_cache_write": 0,
+ "latency_ms": 12881,
+ "cost": 0.03233,
+ "created_at": "2026-11-07 10:52:36",
+ "run_id": null,
+ "criteria": [
+  {
+   "criterion_id": "01",
+   "answer": "yes",
+   "points": 10.0,
+   "effective_points": 15.38,
+   "rationale": "В первой реплике оператор поздоровался на русском языке, на котором писал клиент, и представился по имени.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Здравствуйте! Меня зовут Алина."
+    }
+   ]
+  },
+  {
+   "criterion_id": "02",
+   "answer": "na",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Клиент сразу сообщил всё нужное: ищет тариф и сидит с ноутбука. Оператор учёл это и дал инструкцию для веб-версии, уточнять было нечего.",
+   "checked_range": null,
+   "na_reason": "Данных было достаточно с самого начала, уточнение не требовалось.",
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Я сейчас с ноутбука, отчёт качать не хочу."
+    },
+    {
+     "message_index": 9,
+     "quote": "В веб-версии откройте вкладку «Кабинет»."
+    }
+   ]
+  },
+  {
+   "criterion_id": "03",
+   "answer": "na",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Оператор только объяснил, где в интерфейсе посмотреть тариф. Данные клиента он не раскрывал и защищённых действий не выполнял.",
+   "checked_range": null,
+   "na_reason": "Запрос о навигации в интерфейсе не требовал верификации личности.",
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Название тарифа будет под вашим ФИО."
+    }
+   ]
+  },
+  {
+   "criterion_id": "04",
+   "answer": "20",
+   "points": 20.0,
+   "effective_points": 30.77,
+   "rationale": "Оператор дал точную инструкцию для веб-версии, и клиент подтвердил, что нашёл тариф. Вопрос закрыт полностью.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "В веб-версии откройте вкладку «Кабинет»."
+    },
+    {
+     "message_index": 10,
+     "quote": "Нашла, спасибо."
+    }
+   ]
+  },
+  {
+   "criterion_id": "05",
+   "answer": "yes",
+   "points": 15.0,
+   "effective_points": 23.08,
+   "rationale": "Оператор был вежлив и учёл неудобство клиента: тот не хотел скачивать отчёт, и оператор предложил способ через веб-версию.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "отчёт качать не хочу"
+    },
+    {
+     "message_index": 9,
+     "quote": "В веб-версии откройте вкладку «Кабинет»."
+    }
+   ]
+  },
+  {
+   "criterion_id": "06",
+   "answer": "10",
+   "points": 15.0,
+   "effective_points": 23.08,
+   "rationale": "Ответ ясный, последовательный и грамотный. Явного ожидания не было.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Название тарифа будет под вашим ФИО."
+    }
+   ]
+  },
+  {
+   "criterion_id": "07",
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "Оператор попрощался, но не подвёл итог и не предложил дополнительную помощь.",
+   "checked_range": {
+    "from": 11,
+    "to": 11
+   },
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Пожалуйста. Хорошего вечера!"
+    }
+   ]
+  },
+  {
+   "criterion_id": "08",
+   "answer": "no",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Грубых нарушений нет: ни оскорблений, ни предложения услуг в обход компании, ни раскрытия конфиденциальной информации.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Здравствуйте! Меня зовут Алина."
+    }
+   ]
+  }
+ ],
+ "original": {
+  "total": 92.31,
+  "total_status": "calculated",
+  "provisional": false,
+  "gross_violation": false,
+  "criteria": [
+   {
+    "criterion_id": "01",
+    "answer": "yes",
+    "points": 10.0,
+    "effective_points": 15.38,
+    "rationale": "В первой реплике оператор поздоровался на русском языке, на котором писал клиент, и представился по имени.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Здравствуйте! Меня зовут Алина."
+     }
+    ]
+   },
+   {
+    "criterion_id": "02",
+    "answer": "na",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Клиент сразу сообщил всё нужное: ищет тариф и сидит с ноутбука. Оператор учёл это и дал инструкцию для веб-версии, уточнять было нечего.",
+    "checked_range": null,
+    "na_reason": "Данных было достаточно с самого начала, уточнение не требовалось.",
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Я сейчас с ноутбука, отчёт качать не хочу."
+     },
+     {
+      "message_index": 9,
+      "quote": "В веб-версии откройте вкладку «Кабинет»."
+     }
+    ]
+   },
+   {
+    "criterion_id": "03",
+    "answer": "na",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Оператор только объяснил, где в интерфейсе посмотреть тариф. Данные клиента он не раскрывал и защищённых действий не выполнял.",
+    "checked_range": null,
+    "na_reason": "Запрос о навигации в интерфейсе не требовал верификации личности.",
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Название тарифа будет под вашим ФИО."
+     }
+    ]
+   },
+   {
+    "criterion_id": "04",
+    "answer": "20",
+    "points": 20.0,
+    "effective_points": 30.77,
+    "rationale": "Оператор дал точную инструкцию для веб-версии, и клиент подтвердил, что нашёл тариф. Вопрос закрыт полностью.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "В веб-версии откройте вкладку «Кабинет»."
+     },
+     {
+      "message_index": 10,
+      "quote": "Нашла, спасибо."
+     }
+    ]
+   },
+   {
+    "criterion_id": "05",
+    "answer": "yes",
+    "points": 15.0,
+    "effective_points": 23.08,
+    "rationale": "Оператор был вежлив и учёл неудобство клиента: тот не хотел скачивать отчёт, и оператор предложил способ через веб-версию.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "отчёт качать не хочу"
+     },
+     {
+      "message_index": 9,
+      "quote": "В веб-версии откройте вкладку «Кабинет»."
+     }
+    ]
+   },
+   {
+    "criterion_id": "06",
+    "answer": "10",
+    "points": 15.0,
+    "effective_points": 23.08,
+    "rationale": "Ответ ясный, последовательный и грамотный. Явного ожидания не было.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Название тарифа будет под вашим ФИО."
+     }
+    ]
+   },
+   {
+    "criterion_id": "07",
+    "answer": "no",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "rationale": "Оператор попрощался, но не подвёл итог и не предложил дополнительную помощь.",
+    "checked_range": {
+     "from": 11,
+     "to": 11
+    },
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 11,
+      "quote": "Пожалуйста. Хорошего вечера!"
+     }
+    ]
+   },
+   {
+    "criterion_id": "08",
+    "answer": "no",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Грубых нарушений нет: ни оскорблений, ни предложения услуг в обход компании, ни раскрытия конфиденциальной информации.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Здравствуйте! Меня зовут Алина."
+     }
+    ]
+   }
+  ]
+ },
+ "appeals": [
+  {
+   "id": 3,
+   "evaluation_id": 4,
+   "criterion_id": "07",
+   "comment": "Проверка",
+   "status": "resolved",
+   "created_at": "2026-11-07 13:41:49",
+   "author_role": "operator",
+   "review_started_at": "2026-11-07 13:41:49",
+   "review_started_by": "reviewer",
+   "message_refs": [
+    10,
+    11
+   ],
+   "decision": "change",
+   "new_answer": "yes",
+   "reason": "Клиент сам попрощался",
+   "decided_at": "2026-11-07 13:41:58",
+   "decided_by_role": "reviewer",
+   "total_before": 92.31,
+   "total_after": 100.0,
+   "display_status": "changed"
+  }
+ ],
+ "appeal_deadline": "2026-11-13 10:52:36",
+ "appeal_window_workdays": 5,
+ "decisions": [
+  {
+   "id": 3,
+   "evaluation_id": 4,
+   "criterion_id": "07",
+   "comment": "Проверка",
+   "status": "resolved",
+   "created_at": "2026-11-07 13:41:49",
+   "author_role": "operator",
+   "review_started_at": "2026-11-07 13:41:49",
+   "review_started_by": "reviewer",
+   "message_refs": [
+    10,
+    11
+   ],
+   "decision": "change",
+   "new_answer": "yes",
+   "reason": "Клиент сам попрощался",
+   "decided_at": "2026-11-07 13:41:58",
+   "decided_by_role": "reviewer",
+   "total_before": 92.31,
+   "total_after": 100.0,
+   "display_status": "changed"
+  }
+ ],
+ "appealed_criteria": [],
+ "model_label": "claude-opus-5-5",
+ "occurred_at": null,
+ "duration_seconds": 124.0,
+ "confidence": {
+  "level": "high",
+  "with_rationale": 8,
+  "total": 8
+ },
+ "display_appeal_status": "changed",
+ "final_total": 100.0,
+ "total_changed": true,
+ "final": {
+  "total": 100.0,
+  "calculated": true,
+  "reason": null,
+  "provisional": false,
+  "gross_violation": false,
+  "changed": true,
+  "criteria": [
+   {
+    "criterion_id": "01",
+    "answer": "yes",
+    "status": "answered",
+    "points": 10.0,
+    "effective_points": 15.38,
+    "overridden": false,
+    "original_answer": "yes",
+    "original_points": 10.0,
+    "original_effective_points": 15.38
+   },
+   {
+    "criterion_id": "02",
+    "answer": "na",
+    "status": "na",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "na",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "03",
+    "answer": "na",
+    "status": "na",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "na",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "04",
+    "answer": 20,
+    "status": "answered",
+    "points": 20.0,
+    "effective_points": 30.77,
+    "overridden": false,
+    "original_answer": "20",
+    "original_points": 20.0,
+    "original_effective_points": 30.77
+   },
+   {
+    "criterion_id": "05",
+    "answer": "yes",
+    "status": "answered",
+    "points": 15.0,
+    "effective_points": 23.08,
+    "overridden": false,
+    "original_answer": "yes",
+    "original_points": 15.0,
+    "original_effective_points": 23.08
+   },
+   {
+    "criterion_id": "06",
+    "answer": 10,
+    "status": "answered",
+    "points": 15.0,
+    "effective_points": 23.08,
+    "overridden": false,
+    "original_answer": "10",
+    "original_points": 15.0,
+    "original_effective_points": 23.08
+   },
+   {
+    "criterion_id": "07",
+    "answer": "yes",
+    "status": "answered",
+    "points": 5.0,
+    "effective_points": 7.69,
+    "overridden": true,
+    "original_answer": "no",
+    "original_points": 0.0,
+    "original_effective_points": 0.0
+   },
+   {
+    "criterion_id": "08",
+    "answer": "no",
+    "status": "answered",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "no",
+    "original_points": null,
+    "original_effective_points": null
+   }
+  ],
+  "sections": [
+   {
+    "id": "opening",
+    "title": "Opening & understanding",
+    "earned": 10.0,
+    "applicable_max": 10.0,
+    "percent": 100.0,
+    "effective_points": 15.38,
+    "effective_max": 15.38
+   },
+   {
+    "id": "security",
+    "title": "Security & resolution",
+    "earned": 20.0,
+    "applicable_max": 20.0,
+    "percent": 100.0,
+    "effective_points": 30.77,
+    "effective_max": 30.77
+   },
+   {
+    "id": "conduct",
+    "title": "Conduct & closing",
+    "earned": 35.0,
+    "applicable_max": 35.0,
+    "percent": 100.0,
+    "effective_points": 53.85,
+    "effective_max": 53.85
+   },
+   {
+    "id": "gross",
+    "title": "Gross violations",
+    "earned": null,
+    "applicable_max": 0.0,
+    "percent": null,
+    "effective_points": null,
+    "effective_max": 0.0
+   }
+  ]
+ }
+}

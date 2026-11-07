@@ -1,0 +1,541 @@
+{
+ "id": 26,
+ "conversation_id": 23,
+ "checklist_version_id": 1,
+ "model": "claude-opus-5-5",
+ "prompt_version": "v1",
+ "status": "completed",
+ "total": 84.62,
+ "total_status": "calculated",
+ "provisional": false,
+ "gross_violation": true,
+ "tokens_input": 701,
+ "tokens_output": 1841,
+ "tokens_cache_read": 2728,
+ "tokens_cache_write": 0,
+ "latency_ms": 17060,
+ "cost": 0.04017,
+ "created_at": "2026-11-07 10:53:45",
+ "criteria": [
+  {
+   "criterion_id": "01",
+   "answer": "yes",
+   "points": 10.0,
+   "effective_points": 15.38,
+   "rationale": "В первой реплике оператор поздоровался на русском языке, языке клиента, и представился по имени.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Здравствуйте, я Марк."
+    }
+   ]
+  },
+  {
+   "criterion_id": "02",
+   "answer": "na",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Запрос клиента был понятен сразу: как найти облигации в приложении. Дополнительное уточнение не требовалось, клиент подтвердил, что разобрался.",
+   "checked_range": null,
+   "na_reason": "Данных было достаточно с самого начала, уточнение не требовалось.",
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Как найти облигации в приложении?"
+    },
+    {
+     "message_index": 10,
+     "quote": "Вижу, спасибо."
+    }
+   ]
+  },
+  {
+   "criterion_id": "03",
+   "answer": "na",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Вопрос общий, о навигации в приложении. Персональные данные не раскрывались, защищённые операции не выполнялись.",
+   "checked_range": null,
+   "na_reason": "Запрос не требовал верификации личности: это общий вопрос о навигации в приложении.",
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Как найти облигации в приложении?"
+    }
+   ]
+  },
+  {
+   "criterion_id": "04",
+   "answer": "15",
+   "points": 15.0,
+   "effective_points": 23.08,
+   "rationale": "Оператор дал рабочую инструкцию через раздел «Котировки» и поиск, клиент подтвердил, что нашёл. Однако клиент хотел посмотреть доступные облигации, не зная названий, а способ просмотреть их без тикера не объяснён.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Откройте «Котировки». Если знаете название или тикер, введите его в строку поиска."
+    },
+    {
+     "message_index": 10,
+     "quote": "Вижу, спасибо."
+    }
+   ]
+  },
+  {
+   "criterion_id": "05",
+   "answer": "yes",
+   "points": 15.0,
+   "effective_points": 23.08,
+   "rationale": "Оператор общался вежливо. Клиент недовольства не выражал. Нарушение с частной консультацией оценивается в критерии 08.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Хорошо. Всего доброго."
+    }
+   ]
+  },
+  {
+   "criterion_id": "06",
+   "answer": "10",
+   "points": 15.0,
+   "effective_points": 23.08,
+   "rationale": "Инструкция изложена ясно и последовательно, клиенту не пришлось переспрашивать.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Если знаете название или тикер, введите его в строку поиска."
+    }
+   ]
+  },
+  {
+   "criterion_id": "07",
+   "answer": "no",
+   "points": 0.0,
+   "effective_points": 0.0,
+   "rationale": "Оператор попрощался, но не подвёл итог и не предложил дальнейшую помощь.",
+   "checked_range": {
+    "from": 12,
+    "to": 13
+   },
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Хорошо. Всего доброго."
+    }
+   ]
+  },
+  {
+   "criterion_id": "08",
+   "answer": "yes",
+   "points": null,
+   "effective_points": null,
+   "rationale": "Оператор запросил личный номер клиента для платной частной консультации в обход компании. Это грубое нарушение.",
+   "checked_range": null,
+   "na_reason": null,
+   "needs_review": false,
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Можете дать личный номер? Вечером созвонюсь с вами и за плату объясню, какие бумаги взять. Это будет моя частная консультация."
+    }
+   ]
+  }
+ ],
+ "original": {
+  "total": 84.62,
+  "total_status": "calculated",
+  "provisional": false,
+  "gross_violation": true,
+  "criteria": [
+   {
+    "criterion_id": "01",
+    "answer": "yes",
+    "points": 10.0,
+    "effective_points": 15.38,
+    "rationale": "В первой реплике оператор поздоровался на русском языке, языке клиента, и представился по имени.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Здравствуйте, я Марк."
+     }
+    ]
+   },
+   {
+    "criterion_id": "02",
+    "answer": "na",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Запрос клиента был понятен сразу: как найти облигации в приложении. Дополнительное уточнение не требовалось, клиент подтвердил, что разобрался.",
+    "checked_range": null,
+    "na_reason": "Данных было достаточно с самого начала, уточнение не требовалось.",
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 0,
+      "quote": "Как найти облигации в приложении?"
+     },
+     {
+      "message_index": 10,
+      "quote": "Вижу, спасибо."
+     }
+    ]
+   },
+   {
+    "criterion_id": "03",
+    "answer": "na",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Вопрос общий, о навигации в приложении. Персональные данные не раскрывались, защищённые операции не выполнялись.",
+    "checked_range": null,
+    "na_reason": "Запрос не требовал верификации личности: это общий вопрос о навигации в приложении.",
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 0,
+      "quote": "Как найти облигации в приложении?"
+     }
+    ]
+   },
+   {
+    "criterion_id": "04",
+    "answer": "15",
+    "points": 15.0,
+    "effective_points": 23.08,
+    "rationale": "Оператор дал рабочую инструкцию через раздел «Котировки» и поиск, клиент подтвердил, что нашёл. Однако клиент хотел посмотреть доступные облигации, не зная названий, а способ просмотреть их без тикера не объяснён.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Откройте «Котировки». Если знаете название или тикер, введите его в строку поиска."
+     },
+     {
+      "message_index": 10,
+      "quote": "Вижу, спасибо."
+     }
+    ]
+   },
+   {
+    "criterion_id": "05",
+    "answer": "yes",
+    "points": 15.0,
+    "effective_points": 23.08,
+    "rationale": "Оператор общался вежливо. Клиент недовольства не выражал. Нарушение с частной консультацией оценивается в критерии 08.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 13,
+      "quote": "Хорошо. Всего доброго."
+     }
+    ]
+   },
+   {
+    "criterion_id": "06",
+    "answer": "10",
+    "points": 15.0,
+    "effective_points": 23.08,
+    "rationale": "Инструкция изложена ясно и последовательно, клиенту не пришлось переспрашивать.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Если знаете название или тикер, введите его в строку поиска."
+     }
+    ]
+   },
+   {
+    "criterion_id": "07",
+    "answer": "no",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "rationale": "Оператор попрощался, но не подвёл итог и не предложил дальнейшую помощь.",
+    "checked_range": {
+     "from": 12,
+     "to": 13
+    },
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 13,
+      "quote": "Хорошо. Всего доброго."
+     }
+    ]
+   },
+   {
+    "criterion_id": "08",
+    "answer": "yes",
+    "points": null,
+    "effective_points": null,
+    "rationale": "Оператор запросил личный номер клиента для платной частной консультации в обход компании. Это грубое нарушение.",
+    "checked_range": null,
+    "na_reason": null,
+    "needs_review": false,
+    "evidence": [
+     {
+      "message_index": 11,
+      "quote": "Можете дать личный номер? Вечером созвонюсь с вами и за плату объясню, какие бумаги взять. Это будет моя частная консультация."
+     }
+    ]
+   }
+  ]
+ },
+ "appeals": [
+  {
+   "id": 1,
+   "evaluation_id": 26,
+   "criterion_id": "04",
+   "comment": "Ответ полный и соответствует запросу, ответ про поиск сказан как дополнение",
+   "status": "resolved",
+   "created_at": "2026-11-07 11:42:13",
+   "author_role": null,
+   "review_started_at": null,
+   "review_started_by": null,
+   "message_refs": [],
+   "decision": "confirm",
+   "new_answer": null,
+   "reason": "согласен",
+   "decided_at": "2026-11-07 11:43:29",
+   "decided_by_role": null,
+   "total_before": null,
+   "total_after": null,
+   "display_status": "confirmed"
+  },
+  {
+   "id": 2,
+   "evaluation_id": 26,
+   "criterion_id": "04",
+   "comment": "Appeal #1 (resolved): Ответ полный и соответствует запросу, ответ про поиск сказан как дополнение",
+   "status": "resolved",
+   "created_at": "2026-11-07 11:49:12",
+   "author_role": null,
+   "review_started_at": null,
+   "review_started_by": null,
+   "message_refs": [],
+   "decision": "change",
+   "new_answer": "20",
+   "reason": "da",
+   "decided_at": "2026-11-07 11:49:36",
+   "decided_by_role": null,
+   "total_before": null,
+   "total_after": null,
+   "display_status": "changed"
+  }
+ ],
+ "appeal_deadline": "2026-11-13 10:53:45",
+ "appeal_window_workdays": 5,
+ "decisions": [
+  {
+   "id": 1,
+   "evaluation_id": 26,
+   "criterion_id": "04",
+   "comment": "Ответ полный и соответствует запросу, ответ про поиск сказан как дополнение",
+   "status": "resolved",
+   "created_at": "2026-11-07 11:42:13",
+   "author_role": null,
+   "review_started_at": null,
+   "review_started_by": null,
+   "message_refs": [],
+   "decision": "confirm",
+   "new_answer": null,
+   "reason": "согласен",
+   "decided_at": "2026-11-07 11:43:29",
+   "decided_by_role": null,
+   "total_before": null,
+   "total_after": null,
+   "display_status": "confirmed"
+  },
+  {
+   "id": 2,
+   "evaluation_id": 26,
+   "criterion_id": "04",
+   "comment": "Appeal #1 (resolved): Ответ полный и соответствует запросу, ответ про поиск сказан как дополнение",
+   "status": "resolved",
+   "created_at": "2026-11-07 11:49:12",
+   "author_role": null,
+   "review_started_at": null,
+   "review_started_by": null,
+   "message_refs": [],
+   "decision": "change",
+   "new_answer": "20",
+   "reason": "da",
+   "decided_at": "2026-11-07 11:49:36",
+   "decided_by_role": null,
+   "total_before": null,
+   "total_after": null,
+   "display_status": "changed"
+  }
+ ],
+ "appealed_criteria": [],
+ "model_label": "claude-opus-5-5",
+ "occurred_at": null,
+ "duration_seconds": 231.0,
+ "confidence": {
+  "level": "high",
+  "with_rationale": 8,
+  "total": 8
+ },
+ "display_appeal_status": "changed",
+ "final_total": 92.31,
+ "total_changed": true,
+ "final": {
+  "total": 92.31,
+  "calculated": true,
+  "reason": null,
+  "provisional": false,
+  "gross_violation": true,
+  "changed": true,
+  "criteria": [
+   {
+    "criterion_id": "01",
+    "answer": "yes",
+    "status": "answered",
+    "points": 10.0,
+    "effective_points": 15.38,
+    "overridden": false,
+    "original_answer": "yes",
+    "original_points": 10.0,
+    "original_effective_points": 15.38
+   },
+   {
+    "criterion_id": "02",
+    "answer": "na",
+    "status": "na",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "na",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "03",
+    "answer": "na",
+    "status": "na",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "na",
+    "original_points": null,
+    "original_effective_points": null
+   },
+   {
+    "criterion_id": "04",
+    "answer": 20,
+    "status": "answered",
+    "points": 20.0,
+    "effective_points": 30.77,
+    "overridden": true,
+    "original_answer": "15",
+    "original_points": 15.0,
+    "original_effective_points": 23.08
+   },
+   {
+    "criterion_id": "05",
+    "answer": "yes",
+    "status": "answered",
+    "points": 15.0,
+    "effective_points": 23.08,
+    "overridden": false,
+    "original_answer": "yes",
+    "original_points": 15.0,
+    "original_effective_points": 23.08
+   },
+   {
+    "criterion_id": "06",
+    "answer": 10,
+    "status": "answered",
+    "points": 15.0,
+    "effective_points": 23.08,
+    "overridden": false,
+    "original_answer": "10",
+    "original_points": 15.0,
+    "original_effective_points": 23.08
+   },
+   {
+    "criterion_id": "07",
+    "answer": "no",
+    "status": "answered",
+    "points": 0.0,
+    "effective_points": 0.0,
+    "overridden": false,
+    "original_answer": "no",
+    "original_points": 0.0,
+    "original_effective_points": 0.0
+   },
+   {
+    "criterion_id": "08",
+    "answer": "yes",
+    "status": "answered",
+    "points": null,
+    "effective_points": null,
+    "overridden": false,
+    "original_answer": "yes",
+    "original_points": null,
+    "original_effective_points": null
+   }
+  ],
+  "sections": [
+   {
+    "id": "opening",
+    "title": "Opening & understanding",
+    "earned": 10.0,
+    "applicable_max": 10.0,
+    "percent": 100.0,
+    "effective_points": 15.38,
+    "effective_max": 15.38
+   },
+   {
+    "id": "security",
+    "title": "Security & resolution",
+    "earned": 20.0,
+    "applicable_max": 20.0,
+    "percent": 100.0,
+    "effective_points": 30.77,
+    "effective_max": 30.77
+   },
+   {
+    "id": "conduct",
+    "title": "Conduct & closing",
+    "earned": 30.0,
+    "applicable_max": 35.0,
+    "percent": 85.71,
+    "effective_points": 46.16,
+    "effective_max": 53.85
+   },
+   {
+    "id": "gross",
+    "title": "Gross violations",
+    "earned": null,
+    "applicable_max": 0.0,
+    "percent": null,
+    "effective_points": null,
+    "effective_max": 0.0
+   }
+  ]
+ }
+}
