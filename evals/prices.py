@@ -13,6 +13,7 @@ PRICES: dict[str, ModelPrice] = {
     "claude-opus-5-5": ModelPrice(4.0, 20.0, 0.2, 5.0),
     "claude-sonnet-5-5": ModelPrice(2.0, 10.0, 0.2, 2.5),
     "claude-haiku-4-5": ModelPrice(1.0, 5.0, 0.1, 1.25),
+    "gpt-6.1-sol": ModelPrice(2.0, 10.0, 0.1, 2.5),
     "typesafe/jev-1.14": ModelPrice(0.042, 0.0, 0.0, 0.0),
 }
 

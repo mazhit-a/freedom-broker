@@ -107,6 +107,13 @@ def parse_result_line(line: str) -> tuple[str | None, str | None, str | None]:
     except ValueError:
         return None, None, "line is not valid JSON"
     cid = row.get("custom_id")
+    if "status" in row and "result" not in row:
+        if row["status"] != "ok":
+            detail = row.get("error") or ""
+            return cid, None, f"generation {row['status']} {detail}".strip()
+        if not row.get("text"):
+            return cid, None, "generation ok but text is empty"
+        return cid, row["text"], None
     if "text" in row and "result" not in row:
         return cid, row["text"], None
     result = row.get("result") or {}

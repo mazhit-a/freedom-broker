@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -7,7 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from evals.gen import ambiguity, assemble, prompt, spec as spec_mod
+from evals import prices
+from evals.gen import ambiguity, assemble, openai_provider, prompt, spec as spec_mod
 from evals.gen.common import CHECKLIST_PATH, DATASET_PATH, OPUS_MODEL, ROOT as REPO, load_checklist
 
 GEN_DIR = REPO / "evals" / "gen"
@@ -58,6 +60,12 @@ def cmd_plan(args) -> int:
     print(f"per case live ${batch['live_per_case']:.3f}, batch ${batch['batch_per_case']:.3f}")
     print(f"batch total ${batch['batch_total']:.2f} (same cases live ${batch['live_total']:.2f})")
     print(f"pilot of {pilot['requests']} cases live ${pilot['live_total']:.2f}")
+    oa_model = openai_provider.default_model()
+    oa_each = prices.cost(oa_model, input_tokens=prompt.TOKENS_IN_PER_CASE, output_tokens=prompt.TOKENS_OUT_PER_CASE)
+    oa_price = prices.price_for(oa_model)
+    print(f"{oa_model} live price: {oa_price.input}/{oa_price.output} per MTok, no batch discount")
+    print(f"openai estimate: per case ${oa_each:.3f}, total for {batch['requests']} cases ${oa_each * batch['requests']:.2f}, pilot of {pilot['requests']} cases ${oa_each * pilot['requests']:.2f}")
+    print("note: reasoning tokens are billed as output and may add to the output estimate")
     print("blind ambiguity check with the cheaper model is not included in these numbers")
     return 0
 
@@ -105,6 +113,97 @@ def cmd_pilot(args) -> int:
     out.write_text(json.dumps(rows, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"wrote {len(rows)} pilot requests to {out} (not sent): {', '.join(s['id'] for s in chosen)}")
     return 0
+
+
+def cmd_generate(args) -> int:
+    if args.provider != "openai":
+        raise SystemExit(f"unsupported provider {args.provider}")
+    specs = _select(_specs(args), args.only)
+    if not specs:
+        raise SystemExit("no specs selected")
+    cfg = load_checklist()
+    model = args.model or openai_provider.default_model()
+    requests = [
+        {
+            "custom_id": s["id"],
+            "request": openai_provider.to_openai_request(
+                prompt.live_request(s, cfg), model=model, effort=args.effort, max_output_tokens=args.max_output_tokens
+            ),
+        }
+        for s in specs
+    ]
+    input_tokens = max(openai_provider.estimate_input_tokens(r["request"]) for r in requests)
+    guard = openai_provider.SpendGuard(args.max_spend if args.max_spend is not None else float("inf"), model, args.max_output_tokens, input_tokens)
+    per_case = guard.default_estimate()
+    if args.dry_run:
+        print("dry run: nothing is sent")
+        print(f"requests: {len(requests)}")
+        print(f"model: {model}")
+        print(f"effort: {args.effort}")
+        print(f"max output tokens per call: {args.max_output_tokens}")
+        print(f"concurrency: {args.concurrency}")
+        print(f"estimated cost: ${per_case * len(requests):.2f} (${per_case:.3f} per case at about {input_tokens} input and {openai_provider.ASSUMED_OUTPUT_TOKENS} output tokens; reasoning tokens may add to output)")
+        print(f"worst case for one call: ${guard.worst_case_call():.3f}")
+        return 0
+    if args.max_spend is None:
+        raise SystemExit("--max-spend is required for a live run")
+    out = Path(args.out)
+    log_path = out.with_suffix(".spend.json")
+    if (out.exists() or log_path.exists()) and not args.force:
+        raise SystemExit(f"{out} or {log_path} already exists; pass --force to overwrite")
+    try:
+        guard.check_start()
+    except openai_provider.BudgetRefused as e:
+        raise SystemExit(f"refusing to start: {e}")
+    key = openai_provider.load_api_key()
+    if not key:
+        raise SystemExit("OPENAI_API_KEY is not set in the environment or .env")
+    client = openai_provider.make_client(key, args.timeout)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    handle = out.open("w", encoding="utf-8")
+
+    def on_result(row: dict) -> None:
+        handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+        handle.flush()
+        cost = row.get("cost_usd")
+        print(f"{row['custom_id']}: {row['status']} ${cost if cost is not None else 0:.4f} {row['latency_s']}s, spent ${guard.spent:.4f}")
+
+    try:
+        rows, skipped = openai_provider.run_requests(
+            client,
+            requests,
+            guard=guard,
+            concurrency=args.concurrency,
+            ceiling=args.timeout,
+            max_attempts=args.max_attempts,
+            on_result=on_result,
+            secrets=[key],
+        )
+    finally:
+        handle.close()
+    log = {
+        "provider": "openai",
+        "model": model,
+        "effort": args.effort,
+        "max_spend_usd": args.max_spend,
+        "spent_usd": round(guard.spent, 6),
+        "requested": [r["custom_id"] for r in requests],
+        "skipped_for_budget": skipped,
+        "statuses": {r["custom_id"]: r["status"] for r in rows},
+        "served_models": sorted({r["model"] for r in rows if r.get("model")}),
+        "results": [
+            {k: r.get(k) for k in ("custom_id", "status", "model", "usage", "cost_usd", "latency_s", "total_s", "attempts", "error")}
+            for r in rows
+        ],
+    }
+    log_path.write_text(json.dumps(log, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    bad = {r["custom_id"]: r["status"] for r in rows if r["status"] != "ok"}
+    print(f"wrote {len(rows)} results to {out} and spend log to {log_path}; spent ${guard.spent:.4f} of ${args.max_spend:.2f}")
+    if skipped:
+        print(f"stopped before the budget would be exceeded; not run: {', '.join(skipped)}")
+    for cid, status in sorted(bad.items()):
+        print(f"not valid {cid}: {status}")
+    return 1 if (bad or skipped) else 0
 
 
 def cmd_ingest(args) -> int:
@@ -203,6 +302,22 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--model", default=OPUS_MODEL)
     s.add_argument("--effort", default=prompt.DEFAULT_EFFORT)
     s.set_defaults(func=cmd_pilot)
+
+    s = sub.add_parser("generate", help="run live generation through a provider (spends money unless --dry-run)")
+    common(s)
+    s.add_argument("--provider", choices=["openai"], default="openai")
+    s.add_argument("--model", default=os.environ.get(openai_provider.MODEL_ENV) or None, help="default: OPENAI_GEN_MODEL, else gpt-6.1-sol")
+    s.add_argument("--effort", choices=list(openai_provider.EFFORTS), default=openai_provider.DEFAULT_EFFORT)
+    s.add_argument("--only", help="comma-separated case ids")
+    s.add_argument("--out", default=str(GEN_DIR / "openai_results.jsonl"))
+    s.add_argument("--max-spend", type=float, help="hard USD ceiling, required unless --dry-run")
+    s.add_argument("--max-output-tokens", type=int, default=openai_provider.DEFAULT_MAX_OUTPUT_TOKENS)
+    s.add_argument("--concurrency", type=int, default=openai_provider.DEFAULT_CONCURRENCY)
+    s.add_argument("--timeout", type=float, default=openai_provider.DEFAULT_CEILING_SECONDS, help="per-call wall-clock ceiling in seconds")
+    s.add_argument("--max-attempts", type=int, default=openai_provider.DEFAULT_MAX_ATTEMPTS)
+    s.add_argument("--force", action="store_true", help="overwrite an existing results file")
+    s.add_argument("--dry-run", action="store_true")
+    s.set_defaults(func=cmd_generate)
 
     s = sub.add_parser("ingest", help="validate batch results and assemble a candidate dataset")
     common(s)
