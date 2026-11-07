@@ -51,6 +51,21 @@ async function request(path, options = {}, params) {
 }
 
 export const api = {
+  getConversation(id) {
+    return request("/conversations/" + encodeURIComponent(id));
+  },
+  listEvaluations(id) {
+    return request("/conversations/" + encodeURIComponent(id) + "/evaluations");
+  },
+  evaluate(id, versionId) {
+    return request("/conversations/" + encodeURIComponent(id) + "/evaluate", { method: "POST" }, { checklist_version_id: versionId });
+  },
+  getChecklistVersion(id) {
+    return request("/checklist-versions/" + encodeURIComponent(id));
+  },
+  audioUrl(id, mode) {
+    return url("/conversations/" + encodeURIComponent(id) + "/audio", mode ? { mode } : undefined);
+  },
   listDatasets() {
     return request("/datasets");
   },

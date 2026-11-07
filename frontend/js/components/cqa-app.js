@@ -1,3 +1,5 @@
+import "./cqa-conversation-card.js";
+
 const ROLES = ["QA", "Reviewer"];
 
 const template = document.createElement("template");
@@ -13,7 +15,6 @@ nav a.active { background: #274769; color: #fff; }
 .roles button { border: 1px solid #5d7899; background: transparent; color: #cfd8e6; padding: 5px 12px; border-radius: 6px; cursor: pointer; }
 .roles button.active { background: #fff; color: #12263f; border-color: #fff; }
 main { padding: 20px 24px; }
-.placeholder { background: #fff; border: 1px dashed #b8c2d1; border-radius: 8px; padding: 32px; color: #55637a; }
 </style>
 <header>
   <div class="brand">CQA</div>
@@ -107,16 +108,10 @@ class CqaApp extends HTMLElement {
     if (this.currentKey === key) return;
     this.currentKey = key;
     main.innerHTML = "";
-    const box = document.createElement("div");
-    box.className = "placeholder";
-    box.textContent = "Conversation " + route.id + ": the conversation card is not available yet.";
-    const back = document.createElement("div");
-    const anchor = document.createElement("a");
-    anchor.href = "#/conversations";
-    anchor.textContent = "Back to the list";
-    back.appendChild(anchor);
-    box.appendChild(back);
-    main.appendChild(box);
+    const card = document.createElement("cqa-conversation-card");
+    card.setAttribute("conversation-id", route.id);
+    card.setAttribute("role", this.role);
+    main.appendChild(card);
   }
 }
 
