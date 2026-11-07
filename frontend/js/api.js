@@ -72,6 +72,23 @@ export const api = {
   listConversations(filters) {
     return request("/conversations", {}, filters);
   },
+  getChecklist(id) {
+    return request("/checklists/" + encodeURIComponent(id));
+  },
+  createChecklistVersion(checklistId, config) {
+    return request("/checklists/" + encodeURIComponent(checklistId) + "/versions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(config)
+    });
+  },
+  setDefaultVersion(checklistId, versionId) {
+    return request("/checklists/" + encodeURIComponent(checklistId) + "/default", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ version_id: versionId })
+    });
+  },
   listChecklists() {
     return request("/checklists");
   },

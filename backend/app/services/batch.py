@@ -188,8 +188,11 @@ def _process_item(job: BatchJob, item: dict, client: LLMClient, max_retries: int
             job.failures.append({"conversation_pk": item["id"], "conversation_id": item["conversation_id"], "error": error or status})
 
 
-def create_job(conn: sqlite3.Connection, dataset: str, version_id: int, force: bool = False, retry_failed: bool = True, concurrency: int | None = None) -> tuple[BatchJob, list[dict]]:
+def create_job(conn: sqlite3.Connection, dataset: str, version_id: int, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, conversation_pks: list[int] | None = None) -> tuple[BatchJob, list[dict]]:
     items = select_conversations(conn, dataset)
+    if conversation_pks is not None:
+        wanted = set(conversation_pks)
+        items = [i for i in items if i["id"] in wanted]
     if not items:
         raise LookupError(f"No conversations found for dataset {dataset}")
     statuses = existing_statuses(conn, version_id)
@@ -230,8 +233,8 @@ def run_job(job: BatchJob, todo: list[dict], client: LLMClient, max_retries: int
         job.finished_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def start_job(conn: sqlite3.Connection, dataset: str, version_id: int, client: LLMClient, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, max_retries: int = 4, backoff_base: float = 2.0) -> BatchJob:
-    job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency)
+def start_job(conn: sqlite3.Connection, dataset: str, version_id: int, client: LLMClient, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, max_retries: int = 4, backoff_base: float = 2.0, conversation_pks: list[int] | None = None) -> BatchJob:
+    job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency, conversation_pks)
     thread = threading.Thread(target=run_job, args=(job, todo, client, max_retries, backoff_base), daemon=True, name=f"batch-{job.id}")
     thread.start()
     return job

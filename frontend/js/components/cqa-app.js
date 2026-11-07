@@ -1,4 +1,5 @@
 import "./cqa-conversation-card.js";
+import "./cqa-checklist-editor.js";
 
 const ROLES = ["QA", "Reviewer"];
 
@@ -54,6 +55,7 @@ class CqaApp extends HTMLElement {
     if (parts[0] === "conversations" && parts[1]) {
       return { name: "conversation", id: parts[1] };
     }
+    if (parts[0] === "checklist") return { name: "checklist" };
     return { name: "conversations" };
   }
 
@@ -75,6 +77,11 @@ class CqaApp extends HTMLElement {
     link.textContent = "Conversations";
     if (route.name === "conversations" || route.name === "conversation") link.className = "active";
     nav.appendChild(link);
+    const checklistLink = document.createElement("a");
+    checklistLink.href = "#/checklist";
+    checklistLink.textContent = "Checklist";
+    if (route.name === "checklist") checklistLink.className = "active";
+    nav.appendChild(checklistLink);
 
     const holder = this.shadowRoot.querySelector(".role-buttons");
     holder.innerHTML = "";
@@ -108,6 +115,10 @@ class CqaApp extends HTMLElement {
     if (this.currentKey === key) return;
     this.currentKey = key;
     main.innerHTML = "";
+    if (route.name === "checklist") {
+      main.appendChild(document.createElement("cqa-checklist-editor"));
+      return;
+    }
     const card = document.createElement("cqa-conversation-card");
     card.setAttribute("conversation-id", route.id);
     card.setAttribute("role", this.role);

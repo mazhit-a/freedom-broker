@@ -16,6 +16,7 @@ class BatchStart(BaseModel):
     force: bool = False
     retry_failed: bool = True
     concurrency: Optional[int] = None
+    conversation_pks: Optional[list[int]] = None
 
 
 def _default_version_id(conn) -> Optional[int]:
@@ -31,7 +32,7 @@ def start_batch(body: BatchStart, conn=Depends(get_db), client: LLMClient = Depe
     if not conn.execute("SELECT 1 FROM checklist_version WHERE id = ?", (version_id,)).fetchone():
         raise HTTPException(status_code=404, detail="Checklist version not found")
     try:
-        job = batch.start_job(conn, body.dataset, version_id, client, body.force, body.retry_failed, body.concurrency)
+        job = batch.start_job(conn, body.dataset, version_id, client, body.force, body.retry_failed, body.concurrency, conversation_pks=body.conversation_pks)
     except LookupError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
     return job.snapshot()
