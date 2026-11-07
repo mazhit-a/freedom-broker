@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eval set review</title>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --text: #1b1f24; --muted: #5b6573; --line: #d7dce3;
+  --accent: #1f5fbf; --ok: #1a7f37; --warn: #9a6700; --bad: #b42318; --hl: #fff3bf; --range: #e7f0ff;
+  --client: #eef6ee; --operator: #eaf0fb; --bot: #f3eefb; --system: #f1f1f1;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14171b; --panel: #1c2026; --text: #e6e9ee; --muted: #9aa5b4; --line: #343b45;
+    --accent: #7aa7ff; --ok: #5ccf7a; --warn: #e3b341; --bad: #ff8a80; --hl: #5a4b00; --range: #1d3355;
+    --client: #1d2b1f; --operator: #1b2536; --bot: #2a2238; --system: #25292f;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 system-ui, sans-serif; }
+header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 10px 16px; background: var(--panel); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5; }
+header h1 { font-size: 16px; margin: 0; }
+.progress { flex: 1 1 220px; min-width: 180px; }
+.bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.bar > div { height: 100%; background: var(--ok); width: 0; }
+button, select, input, textarea { font: inherit; color: inherit; }
+button { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+button.accept { border-color: var(--ok); color: var(--ok); }
+button.reject { border-color: var(--bad); color: var(--bad); }
+input, select, textarea { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 4px 6px; }
+textarea { width: 100%; min-height: 54px; resize: vertical; }
+main { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 12px; padding: 12px 16px; }
+#list { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; max-height: calc(100vh - 100px); overflow: auto; position: sticky; top: 64px; align-self: start; }
+#list .filters { padding: 8px; border-bottom: 1px solid var(--line); }
+.item { padding: 7px 10px; border-bottom: 1px solid var(--line); cursor: pointer; display: flex; justify-content: space-between; gap: 6px; }
+.item.active { background: var(--range); }
+.badge { border-radius: 10px; padding: 0 7px; font-size: 12px; border: 1px solid var(--line); white-space: nowrap; }
+.badge.accepted { color: var(--ok); border-color: var(--ok); }
+.badge.edited { color: var(--accent); border-color: var(--accent); }
+.badge.rejected { color: var(--bad); border-color: var(--bad); }
+.badge.flags { color: var(--warn); border-color: var(--warn); }
+#detail { min-width: 0; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px; align-items: start; }
+.conv { max-height: calc(100vh - 150px); overflow: auto; position: sticky; top: 64px; }
+.msg { display: grid; grid-template-columns: 34px 78px 70px 1fr; gap: 6px; padding: 3px 6px; border-radius: 4px; margin: 2px 0; }
+.msg .i { color: var(--muted); text-align: right; }
+.msg .t, .msg .s { color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
+.msg.client { background: var(--client); } .msg.operator { background: var(--operator); }
+.msg.bot { background: var(--bot); } .msg.system { background: var(--system); font-style: italic; }
+.msg.inrange { outline: 2px solid var(--range); box-shadow: inset 0 0 0 100px var(--range); }
+.msg.evidence { outline: 2px solid var(--warn); background: var(--hl); }
+.crit h3 { margin: 0 0 4px; font-size: 15px; }
+.crit .desc { color: var(--muted); margin: 2px 0; white-space: pre-wrap; }
+.crit.focus { outline: 2px solid var(--accent); }
+.crit.changed { border-left: 4px solid var(--accent); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0; }
+.ev { display: flex; gap: 6px; margin: 4px 0; }
+.ev input[type=number] { width: 70px; }
+.ev input[type=text] { flex: 1; }
+.flag { margin: 3px 0; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--warn); color: var(--warn); }
+.flag.ambiguity { border-color: var(--accent); color: var(--accent); }
+.flag.local { border-color: var(--bad); color: var(--bad); }
+.muted { color: var(--muted); }
+.tags span { margin-right: 8px; }
+details summary { cursor: pointer; color: var(--muted); }
+#empty { padding: 40px; text-align: center; color: var(--muted); }
+@media (max-width: 900px) { main { grid-template-columns: 1fr; } #list { position: static; max-height: 240px; } .cols { grid-template-columns: 1fr; } .conv { position: static; max-height: 420px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Eval set review</h1>
+  <label>Dataset JSON <input type="file" id="file" accept="application/json,.json"></label>
+  <label>Checklist JSON <input type="file" id="checklist" accept="application/json,.json"></label>
+  <div class="progress">
+    <div id="progressText" class="muted">No dataset loaded</div>
+    <div class="bar"><div id="progressBar"></div></div>
+  </div>
+  <button id="download" class="primary" disabled>Download reviewed JSON</button>
+</header>
+<main>
+  <aside id="list"><div class="filters"><select id="filter" aria-label="Filter cases">
+    <option value="all">All cases</option><option value="pending">Pending</option>
+    <option value="flagged">With flags</option><option value="accepted">Accepted</option>
+    <option value="edited">Edited</option><option value="rejected">Rejected</option>
+  </select></div><div id="items"></div></aside>
+  <section id="detail"><div id="empty" class="card">Choose a candidate dataset JSON to start. Every conversation, expected result and flag is shown. You are the final authority on the expected results.</div></section>
+</main>
+<script src="checklist_v2.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+window.CHECKLIST_V2 = {
+ "name": "Default operator quality checklist",
+ "sections": [
+  {
+   "id": "opening",
+   "title": "Opening & understanding",
+   "labels": null
+  },
+  {
+   "id": "security",
+   "title": "Security & resolution",
+   "labels": null
+  },
+  {
+   "id": "conduct",
+   "title": "Conduct & closing",
+   "labels": null
+  },
+  {
+   "id": "gross",
+   "title": "Gross violations",
+   "labels": null
+  }
+ ],
+ "criteria": [
+  {
+   "id": "01",
+   "title": "Установление контакта",
+   "description": "Да — оператор поздоровался на языке клиента и представился в первом ответе.",
+   "section": "opening",
+   "weight": 10.0,
+   "type": "yes_no",
+   "na_allowed": false,
+   "na_condition": null,
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  {
+   "id": "02",
+   "title": "Выявление потребности",
+   "description": "Да — оператор учёл известные детали и уточнил недостающее до ответа.",
+   "section": "opening",
+   "weight": 15.0,
+   "type": "yes_no",
+   "na_allowed": true,
+   "na_condition": "Данных для\nответа хватало с самого начала.",
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  {
+   "id": "03",
+   "title": "Идентификация",
+   "description": "Проверка личности подтверждена до раскрытия данных или защищённого действия.",
+   "section": "security",
+   "weight": 20.0,
+   "type": "yes_no",
+   "na_allowed": true,
+   "na_condition": "Запрос не требовал идентификации.",
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  {
+   "id": "04",
+   "title": "Корректная и полная консультация",
+   "description": "Оцените ответ или следующий шаг по шкале на стр. 2.",
+   "section": "security",
+   "weight": 20.0,
+   "type": "scale",
+   "na_allowed": true,
+   "na_condition": "Чат закончился до того, как клиент\nсформулировал запрос.",
+   "scale_steps": [
+    {
+     "value": 0,
+     "descriptor": "Ответа по существу нет или ключевая рекомендация ошибочна."
+    },
+    {
+     "value": 5,
+     "descriptor": "Есть общая подсказка, но клиенту всё ещё непонятно, как действовать."
+    },
+    {
+     "value": 10,
+     "descriptor": "Часть запроса закрыта, существенный вопрос остался открытым."
+    },
+    {
+     "value": 15,
+     "descriptor": "Основной вопрос решён, пропущена второстепенная деталь."
+    },
+    {
+     "value": 20,
+     "descriptor": "Все существенные вопросы закрыты или дан корректный следующий шаг."
+    }
+   ],
+   "max_step": 20,
+   "labels": null
+  },
+  {
+   "id": "05",
+   "title": "Эмпатия и клиентоориентированность",
+   "description": "Оператор вежлив и, если клиент выразил недовольство или описал неудобство, отреагировал на конкретную проблему.",
+   "section": "conduct",
+   "weight": 15.0,
+   "type": "yes_no",
+   "na_allowed": false,
+   "na_condition": null,
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  {
+   "id": "06",
+   "title": "Управление диалогом, скорость и грамотность",
+   "description": "Оцените ясность, порядок ответов и предупреждение об ожидании по шкале",
+   "section": "conduct",
+   "weight": 15.0,
+   "type": "scale",
+   "na_allowed": false,
+   "na_condition": null,
+   "scale_steps": [
+    {
+     "value": 0,
+     "descriptor": "Из-за бессвязных или противоречивых реплик ход диалога непонятен"
+    },
+    {
+     "value": 4,
+     "descriptor": "Клиенту приходится переспрашивать из-за формулировок или порядка ответов."
+    },
+    {
+     "value": 7,
+     "descriptor": "Один заметный сбой, но клиент может понять ответ и продолжить."
+    },
+    {
+     "value": 10,
+     "descriptor": "Ответы ясные и связные. Если было явное ожидание, оператор предупредил."
+    }
+   ],
+   "max_step": 10,
+   "labels": null
+  },
+  {
+   "id": "07",
+   "title": "Завершение",
+   "description": "Оператор подвёл итог или предложил дальнейшую помощь и попрощался.",
+   "section": "conduct",
+   "weight": 5.0,
+   "type": "yes_no",
+   "na_allowed": true,
+   "na_condition": "Чат оборвался до возможности его завершить.",
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  },
+  {
+   "id": "08",
+   "title": "Грубые ошибки",
+   "description": "Да — выявлено оскорбление клиента, предложение платной услуги в обход компании или раскрытие конфиденциальной информации. Нет — ни одно из трёх не выявлено.",
+   "section": "gross",
+   "weight": 0.0,
+   "type": "flag",
+   "na_allowed": false,
+   "na_condition": null,
+   "scale_steps": [],
+   "max_step": null,
+   "labels": null
+  }
+ ]
+};

@@ -1,0 +1,1126 @@
+[
+  {
+    "id": "case-001",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 10,
+    "topic": "account_opening_kyc",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "yes",
+      "04": 15,
+      "05": "yes",
+      "06": 7,
+      "07": "no",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-002",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 7,
+    "topic": "deposit_withdrawal",
+    "hard": [
+      "verification_not_needed"
+    ],
+    "violation": null,
+    "id_needed": false,
+    "targets": {
+      "01": "yes",
+      "02": "na",
+      "03": "na",
+      "04": 20,
+      "05": "yes",
+      "06": 0,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-003",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 6,
+    "topic": "tariffs_fees",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "no",
+      "02": "no",
+      "03": "yes",
+      "04": 15,
+      "05": "no",
+      "06": 10,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-004",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "kk",
+    "conversation_language": "kk",
+    "switch_to": null,
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 8,
+    "topic": "tariffs_fees",
+    "hard": [
+      "chat_ends_before_request"
+    ],
+    "violation": null,
+    "id_needed": false,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "na",
+      "04": "na",
+      "05": "yes",
+      "06": 10,
+      "07": "na",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-005",
+    "split": "holdout",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "switch",
+    "conversation_language": "ru",
+    "switch_to": "en",
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 11,
+    "topic": "tax_documents",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "na",
+      "03": "yes",
+      "04": 10,
+      "05": "yes",
+      "06": 10,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-006",
+    "split": "holdout",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "en",
+    "conversation_language": "en",
+    "switch_to": null,
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 10,
+    "topic": "trading_platform_failure",
+    "hard": [
+      "client_leaves_before_closing"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "no",
+      "02": "yes",
+      "03": "no",
+      "04": 20,
+      "05": "yes",
+      "06": 4,
+      "07": "na",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-007",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "kk",
+    "conversation_language": "kk",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 16,
+    "topic": "tariffs_fees",
+    "hard": [
+      "angry_client_without_empathy"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "no",
+      "03": "yes",
+      "04": 10,
+      "05": "no",
+      "06": 4,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-008",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 20,
+    "topic": "order_execution_complaint",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "na",
+      "03": "yes",
+      "04": 20,
+      "05": "no",
+      "06": 10,
+      "07": "no",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-009",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "en",
+    "conversation_language": "en",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 20,
+    "topic": "account_opening_kyc",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "no",
+      "02": "no",
+      "03": "yes",
+      "04": 5,
+      "05": "yes",
+      "06": 10,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-010",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 27,
+    "topic": "order_execution_complaint",
+    "hard": [
+      "paid_personal_consultation"
+    ],
+    "violation": "paid_offer",
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "no",
+      "03": "yes",
+      "04": 5,
+      "05": "no",
+      "06": 7,
+      "07": "no",
+      "08": "yes"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-011",
+    "split": "holdout",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "en",
+    "conversation_language": "en",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 18,
+    "topic": "trading_platform_failure",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "no",
+      "03": "yes",
+      "04": 15,
+      "05": "yes",
+      "06": 10,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-012",
+    "split": "holdout",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 29,
+    "topic": "deposit_withdrawal",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "yes",
+      "04": 20,
+      "05": "no",
+      "06": 4,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-013",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "switch",
+    "conversation_language": "ru",
+    "switch_to": "kk",
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 54,
+    "topic": "trading_platform_failure",
+    "hard": [
+      "bot_greets_no_greeting"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "no",
+      "02": "no",
+      "03": "yes",
+      "04": 10,
+      "05": "no",
+      "06": 10,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-014",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 60,
+    "topic": "order_execution_complaint",
+    "hard": [
+      "client_leaves_before_closing"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "no",
+      "03": "yes",
+      "04": 20,
+      "05": "yes",
+      "06": 7,
+      "07": "na",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-015",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "en",
+    "conversation_language": "en",
+    "switch_to": null,
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 66,
+    "topic": "ipo_participation",
+    "hard": [
+      "missed_item_long"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "yes",
+      "04": 15,
+      "05": "yes",
+      "06": 7,
+      "07": "no",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-016",
+    "split": "dev",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "kk",
+    "conversation_language": "kk",
+    "switch_to": null,
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 53,
+    "topic": "tax_documents",
+    "hard": [
+      "client_leaves_before_closing"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "no",
+      "02": "no",
+      "03": "yes",
+      "04": 15,
+      "05": "yes",
+      "06": 10,
+      "07": "na",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-017",
+    "split": "holdout",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 46,
+    "topic": "tax_documents",
+    "hard": [
+      "wait_without_warning"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "yes",
+      "04": 10,
+      "05": "yes",
+      "06": 7,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-018",
+    "split": "holdout",
+    "channel": "agent chat",
+    "channel_tag": "chat",
+    "language": "switch",
+    "conversation_language": "kk",
+    "switch_to": "ru",
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 71,
+    "topic": "tariffs_fees",
+    "hard": [
+      "insult"
+    ],
+    "violation": "insult",
+    "id_needed": false,
+    "targets": {
+      "01": "yes",
+      "02": "na",
+      "03": "na",
+      "04": 15,
+      "05": "no",
+      "06": 10,
+      "07": "no",
+      "08": "yes"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-019",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 6,
+    "topic": "ipo_participation",
+    "hard": [
+      "chat_ends_before_request"
+    ],
+    "violation": null,
+    "id_needed": false,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "na",
+      "04": "na",
+      "05": "yes",
+      "06": 10,
+      "07": "na",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-020",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 9,
+    "topic": "trading_platform_failure",
+    "hard": [
+      "verification_not_needed"
+    ],
+    "violation": null,
+    "id_needed": false,
+    "targets": {
+      "01": "yes",
+      "02": "no",
+      "03": "na",
+      "04": 10,
+      "05": "no",
+      "06": 0,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-021",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 10,
+    "topic": "order_execution_complaint",
+    "hard": [
+      "confidential_disclosure"
+    ],
+    "violation": "confidential_disclosure",
+    "id_needed": true,
+    "targets": {
+      "01": "no",
+      "02": "no",
+      "03": "yes",
+      "04": 10,
+      "05": "yes",
+      "06": 10,
+      "07": "yes",
+      "08": "yes"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-022",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "switch",
+    "conversation_language": "ru",
+    "switch_to": "en",
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 8,
+    "topic": "trading_platform_failure",
+    "hard": [
+      "near_miss_rude_no_violation"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "no",
+      "02": "no",
+      "03": "no",
+      "04": 15,
+      "05": "no",
+      "06": 7,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-023",
+    "split": "holdout",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "kk",
+    "conversation_language": "kk",
+    "switch_to": null,
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 6,
+    "topic": "account_opening_kyc",
+    "hard": [
+      "chat_ends_before_request"
+    ],
+    "violation": null,
+    "id_needed": false,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "na",
+      "04": "na",
+      "05": "yes",
+      "06": 10,
+      "07": "na",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-024",
+    "split": "holdout",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "short",
+    "message_range": [
+      6,
+      12
+    ],
+    "message_target": 8,
+    "topic": "tax_documents",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "no",
+      "02": "yes",
+      "03": "yes",
+      "04": 5,
+      "05": "yes",
+      "06": 10,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-025",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 26,
+    "topic": "tariffs_fees",
+    "hard": [
+      "angry_client_with_empathy"
+    ],
+    "violation": null,
+    "id_needed": false,
+    "targets": {
+      "01": "yes",
+      "02": "no",
+      "03": "na",
+      "04": 20,
+      "05": "yes",
+      "06": 10,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-026",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "switch",
+    "conversation_language": "ru",
+    "switch_to": "kk",
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 17,
+    "topic": "trading_platform_failure",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "no",
+      "02": "na",
+      "03": "no",
+      "04": 5,
+      "05": "yes",
+      "06": 10,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-027",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "en",
+    "conversation_language": "en",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 28,
+    "topic": "deposit_withdrawal",
+    "hard": [
+      "verification_needed_not_confirmed"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "no",
+      "04": 0,
+      "05": "yes",
+      "06": 10,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-028",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "kk",
+    "conversation_language": "kk",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 27,
+    "topic": "deposit_withdrawal",
+    "hard": [
+      "insult"
+    ],
+    "violation": "insult",
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "no",
+      "04": 15,
+      "05": "no",
+      "06": 7,
+      "07": "yes",
+      "08": "yes"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-029",
+    "split": "holdout",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 18,
+    "topic": "account_opening_kyc",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "no",
+      "03": "yes",
+      "04": 20,
+      "05": "no",
+      "06": 10,
+      "07": "no",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-030",
+    "split": "holdout",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "kk",
+    "conversation_language": "kk",
+    "switch_to": null,
+    "length": "medium",
+    "message_range": [
+      15,
+      30
+    ],
+    "message_target": 17,
+    "topic": "tax_documents",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "no",
+      "03": "no",
+      "04": 10,
+      "05": "yes",
+      "06": 7,
+      "07": "no",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-031",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 52,
+    "topic": "account_opening_kyc",
+    "hard": [],
+    "violation": null,
+    "id_needed": false,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "na",
+      "04": 0,
+      "05": "no",
+      "06": 10,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-032",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "kk",
+    "conversation_language": "kk",
+    "switch_to": null,
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 41,
+    "topic": "order_execution_complaint",
+    "hard": [
+      "wait_without_warning"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "no",
+      "03": "yes",
+      "04": 20,
+      "05": "yes",
+      "06": 4,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-033",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "kk",
+    "conversation_language": "kk",
+    "switch_to": null,
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 60,
+    "topic": "deposit_withdrawal",
+    "hard": [],
+    "violation": null,
+    "id_needed": false,
+    "targets": {
+      "01": "no",
+      "02": "na",
+      "03": "na",
+      "04": 5,
+      "05": "yes",
+      "06": 7,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-034",
+    "split": "dev",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 71,
+    "topic": "tax_documents",
+    "hard": [],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "yes",
+      "03": "yes",
+      "04": 5,
+      "05": "no",
+      "06": 10,
+      "07": "no",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-035",
+    "split": "holdout",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 63,
+    "topic": "ipo_participation",
+    "hard": [
+      "missed_item_long"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "na",
+      "03": "no",
+      "04": 10,
+      "05": "yes",
+      "06": 4,
+      "07": "yes",
+      "08": "no"
+    },
+    "seed": 20261108
+  },
+  {
+    "id": "case-036",
+    "split": "holdout",
+    "channel": "voice call",
+    "channel_tag": "call",
+    "language": "ru",
+    "conversation_language": "ru",
+    "switch_to": null,
+    "length": "long",
+    "message_range": [
+      40,
+      80
+    ],
+    "message_target": 43,
+    "topic": "ipo_participation",
+    "hard": [
+      "verification_needed_not_confirmed"
+    ],
+    "violation": null,
+    "id_needed": true,
+    "targets": {
+      "01": "yes",
+      "02": "no",
+      "03": "no",
+      "04": 0,
+      "05": "yes",
+      "06": 10,
+      "07": "no",
+      "08": "no"
+    },
+    "seed": 20261108
+  }
+]
