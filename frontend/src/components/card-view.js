@@ -134,7 +134,7 @@ function weightText(c, locale) {
 
 function appealChips(c, locale) {
   if (!c.appeal) return html``;
-  const s = c.appeal.status;
+  const s = c.appeal.status === "new" ? "under_review" : c.appeal.status;
   if (s === "changed") return chip({ tone: "ok", text: t("card.changedByAppeal", {}, locale) });
   if (s === "confirmed") return chip({ tone: "na", text: t("card.confirmedByAppeal", {}, locale) });
   return chip({ tone: "warn", text: t("card.appealStatus", { status: t(`status.${s}`, {}, locale) }, locale) });
@@ -152,8 +152,8 @@ function criterionArticle(c, ctx) {
     ? evidenceChip({ index: c.expected.index, role: c.expected.role, time: c.expected.time, endTime: c.expected.endTime, expected: true }, locale)
     : html``;
   const appeal =
-    canAppeal && !c.appeal
-      ? html`<button type="button" class="btn btn-sm" data-action="appeal" data-crit="${c.id}" aria-label="${t("criterion.appeal", {}, locale)} ${c.id}">${icon("flag")}${t("criterion.appeal", {}, locale)}</button>`
+    canAppeal && (!c.appeal || c.appeal.status === "changed" || c.appeal.status === "confirmed")
+      ? html`<button type="button" class="btn btn-sm" data-action="appeal" data-crit="${c.id}" data-focus-id="appeal-${c.id}" aria-label="${t("criterion.appeal", {}, locale)} ${c.id}">${icon("flag")}${t("criterion.appeal", {}, locale)}</button>`
       : html``;
   return html`<article class="crit-row" data-crit-row="${c.id}" id="crit-${c.id}"><div class="crit-top"><button type="button" class="crit-pick" data-action="pick-crit" data-crit="${c.id}" aria-pressed="false" data-focus-id="pick-${c.id}"><span class="crit-no">${c.id}</span><span class="crit-name">${c.title}</span><span class="chip cites-chip" data-cites-chip hidden></span></button>${answerBadge(c, locale)}<span class="tnum crit-pts"><b>${points}</b> <span class="muted">/ ${maxText}</span></span></div><div class="crit-rest">${c.rationale ? html`<p class="crit-why">${c.rationale}</p>` : c.needsReview ? html`<p class="crit-why warn-text" data-no-rationale>${t("card.noRationale", {}, locale)}</p>` : html``}${na}${stepsRow(c, locale)}<div class="row gap-2"><span class="crit-weight">${weightText(c, locale)}</span>${chips}${expected}<span class="grow"></span>${appealChips(c, locale)}${appeal}</div></div></article>`;
 }

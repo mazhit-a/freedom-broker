@@ -153,8 +153,12 @@ export const scenarios = {
     await ready(page);
     page.assert((await selected(page)) === "01", `initial selection is the first criterion (${await selected(page)})`);
     await page.eval(`cqaDeep(${q('li[data-index="14"] .ts')})[0].focus()`);
-    await page.press("Tab");
-    const active = await page.active();
+    let active = null;
+    for (let i = 0; i < 12; i += 1) {
+      await page.press("Tab");
+      active = await page.active();
+      if (active && active.focusId === "crit-list") break;
+    }
     page.assert(active && active.focusId === "crit-list", "criteria list is focusable");
     page.assert(active.outline === "solid 2px", `visible focus ring on list (${active.outline})`);
     await page.press("j");

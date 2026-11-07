@@ -12,8 +12,10 @@ import { LEDGER_CSS, buildLedger, ledgerView } from "./card-ledger.js";
 import { HISTORY_CSS, buildHistory, historyView, openAppeals } from "./card-history.js";
 import { CallChannel, isCall } from "./call-controller.js";
 import { CALL_CSS } from "./call-view.js";
+import { AppealFlow } from "./appeal-controller.js";
+import { APPEAL_CSS } from "./appeal-panel.js";
 
-const STYLES = `${SHARED_CSS}${LEDGER_CSS}${HISTORY_CSS}${CALL_CSS}
+const STYLES = `${SHARED_CSS}${LEDGER_CSS}${HISTORY_CSS}${CALL_CSS}${APPEAL_CSS}
 :host { display: block; container-type: normal !important; font-size: var(--cqa-fs-14); color: var(--cqa-ink); }
 [hidden] { display: none !important; }
 .page { container-type: inline-size; display: flex; flex-direction: column; gap: 16px; }
@@ -131,6 +133,7 @@ export class CqaConversationCard extends CqaElement {
     this._token = 0;
     this._versionId = null;
     this._nodes = null;
+    this._appeal = new AppealFlow(this);
     this._bind();
   }
 
@@ -296,15 +299,19 @@ export class CqaConversationCard extends CqaElement {
   }
 
   transcriptBanner() {
-    return this._call ? this._call.banner() : html``;
+    const call = this._call ? this._call.banner() : html``;
+    return html`${call}${this._appeal.banner()}`;
   }
 
   messageExtra(message) {
-    return this._call ? this._call.extra(message) : null;
+    const call = this._call ? this._call.extra(message) : null;
+    const attach = this._appeal.extra(message);
+    if (!call) return attach;
+    return attach ? html`${call}${attach}` : call;
   }
 
-  reviewSection() {
-    return html``;
+  reviewSection(view, ev) {
+    return this._appeal.reviewSection(view, ev);
   }
 
   ledgerSection(view, ev) {
@@ -363,6 +370,7 @@ export class CqaConversationCard extends CqaElement {
     };
     this.paint();
     if (this._call) this._call.afterRender(region);
+    this._appeal.afterRender(region);
   }
 
   paint() {
@@ -458,6 +466,7 @@ export class CqaConversationCard extends CqaElement {
     const crit = el.getAttribute("data-crit");
     const msg = el.getAttribute("data-msg");
     if (this._call && this._call.handleClick(action, el, event)) return;
+    if (this._appeal.handleClick(action, el, event)) return;
     if (action === "pick-crit") this.select(crit);
     else if (action === "pick-msg") {
       this._msg = this._msg === Number(msg) ? null : Number(msg);
