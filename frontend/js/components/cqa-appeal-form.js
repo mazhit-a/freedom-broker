@@ -87,9 +87,9 @@ export function buildDecisionForm({ appeal, def, role }, onDone) {
   const form = make("div", "dform decision");
   form.dataset.appeal = appeal.id;
   const mode = make("div", "row");
-  const confirm = make("button", "btn confirm", "Reject appeal (keep original)");
+  const confirm = make("button", "btn confirm", "Confirm original score");
   confirm.type = "button";
-  const change = make("button", "btn alt change", "Accept appeal (change answer)");
+  const change = make("button", "btn alt change", "Change score");
   change.type = "button";
   mode.append(confirm, change);
   const changeBox = make("div", "dform");
