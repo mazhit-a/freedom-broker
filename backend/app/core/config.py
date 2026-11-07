@@ -21,6 +21,9 @@ class Settings(BaseSettings):
     llm_price_output: float = 20.0
     llm_price_cache_read: float = 0.2
     llm_price_cache_write: float = 5.0
+    llm_estimate_tokens_input: int = 5000
+    llm_estimate_tokens_output: int = 800
+    llm_estimate_latency_s: float = 40.0
     appeal_filing_roles: str = "operator,qa"
     appeal_window_workdays: int = 5
     appeal_window_enforced: bool = False

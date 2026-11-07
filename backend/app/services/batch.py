@@ -517,3 +517,79 @@ def get_run(conn: sqlite3.Connection, run_id: int, offset: int = 0, limit: int =
     payload["offset"] = offset
     payload["limit"] = limit
     return payload
+
+
+class RetryError(Exception):
+    def __init__(self, code: str, message: str, status: int):
+        super().__init__(message)
+        self.code = code
+        self.message = message
+        self.status = status
+
+
+def retry_item(conn: sqlite3.Connection, run_id: int, conversation_pk: int, client: LLMClient, max_retries: int = 4, backoff_base: float = 2.0, sleep: Callable[[float], None] = time.sleep) -> dict:
+    run = conn.execute("SELECT * FROM eval_run WHERE id = ?", (run_id,)).fetchone()
+    if run is None:
+        raise RetryError("run_not_found", "Run not found", 404)
+    item = conn.execute(
+        "SELECT i.*, c.conversation_id AS cid FROM eval_run_item i JOIN conversation c ON c.id = i.conversation_id WHERE i.run_id = ? AND i.conversation_id = ?",
+        (run_id, conversation_pk),
+    ).fetchone()
+    if item is None:
+        raise RetryError("item_not_found", "Run item not found", 404)
+    if item["status"] != "failed":
+        raise RetryError("item_not_failed", "Only failed items can be retried", 409)
+    claimed = conn.execute(
+        "UPDATE eval_run_item SET status = 'running', started_at = ?, finished_at = NULL, error = NULL WHERE id = ? AND status = 'failed'",
+        (_now_iso(), item["id"]),
+    ).rowcount
+    conn.commit()
+    if not claimed:
+        raise RetryError("item_not_failed", "Only failed items can be retried", 409)
+    job = BatchJob(
+        id=run_id,
+        dataset=run["dataset"],
+        checklist_version_id=run["checklist_version_id"],
+        force=bool(run["force"]),
+        retry_failed=bool(run["retry_failed"]),
+        concurrency=1,
+        model=run["model"],
+    )
+    began = time.monotonic()
+    evaluation_id = None
+    latency_ms = None
+    try:
+        result = _evaluate_with_backoff(job, conversation_pk, client, max_retries, backoff_base, sleep)
+        status = result["status"]
+        error = result.get("error")
+        evaluation_id = result["id"]
+        latency_ms = result.get("latency_ms")
+        _db_write("UPDATE evaluation SET run_id = ? WHERE id = ?", (run_id, evaluation_id))
+    except Exception as exc:
+        status = "failed"
+        error = f"{type(exc).__name__}: {exc}"
+    if latency_ms is None:
+        latency_ms = round((time.monotonic() - began) * 1000)
+    if status not in ("completed", "needs_review"):
+        status = "failed"
+        error = error or "failed"
+    _db_write(
+        "UPDATE eval_run_item SET status = ?, evaluation_id = ?, latency_ms = ?, error = ?, finished_at = ? WHERE id = ?",
+        (status, evaluation_id, latency_ms, error, _now_iso(), item["id"]),
+    )
+    _refresh_counters(run_id, run["throttled_retries"] + job.throttled_retries)
+    with _jobs_lock:
+        live = _jobs.get(run_id)
+    if live is not None:
+        with live.lock:
+            live.failed = max(live.failed - 1, 0)
+            if status == "completed":
+                live.completed += 1
+            elif status == "needs_review":
+                live.needs_review += 1
+            else:
+                live.failed += 1
+            live.failures = [f for f in live.failures if f.get("conversation_pk") != conversation_pk]
+            if status == "failed":
+                live.failures.append({"conversation_pk": conversation_pk, "conversation_id": item["cid"], "error": error})
+    return get_run(conn, run_id, with_items=False)
