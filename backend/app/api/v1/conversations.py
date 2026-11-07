@@ -3,6 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
 
 from backend.app.core.database import get_db
+from backend.app.services.audio_timing import annotate_messages
 
 router = APIRouter(prefix="/conversations", tags=["conversations"])
 
@@ -104,4 +105,4 @@ def get_conversation(conversation_pk: int, conn=Depends(get_db)):
         "WHERE conversation_id = ? ORDER BY message_index",
         (conversation_pk,),
     ).fetchall()
-    return {**dict(row), "messages": [dict(m) for m in messages]}
+    return {**dict(row), "messages": annotate_messages([dict(m) for m in messages], row["channel"], row["audio_url"])}

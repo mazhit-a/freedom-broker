@@ -48,7 +48,14 @@ class CqaTranscript extends HTMLElement {
     this.render();
   }
 
+  audioStart(message) {
+    const value = message.audio_start_seconds;
+    return value !== null && value !== undefined ? value : null;
+  }
+
   timeLabel(message) {
+    const audioStart = this.audioStart(message);
+    if (audioStart !== null) return clock(audioStart);
     const raw = message.timestamp_raw;
     if (raw && /^\d{1,2}:\d{2}/.test(raw) && !raw.includes("T")) return raw;
     if (message.offset_seconds !== null && message.offset_seconds !== undefined) return clock(message.offset_seconds);
@@ -89,7 +96,8 @@ class CqaTranscript extends HTMLElement {
       text.textContent = message.text || "";
 
       row.append(idx, who, text);
-      const seconds = message.offset_seconds;
+      const audioStart = this.audioStart(message);
+      const seconds = audioStart !== null ? audioStart : message.offset_seconds;
       if (this.audio && seconds !== null && seconds !== undefined) {
         const button = document.createElement("button");
         button.type = "button";

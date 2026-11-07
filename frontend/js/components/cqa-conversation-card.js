@@ -266,8 +266,10 @@ class CqaConversationCard extends HTMLElement {
     if (this.conversation.audio_url) {
       const index = detail.range ? detail.range.from : detail.index;
       const message = this.conversation.messages.find((m) => m.message_index === index);
-      if (message && message.offset_seconds !== null && message.offset_seconds !== undefined) {
-        this.seek(message.offset_seconds, false);
+      if (message) {
+        const hasAudioTime = message.audio_start_seconds !== null && message.audio_start_seconds !== undefined;
+        const seconds = hasAudioTime ? message.audio_start_seconds : message.offset_seconds;
+        if (seconds !== null && seconds !== undefined) this.seek(seconds, false);
       }
     }
   }
