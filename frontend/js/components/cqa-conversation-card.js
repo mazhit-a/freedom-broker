@@ -155,7 +155,7 @@ class CqaConversationCard extends HTMLElement {
     }
     const audioBox = root.querySelector(".audio");
     const player = audioBox.querySelector("audio");
-    if (c.audio_url) {
+    if (c.has_audio) {
       audioBox.hidden = false;
       player.src = api.audioUrl(c.id);
       audioBox.querySelector(".open").href = api.audioUrl(c.id);
@@ -213,7 +213,7 @@ class CqaConversationCard extends HTMLElement {
     const right = document.createElement("div");
     right.className = "col right";
     this.transcript = document.createElement("cqa-transcript");
-    this.transcript.playable = Boolean(this.conversation.audio_url);
+    this.transcript.playable = Boolean(this.conversation.has_audio);
     this.transcript.messages = this.conversation.messages;
     left.appendChild(this.transcript);
     this.panel = document.createElement("cqa-evaluation-panel");
@@ -263,7 +263,7 @@ class CqaConversationCard extends HTMLElement {
   onEvidence(detail) {
     if (!this.transcript) return;
     this.transcript.highlight(detail.index, detail.range);
-    if (this.conversation.audio_url) {
+    if (this.conversation.has_audio) {
       const index = detail.range ? detail.range.from : detail.index;
       const message = this.conversation.messages.find((m) => m.message_index === index);
       if (message) {

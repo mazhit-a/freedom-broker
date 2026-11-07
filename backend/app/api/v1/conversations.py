@@ -7,6 +7,7 @@ from backend.app.core.database import get_db
 from backend.app.services.appeals import with_review
 from backend.app.services.evaluator import get_evaluation
 from backend.app.services.audio_timing import annotate_messages
+from backend.app.services.appeals import conversation_meta
 
 router = APIRouter(prefix="/conversations", tags=["conversations"])
 
@@ -157,7 +158,11 @@ def _conversation_body(conn, row) -> dict:
         "WHERE conversation_id = ? ORDER BY message_index",
         (row["id"],),
     ).fetchall()
-    return {**dict(row), "messages": annotate_messages([dict(m) for m in messages], row["channel"], row["audio_url"])}
+    body = {k: v for k, v in dict(row).items() if k != "audio_url"}
+    body["has_audio"] = bool(row["audio_url"])
+    body.update(conversation_meta(conn, row["id"]))
+    body["messages"] = annotate_messages([dict(m) for m in messages], row["channel"], row["audio_url"])
+    return body
 
 
 _CONV_SELECT = (

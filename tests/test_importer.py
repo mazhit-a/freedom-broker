@@ -64,7 +64,8 @@ def test_offsets_chat_and_call(client):
     offsets = [m["offset_seconds"] for m in call["messages"]]
     assert offsets == [0.0, 4.461, 130.0]
     assert call["messages"][0]["timestamp_raw"] == "2026-11-03T13:10:00.6388245+00:00"
-    assert call["audio_url"].startswith("https://")
+    assert call["has_audio"] is True
+    assert "audio_url" not in call
 
 
 def test_bare_list_accepted(client):
