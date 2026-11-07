@@ -12,6 +12,7 @@ import { elements as list } from "./screens/list.js";
 import { elements as overview } from "./screens/overview.js";
 import { elements as runs } from "./screens/runs.js";
 import { elements as audio } from "./screens/audio.js";
+import { elements as queue } from "./screens/queue.js";
 
 export const ELEMENTS = {
   "cqa-nav": CqaNav,
@@ -27,7 +28,8 @@ export const ELEMENTS = {
   ...list,
   ...overview,
   ...runs,
-  ...audio
+  ...audio,
+  ...queue
 };
 
 export function registerAll() {

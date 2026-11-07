@@ -848,7 +848,7 @@ export function createMock(options = {}) {
     async getEvaluationById(evaluationId) {
       await behave();
       const row = rowByEvaluationId(evaluationId);
-      if (!row || !messagesFor(row)) throw fail(404, "not_found", "Evaluation not found");
+      if (!row || (!messagesFor(row) && !row.answers)) throw fail(404, "not_found", "Evaluation not found");
       const found = versionRaw(store, versionIdFor(row));
       return mapEvaluation(rawEvaluation(store, row), mapVersion(found.raw, found.cl.name));
     },

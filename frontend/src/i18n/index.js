@@ -10,10 +10,11 @@ import overview from "./screens/overview.js";
 import runs from "./screens/runs.js";
 import call from "./screens/call.js";
 import appeal from "./screens/appeal.js";
+import queue from "./screens/queue.js";
 
 export const LOCALES = Object.freeze(["ru", "kk", "en"]);
 export const DEFAULT_LOCALE = "ru";
-const SCREENS = [card, cardLedger, builder, list, overview, runs, call, appeal];
+const SCREENS = [card, cardLedger, builder, list, overview, runs, call, appeal, queue];
 
 function merge(base, lang) {
   return Object.assign({}, base, ...SCREENS.map((screen) => screen[lang] || {}));

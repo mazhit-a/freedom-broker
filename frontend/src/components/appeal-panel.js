@@ -54,6 +54,17 @@ function previewText(preview, locale) {
   return `${fmt(preview.before)} → ${fmt(preview.after)}`;
 }
 
+export function decisionBlock({ id, state, options, preview }, locale) {
+  const change = state.decision === "change";
+  const opts = options.map((o) => html`<option value="${o.value}" ${raw(String(o.value) === String(state.newAnswer) ? "selected" : "")}>${o.label}</option>`);
+  const select = change
+    ? html`<label class="rv-new">${t("review.newAnswer", {}, locale)}<select class="field" data-rv="answer" data-focus-id="rv-answer-${id}">${opts}</select></label>`
+    : html``;
+  const blocked = state.busy || !String(state.reason).trim() || (change && (state.newAnswer === null || state.newAnswer === undefined));
+  const error = state.error ? html`<p class="rv-err" role="alert" data-rv-error>${state.error}</p>` : html``;
+  return html`<fieldset class="rv-dec"><legend class="sr">${t("review.decision", {}, locale)}</legend><label class="rv-radio"><input type="radio" name="dec-${id}" value="confirm" data-rv="decision" data-focus-id="rv-confirm-${id}" ${raw(change ? "" : "checked")}>${t("review.confirm", {}, locale)}</label><label class="rv-radio"><input type="radio" name="dec-${id}" value="change" data-rv="decision" data-focus-id="rv-change-${id}" ${raw(change ? "checked" : "")}>${t("review.change", {}, locale)}</label>${select}</fieldset><label class="rv-lbl">${t("review.reason", {}, locale)} <small>${t("review.required", {}, locale)}</small><textarea class="field rv-text" data-rv="reason" data-focus-id="rv-reason-${id}" aria-required="true">${state.reason}</textarea></label>${error}<div class="rv-foot"><div class="rv-prev" role="status"><span class="fs12 muted">${t("review.after", {}, locale)}</span><b class="tnum" data-rv-preview>${previewText(preview, locale)}</b></div><button type="button" class="btn btn-primary" style="margin-left:auto" data-action="review-save" data-appeal="${id}" data-focus-id="rv-save-${id}" ${raw(blocked ? "disabled" : "")}>${state.busy ? t("review.saving", {}, locale) : t("review.save", {}, locale)}</button></div>`;
+}
+
 export function reviewPanel(model, locale) {
   const { id, criterion, appeal, state, options, preview, fragment, refsText, filed } = model;
   const status = appeal.status === "under_review" ? "under_review" : "new";
@@ -66,12 +77,5 @@ export function reviewPanel(model, locale) {
     (f) => html`<div class="rv-line"><span class="t">${f.time}</span><span class="w">${t(`msg.${f.kind}`, {}, locale)}</span><span class="x">${f.text}</span></div>`
   );
   const frag = fragment.length ? html`<div class="rv-frag" data-rv-fragment><span class="rv-frag-h">${t("review.fragment", {}, locale)}</span>${lines}</div>` : html``;
-  const change = state.decision === "change";
-  const opts = options.map((o) => html`<option value="${o.value}" ${raw(String(o.value) === String(state.newAnswer) ? "selected" : "")}>${o.label}</option>`);
-  const select = change
-    ? html`<label class="rv-new">${t("review.newAnswer", {}, locale)}<select class="field" data-rv="answer" data-focus-id="rv-answer-${id}">${opts}</select></label>`
-    : html``;
-  const blocked = state.busy || !String(state.reason).trim() || (change && (state.newAnswer === null || state.newAnswer === undefined));
-  const error = state.error ? html`<p class="rv-err" role="alert" data-rv-error>${state.error}</p>` : html``;
-  return html`<section class="card rv" aria-labelledby="rv-h-${id}" data-review="${id}"><div class="rv-head"><h2 id="rv-h-${id}" class="blk-h">${t("review.title", {}, locale)}</h2>${chip({ tone, text: t(`status.${status}`, {}, locale) })}<span class="tnum fs12 muted">${filed}</span><span class="grow"></span>${start}</div><div class="rv-grid"><div class="rv-box"><span class="fs12 muted">${t("review.original", { id: criterion.id, title: model.title }, locale)}</span><span>${answerBadge(criterion, criterion.originalAnswer, locale)}</span><p class="muted2">${criterion.rationale}</p></div><div class="rv-box line"><span class="fs12 muted">${t("review.operatorComment", {}, locale)}</span><p>${appeal.comment}</p><span class="tnum fs12 muted">${refsText}</span></div></div>${frag}<fieldset class="rv-dec"><legend class="sr">${t("review.decision", {}, locale)}</legend><label class="rv-radio"><input type="radio" name="dec-${id}" value="confirm" data-rv="decision" data-focus-id="rv-confirm-${id}" ${raw(change ? "" : "checked")}>${t("review.confirm", {}, locale)}</label><label class="rv-radio"><input type="radio" name="dec-${id}" value="change" data-rv="decision" data-focus-id="rv-change-${id}" ${raw(change ? "checked" : "")}>${t("review.change", {}, locale)}</label>${select}</fieldset><label class="rv-lbl">${t("review.reason", {}, locale)} <small>${t("review.required", {}, locale)}</small><textarea class="field rv-text" data-rv="reason" data-focus-id="rv-reason-${id}" aria-required="true">${state.reason}</textarea></label>${error}<div class="rv-foot"><div class="rv-prev" role="status"><span class="fs12 muted">${t("review.after", {}, locale)}</span><b class="tnum" data-rv-preview>${previewText(preview, locale)}</b></div><button type="button" class="btn btn-primary" style="margin-left:auto" data-action="review-save" data-appeal="${id}" data-focus-id="rv-save-${id}" ${raw(blocked ? "disabled" : "")}>${state.busy ? t("review.saving", {}, locale) : t("review.save", {}, locale)}</button></div></section>`;
+  return html`<section class="card rv" aria-labelledby="rv-h-${id}" data-review="${id}"><div class="rv-head"><h2 id="rv-h-${id}" class="blk-h">${t("review.title", {}, locale)}</h2>${chip({ tone, text: t(`status.${status}`, {}, locale) })}<span class="tnum fs12 muted">${filed}</span><span class="grow"></span>${start}</div><div class="rv-grid"><div class="rv-box"><span class="fs12 muted">${t("review.original", { id: criterion.id, title: model.title }, locale)}</span><span>${answerBadge(criterion, criterion.originalAnswer, locale)}</span><p class="muted2">${criterion.rationale}</p></div><div class="rv-box line"><span class="fs12 muted">${t("review.operatorComment", {}, locale)}</span><p>${appeal.comment}</p><span class="tnum fs12 muted">${refsText}</span></div></div>${frag}${decisionBlock({ id, state, options, preview }, locale)}</section>`;
 }
