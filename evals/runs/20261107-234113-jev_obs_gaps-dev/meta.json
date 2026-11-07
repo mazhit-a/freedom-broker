@@ -1,0 +1,76 @@
+{
+ "run_id": "20261107-234113-jev_obs_gaps-dev",
+ "variant": "jev_obs_gaps",
+ "split": "dev",
+ "reps": 1,
+ "mode": "live",
+ "dataset_hash": "8d32af582b63e544d3c7d73784efe058e1406016a4a482d677cbbed35a057adf",
+ "limit": null,
+ "workflow": "jev_only",
+ "params": {
+  "style": "obs_gaps"
+ },
+ "dataset_path": "/Users/alibekabilmazhit/freedom-broker/evals/dataset.json",
+ "dataset_version": 1,
+ "expected_calls": 1,
+ "cases": [
+  "case-001",
+  "case-002",
+  "case-003",
+  "case-004",
+  "case-007",
+  "case-008",
+  "case-009",
+  "case-010",
+  "case-013",
+  "case-014",
+  "case-015",
+  "case-016",
+  "case-019",
+  "case-020",
+  "case-021",
+  "case-022",
+  "case-025",
+  "case-026",
+  "case-027",
+  "case-028",
+  "case-031",
+  "case-032",
+  "case-033",
+  "case-034"
+ ],
+ "status": "complete",
+ "cost_estimated": 0.003984,
+ "git_sha": "f7873a4484d8bb39755887c3fa701f72be65dab2",
+ "git_dirty": true,
+ "started": "2026-11-07T23:41:13.924721+00:00",
+ "finished": "2026-11-07T23:41:17.077655+00:00",
+ "n_rows": 24,
+ "n_rows_expected": 24,
+ "n_errors": 0,
+ "served_models": [
+  "typesafe/jev-1.14"
+ ],
+ "usage": {
+  "total": {
+   "calls": 24,
+   "input_tokens": 141456,
+   "output_tokens": 7805,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "cost": 0.005941
+  },
+  "by_model": {
+   "typesafe/jev-1.14": {
+    "calls": 24,
+    "input_tokens": 141456,
+    "output_tokens": 7805,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost": 0.005941
+   }
+  }
+ },
+ "cost_actual": 0.005941,
+ "cost_recomputed": 0.005941
+}

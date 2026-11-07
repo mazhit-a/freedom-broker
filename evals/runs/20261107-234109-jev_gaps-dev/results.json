@@ -1,0 +1,3482 @@
+[
+ {
+  "case_id": "case-001",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "yes",
+    "confidence": 0.95,
+    "distribution": {
+     "yes": 0.95,
+     "no": 0.04,
+     "na": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 15,
+    "confidence": 0.4982,
+    "distribution": {
+     "na": 0.06,
+     "0": 0.0,
+     "5": 0.0,
+     "10": 0.376,
+     "15": 0.4982,
+     "20": 0.0658
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 7,
+    "confidence": 0.64,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.23,
+     "7": 0.64,
+     "10": 0.13
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "no",
+    "confidence": 0.94,
+    "distribution": {
+     "yes": 0.02,
+     "no": 0.94,
+     "na": 0.04
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.86,
+    "distribution": {
+     "yes": 0.14,
+     "no": 0.86
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 3709,
+    "output_tokens": 254,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 546,
+    "cost": 0.000156,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-002",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "na",
+    "confidence": 0.82,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.18,
+     "na": 0.82
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "na",
+    "confidence": 0.85,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.15,
+     "na": 0.85
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 20,
+    "confidence": 0.864,
+    "distribution": {
+     "na": 0.04,
+     "0": 0.0096,
+     "5": 0.0192,
+     "10": 0.0192,
+     "15": 0.048,
+     "20": 0.864
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.78,
+    "distribution": {
+     "yes": 0.78,
+     "no": 0.22
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 4,
+    "confidence": 0.54,
+    "distribution": {
+     "0": 0.42,
+     "4": 0.54,
+     "7": 0.04,
+     "10": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.89,
+    "distribution": {
+     "yes": 0.11,
+     "no": 0.89
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 3594,
+    "output_tokens": 254,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 661,
+    "cost": 0.000151,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-003",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.92,
+    "distribution": {
+     "yes": 0.01,
+     "no": 0.92,
+     "na": 0.07
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 10,
+    "confidence": 0.485,
+    "distribution": {
+     "na": 0.03,
+     "0": 0.0,
+     "5": 0.0,
+     "10": 0.485,
+     "15": 0.45589999999999997,
+     "20": 0.029099999999999997
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "no",
+    "confidence": 0.62,
+    "distribution": {
+     "yes": 0.38,
+     "no": 0.62
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 7,
+    "confidence": 0.7,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.04,
+     "7": 0.7,
+     "10": 0.26
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.86,
+    "distribution": {
+     "yes": 0.14,
+     "no": 0.86
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 3317,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 547,
+    "cost": 0.000139,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-004",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "yes",
+    "confidence": 0.49,
+    "distribution": {
+     "yes": 0.49,
+     "no": 0.44,
+     "na": 0.07
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "na",
+    "confidence": 0.96,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.04,
+     "na": 0.96
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": "na",
+    "confidence": 0.97,
+    "distribution": {
+     "na": 0.97,
+     "0": 0.014400000000000012,
+     "5": 0.0003000000000000003,
+     "10": 0.004800000000000005,
+     "15": 0.0,
+     "20": 0.01050000000000001
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.96,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.0,
+     "7": 0.04,
+     "10": 0.96
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "na",
+    "confidence": 0.9,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.1,
+     "na": 0.9
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.8200000000000001,
+    "distribution": {
+     "yes": 0.18,
+     "no": 0.8200000000000001
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 3194,
+    "output_tokens": 254,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 550,
+    "cost": 0.000134,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-007",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 0.81,
+    "distribution": {
+     "yes": 0.81,
+     "no": 0.19
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.77,
+    "distribution": {
+     "yes": 0.14,
+     "no": 0.77,
+     "na": 0.09
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 10,
+    "confidence": 0.8526,
+    "distribution": {
+     "na": 0.02,
+     "0": 0.0588,
+     "5": 0.0588,
+     "10": 0.8526,
+     "15": 0.0,
+     "20": 0.0098
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "no",
+    "confidence": 0.89,
+    "distribution": {
+     "yes": 0.11,
+     "no": 0.89
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 4,
+    "confidence": 0.87,
+    "distribution": {
+     "0": 0.01,
+     "4": 0.87,
+     "7": 0.09,
+     "10": 0.03
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.79,
+    "distribution": {
+     "yes": 0.21,
+     "no": 0.79
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 4530,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 642,
+    "cost": 0.00019,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-008",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "na",
+    "confidence": 0.71,
+    "distribution": {
+     "yes": 0.21,
+     "no": 0.08,
+     "na": 0.71
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 20,
+    "confidence": 0.9108,
+    "distribution": {
+     "na": 0.08,
+     "0": 0.0,
+     "5": 0.0,
+     "10": 0.0,
+     "15": 0.0092,
+     "20": 0.9108
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.86,
+    "distribution": {
+     "yes": 0.86,
+     "no": 0.14
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.99,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.0,
+     "7": 0.01,
+     "10": 0.99
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "no",
+    "confidence": 0.63,
+    "distribution": {
+     "yes": 0.31,
+     "no": 0.63,
+     "na": 0.06
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.89,
+    "distribution": {
+     "yes": 0.11,
+     "no": 0.89
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 4709,
+    "output_tokens": 254,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 642,
+    "cost": 0.000198,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-009",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.95,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.95,
+     "na": 0.05
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 0.93,
+    "distribution": {
+     "yes": 0.93,
+     "no": 0.02,
+     "na": 0.05
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 5,
+    "confidence": 0.5841,
+    "distribution": {
+     "na": 0.01,
+     "0": 0.0198,
+     "5": 0.5841,
+     "10": 0.3465,
+     "15": 0.0099,
+     "20": 0.029699999999999997
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.97,
+    "distribution": {
+     "yes": 0.97,
+     "no": 0.03
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.64,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.18,
+     "7": 0.18,
+     "10": 0.64
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.94,
+    "distribution": {
+     "yes": 0.06,
+     "no": 0.94
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 3487,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 638,
+    "cost": 0.000146,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-010",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 5,
+    "confidence": 0.6789999999999999,
+    "distribution": {
+     "na": 0.03,
+     "0": 0.2522,
+     "5": 0.6789999999999999,
+     "10": 0.0388,
+     "15": 0.0,
+     "20": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "no",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.01,
+     "no": 0.99
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 4,
+    "confidence": 0.89,
+    "distribution": {
+     "0": 0.01,
+     "4": 0.89,
+     "7": 0.09,
+     "10": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "no",
+    "confidence": 0.92,
+    "distribution": {
+     "yes": 0.03,
+     "no": 0.92,
+     "na": 0.05
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "yes",
+    "confidence": 0.96,
+    "distribution": {
+     "yes": 0.96,
+     "no": 0.040000000000000036
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 4624,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 526,
+    "cost": 0.000194,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-013",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.87,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.87,
+     "na": 0.13
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 10,
+    "confidence": 0.864,
+    "distribution": {
+     "na": 0.04,
+     "0": 0.0192,
+     "5": 0.0096,
+     "10": 0.864,
+     "15": 0.0096,
+     "20": 0.0576
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "no",
+    "confidence": 0.6,
+    "distribution": {
+     "yes": 0.4,
+     "no": 0.6
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.67,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.09,
+     "7": 0.24,
+     "10": 0.67
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.8200000000000001,
+    "distribution": {
+     "yes": 0.18,
+     "no": 0.8200000000000001
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 6565,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 611,
+    "cost": 0.000276,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-014",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 20,
+    "confidence": 0.8835999999999999,
+    "distribution": {
+     "na": 0.06,
+     "0": 0.0094,
+     "5": 0.0,
+     "10": 0.0094,
+     "15": 0.0376,
+     "20": 0.8835999999999999
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.97,
+    "distribution": {
+     "yes": 0.97,
+     "no": 0.03
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 7,
+    "confidence": 0.74,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.01,
+     "7": 0.74,
+     "10": 0.25
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "na",
+    "confidence": 0.75,
+    "distribution": {
+     "yes": 0.01,
+     "no": 0.24,
+     "na": 0.75
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.86,
+    "distribution": {
+     "yes": 0.14,
+     "no": 0.86
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 8349,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 522,
+    "cost": 0.000351,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-015",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "yes",
+    "confidence": 0.96,
+    "distribution": {
+     "yes": 0.96,
+     "no": 0.03,
+     "na": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 0.98,
+    "distribution": {
+     "yes": 0.98,
+     "no": 0.02,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 20,
+    "confidence": 0.741,
+    "distribution": {
+     "na": 0.05,
+     "0": 0.0095,
+     "5": 0.0,
+     "10": 0.0095,
+     "15": 0.19,
+     "20": 0.741
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.58,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.02,
+     "7": 0.4,
+     "10": 0.58
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 0.61,
+    "distribution": {
+     "yes": 0.61,
+     "no": 0.37,
+     "na": 0.02
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.9299999999999999,
+    "distribution": {
+     "yes": 0.07,
+     "no": 0.9299999999999999
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 5313,
+    "output_tokens": 254,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 523,
+    "cost": 0.000223,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-016",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.98,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.98,
+     "na": 0.02
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 20,
+    "confidence": 0.5579999999999999,
+    "distribution": {
+     "na": 0.07,
+     "0": 0.0651,
+     "5": 0.027899999999999998,
+     "10": 0.1302,
+     "15": 0.1488,
+     "20": 0.5579999999999999
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.82,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.01,
+     "7": 0.17,
+     "10": 0.82
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "na",
+    "confidence": 0.89,
+    "distribution": {
+     "yes": 0.02,
+     "no": 0.09,
+     "na": 0.89
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.89,
+    "distribution": {
+     "yes": 0.11,
+     "no": 0.89
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 7530,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 523,
+    "cost": 0.000316,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-019",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "yes",
+    "confidence": 0.5,
+    "distribution": {
+     "yes": 0.5,
+     "no": 0.49,
+     "na": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "na",
+    "confidence": 0.92,
+    "distribution": {
+     "yes": 0.01,
+     "no": 0.07,
+     "na": 0.92
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": "na",
+    "confidence": 0.92,
+    "distribution": {
+     "na": 0.92,
+     "0": 0.06319999999999996,
+     "5": 0.0015999999999999992,
+     "10": 0.004799999999999998,
+     "15": 0.0,
+     "20": 0.010399999999999994
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.66,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.0,
+     "7": 0.34,
+     "10": 0.66
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "na",
+    "confidence": 0.97,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.03,
+     "na": 0.97
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.8,
+    "distribution": {
+     "yes": 0.2,
+     "no": 0.8
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 3177,
+    "output_tokens": 254,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 521,
+    "cost": 0.000133,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-020",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.67,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.67,
+     "na": 0.33
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "na",
+    "confidence": 0.93,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.07,
+     "na": 0.93
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 0,
+    "confidence": 0.4214,
+    "distribution": {
+     "na": 0.02,
+     "0": 0.4214,
+     "5": 0.245,
+     "10": 0.3136,
+     "15": 0.0,
+     "20": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "no",
+    "confidence": 0.93,
+    "distribution": {
+     "yes": 0.07,
+     "no": 0.93
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 0,
+    "confidence": 0.58,
+    "distribution": {
+     "0": 0.58,
+     "4": 0.42,
+     "7": 0.0,
+     "10": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 0.94,
+    "distribution": {
+     "yes": 0.94,
+     "no": 0.06,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.84,
+    "distribution": {
+     "yes": 0.16,
+     "no": 0.84
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 3692,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 522,
+    "cost": 0.000155,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-021",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.99,
+     "na": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 0.96,
+    "distribution": {
+     "yes": 0.96,
+     "no": 0.03,
+     "na": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 10,
+    "confidence": 0.5781999999999999,
+    "distribution": {
+     "na": 0.02,
+     "0": 0.0098,
+     "5": 0.0098,
+     "10": 0.5781999999999999,
+     "15": 0.0882,
+     "20": 0.294
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.76,
+    "distribution": {
+     "yes": 0.76,
+     "no": 0.24
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 7,
+    "confidence": 0.45,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.12,
+     "7": 0.45,
+     "10": 0.43
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "yes",
+    "confidence": 0.92,
+    "distribution": {
+     "yes": 0.92,
+     "no": 0.07999999999999996
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 4067,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 843,
+    "cost": 0.000171,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-022",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.79,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.79,
+     "na": 0.21
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 15,
+    "confidence": 0.6566000000000001,
+    "distribution": {
+     "na": 0.02,
+     "0": 0.0,
+     "5": 0.0,
+     "10": 0.3038,
+     "15": 0.6566000000000001,
+     "20": 0.0196
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "no",
+    "confidence": 0.79,
+    "distribution": {
+     "yes": 0.21,
+     "no": 0.79
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.74,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.05,
+     "7": 0.21,
+     "10": 0.74
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 0.98,
+    "distribution": {
+     "yes": 0.98,
+     "no": 0.02,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.6,
+    "distribution": {
+     "yes": 0.4,
+     "no": 0.6
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 3404,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 497,
+    "cost": 0.000143,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-025",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.99,
+     "na": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "na",
+    "confidence": 0.95,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.05,
+     "na": 0.95
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 20,
+    "confidence": 0.9207,
+    "distribution": {
+     "na": 0.07,
+     "0": 0.0,
+     "5": 0.0,
+     "10": 0.0,
+     "15": 0.0093,
+     "20": 0.9207
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.85,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.01,
+     "7": 0.14,
+     "10": 0.85
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.83,
+    "distribution": {
+     "yes": 0.17,
+     "no": 0.83
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 5927,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 521,
+    "cost": 0.000249,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-026",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.79,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.79,
+     "na": 0.21
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 5,
+    "confidence": 0.5194,
+    "distribution": {
+     "na": 0.02,
+     "0": 0.0196,
+     "5": 0.5194,
+     "10": 0.441,
+     "15": 0.0,
+     "20": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.92,
+    "distribution": {
+     "yes": 0.92,
+     "no": 0.08
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 4,
+    "confidence": 0.41,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.41,
+     "7": 0.24,
+     "10": 0.35
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.81,
+    "distribution": {
+     "yes": 0.19,
+     "no": 0.81
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 4843,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 521,
+    "cost": 0.000203,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-027",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "yes",
+    "confidence": 0.94,
+    "distribution": {
+     "yes": 0.94,
+     "no": 0.06,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "no",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 0.0,
+     "no": 1.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 0,
+    "confidence": 0.7227,
+    "distribution": {
+     "na": 0.01,
+     "0": 0.7227,
+     "5": 0.0198,
+     "10": 0.0891,
+     "15": 0.0396,
+     "20": 0.11879999999999999
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.94,
+    "distribution": {
+     "yes": 0.94,
+     "no": 0.06
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.76,
+    "distribution": {
+     "0": 0.02,
+     "4": 0.02,
+     "7": 0.2,
+     "10": 0.76
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.95,
+    "distribution": {
+     "yes": 0.05,
+     "no": 0.95
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 4484,
+    "output_tokens": 254,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 481,
+    "cost": 0.000188,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-028",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "yes",
+    "confidence": 0.97,
+    "distribution": {
+     "yes": 0.97,
+     "no": 0.03,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "no",
+    "confidence": 0.96,
+    "distribution": {
+     "yes": 0.03,
+     "no": 0.96,
+     "na": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 20,
+    "confidence": 0.588,
+    "distribution": {
+     "na": 0.02,
+     "0": 0.0196,
+     "5": 0.0,
+     "10": 0.049,
+     "15": 0.3234,
+     "20": 0.588
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "no",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.01,
+     "no": 0.99
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 7,
+    "confidence": 0.5,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.04,
+     "7": 0.5,
+     "10": 0.46
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "yes",
+    "confidence": 0.98,
+    "distribution": {
+     "yes": 0.98,
+     "no": 0.020000000000000018
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 6067,
+    "output_tokens": 254,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 482,
+    "cost": 0.000255,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-031",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "yes",
+    "confidence": 0.98,
+    "distribution": {
+     "yes": 0.98,
+     "no": 0.01,
+     "na": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "na",
+    "confidence": 0.59,
+    "distribution": {
+     "yes": 0.04,
+     "no": 0.37,
+     "na": 0.59
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 20,
+    "confidence": 0.6048,
+    "distribution": {
+     "na": 0.04,
+     "0": 0.3264,
+     "5": 0.0,
+     "10": 0.0096,
+     "15": 0.0192,
+     "20": 0.6048
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.58,
+    "distribution": {
+     "yes": 0.58,
+     "no": 0.42
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.98,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.0,
+     "7": 0.02,
+     "10": 0.98
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.86,
+    "distribution": {
+     "yes": 0.14,
+     "no": 0.86
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 7390,
+    "output_tokens": 254,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 522,
+    "cost": 0.00031,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-032",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.97,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.97,
+     "na": 0.03
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 20,
+    "confidence": 0.9506,
+    "distribution": {
+     "na": 0.03,
+     "0": 0.0,
+     "5": 0.0,
+     "10": 0.0,
+     "15": 0.0194,
+     "20": 0.9506
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.97,
+    "distribution": {
+     "yes": 0.97,
+     "no": 0.03
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 7,
+    "confidence": 0.65,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.29,
+     "7": 0.65,
+     "10": 0.06
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.89,
+    "distribution": {
+     "yes": 0.11,
+     "no": 0.89
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 8244,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 523,
+    "cost": 0.000346,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-033",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "no",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.01,
+     "no": 0.99
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "no",
+    "confidence": 0.76,
+    "distribution": {
+     "yes": 0.0,
+     "no": 0.76,
+     "na": 0.24
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "na",
+    "confidence": 0.52,
+    "distribution": {
+     "yes": 0.01,
+     "no": 0.47,
+     "na": 0.52
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 5,
+    "confidence": 0.7252,
+    "distribution": {
+     "na": 0.02,
+     "0": 0.0294,
+     "5": 0.7252,
+     "10": 0.21559999999999999,
+     "15": 0.0,
+     "20": 0.0098
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "yes",
+    "confidence": 0.99,
+    "distribution": {
+     "yes": 0.99,
+     "no": 0.01
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 7,
+    "confidence": 0.78,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.16,
+     "7": 0.78,
+     "10": 0.06
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.87,
+    "distribution": {
+     "yes": 0.13,
+     "no": 0.87
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 9485,
+    "output_tokens": 256,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 533,
+    "cost": 0.000398,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ },
+ {
+  "case_id": "case-034",
+  "variant": "jev_gaps",
+  "results": {
+   "01": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "02": {
+    "answer": "yes",
+    "confidence": 0.97,
+    "distribution": {
+     "yes": 0.97,
+     "no": 0.03,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "03": {
+    "answer": "yes",
+    "confidence": 1.0,
+    "distribution": {
+     "yes": 1.0,
+     "no": 0.0,
+     "na": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "04": {
+    "answer": 5,
+    "confidence": 0.7566,
+    "distribution": {
+     "na": 0.03,
+     "0": 0.1358,
+     "5": 0.7566,
+     "10": 0.0776,
+     "15": 0.0,
+     "20": 0.0
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "05": {
+    "answer": "no",
+    "confidence": 0.94,
+    "distribution": {
+     "yes": 0.06,
+     "no": 0.94
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "06": {
+    "answer": 10,
+    "confidence": 0.69,
+    "distribution": {
+     "0": 0.0,
+     "4": 0.2,
+     "7": 0.11,
+     "10": 0.69
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "07": {
+    "answer": "no",
+    "confidence": 0.81,
+    "distribution": {
+     "yes": 0.17,
+     "no": 0.81,
+     "na": 0.02
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   },
+   "08": {
+    "answer": "no",
+    "confidence": 0.89,
+    "distribution": {
+     "yes": 0.11,
+     "no": 0.89
+    },
+    "rationale": "",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": null,
+    "unexplained": true
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "jev",
+    "request_id": "jev",
+    "provider": "jev",
+    "model": "typesafe/jev-1.14",
+    "input_tokens": 9059,
+    "output_tokens": 254,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 853,
+    "cost": 0.00038,
+    "structured": false,
+    "stop_reason": null,
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "explained": false,
+  "rep": 0
+ }
+]
