@@ -145,8 +145,24 @@ export class CqaElement extends HostBase {
       style.textContent = this.styles();
       this.shadowRoot.prepend(style);
     }
+    const active = this.shadowRoot.activeElement;
+    const focusKey = active && active.getAttribute ? active.getAttribute("data-focus-id") : null;
+    const caret = focusKey && "selectionStart" in active ? [active.selectionStart, active.selectionEnd] : null;
     region.innerHTML = String(this.template());
     this.afterRender(region);
+    if (focusKey) {
+      const target = region.querySelector(`[data-focus-id="${focusKey.replace(/"/g, '\\"')}"]`);
+      if (target && target !== this.shadowRoot.activeElement) {
+        target.focus({ preventScroll: true });
+        if (caret && caret[0] !== null && "setSelectionRange" in target) {
+          try {
+            target.setSelectionRange(caret[0], caret[1]);
+          } catch (error) {
+            return;
+          }
+        }
+      }
+    }
   }
 
   afterRender() {}

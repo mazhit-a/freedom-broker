@@ -95,6 +95,11 @@ export function getSettings() {
   };
 }
 
+export function ensureConfigured() {
+  if (!settings.configured) configure();
+  return getSettings();
+}
+
 export function resetMock(options = {}) {
   if (!mock) throw new ApiError(0, "mock_disabled", "Mock mode is not enabled");
   mock.reset(options);

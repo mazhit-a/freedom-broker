@@ -1,7 +1,13 @@
 export const EVENTS = Object.freeze({
   navigate: "cqa:navigate",
   appealSubmitted: "cqa:appeal-submitted",
-  decisionSaved: "cqa:decision-saved"
+  decisionSaved: "cqa:decision-saved",
+  localeChange: "cqa:locale-change",
+  roleChange: "cqa:role-change",
+  toast: "cqa:toast",
+  confirm: "cqa:confirm",
+  close: "cqa:close",
+  stepsChange: "cqa:steps-change"
 });
 
 export function emit(target, name, detail = {}) {

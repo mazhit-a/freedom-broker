@@ -10,6 +10,7 @@ import { transcriptMessage } from "../shared/transcript-message.js";
 import { criterionRow, scaleStepList } from "../shared/criterion-row.js";
 import { dataTable } from "../shared/data-table.js";
 import { barChart } from "../shared/bar-chart.js";
+import { registerAll } from "../register.js";
 
 const BRAND = [
   ["brand", "#51AF3D"],
@@ -74,7 +75,8 @@ export class CqaPlayground extends CqaElement {
 
   styles() {
     return `${SHARED_CSS}
-      :host { display: block; background: var(--cqa-surface-2); font-size: var(--cqa-fs-14); }
+      :host { display: block; container-type: normal !important; background: var(--cqa-surface-2); font-size: var(--cqa-fs-14); }
+      .wrap { container-type: inline-size; }
       main { max-width: 1360px; margin: 0 auto; padding: 32px 24px 64px; display: flex; flex-direction: column; gap: 32px; }
       h1 { margin: 0; font-size: var(--cqa-fs-32); font-weight: 600; letter-spacing: -0.02em; }
       p { margin: 0; }
@@ -119,7 +121,7 @@ export class CqaPlayground extends CqaElement {
     );
 
     return html`
-      <main>
+      <div class="wrap"><main>
         <div class="col gap-2">
           <span class="sub-h">${t("gallery.kicker")}</span>
           <h1>${t("gallery.title")}</h1>
@@ -206,6 +208,24 @@ export class CqaPlayground extends CqaElement {
           </div>
         </section>
 
+        <section aria-labelledby="ov-h">
+          <h2 id="ov-h" class="sec-h">${t("gallery.overlays")}</h2>
+          <div class="grid">
+            <div class="card block" id="g-overlays">
+              <h3 class="sub-h">${t("gallery.overlays")}</h3>
+              <div class="row gap-2">
+                <button type="button" class="btn" data-action="open-drawer" data-focus-id="open-drawer">${t("gallery.openDrawer")}</button>
+                <button type="button" class="btn" data-action="open-modal" data-focus-id="open-modal">${t("gallery.openModal")}</button>
+                <button type="button" class="btn" data-action="show-toast" data-focus-id="show-toast">${t("gallery.showToast")}</button>
+              </div>
+            </div>
+            <div class="card block" id="g-scale">
+              <h3 class="sub-h">${t("gallery.scaleEditor")} · ${t("gallery.stepsHint")} 15</h3>
+              <div data-editor-slot></div>
+            </div>
+          </div>
+        </section>
+
         <section aria-labelledby="tb-h">
           <h2 id="tb-h" class="sec-h">${t("gallery.table")}</h2>
           <div class="card block" id="g-table">${table}</div>
@@ -222,11 +242,50 @@ export class CqaPlayground extends CqaElement {
             <div class="col gap-2"><h3 class="sub-h">${t("gallery.notCalculated")}</h3>${notCalculatedPanel(l)}</div>
           </div>
         </section>
-      </main>
+      </main></div>
     `;
   }
 
+  mountOverlays(region) {
+    const t = (key) => this.t(key);
+    if (!this._editor) {
+      this._editor = document.createElement("cqa-scale-step-editor");
+      this._editor.setAttribute("weight", "15");
+      this._editor.steps = STEPS.map((s) => ({ value: s.step, description: s.description }));
+    }
+    this._editor.setAttribute("locale", this.locale);
+    region.querySelector("[data-editor-slot]").append(this._editor);
+    if (!this._drawer) {
+      this._drawer = document.createElement("cqa-drawer");
+      this._drawer.id = "g-drawer";
+      this._drawer.innerHTML = '<p data-drawer-text></p><label class="lbl"><span data-drawer-field></span><input class="field" data-autofocus></label><button slot="footer" type="button" class="btn" data-drawer-close></button>';
+      this._drawer.querySelector("[data-drawer-close]").addEventListener("click", () => this._drawer.close("button"));
+      this._modal = document.createElement("cqa-modal");
+      this._modal.id = "g-modal";
+      this._modal.innerHTML = '<button slot="footer" type="button" class="btn" data-modal-cancel></button><button slot="footer" type="button" class="btn btn-primary" data-modal-ok></button>';
+      this._modal.querySelector("[data-modal-cancel]").addEventListener("click", () => this._modal.close("cancel"));
+      this._modal.querySelector("[data-modal-ok]").addEventListener("click", () => {
+        this._modal.close("confirm");
+        this._toast.show(this.t("gallery.toastText"));
+      });
+      this._toast = document.createElement("cqa-toast");
+      this._toast.id = "g-toast";
+      this.shadowRoot.append(this._drawer, this._modal, this._toast);
+    }
+    for (const el of [this._drawer, this._modal, this._toast]) el.setAttribute("locale", this.locale);
+    this._drawer.setAttribute("heading", t("gallery.drawerTitle"));
+    this._drawer.querySelector("[data-drawer-text]").textContent = t("gallery.drawerBody");
+    this._drawer.querySelector("[data-drawer-field]").textContent = t("gallery.name");
+    this._drawer.querySelector("[data-drawer-close]").textContent = t("action.close");
+    this._modal.setAttribute("heading", t("gallery.modalTitle"));
+    this._modal.setAttribute("description", t("gallery.modalBody"));
+    this._modal.querySelector("[data-modal-cancel]").textContent = t("action.cancel");
+    this._modal.querySelector("[data-modal-ok]").textContent = t("action.apply");
+  }
+
   afterRender(region) {
+    registerAll();
+    this.mountOverlays(region);
     if (this._bound === region) {
       this.restoreFocus(region);
       return;
@@ -236,8 +295,20 @@ export class CqaPlayground extends CqaElement {
       const target = event.target.closest("[data-locale], [data-action]");
       if (!target) return;
       if (target.dataset.locale) {
-        setLocale(target.dataset.locale, { persist: true });
+        setLocale(target.dataset.locale);
         this.locale = target.dataset.locale;
+        return;
+      }
+      if (target.dataset.action === "open-drawer") {
+        this._drawer.show();
+        return;
+      }
+      if (target.dataset.action === "open-modal") {
+        this._modal.show();
+        return;
+      }
+      if (target.dataset.action === "show-toast") {
+        this._toast.show(this.t("gallery.toastText"));
         return;
       }
       if (target.dataset.action === "sort") {

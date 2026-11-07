@@ -6,6 +6,8 @@ const PATHS = {
   alert: '<path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path>',
   retry: '<path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path>',
   up: '<path d="m6 15 6-6 6 6"></path>',
+  close: '<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>',
+  plus: '<path d="M12 5v14"></path><path d="M5 12h14"></path>',
   down: '<path d="m6 9 6 6 6-6"></path>'
 };
 

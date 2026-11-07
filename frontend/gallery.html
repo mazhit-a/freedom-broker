@@ -14,10 +14,10 @@ html, body { margin: 0; padding: 0; background: #f4f6f8; }
 <cqa-playground></cqa-playground>
 <script type="module">
 import { registerInter } from "./src/fonts.js";
-import { setLocale, storedLocale } from "./src/i18n/index.js";
+import { setLocale } from "./src/i18n/index.js";
 import "./src/components/cqa-playground.js";
 registerInter();
-setLocale(new URLSearchParams(location.search).get("locale") || storedLocale() || "ru");
+setLocale(new URLSearchParams(location.search).get("locale") || "ru");
 </script>
 </body>
 </html>
