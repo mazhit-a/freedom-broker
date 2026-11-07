@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CQA gallery</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="src/fonts/fonts.css">
+<style>
+html, body { margin: 0; padding: 0; background: #f4f6f8; }
+</style>
+</head>
+<body>
+<cqa-playground></cqa-playground>
+<script type="module">
+import { registerInter } from "./src/fonts.js";
+import { setLocale, storedLocale } from "./src/i18n/index.js";
+import "./src/components/cqa-playground.js";
+registerInter();
+setLocale(new URLSearchParams(location.search).get("locale") || storedLocale() || "ru");
+</script>
+</body>
+</html>

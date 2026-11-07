@@ -106,6 +106,84 @@ export const scenarios = {
     await page.assertAccessibleNames();
   },
 
+  async gallery(page) {
+    await page.waitForDeep("cqa-playground >>> #g-table [role=table]");
+    const q = (sel) => page.deepCount(`cqa-playground >>> ${sel}`);
+    page.assert((await q("#g-chips .chip")) === 13, "twelve answer and status chips plus the version chip");
+    page.assert((await q("#g-chips .lang")) === 3, "three language chips");
+    page.assert((await q("#g-messages .msg, #g-messages .msg-system")) >= 5, "five transcript messages");
+    page.assert((await q("#g-criterion .crit")) === 1, "criterion row");
+    page.assert((await q("#g-criterion .steps li")) === 4, "four scale steps");
+    page.assert((await q("#g-states [aria-busy=true]")) === 1, "loading state has aria-busy");
+    page.assert((await q("#g-states [data-action=retry]")) === 1, "error state has retry");
+    page.assert((await q("#g-chart [role=img]")) === 1, "histogram figure");
+    const heights = await page.eval(`(() => {
+      const root = document.querySelector('cqa-playground').shadowRoot;
+      const h = (s) => Math.round(root.querySelector(s).getBoundingClientRect().height);
+      return { normal: h('#g-buttons .btn-primary'), small: h('#g-buttons .btn-sm') };
+    })()`);
+    page.assert(heights.normal === 34, `button is 34px (${heights.normal})`);
+    page.assert(heights.small === 28, `small button is 28px (${heights.small})`);
+    const table = await page.eval(`(() => {
+      const root = document.querySelector('cqa-playground').shadowRoot;
+      const tbl = root.querySelector('#g-table [role=table]');
+      const wrap = root.querySelector('#g-table .tbl-wrap');
+      return {
+        rows: tbl.querySelectorAll('[role=row]').length,
+        headers: tbl.querySelectorAll('[role=columnheader]').length,
+        cells: tbl.querySelectorAll('[role=cell]').length,
+        sort: tbl.querySelector('[aria-sort]')?.getAttribute('aria-sort'),
+        secondary: getComputedStyle(root.querySelector('#g-table .secondary')).display,
+        wrapClient: wrap.clientWidth, wrapScroll: wrap.scrollWidth
+      };
+    })()`);
+    page.assert(table.rows === 5 && table.headers === 6 && table.cells === 24, `table roles ${JSON.stringify(table)}`);
+    page.assert(table.sort === "none" || table.sort === "descending" || table.sort === "ascending", "aria-sort present");
+    const width = await page.eval("window.innerWidth");
+    if (width < 1100) page.assert(table.secondary === "none", "secondary column hidden at narrow container");
+    else page.assert(table.secondary !== "none", "secondary column visible at wide container");
+    const focusRing = await page.eval(`(() => {
+      const root = document.querySelector('cqa-playground').shadowRoot;
+      const b = root.querySelector('#g-buttons .btn-primary');
+      b.focus();
+      return getComputedStyle(b).outlineStyle + ' ' + getComputedStyle(b).outlineWidth;
+    })()`);
+    page.assert(focusRing === "none 0px" ? false : true, `focus ring on keyboard focus (${focusRing})`);
+    await page.press("Tab");
+    const ring = await page.eval(`(() => {
+      const a = document.querySelector('cqa-playground').shadowRoot.activeElement;
+      const cs = getComputedStyle(a);
+      return { outline: cs.outlineStyle, width: cs.outlineWidth, color: cs.outlineColor };
+    })()`);
+    page.assert(ring.outline === "solid" && ring.width === "2px", `visible focus ring after Tab ${JSON.stringify(ring)}`);
+    await page.click("cqa-playground >>> #g-table [data-action=sort]");
+    await waitFor(() => page.eval(`!!document.querySelector('cqa-playground').shadowRoot.querySelector('#g-table [aria-sort=ascending]')`));
+    await page.click("cqa-playground >>> #g-table [data-action=sort]");
+    await waitFor(() => page.eval(`!!document.querySelector('cqa-playground').shadowRoot.querySelector('#g-table [aria-sort=descending]')`));
+    await page.click(`cqa-playground >>> #g-table [data-action=select-row][data-id=call-014]`);
+    await waitFor(() => page.eval(`document.querySelector('cqa-playground').shadowRoot.querySelectorAll('#g-table [aria-selected=true]').length === 2`));
+    await page.eval(`document.querySelector('cqa-playground').setAttribute('locale', 'en')`);
+    await waitFor(() => page.eval(`document.querySelector('cqa-playground').shadowRoot.querySelector('#g-kf .kf-value').textContent.trim() === '78.42'`));
+    const en = await page.deepText("cqa-playground >>> #g-chips .chip");
+    page.assert(en === "Yes", `English chips (${en})`);
+    await page.eval(`document.querySelector('cqa-playground').setAttribute('locale', 'kk')`);
+    await waitFor(() => page.eval(`document.querySelector('cqa-playground').shadowRoot.querySelector('#g-kf .kf-value').textContent.trim().startsWith('78')`));
+    await page.eval(`document.querySelector('cqa-playground').setAttribute('locale', 'ru')`);
+    await waitFor(() => page.eval(`document.querySelector('cqa-playground').shadowRoot.querySelector('#g-kf .kf-value').textContent.trim() === '78,42'`));
+    const colours = await page.eval(`(() => {
+      const root = document.querySelector('cqa-playground').shadowRoot;
+      const probe = (cls) => { const e = root.querySelector('#g-chips .' + cls); return getComputedStyle(e).backgroundColor; };
+      return [probe('c-ok'), probe('c-bad'), probe('c-crit'), probe('c-brand')];
+    })()`);
+    page.assert(new Set(colours).size === 4, `chip tones resolve to four token colours ${colours.join(", ")}`);
+    await page.assertAccessibleNames();
+    const noScroll = await page.eval(`(() => {
+      const root = document.querySelector('cqa-playground').shadowRoot;
+      return [...root.querySelectorAll('.card')].filter((c) => c.scrollWidth > c.clientWidth + 1 && !c.querySelector('.tbl-wrap')).length;
+    })()`);
+    page.assert(noScroll === 0, `no card overflows horizontally (${noScroll})`);
+  },
+
   async fonts(page) {
     await page.waitForDeep("cqa-app >>> h1");
     const result = await page.eval(`(async () => {
@@ -282,6 +360,7 @@ async function main() {
               if (!el.matches('button, a[href], input, select, textarea, [role="button"], [role="tab"]')) return false;
               if (el.getAttribute('aria-label') || el.getAttribute('aria-labelledby') || el.getAttribute('title')) return false;
               if (el.textContent.trim()) return false;
+              if (el.closest('label')?.textContent.trim()) return false;
               if (el.id && el.getRootNode().querySelector('label[for="' + el.id + '"]')) return false;
               return true;
             }).map((el) => el.outerHTML.slice(0, 80))`);
