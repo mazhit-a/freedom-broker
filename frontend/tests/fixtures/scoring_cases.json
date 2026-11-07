@@ -1,0 +1,1021 @@
+{
+ "note": "Shared by frontend/tests/scoring.test.js and tests/test_scoring_golden.py. Money values are strings with two decimals. The hard-coded res tables in Appeals.dc.html a3 cannot be reproduced without the full answer set, so mocks compute previews with scoring.js. effectivePoints, effectiveMax and effectiveWeight are the points or weights multiplied by 100 over the applicable weight; the Python engine exposes only part of them, the golden test derives the rest.",
+ "configs": {
+  "seed": {
+   "name": "Default operator quality checklist",
+   "sections": [
+    {
+     "id": "opening",
+     "title": "Opening & understanding",
+     "labels": {
+      "ru": {
+       "title": "Начало и понимание запроса"
+      }
+     }
+    },
+    {
+     "id": "security",
+     "title": "Security & resolution",
+     "labels": {
+      "ru": {
+       "title": "Безопасность и решение вопроса"
+      }
+     }
+    },
+    {
+     "id": "conduct",
+     "title": "Conduct & closing",
+     "labels": {
+      "ru": {
+       "title": "Ведение диалога и завершение"
+      }
+     }
+    },
+    {
+     "id": "gross",
+     "title": "Gross violations",
+     "labels": {
+      "ru": {
+       "title": "Грубые нарушения"
+      }
+     }
+    }
+   ],
+   "criteria": [
+    {
+     "id": "01",
+     "title": "Rapport",
+     "labels": {
+      "ru": {
+       "title": "Установление контакта"
+      }
+     },
+     "description": "The operator greeted the client in the client's language and introduced themselves in the first operator reply. The bot's greeting does not satisfy this criterion.",
+     "section": "opening",
+     "weight": 10,
+     "type": "yes_no",
+     "na_allowed": false
+    },
+    {
+     "id": "02",
+     "title": "Needs discovery",
+     "labels": {
+      "ru": {
+       "title": "Выявление потребности",
+       "na_condition": "Данных было достаточно с самого начала, уточнение не требовалось."
+      }
+     },
+     "description": "The operator used the known details and clarified what was missing before answering.",
+     "section": "opening",
+     "weight": 15,
+     "type": "yes_no",
+     "na_allowed": true,
+     "na_condition": "The data was sufficient from the start, no clarification was needed."
+    },
+    {
+     "id": "03",
+     "title": "Identification",
+     "labels": {
+      "ru": {
+       "title": "Идентификация",
+       "na_condition": "Запрос не требовал идентификации клиента (например, общий вопрос о тарифах)."
+      }
+     },
+     "description": "Identity verification was confirmed before disclosing data or performing a protected action. If verification was required but not confirmed in the conversation, the answer is No.",
+     "section": "security",
+     "weight": 20,
+     "type": "yes_no",
+     "na_allowed": true,
+     "na_condition": "The request did not require identity verification (for example a general tariff question)."
+    },
+    {
+     "id": "04",
+     "title": "Correct and complete consultation",
+     "labels": {
+      "ru": {
+       "title": "Корректная и полная консультация",
+       "na_condition": "Чат завершился до того, как клиент сформулировал запрос."
+      }
+     },
+     "description": "Was the client's request solved correctly and fully.",
+     "section": "security",
+     "weight": 20,
+     "type": "scale",
+     "na_allowed": true,
+     "na_condition": "The chat ended before the client formulated a request.",
+     "scale_steps": [
+      {
+       "value": 20,
+       "descriptor": "All material questions closed or a correct next step given"
+      },
+      {
+       "value": 15,
+       "descriptor": "Main question solved, minor detail missed"
+      },
+      {
+       "value": 10,
+       "descriptor": "Part closed, a material question left open"
+      },
+      {
+       "value": 5,
+       "descriptor": "General hint only, client still unsure how to act"
+      },
+      {
+       "value": 0,
+       "descriptor": "No substantive answer or the key recommendation is wrong"
+      }
+     ],
+     "max_step": 20
+    },
+    {
+     "id": "05",
+     "title": "Empathy and client focus",
+     "labels": {
+      "ru": {
+       "title": "Эмпатия и клиентоориентированность"
+      }
+     },
+     "description": "The operator was polite and, if the client expressed dissatisfaction or inconvenience, responded to that specific problem.",
+     "section": "conduct",
+     "weight": 15,
+     "type": "yes_no",
+     "na_allowed": false
+    },
+    {
+     "id": "06",
+     "title": "Dialogue management, speed, literacy",
+     "labels": {
+      "ru": {
+       "title": "Ведение диалога, скорость, грамотность"
+      }
+     },
+     "description": "How clearly and consistently the operator communicated.",
+     "section": "conduct",
+     "weight": 15,
+     "type": "scale",
+     "na_allowed": false,
+     "scale_steps": [
+      {
+       "value": 10,
+       "descriptor": "Clear and coherent; if there was an explicit wait, operator warned"
+      },
+      {
+       "value": 7,
+       "descriptor": "One noticeable glitch, client can still understand and continue"
+      },
+      {
+       "value": 4,
+       "descriptor": "Client has to re-ask because of wording or ordering"
+      },
+      {
+       "value": 0,
+       "descriptor": "Incoherent or contradictory, flow unclear"
+      }
+     ],
+     "max_step": 10
+    },
+    {
+     "id": "07",
+     "title": "Closing",
+     "labels": {
+      "ru": {
+       "title": "Завершение диалога",
+       "na_condition": "Чат оборвался до возможности завершить диалог."
+      }
+     },
+     "description": "The operator summarised or offered further help and said goodbye.",
+     "section": "conduct",
+     "weight": 5,
+     "type": "yes_no",
+     "na_allowed": true,
+     "na_condition": "The chat broke off before closing was possible."
+    },
+    {
+     "id": "08",
+     "title": "Gross violations",
+     "labels": {
+      "ru": {
+       "title": "Грубые нарушения"
+      }
+     },
+     "description": "Insulting the client, offering a paid service bypassing the company, or disclosing confidential information. Bypassing the company: the operator proposes the client transfer money to them personally for investing, or asks for the client's personal number for a private paid consultation. The offer alone is enough.",
+     "section": "gross",
+     "weight": 0,
+     "type": "flag",
+     "na_allowed": false
+    }
+   ]
+  },
+  "small-na": {
+   "name": "x",
+   "sections": [],
+   "criteria": [
+    {
+     "id": "a",
+     "title": "a",
+     "weight": 60,
+     "type": "yes_no",
+     "na_allowed": true,
+     "na_condition": "c"
+    },
+    {
+     "id": "b",
+     "title": "b",
+     "weight": 40,
+     "type": "yes_no",
+     "na_allowed": true,
+     "na_condition": "c"
+    },
+    {
+     "id": "g",
+     "title": "g",
+     "type": "flag"
+    }
+   ]
+  },
+  "small-flags": {
+   "name": "x",
+   "sections": [],
+   "criteria": [
+    {
+     "id": "a",
+     "title": "a",
+     "weight": 100,
+     "type": "yes_no"
+    },
+    {
+     "id": "g",
+     "title": "g",
+     "type": "flag"
+    },
+    {
+     "id": "h",
+     "title": "h",
+     "type": "flag"
+    }
+   ]
+  },
+  "half-up": {
+   "name": "x",
+   "sections": [],
+   "criteria": [
+    {
+     "id": "a",
+     "title": "a",
+     "weight": 1,
+     "type": "yes_no",
+     "na_allowed": false,
+     "na_condition": null
+    },
+    {
+     "id": "b",
+     "title": "b",
+     "weight": 159,
+     "type": "yes_no",
+     "na_allowed": false,
+     "na_condition": null
+    }
+   ]
+  },
+  "tenths": {
+   "name": "x",
+   "sections": [],
+   "criteria": [
+    {
+     "id": "a",
+     "title": "a",
+     "weight": 0.1,
+     "type": "yes_no",
+     "na_allowed": false,
+     "na_condition": null
+    },
+    {
+     "id": "b",
+     "title": "b",
+     "weight": 0.2,
+     "type": "yes_no",
+     "na_allowed": false,
+     "na_condition": null
+    }
+   ]
+  }
+ },
+ "cases": [
+  {
+   "name": "p1-ru-001 as shown in Card.dc.html",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "na",
+    "04": 15,
+    "05": "yes",
+    "06": 7,
+    "07": "no",
+    "08": "no"
+   },
+   "expect": {
+    "total": "81.88",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": false,
+    "needsReviewIds": [],
+    "applicableWeight": "80.00",
+    "factor": 1.25,
+    "sections": {
+     "opening": {
+      "earned": "25.00",
+      "applicableMax": "25.00",
+      "percent": "100.00",
+      "effectivePoints": "31.25",
+      "effectiveMax": "31.25"
+     },
+     "security": {
+      "earned": "15.00",
+      "applicableMax": "20.00",
+      "percent": "75.00",
+      "effectivePoints": "18.75",
+      "effectiveMax": "25.00"
+     },
+     "conduct": {
+      "earned": "25.50",
+      "applicableMax": "35.00",
+      "percent": "72.86",
+      "effectivePoints": "31.88",
+      "effectiveMax": "43.75"
+     },
+     "gross": {
+      "earned": null,
+      "applicableMax": "0.00",
+      "percent": null,
+      "effectivePoints": null,
+      "effectiveMax": null
+     }
+    },
+    "criteria": {
+     "01": {
+      "points": "10.00",
+      "effectiveWeight": "12.50",
+      "effectivePoints": "12.50"
+     },
+     "03": {
+      "points": null,
+      "effectiveWeight": null,
+      "effectivePoints": null,
+      "na": true
+     },
+     "04": {
+      "points": "15.00",
+      "effectiveWeight": "25.00",
+      "effectivePoints": "18.75"
+     },
+     "06": {
+      "points": "10.50",
+      "effectiveWeight": "18.75",
+      "effectivePoints": "13.13"
+     },
+     "07": {
+      "points": "0.00",
+      "effectiveWeight": "6.25",
+      "effectivePoints": "0.00"
+     },
+     "08": {
+      "points": null,
+      "effectiveWeight": null,
+      "effectivePoints": null
+     }
+    }
+   }
+  },
+  {
+   "name": "p1-ru-001 with 07 changed Net to Da (88.125 rounds half up)",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "na",
+    "04": 15,
+    "05": "yes",
+    "06": 7,
+    "07": "no",
+    "08": "no"
+   },
+   "expect": {
+    "total": "88.13",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": false,
+    "needsReviewIds": [],
+    "sections": {
+     "opening": {
+      "earned": "25.00",
+      "applicableMax": "25.00",
+      "percent": "100.00",
+      "effectivePoints": "31.25",
+      "effectiveMax": "31.25"
+     },
+     "security": {
+      "earned": "15.00",
+      "applicableMax": "20.00",
+      "percent": "75.00",
+      "effectivePoints": "18.75",
+      "effectiveMax": "25.00"
+     },
+     "conduct": {
+      "earned": "30.50",
+      "applicableMax": "35.00",
+      "percent": "87.14",
+      "effectivePoints": "38.13",
+      "effectiveMax": "43.75"
+     }
+    }
+   },
+   "overrides": {
+    "07": "yes"
+   }
+  },
+  {
+   "name": "p1-ru-001 appeal preview 07 Net stays",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "na",
+    "04": 15,
+    "05": "yes",
+    "06": 7,
+    "07": "no",
+    "08": "no"
+   },
+   "expect": {
+    "total": "81.88",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": false,
+    "needsReviewIds": []
+   },
+   "overrides": {
+    "07": "no"
+   }
+  },
+  {
+   "name": "p1-ru-001 appeal preview 07 to N/A",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "na",
+    "04": 15,
+    "05": "yes",
+    "06": 7,
+    "07": "no",
+    "08": "no"
+   },
+   "expect": {
+    "total": "87.33",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": false,
+    "needsReviewIds": [],
+    "applicableWeight": "75.00",
+    "sections": {
+     "opening": {
+      "earned": "25.00",
+      "applicableMax": "25.00",
+      "percent": "100.00",
+      "effectivePoints": "33.33",
+      "effectiveMax": "33.33"
+     },
+     "security": {
+      "earned": "15.00",
+      "applicableMax": "20.00",
+      "percent": "75.00",
+      "effectivePoints": "20.00",
+      "effectiveMax": "26.67"
+     },
+     "conduct": {
+      "earned": "25.50",
+      "applicableMax": "30.00",
+      "percent": "85.00",
+      "effectivePoints": "34.00",
+      "effectiveMax": "40.00"
+     }
+    }
+   },
+   "overrides": {
+    "07": "na"
+   }
+  },
+  {
+   "name": "p3-ru-call-014 with gross violation",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "no",
+    "04": 0,
+    "05": "no",
+    "06": 4,
+    "07": "no",
+    "08": "yes"
+   },
+   "expect": {
+    "total": "31.00",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": true,
+    "needsReviewIds": [],
+    "sections": {
+     "opening": {
+      "earned": "25.00",
+      "applicableMax": "25.00",
+      "percent": "100.00",
+      "effectivePoints": "25.00",
+      "effectiveMax": "25.00"
+     },
+     "security": {
+      "earned": "0.00",
+      "applicableMax": "40.00",
+      "percent": "0.00",
+      "effectivePoints": "0.00",
+      "effectiveMax": "40.00"
+     },
+     "conduct": {
+      "earned": "6.00",
+      "applicableMax": "35.00",
+      "percent": "17.14",
+      "effectivePoints": "6.00",
+      "effectiveMax": "35.00"
+     }
+    },
+    "criteria": {
+     "06": {
+      "points": "6.00",
+      "effectivePoints": "6.00"
+     },
+     "08": {
+      "points": null,
+      "effectivePoints": null
+     }
+    }
+   }
+  },
+  {
+   "name": "p3-ru-call-014 appeal preview 03 to Da",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "no",
+    "04": 0,
+    "05": "no",
+    "06": 4,
+    "07": "no",
+    "08": "yes"
+   },
+   "expect": {
+    "total": "51.00",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": true,
+    "needsReviewIds": []
+   },
+   "overrides": {
+    "03": "yes"
+   }
+  },
+  {
+   "name": "p3-ru-call-014 appeal preview 03 to N/A",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "no",
+    "04": 0,
+    "05": "no",
+    "06": 4,
+    "07": "no",
+    "08": "yes"
+   },
+   "expect": {
+    "total": "38.75",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": true,
+    "needsReviewIds": [],
+    "applicableWeight": "80.00"
+   },
+   "overrides": {
+    "03": "na"
+   }
+  },
+  {
+   "name": "all top answers give 100.00",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "total": "100.00",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": false,
+    "needsReviewIds": []
+   }
+  },
+  {
+   "name": "03 N/A with all other top answers still gives 100.00",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "total": "100.00",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": false,
+    "needsReviewIds": [],
+    "criteria": {
+     "01": {
+      "effectivePoints": "12.50"
+     }
+    }
+   },
+   "overrides": {
+    "03": "na"
+   }
+  },
+  {
+   "name": "04 = 15 and 06 = 7",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "total": "90.50",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": false,
+    "needsReviewIds": [],
+    "criteria": {
+     "04": {
+      "points": "15.00"
+     },
+     "06": {
+      "points": "10.50"
+     }
+    }
+   },
+   "overrides": {
+    "04": 15,
+    "06": 7
+   }
+  },
+  {
+   "name": "reviewer flips 03 to N/A after 01 was No",
+   "config": "seed",
+   "answers": {
+    "01": "no",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "total": "87.50",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": false,
+    "needsReviewIds": []
+   },
+   "overrides": {
+    "03": "na"
+   }
+  },
+  {
+   "name": "gross flag Da does not change the total",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "total": "100.00",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": true,
+    "needsReviewIds": [],
+    "criteria": {
+     "08": {
+      "points": null
+     }
+    }
+   },
+   "overrides": {
+    "08": "yes"
+   }
+  },
+  {
+   "name": "needs_review criterion is excluded and result is provisional",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": null,
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "total": "100.00",
+    "calculated": true,
+    "provisional": true,
+    "grossViolation": false,
+    "needsReviewIds": [
+     "05"
+    ],
+    "applicableWeight": "85.00"
+   }
+  },
+  {
+   "name": "needs_review spelled out and a flag awaiting review",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": "needs_review",
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "needs_review"
+   },
+   "expect": {
+    "total": "100.00",
+    "calculated": true,
+    "provisional": true,
+    "grossViolation": null,
+    "needsReviewIds": [
+     "04",
+     "08"
+    ]
+   }
+  },
+  {
+   "name": "flag yes wins over another flag awaiting review",
+   "config": "small-flags",
+   "answers": {
+    "a": "yes",
+    "g": "yes",
+    "h": null
+   },
+   "expect": {
+    "total": "100.00",
+    "calculated": true,
+    "provisional": true,
+    "grossViolation": true,
+    "needsReviewIds": [
+     "h"
+    ]
+   }
+  },
+  {
+   "name": "all weighted criteria N/A is not calculated",
+   "config": "small-na",
+   "answers": {
+    "a": "na",
+    "b": "na",
+    "g": "yes"
+   },
+   "expect": {
+    "total": null,
+    "calculated": false,
+    "provisional": false,
+    "grossViolation": true,
+    "needsReviewIds": [],
+    "reason": "all weighted criteria are N/A"
+   }
+  },
+  {
+   "name": "all weighted criteria N/A or awaiting review is not calculated",
+   "config": "small-na",
+   "answers": {
+    "a": "na",
+    "b": null,
+    "g": "no"
+   },
+   "expect": {
+    "total": null,
+    "calculated": false,
+    "provisional": true,
+    "grossViolation": false,
+    "needsReviewIds": [
+     "b"
+    ],
+    "reason": "all weighted criteria are N/A or awaiting review"
+   }
+  },
+  {
+   "name": "0.625 rounds half up to 0.63",
+   "config": "half-up",
+   "answers": {
+    "a": "yes",
+    "b": "no"
+   },
+   "expect": {
+    "total": "0.63",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": null,
+    "needsReviewIds": []
+   }
+  },
+  {
+   "name": "0.1 and 0.2 weights stay exact",
+   "config": "tenths",
+   "answers": {
+    "a": "yes",
+    "b": "no"
+   },
+   "expect": {
+    "total": "33.33",
+    "calculated": true,
+    "provisional": false,
+    "grossViolation": null,
+    "needsReviewIds": []
+   }
+  },
+  {
+   "name": "scale step not in config",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "error": true
+   },
+   "overrides": {
+    "04": 12
+   }
+  },
+  {
+   "name": "N/A on a criterion that disallows it",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "error": true
+   },
+   "overrides": {
+    "01": "na"
+   }
+  },
+  {
+   "name": "N/A on a flag",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "error": true
+   },
+   "overrides": {
+    "08": "na"
+   }
+  },
+  {
+   "name": "unknown criterion id",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "error": true
+   },
+   "overrides": {
+    "99": "yes"
+   }
+  },
+  {
+   "name": "invalid yes/no answer",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "error": true
+   },
+   "overrides": {
+    "01": "maybe"
+   }
+  },
+  {
+   "name": "numeric answer on yes/no criterion",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "error": true
+   },
+   "overrides": {
+    "01": 5
+   }
+  },
+  {
+   "name": "yes on scale criterion",
+   "config": "seed",
+   "answers": {
+    "01": "yes",
+    "02": "yes",
+    "03": "yes",
+    "04": 20,
+    "05": "yes",
+    "06": 10,
+    "07": "yes",
+    "08": "no"
+   },
+   "expect": {
+    "error": true
+   },
+   "overrides": {
+    "04": "yes"
+   }
+  }
+ ]
+}
