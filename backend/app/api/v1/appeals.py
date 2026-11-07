@@ -1,8 +1,9 @@
 from typing import Any, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
+from backend.app.core.errors import ApiError
 from backend.app.core.database import get_db
 from backend.app.services import appeals as service
 
@@ -23,7 +24,7 @@ class DecisionIn(BaseModel):
 
 
 def _raise(exc: service.AppealError):
-    raise HTTPException(status_code=exc.status, detail=exc.message)
+    raise ApiError(exc.status, exc.message, exc.code)
 
 
 @router.post("/evaluations/{evaluation_id}/appeals", status_code=201)
@@ -37,7 +38,7 @@ def create(evaluation_id: int, body: AppealIn, conn=Depends(get_db)):
 @router.get("/appeals")
 def list_appeals(status: str = "open", conn=Depends(get_db)):
     if status not in ("open", "resolved", "all"):
-        raise HTTPException(status_code=422, detail="status must be open, resolved or all")
+        raise ApiError(422, "status must be open, resolved or all", "invalid_status")
     return service.queue(conn, status)
 
 

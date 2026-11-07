@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     llm_price_output: float = 20.0
     llm_price_cache_read: float = 0.2
     llm_price_cache_write: float = 5.0
+    appeal_filing_roles: str = "operator,qa"
     aws_region: str = "us-east-1"
     aws_access_key_id: str = ""
     aws_secret_access_key: str = ""

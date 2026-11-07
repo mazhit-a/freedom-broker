@@ -8,9 +8,19 @@ class ScaleStep(BaseModel):
     descriptor: str = Field(min_length=1)
 
 
+class SectionLabel(BaseModel):
+    title: str = ""
+
+
+class CriterionLabel(BaseModel):
+    title: str = ""
+    na_condition: str | None = None
+
+
 class Section(BaseModel):
     id: str = Field(min_length=1)
     title: str = Field(min_length=1)
+    labels: dict[str, SectionLabel] | None = None
 
 
 class Criterion(BaseModel):
@@ -24,6 +34,7 @@ class Criterion(BaseModel):
     na_condition: str | None = None
     scale_steps: list[ScaleStep] = Field(default_factory=list)
     max_step: int | None = None
+    labels: dict[str, CriterionLabel] | None = None
 
     @model_validator(mode="after")
     def check_consistency(self):
@@ -90,6 +101,7 @@ class VersionOut(BaseModel):
     version: int
     created_at: str
     is_default: bool
+    status: Literal["draft", "saved", "active", "archived"] = "saved"
     config: ChecklistConfig
     warnings: list[str]
 
@@ -101,14 +113,22 @@ class VersionSummary(BaseModel):
     is_default: bool
     criteria_count: int
     weight_sum: float
+    status: Literal["draft", "saved", "active", "archived"] = "saved"
+    applied_count: int = 0
+    first_applied_at: str | None = None
 
 
 class ChecklistOut(BaseModel):
     id: int
     name: str
     default_version_id: int | None
+    channels: list[str] = Field(default_factory=list)
     versions: list[VersionSummary]
 
 
 class DefaultIn(BaseModel):
     version_id: int
+
+
+class ChannelsIn(BaseModel):
+    channels: list[str]

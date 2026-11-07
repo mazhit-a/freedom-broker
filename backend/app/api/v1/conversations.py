@@ -1,7 +1,8 @@
 from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 
+from backend.app.core.errors import ApiError
 from backend.app.core.database import get_db
 from backend.app.services.audio_timing import annotate_messages
 
@@ -73,7 +74,7 @@ def list_conversations(
         args.append(max_total)
     if appeal_status:
         if appeal_status not in ("none", "open", "resolved"):
-            raise HTTPException(status_code=422, detail="appeal_status must be none, open or resolved")
+            raise ApiError(422, "appeal_status must be none, open or resolved", "invalid_appeal_status")
         sql += " AND " + APPEAL_EXPR + " = ?"
         args.append(appeal_status)
     sql += " ORDER BY c.dataset_id, c.id"
@@ -91,18 +92,41 @@ def list_conversations(
     return out
 
 
-@router.get("/{conversation_pk}")
-def get_conversation(conversation_pk: int, conn=Depends(get_db)):
-    row = conn.execute(
-        "SELECT c.id, c.dataset_id, d.group_id, c.conversation_id, c.channel, c.language, c.audio_url "
-        "FROM conversation c JOIN dataset d ON d.id = c.dataset_id WHERE c.id = ?",
-        (conversation_pk,),
-    ).fetchone()
-    if not row:
-        raise HTTPException(status_code=404, detail="Conversation not found")
+def _conversation_body(conn, row) -> dict:
     messages = conn.execute(
         "SELECT message_index, timestamp_raw, offset_seconds, speaker, text FROM message "
         "WHERE conversation_id = ? ORDER BY message_index",
-        (conversation_pk,),
+        (row["id"],),
     ).fetchall()
     return {**dict(row), "messages": annotate_messages([dict(m) for m in messages], row["channel"], row["audio_url"])}
+
+
+_CONV_SELECT = (
+    "SELECT c.id, c.dataset_id, d.group_id, c.conversation_id, c.channel, c.language, c.audio_url "
+    "FROM conversation c JOIN dataset d ON d.id = c.dataset_id "
+)
+
+
+@router.get("/by-key/{conversation_id}")
+def get_conversation_by_key(conversation_id: str, dataset: Optional[str] = None, conn=Depends(get_db)):
+    sql = _CONV_SELECT + "WHERE c.conversation_id = ?"
+    args: list = [conversation_id]
+    if dataset:
+        if dataset.isdigit():
+            sql += " AND (c.dataset_id = ? OR d.group_id = ?)"
+            args += [int(dataset), dataset]
+        else:
+            sql += " AND d.group_id = ?"
+            args.append(dataset)
+    rows = conn.execute(sql + " ORDER BY c.dataset_id DESC, c.id DESC", args).fetchall()
+    if not rows:
+        raise ApiError(404, "Conversation not found", "conversation_not_found")
+    return _conversation_body(conn, rows[0])
+
+
+@router.get("/{conversation_pk}")
+def get_conversation(conversation_pk: int, conn=Depends(get_db)):
+    row = conn.execute(_CONV_SELECT + "WHERE c.id = ?", (conversation_pk,)).fetchone()
+    if not row:
+        raise ApiError(404, "Conversation not found", "conversation_not_found")
+    return _conversation_body(conn, row)

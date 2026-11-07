@@ -1,15 +1,16 @@
 {
   "name": "Default operator quality checklist",
   "sections": [
-    {"id": "opening", "title": "Opening & understanding"},
-    {"id": "security", "title": "Security & resolution"},
-    {"id": "conduct", "title": "Conduct & closing"},
-    {"id": "gross", "title": "Gross violations"}
+    {"id": "opening", "title": "Opening & understanding", "labels": {"ru": {"title": "Начало и понимание запроса"}}},
+    {"id": "security", "title": "Security & resolution", "labels": {"ru": {"title": "Безопасность и решение вопроса"}}},
+    {"id": "conduct", "title": "Conduct & closing", "labels": {"ru": {"title": "Ведение диалога и завершение"}}},
+    {"id": "gross", "title": "Gross violations", "labels": {"ru": {"title": "Грубые нарушения"}}}
   ],
   "criteria": [
     {
       "id": "01",
       "title": "Rapport",
+      "labels": {"ru": {"title": "Установление контакта"}},
       "description": "The operator greeted the client in the client's language and introduced themselves in the first operator reply. The bot's greeting does not satisfy this criterion.",
       "section": "opening",
       "weight": 10,
@@ -19,6 +20,7 @@
     {
       "id": "02",
       "title": "Needs discovery",
+      "labels": {"ru": {"title": "Выявление потребности", "na_condition": "Данных было достаточно с самого начала, уточнение не требовалось."}},
       "description": "The operator used the known details and clarified what was missing before answering.",
       "section": "opening",
       "weight": 15,
@@ -29,6 +31,7 @@
     {
       "id": "03",
       "title": "Identification",
+      "labels": {"ru": {"title": "Идентификация", "na_condition": "Запрос не требовал идентификации клиента (например, общий вопрос о тарифах)."}},
       "description": "Identity verification was confirmed before disclosing data or performing a protected action. If verification was required but not confirmed in the conversation, the answer is No.",
       "section": "security",
       "weight": 20,
@@ -39,6 +42,7 @@
     {
       "id": "04",
       "title": "Correct and complete consultation",
+      "labels": {"ru": {"title": "Корректная и полная консультация", "na_condition": "Чат завершился до того, как клиент сформулировал запрос."}},
       "description": "Was the client's request solved correctly and fully.",
       "section": "security",
       "weight": 20,
@@ -57,6 +61,7 @@
     {
       "id": "05",
       "title": "Empathy and client focus",
+      "labels": {"ru": {"title": "Эмпатия и клиентоориентированность"}},
       "description": "The operator was polite and, if the client expressed dissatisfaction or inconvenience, responded to that specific problem.",
       "section": "conduct",
       "weight": 15,
@@ -66,6 +71,7 @@
     {
       "id": "06",
       "title": "Dialogue management, speed, literacy",
+      "labels": {"ru": {"title": "Ведение диалога, скорость, грамотность"}},
       "description": "How clearly and consistently the operator communicated.",
       "section": "conduct",
       "weight": 15,
@@ -82,6 +88,7 @@
     {
       "id": "07",
       "title": "Closing",
+      "labels": {"ru": {"title": "Завершение диалога", "na_condition": "Чат оборвался до возможности завершить диалог."}},
       "description": "The operator summarised or offered further help and said goodbye.",
       "section": "conduct",
       "weight": 5,
@@ -92,6 +99,7 @@
     {
       "id": "08",
       "title": "Gross violations",
+      "labels": {"ru": {"title": "Грубые нарушения"}},
       "description": "Insulting the client, offering a paid service bypassing the company, or disclosing confidential information. Bypassing the company: the operator proposes the client transfer money to them personally for investing, or asks for the client's personal number for a private paid consultation. The offer alone is enough.",
       "section": "gross",
       "weight": 0,

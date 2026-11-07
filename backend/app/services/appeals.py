@@ -3,6 +3,7 @@ import sqlite3
 from decimal import Decimal
 from typing import Any, Optional
 
+from backend.app.core.config import get_settings
 from backend.app.schemas.checklist import ChecklistConfig
 from backend.app.services.checklist import get_version
 from backend.app.services.scoring import NA, NEEDS_REVIEW, ScoringError, _norm, score
@@ -12,25 +13,38 @@ REVIEWER = "reviewer"
 
 
 class AppealError(Exception):
-    def __init__(self, status: int, message: str):
+    def __init__(self, status: int, message: str, code: str = "error"):
         super().__init__(message)
         self.status = status
         self.message = message
+        self.code = code
 
 
 def _role(value: Optional[str]) -> str:
     return (value or "").strip().lower()
 
 
+def filing_roles() -> set[str]:
+    raw = get_settings().appeal_filing_roles
+    return {r.strip().lower() for r in raw.split(",") if r.strip()}
+
+
 def require_role(role: Optional[str], wanted: str) -> None:
     if _role(role) != wanted:
-        raise AppealError(403, f"This action requires the {wanted} role")
+        raise AppealError(403, f"This action requires the {wanted} role", "role_forbidden")
+
+
+def require_filing_role(role: Optional[str]) -> str:
+    r = _role(role)
+    if r not in filing_roles():
+        raise AppealError(403, "This action requires the operator role", "role_forbidden")
+    return r
 
 
 def _config(conn: sqlite3.Connection, evaluation_id: int) -> ChecklistConfig:
     row = conn.execute("SELECT checklist_version_id FROM evaluation WHERE id = ?", (evaluation_id,)).fetchone()
     if not row:
-        raise AppealError(404, "Evaluation not found")
+        raise AppealError(404, "Evaluation not found", "evaluation_not_found")
     return get_version(conn, row["checklist_version_id"]).config
 
 
@@ -41,45 +55,45 @@ def _canonical(value: Any) -> str:
 
 def validate_answer(cfg: ChecklistConfig, criterion_id: str, new_answer: Any) -> str:
     if new_answer is None or (isinstance(new_answer, str) and not new_answer.strip()):
-        raise AppealError(422, "new_answer is required for a change")
+        raise AppealError(422, "new_answer is required for a change", "answer_required")
     if _norm(new_answer) == NEEDS_REVIEW:
-        raise AppealError(422, "needs_review is not a valid decision")
+        raise AppealError(422, "needs_review is not a valid decision", "invalid_answer")
     try:
         score(cfg, {}, {criterion_id: new_answer})
     except ScoringError as exc:
-        raise AppealError(422, str(exc))
+        raise AppealError(422, str(exc), "invalid_answer")
     return _canonical(new_answer)
 
 
 def _appeal_row(conn: sqlite3.Connection, appeal_id: int) -> dict:
     row = conn.execute(
         "SELECT a.id, a.evaluation_id, a.criterion_id, a.comment, a.status, a.created_at, "
-        "d.decision, d.new_answer, d.reason, d.decided_at "
+        "a.author_role, d.decision, d.new_answer, d.reason, d.decided_at, d.decided_by_role "
         "FROM appeal a LEFT JOIN review_decision d ON d.appeal_id = a.id WHERE a.id = ?",
         (appeal_id,),
     ).fetchone()
     if not row:
-        raise AppealError(404, "Appeal not found")
+        raise AppealError(404, "Appeal not found", "appeal_not_found")
     return dict(row)
 
 
 def create_appeal(conn: sqlite3.Connection, evaluation_id: int, criterion_id: str, comment: Optional[str], role: Optional[str]) -> dict:
-    require_role(role, QA)
+    author_role = require_filing_role(role)
     if not comment or not comment.strip():
-        raise AppealError(422, "A comment is required to file an appeal")
+        raise AppealError(422, "A comment is required to file an appeal", "comment_required")
     if not conn.execute("SELECT 1 FROM evaluation WHERE id = ?", (evaluation_id,)).fetchone():
-        raise AppealError(404, "Evaluation not found")
+        raise AppealError(404, "Evaluation not found", "evaluation_not_found")
     if not conn.execute(
         "SELECT 1 FROM criterion_result WHERE evaluation_id = ? AND criterion_id = ?", (evaluation_id, criterion_id)
     ).fetchone():
-        raise AppealError(404, "Criterion not found in this evaluation")
+        raise AppealError(404, "Criterion not found in this evaluation", "criterion_not_found")
     if conn.execute(
         "SELECT 1 FROM appeal WHERE evaluation_id = ? AND criterion_id = ? AND status = 'open'", (evaluation_id, criterion_id)
     ).fetchone():
-        raise AppealError(409, "An open appeal already exists for this criterion")
+        raise AppealError(409, "An open appeal already exists for this criterion", "appeal_open_exists")
     cur = conn.execute(
-        "INSERT INTO appeal (evaluation_id, criterion_id, comment) VALUES (?,?,?)",
-        (evaluation_id, criterion_id, comment.strip()),
+        "INSERT INTO appeal (evaluation_id, criterion_id, comment, author_role) VALUES (?,?,?,?)",
+        (evaluation_id, criterion_id, comment.strip(), author_role),
     )
     conn.commit()
     return _appeal_row(conn, cur.lastrowid)
@@ -96,20 +110,20 @@ def decide(
     require_role(role, REVIEWER)
     appeal = _appeal_row(conn, appeal_id)
     if appeal["status"] != "open":
-        raise AppealError(409, "This appeal is already resolved")
+        raise AppealError(409, "This appeal is already resolved", "appeal_resolved")
     if decision not in ("confirm", "change"):
-        raise AppealError(422, "decision must be confirm or change")
+        raise AppealError(422, "decision must be confirm or change", "invalid_decision")
     if not reason or not reason.strip():
-        raise AppealError(422, "A reason is required")
+        raise AppealError(422, "A reason is required", "reason_required")
     stored_answer = None
     if decision == "change":
         cfg = _config(conn, appeal["evaluation_id"])
         stored_answer = validate_answer(cfg, appeal["criterion_id"], new_answer)
     elif new_answer not in (None, ""):
-        raise AppealError(422, "new_answer is only allowed for a change")
+        raise AppealError(422, "new_answer is only allowed for a change", "new_answer_not_allowed")
     conn.execute(
-        "INSERT INTO review_decision (appeal_id, decision, new_answer, reason) VALUES (?,?,?,?)",
-        (appeal_id, decision, stored_answer, reason.strip()),
+        "INSERT INTO review_decision (appeal_id, decision, new_answer, reason, decided_by_role) VALUES (?,?,?,?,?)",
+        (appeal_id, decision, stored_answer, reason.strip(), _role(role)),
     )
     conn.execute("UPDATE appeal SET status = 'resolved' WHERE id = ?", (appeal_id,))
     conn.commit()

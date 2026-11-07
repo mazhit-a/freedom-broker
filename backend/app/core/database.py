@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS message (
 CREATE TABLE IF NOT EXISTS checklist (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    default_version_id INTEGER
+    default_version_id INTEGER,
+    channels TEXT NOT NULL DEFAULT '[]'
 );
 CREATE TABLE IF NOT EXISTS checklist_version (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS checklist_version (
     version INTEGER NOT NULL,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     config_json TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'saved',
     UNIQUE (checklist_id, version)
 );
 CREATE TABLE IF NOT EXISTS evaluation (
@@ -82,6 +84,7 @@ CREATE TABLE IF NOT EXISTS appeal (
     evaluation_id INTEGER NOT NULL REFERENCES evaluation(id) ON DELETE CASCADE,
     criterion_id TEXT NOT NULL,
     comment TEXT,
+    author_role TEXT,
     status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'resolved')),
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -91,6 +94,7 @@ CREATE TABLE IF NOT EXISTS review_decision (
     decision TEXT NOT NULL CHECK (decision IN ('confirm', 'change')),
     new_answer TEXT,
     reason TEXT NOT NULL,
+    decided_by_role TEXT,
     decided_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 """
@@ -106,10 +110,32 @@ def connect(path: str | None = None) -> sqlite3.Connection:
     return conn
 
 
+ADDITIVE_COLUMNS = [
+    ("checklist", "channels", "TEXT NOT NULL DEFAULT '[]'"),
+    ("checklist_version", "status", "TEXT NOT NULL DEFAULT 'saved'"),
+]
+
+
+def _add_missing_columns(conn: sqlite3.Connection) -> None:
+    for table, column, ddl in ADDITIVE_COLUMNS:
+        existing = {r["name"] for r in conn.execute(f"PRAGMA table_info({table})").fetchall()}
+        if column not in existing:
+            conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {ddl}")
+
+
+def _add_column(conn: sqlite3.Connection, table: str, column: str, ddl: str) -> None:
+    cols = {r["name"] for r in conn.execute(f"PRAGMA table_info({table})").fetchall()}
+    if column not in cols:
+        conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {ddl}")
+
+
 def init_db(path: str | None = None) -> None:
     conn = connect(path)
     try:
         conn.executescript(SCHEMA)
+        _add_column(conn, "appeal", "author_role", "TEXT")
+        _add_column(conn, "review_decision", "decided_by_role", "TEXT")
+        _add_missing_columns(conn)
         conn.commit()
     finally:
         conn.close()

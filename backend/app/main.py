@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 
 from backend.app.api.v1.router import router as v1_router
 from backend.app.core.database import connect, init_db
+from backend.app.core.errors import install as install_errors
 from backend.app.services.checklist import seed_default
 
 FRONTEND_DIR = Path(__file__).resolve().parents[2] / "frontend"
@@ -23,6 +24,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="CQA", lifespan=lifespan)
+install_errors(app)
 
 
 @app.get("/health")
