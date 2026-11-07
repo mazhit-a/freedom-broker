@@ -426,7 +426,8 @@ function rawListItem(store, row) {
     checklist_version_number: row.versionNumber,
     checklist_name: F.CHAT_CHECKLIST_NAME,
     occurred_at: null,
-    duration_seconds: null
+    duration_seconds: null,
+    evaluated_at: iso(store.evaluatedAt[row.pk] || Date.parse(row.evaluatedAt))
   };
   if (row.failed) {
     return {
@@ -710,6 +711,28 @@ function fail(status, code, message) {
   return new ApiError(status, code, message);
 }
 
+function narrowOverview(raw, filter) {
+  const total = raw.kpis.evaluated;
+  const lang = filter.language ? raw.by_language.find((r) => r.language === String(filter.language).toUpperCase()) : null;
+  const chan = filter.channel ? raw.by_channel.find((r) => channelKind(r.channel) === filter.channel) : null;
+  let factor = 1;
+  if (lang) factor *= lang.count / total;
+  if (chan) factor *= chan.count / total;
+  if (filter.from && filter.to) factor *= 0.28;
+  if (factor === 1) return raw;
+  const scale = (n) => Math.round(n * factor);
+  raw.kpis.evaluated = scale(total);
+  raw.kpis.chats = chan ? (channelKind(chan.channel) === "chat" ? raw.kpis.evaluated : 0) : scale(raw.kpis.chats);
+  raw.kpis.calls = chan ? (channelKind(chan.channel) === "call" ? raw.kpis.evaluated : 0) : raw.kpis.evaluated - raw.kpis.chats;
+  raw.kpis.gross_count = scale(raw.kpis.gross_count);
+  if (lang) raw.kpis.avg = lang.avg;
+  if (chan) raw.kpis.avg = chan.avg;
+  raw.distribution = raw.distribution.map((b) => ({ ...b, count: scale(b.count) }));
+  raw.by_language = (lang ? [lang] : raw.by_language).map((r) => ({ ...r, count: lang ? raw.kpis.evaluated : scale(r.count) }));
+  raw.by_channel = (chan ? [chan] : raw.by_channel).map((r) => ({ ...r, count: chan ? raw.kpis.evaluated : scale(r.count) }));
+  return raw;
+}
+
 function matchesChannel(row, wanted) {
   if (!wanted) return true;
   if (wanted === "chat" || wanted === "call") return channelKind(row.channel) === wanted;
@@ -969,7 +992,7 @@ export function createMock(options = {}) {
         empty.attention_total = 0;
         return mapOverview(empty);
       }
-      const raw = clone(F.OVERVIEW);
+      const raw = narrowOverview(clone(F.OVERVIEW), filter);
       const order = { gross: 0, low_score: 1, appeal_pending: 2, low_confidence: 3 };
       const attention = [];
       for (const row of F.ROWS) {

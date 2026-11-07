@@ -116,6 +116,7 @@ export function mapListItem(raw) {
     checklistName: raw.checklist_name ?? null,
     modelLabel: raw.model_label ?? null,
     occurredAt: raw.occurred_at ?? null,
+    evaluatedAt: raw.evaluated_at ?? null,
     durationSeconds: raw.duration_seconds ?? null
   };
 }

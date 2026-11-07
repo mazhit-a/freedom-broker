@@ -5,7 +5,7 @@ import { score } from "../src/scoring.js";
 import { ROWS, makeConfig, CHAT_CHECKLIST_NAME } from "../src/mock-fixtures.js";
 
 const LIST_ITEM_KEYS = [
-  "appealStatus", "calculated", "channel", "checklistName", "confidence", "durationSeconds", "evaluated", "evaluationId", "failed", "gross", "groupId", "hasAudio", "id", "language", "lowConfidence", "messageCount", "modelLabel", "occurredAt", "operator", "originalTotal", "pk", "provisional", "sections", "status", "total", "totalChanged", "totalStatus", "versionId", "versionLabel"
+  "appealStatus", "calculated", "channel", "checklistName", "confidence", "durationSeconds", "evaluated", "evaluatedAt", "evaluationId", "failed", "gross", "groupId", "hasAudio", "id", "language", "lowConfidence", "messageCount", "modelLabel", "occurredAt", "operator", "originalTotal", "pk", "provisional", "sections", "status", "total", "totalChanged", "totalStatus", "versionId", "versionLabel"
 ];
 const CONVERSATION_KEYS = ["channel", "channelRaw", "datasetId", "durationSeconds", "groupId", "hasAudio", "id", "language", "messages", "occurredAt", "operator", "pk"];
 const MESSAGE_KEYS = ["audioEnd", "audioStart", "index", "n", "offsetSeconds", "speaker", "text", "time", "timestamp"];

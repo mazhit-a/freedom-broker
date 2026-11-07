@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, existsSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -536,8 +536,18 @@ export const scenarios = {
   }
 };
 
+async function loadExternalScenarios() {
+  const dir = new URL("./ui_scenarios/", import.meta.url);
+  if (!existsSync(dir)) return;
+  for (const file of readdirSync(dir).filter((f) => f.endsWith(".mjs")).sort()) {
+    const mod = await import(new URL(file, dir).href);
+    Object.assign(scenarios, mod.scenarios || {});
+  }
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+  await loadExternalScenarios();
   const scenarioNames = args.scenario === "all" ? Object.keys(scenarios) : args.scenario.split(",");
   for (const name of scenarioNames) if (!scenarios[name]) throw new Error(`unknown scenario ${name}`);
   mkdirSync(args.out, { recursive: true });
