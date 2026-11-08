@@ -1,0 +1,240 @@
+{
+ "case_id": "case-009",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор не поздоровался и не представился в своём первом ответе (#4). Приветствие бота не учитывается. Действие было нужно и пропущено.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document and proof of address."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент не знал, какой документ нужен, и задавал уточняющие вопросы о адресе и формате файла (#8, #10). Оператор не уточнил недостающие детали и ответил общими формулировками. Условие N/A не выполнено, так как данных для ответа изначально не хватало.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Should I use that address or where I'm staying abroad, and will the statement count?"
+    },
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 11
+   },
+   "na_reason": null,
+   "confidence": 0.7,
+   "distribution": {
+    "yes": 0.22,
+    "no": 0.7,
+    "na": 0.08
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системным событием до передачи оператору (#2). Оператор не раскрывал защищённых данных и не выполнял защищённых действий без подтверждения.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.96,
+   "distribution": {
+    "yes": 0.96,
+    "no": 0.01,
+    "na": 0.03
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общие рекомендации. Он прямо указал, что не подтвердил, подходит ли выписка, и не имеет подтверждённого маршрута загрузки. Клиенту по-прежнему непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I don't have a confirmed upload route for the screen you've described."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.5194,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0196,
+    "5": 0.5194,
+    "10": 0.392,
+    "15": 0.0098,
+    "20": 0.0392
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и дважды выразил сочувствие по поводу неудобств клиента, связанных с повторной загрузкой паспорта и отсутствием документов. Реакция относится к конкретной проблеме.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice"
+    },
+    {
+     "message_index": 13,
+     "quote": "I'm sorry the screen gives you a document request without an upload button or requirements."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора связны и не противоречат друг другу. Явного ожидания, требующего предупреждения, не было. Формулировки общие, но ход диалога понятен.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Your application is pending KYC review."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.68,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.15,
+    "7": 0.17,
+    "10": 0.68
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог состояния заявки и попрощался с клиентом в конце чата (#17).",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальной информации в переписке не выявлено.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "The guidance I've provided is general."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.91,
+   "distribution": {
+    "yes": 0.09,
+    "no": 0.91
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 3039,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 726,
+   "cost": 0.000128,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1111,
+   "output_tokens": 2686,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 11013,
+   "cost": 0.001487,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "yes",
+  "04": "5",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 1
+}

@@ -1,0 +1,254 @@
+{
+ "case_id": "case-032",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе (#2) поздоровался на казахском языке и представился по имени. Приветствие бота в #0 не учитывалось.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Сәлеметсіз бе!"
+    },
+    {
+     "message_index": 2,
+     "quote": "Менің атым Айдана"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали: номер TEST-041, лимит 1500 и сумму 150100. Затем уточнил и объяснил расхождение по сделкам, а также проверил журнал сделок.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "Шотыңыздағы TEST-041 өтінімін аштым"
+    },
+    {
+     "message_index": 20,
+     "quote": "Сіздің бір өтініміңіз екі мәмілемен толық орындалған"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.89,
+   "distribution": {
+    "yes": 0.89,
+    "no": 0.06,
+    "na": 0.05
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Оператор запросил подтверждение личности (#6) до раскрытия данных об исполнении заявки. Система подтвердила личность клиента (#10) до того, как оператор открыл заявку (#12).",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Жеке шоттағы орындалу деректерін ашу үшін алдымен жеке басыңызды растау қажет."
+    },
+    {
+     "message_index": 10,
+     "quote": "Клиенттің жеке басы расталды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор закрыл основной вопрос: объяснил среднюю цену, две сделки, лимит и комиссию 200 теңге. Также зарегистрировал жалобу TEST-C204 и объяснил, где смотреть ответ и каковы сроки.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Комиссия есебінде екі рет 200 теңгеден ұсталым жоқ"
+    },
+    {
+     "message_index": 38,
+     "quote": "Орындау мен комиссияны тексеруге TEST-C204 шағымы тіркелді"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.9506,
+   "distribution": {
+    "na": 0.03,
+    "0": 0.0,
+    "5": 0.0,
+    "10": 0.0,
+    "15": 0.0194,
+    "20": 0.9506
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретное неудобство клиента: признал неожиданность комиссии, извинился за ожидание без предупреждения и зарегистрировал жалобу.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Комиссия сіз үшін күтпеген шығын болғанын түсінемін."
+    },
+    {
+     "message_index": 18,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясные, но есть один заметный сбой: оператор перевёл клиента на ожидание без предупреждения. Кроме того, объяснение двух исполнений в #14 было неясным, и клиенту пришлось переспрашивать.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз."
+    },
+    {
+     "message_index": 14,
+     "quote": "Орындау бөлек, есеп бір"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.69,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.25,
+    "7": 0.69,
+    "10": 0.06
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора, спросил о дополнительных вопросах и попрощался.",
+   "evidence": [
+    {
+     "message_index": 38,
+     "quote": "Қорытындылаймын:"
+    },
+    {
+     "message_index": 38,
+     "quote": "Хабарласқаныңызға рақмет, сау болыңыз!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании или раскрытия конфиденциальной информации не выявлено. Оператор раскрывал данные только о сделках самого клиента после идентификации и просил закрыть чужие данные на скриншоте.",
+   "evidence": [
+    {
+     "message_index": 34,
+     "quote": "қажетсіз жеке мәліметтерді жауып жіберіңіз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.86,
+   "distribution": {
+    "yes": 0.14,
+    "no": 0.86
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 7773,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 728,
+   "cost": 0.000326,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 3912,
+   "output_tokens": 3303,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 14543,
+   "cost": 0.002076,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "yes",
+  "04": "20",
+  "05": "yes",
+  "06": "7",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 1
+}

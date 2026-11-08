@@ -1,0 +1,241 @@
+{
+ "case_id": "case-001",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "В первом ответе оператора (#3) она поздоровалась и представилась по имени, поэтому критерий выполнен.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Меня зовут Алия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учла известные детали заявки (возврат документов при открытии счёта) и уточнила недостающее: через какой канал подавалась заявка.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Уточните, заявку подавали в приложении или на сайте?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.93,
+   "distribution": {
+    "yes": 0.93,
+    "no": 0.06,
+    "na": 0.01
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Оператор попросила пройти подтверждение личности до просмотра причины возврата, а системное событие подтверждает, что личность клиента была подтверждена.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "пройдите подтверждение личности через защищённую форму в чате"
+    },
+    {
+     "message_index": 5,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос о причине возврата и порядке исправления решён: названа причина (блик на удостоверении) и даны шаги загрузки. Второстепенный вопрос клиента о допустимых форматах файлов остался без ответа.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "В вашей заявке указана причина возврата"
+    },
+    {
+     "message_index": 0,
+     "quote": "какие форматы файлов можно загружать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.5546,
+   "distribution": {
+    "na": 0.06,
+    "0": 0.0,
+    "5": 0.0,
+    "10": 0.3196,
+    "15": 0.5546,
+    "20": 0.0658
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлива и отреагировала на описанное клиентом неудобство из-за повторной загрузки документа.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Понимаю, повторно загружать удостоверение неудобно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные, но был заметный сбой: клиенту пришлось переспрашивать, какой экран открыть, так как оператор не указала путь. После уточнения ответ стал понятным.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Туда же — это куда именно?"
+    },
+    {
+     "message_index": 8,
+     "quote": "Извините, не указала путь."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.65,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.25,
+    "7": 0.65,
+    "10": 0.1
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор не подвела итог, не предложила дальнейшую помощь и не попрощалась. Последнее сообщение оператора содержит только инструкцию, а чат закрыт системой без прощания.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Обратную сторону менять не требуется: по ней замечаний нет."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 9
+   },
+   "na_reason": null,
+   "confidence": 0.93,
+   "distribution": {
+    "yes": 0.04,
+    "no": 0.93,
+    "na": 0.03
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации не выявлено. Оператор сообщила клиенту причину возврата по его собственной заявке.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "В вашей заявке указана причина возврата"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.84,
+   "distribution": {
+    "yes": 0.16,
+    "no": 0.84
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 3261,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 711,
+   "cost": 0.000137,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 802,
+   "output_tokens": 2635,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 3296,
+   "latency_ms": 12125,
+   "cost": 0.00181,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "yes",
+  "04": "15",
+  "05": "yes",
+  "06": "7",
+  "07": "no",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 1
+}

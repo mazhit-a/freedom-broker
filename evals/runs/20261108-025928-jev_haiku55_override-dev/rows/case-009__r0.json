@@ -1,0 +1,244 @@
+{
+ "case_id": "case-009",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор в первом ответе (#4) не поздоровался и не представился. Приветствие и представление от бота не учитываются.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент прямо спрашивал, какой документ нужен и подходит ли выписка с адресом. Данных для ответа с самого начала не хватало, но оператор не уточнил, какой именно документ запрошен KYC, и дал общие формулировки вместо уточнения.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    },
+    {
+     "message_index": 15,
+     "quote": "I haven't confirmed whether that statement meets your application's requirements"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 9
+   },
+   "na_reason": null,
+   "confidence": 0.69,
+   "distribution": {
+    "yes": 0.23,
+    "no": 0.69,
+    "na": 0.08
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до передачи оператору и до обсуждения заявки.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.95,
+    "no": 0.01,
+    "na": 0.04
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общую подсказку о том, что нужны документ с именем и адресом и читаемость. Клиенту по-прежнему непонятно, подходит ли выписка и как загрузить документ с этого экрана.",
+   "evidence": [
+    {
+     "message_index": 14,
+     "quote": "So I still don't know whether my statement is acceptable or how to submit it from this screen."
+    },
+    {
+     "message_index": 11,
+     "quote": "File-format and size requirements are normally displayed in the KYC upload section."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.5445,
+   "distribution": {
+    "na": 0.01,
+    "0": 0.0198,
+    "5": 0.5445,
+    "10": 0.3861,
+    "15": 0.0099,
+    "20": 0.029699999999999997
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и дважды извинился за неудобства клиента, связанные с повторной загрузкой паспорта и отсутствием инструкций на экране.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice"
+    },
+    {
+     "message_index": 13,
+     "quote": "I'm sorry the screen gives you a document request without an upload button or requirements."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора связные и понятные, порядок реплик логичен, явного ожидания не было. Уклончивость по существу относится к консультации (критерий 04), а не к ясности изложения.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Your application is pending KYC review. The outstanding item is proof of address"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.67,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.16,
+    "7": 0.17,
+    "10": 0.67
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог по заявке и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации в переписке оператора не выявлено.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "No documents or application details were changed during this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.9299999999999999,
+   "distribution": {
+    "yes": 0.07,
+    "no": 0.9299999999999999
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 3039,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 839,
+   "cost": 0.000128,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1111,
+   "output_tokens": 2926,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 12552,
+   "cost": 0.001607,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "yes",
+  "04": "5",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 0
+}

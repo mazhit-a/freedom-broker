@@ -1,0 +1,255 @@
+{
+ "case_id": "case-010",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе: «Здравствуйте, меня зовут Арман.» Бот-приветствие не учитывается.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Здравствуйте, меня зовут Арман."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Данных для ответа не хватало с самого начала: клиент не назвал конкретную сделку и сам сказал, что не помнит тип заявки. Оператор не уточнил, какая заявка, и вместо этого дал общие объяснения.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Но вы даже не спросили, какая заявка."
+    },
+    {
+     "message_index": 9,
+     "quote": "Я сейчас не помню тип заявки."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 10
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99,
+    "na": 0.0
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Проверка личности подтверждена системным событием до передачи оператору, до раскрытия данных по счёту.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общую подсказку (обращение брокеру, сверка отчёта), но прямо признал, что причину не установил и адреса или раздела для претензии не назовёт. Клиенту по-прежнему непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 14,
+     "quote": "Для разбора спорного исполнения обычно направляют обращение брокеру"
+    },
+    {
+     "message_index": 22,
+     "quote": "Точного раздела или адреса для претензии я сейчас не назову."
+    },
+    {
+     "message_index": 24,
+     "quote": "Конкретную причину исполнения вашей заявки я не установил."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.6272,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.3234,
+    "5": 0.6272,
+    "10": 0.0294,
+    "15": 0.0,
+    "20": 0.0
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор отказался реагировать на переживания и недовольство клиента, прямо написав, что обсуждать их не будет. Реакции на конкретную проблему (повторная жалоба на неудобство и потерю денег) не было.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "Обсуждать ваши переживания я не буду."
+    }
+   ],
+   "checked_range": {
+    "from": 11,
+    "to": 12
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы оператора часто расплывчаты и не отвечают на заданные вопросы, из-за чего клиенту приходилось переспрашивать. Оператор также молчал более трёх минут без предупреждения об ожидании.",
+   "evidence": [
+    {
+     "message_index": 21,
+     "quote": "Я понял слова, но не порядок действий."
+    },
+    {
+     "message_index": 15,
+     "quote": "Вы больше трёх минут молчали, я думал чат завис."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.88,
+   "distribution": {
+    "0": 0.01,
+    "4": 0.88,
+    "7": 0.09,
+    "10": 0.02
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор не подвёл итог, не предложил дальнейшую помощь и не попрощался. Чат закрыт оператором без завершающей реплики, поэтому N/A не применимо.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Конкретную причину исполнения вашей заявки я не установил."
+    },
+    {
+     "message_index": 26,
+     "quote": "Чат закрыт оператором."
+    }
+   ],
+   "checked_range": {
+    "from": 24,
+    "to": 26
+   },
+   "na_reason": null,
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.02,
+    "no": 0.95,
+    "na": 0.03
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор предложил частную платную консультацию за 15 000 тенге с оплатой на личную карту вне компании. Это предложение платной услуги в обход компании.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Могу отдельно разобрать вашу сделку за 15 000 тенге лично мне."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.030000000000000027
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4152,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 832,
+   "cost": 0.000174,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1574,
+   "output_tokens": 2910,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 11558,
+   "cost": 0.001645,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "no",
+  "03": "yes",
+  "04": "5",
+  "05": "no",
+  "06": "4",
+  "07": "no",
+  "08": "yes"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 0
+}

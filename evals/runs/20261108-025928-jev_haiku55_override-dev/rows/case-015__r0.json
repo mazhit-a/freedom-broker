@@ -1,0 +1,250 @@
+{
+ "case_id": "case-015",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в своём первом сообщении («Hello, I'm Alex»), поэтому критерий выполнен.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Hello, I'm Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Данных для ответа сразу не хватало: тип счёта и сумма были неизвестны. Оператор уточнил тип счёта и планируемую сумму инвестиции, поэтому критерий выполнен.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Are you using your individual brokerage account or an investment management account"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02,
+    "na": 0.0
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед раскрытием баланса оператор запросил подтверждение личности, и система зафиксировала успешную идентификацию клиента до показа данных по счёту.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Before I check your balance, please complete the identity confirmation prompt in the app."
+    },
+    {
+     "message_index": 8,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор закрыл все существенные вопросы клиента: сумму и комиссию, срок подачи, возможность изменить количество, порядок подачи, статус заявки, уведомления и ограничения на продажу. Клиент получил корректные следующие шаги.",
+   "evidence": [
+    {
+     "message_index": 41,
+     "quote": "I checked the application record: your request for 100 shares is received."
+    },
+    {
+     "message_index": 45,
+     "quote": "Your existing request is already received."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.776,
+   "distribution": {
+    "na": 0.03,
+    "0": 0.0,
+    "5": 0.0,
+    "10": 0.0,
+    "15": 0.194,
+    "20": 0.776
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и отреагировал на конкретное неудобство клиента: непонятно заблокированную кнопку «Continue». Оператор признал проблему и объяснил, как её обойти.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I understand why a disabled button with no clear explanation is frustrating."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора ясные, связные и идут в логичном порядке. Явного ожидания, о котором нужно было предупредить, не было. Заметных сбоев не выявлено.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "The application fee is 0.2% of the subscription amount, reserved separately."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.81,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.01,
+    "7": 0.18,
+    "10": 0.81
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор подвёл итог статуса заявки и указал путь к истории заявок, но ни в одном сообщении не попрощался с клиентом. Чат закрыл агент без прощания, поэтому обязательная часть критерия («и попрощался») не выполнена.",
+   "evidence": [
+    {
+     "message_index": 61,
+     "quote": "Your application remains Received, with allocation pending."
+    },
+    {
+     "message_index": 63,
+     "quote": "The application record remains accessible under Investments → IPO → My applications."
+    }
+   ],
+   "checked_range": {
+    "from": 61,
+    "to": 65
+   },
+   "na_reason": null,
+   "disputed": true,
+   "dispute_reason": "Фиксированный ответ «yes» не подтверждается: критерий требует итога или предложения помощи и прощания. Оператор подвёл итог (сообщение 61), но прощания нет ни в одном его сообщении, а чат был закрыт агентом (системное сообщение 65) без прощания.",
+   "confidence": 0.63,
+   "distribution": {
+    "yes": 0.63,
+    "no": 0.35,
+    "na": 0.02
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено. Оператор сообщал данные по счёту клиента только после идентификации и не просил кодов.",
+   "evidence": [
+    {
+     "message_index": 37,
+     "quote": "Complete any confirmation inside the app yourself; do not share a code here."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.05,
+    "no": 0.95
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4841,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 789,
+   "cost": 0.000203,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 3384,
+   "output_tokens": 3816,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 16014,
+   "cost": 0.002279,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {
+  "07": "Фиксированный ответ «yes» не подтверждается: критерий требует итога или предложения помощи и прощания. Оператор подвёл итог (сообщение 61), но прощания нет ни в одном его сообщении, а чат был закрыт агентом (системное сообщение 65) без прощания."
+ },
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "yes",
+  "04": "20",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {
+  "07": {
+   "from": "yes",
+   "to": "no"
+  }
+ },
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "explainer",
+  "08": "jev"
+ },
+ "rep": 0
+}

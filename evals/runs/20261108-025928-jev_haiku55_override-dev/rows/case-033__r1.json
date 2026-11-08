@@ -1,0 +1,251 @@
+{
+ "case_id": "case-033",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор в первом ответе (#4) сразу перешёл к сути вопроса, не поздоровавшись и не представившись. Приветствие бота (#0) не учитывается.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Иә, сұрағыңызды естідім."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент с самого начала просил уточнить порядок действий, экраны, поля и деталь про растаможку/подтверждение, но оператор не уточнил недостающие данные и прямо отказался назвать нужный раздел и поля.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Бөлімнің нақты атауын қазір айта алмаймын."
+    },
+    {
+     "message_index": 14,
+     "quote": "толтырылатын жолдардың нақты тізімін қазір бере алмаймын."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 25
+   },
+   "na_reason": null,
+   "confidence": 0.83,
+   "distribution": {
+    "yes": 0.12,
+    "no": 0.83,
+    "na": 0.05
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос клиента носил общий информационный характер. Оператор не раскрывал данные счёта и не выполнял защищённых действий, поэтому идентификация не требовалась.",
+   "evidence": [
+    {
+     "message_index": 45,
+     "quote": "Тек жалпы ақпарат айтып отырмын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: клиент просил общую информацию, а оператор не раскрывал данные счёта и не совершал операций.",
+   "confidence": 0.56,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.43,
+    "na": 0.56
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общую схему процесса. Клиент так и не понял, в какой раздел заходить, какие поля заполнять и как подтверждать операцию, поэтому подсказка не решила запрос.",
+   "evidence": [
+    {
+     "message_index": 50,
+     "quote": "қайда кіріп, нені толтырып, қалай растайтыным әлі белгісіз"
+    },
+    {
+     "message_index": 48,
+     "quote": "Нақты нұсқаулық шықпады."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.7056,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0196,
+    "5": 0.7056,
+    "10": 0.245,
+    "15": 0.0,
+    "20": 0.0098
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретное неудобство клиента: понял сложность работы с мелким экраном и извинился за удержание без предупреждения.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Ұсақ экранда ұзын нөмірді тексеру қиын екенін түсінемін."
+    },
+    {
+     "message_index": 23,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясные, но оператор поставил клиента на ожидание без предупреждения (системное событие #20), что является один заметный сбой. Клиент смог продолжить разговор.",
+   "evidence": [
+    {
+     "message_index": 23,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз."
+    }
+   ],
+   "checked_range": {
+    "from": 20,
+    "to": 21
+   },
+   "na_reason": null,
+   "confidence": 0.82,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.13,
+    "7": 0.82,
+    "10": 0.05
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 55,
+     "quote": "Қысқаша қорытынды:"
+    },
+    {
+     "message_index": 58,
+     "quote": "Сау болыңыз, күніңіз жақсы өтсін."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации не выявлено. Оператор напомнил клиенту не сообщать коды другим людям.",
+   "evidence": [
+    {
+     "message_index": 29,
+     "quote": "Құпия кодтарды ешкімге айтпаңыз, маған да қажет емес."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.87,
+   "distribution": {
+    "yes": 0.13,
+    "no": 0.87
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 9037,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 769,
+   "cost": 0.00038,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 4858,
+   "output_tokens": 3465,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 14060,
+   "cost": 0.002251,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "na",
+  "04": "5",
+  "05": "yes",
+  "06": "7",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 1
+}

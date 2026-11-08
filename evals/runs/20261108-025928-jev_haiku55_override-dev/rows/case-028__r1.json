@@ -1,0 +1,248 @@
+{
+ "case_id": "case-028",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на казахском языке и представился именем Айдана.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Сәлеметсіз бе! Менің атым Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали (сумма 50 000 тенге, дата сегодня) и уточнил недостающее: статус в приложении, счёт зачисления, дату продажи бумаг.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Қанша сомаға және қашан бердіңіз?"
+    },
+    {
+     "message_index": 5,
+     "quote": "Экранда нақты қандай мәртебе жазылған?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.03,
+    "na": 0.0
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор открыл счёт клиента и раскрыл данные о сделке и выводе средств, но в диалоге нет подтверждения идентификации клиента. Условие N/A не выполнено, так как запрос касался защищённых данных счёта.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Шотыңызды аштым."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 7
+   },
+   "na_reason": null,
+   "confidence": 0.96,
+   "distribution": {
+    "yes": 0.03,
+    "no": 0.96,
+    "na": 0.01
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор закрыл основной вопрос: объяснил статус обеих заявок, причину задержки 30 000 тенге, сроки зачисления и дал корректный следующий шаг по обращению при задержке.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Жаңа өтінімнің мәртебесі — өңдеуде."
+    },
+    {
+     "message_index": 23,
+     "quote": "Егер төртінші қарашаның соңына дейін жиырма мың теңге банкке түспесе, қолдау қызметіне қайта хабарласыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.6174,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0196,
+    "5": 0.0,
+    "10": 0.0392,
+    "15": 0.3038,
+    "20": 0.6174
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор оскорбил клиента, назвав его глупым в ответ на уточняющий вопрос о вычете средств. Это нарушает требование вежливости и реакции на недовольство клиента.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз, қарапайым нәрсені түсінбейсіз."
+    }
+   ],
+   "checked_range": {
+    "from": 16,
+    "to": 19
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясные и последовательные, но есть один заметный сбой: после перевода клиента в ожидание оператор не предупредил о нем, а ответ на вопрос о 30 000 тенге был сначала неясным и потребовал уточнения.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Клиент күтуге қойылды."
+    },
+    {
+     "message_index": 19,
+     "quote": "Қалған отыз мыңға кейін жеке өтінім бересіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.48,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.05,
+    "7": 0.48,
+    "10": 0.47
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог обращения и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Қорытындылаймын:"
+    },
+    {
+     "message_index": 25,
+     "quote": "Сау болыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Выявлено оскорбление клиента: оператор назвал клиента ақымақ (глупым), что относится к грубому нарушению.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз, қарапайым нәрсені түсінбейсіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.020000000000000018
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 5619,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 713,
+   "cost": 0.000236,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2451,
+   "output_tokens": 3101,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 13619,
+   "cost": 0.001829,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "no",
+  "04": "20",
+  "05": "no",
+  "06": "7",
+  "07": "yes",
+  "08": "yes"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 1
+}

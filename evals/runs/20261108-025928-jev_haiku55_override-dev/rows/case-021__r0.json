@@ -1,0 +1,240 @@
+{
+ "case_id": "case-021",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор в первом ответе не поздоровался и не представился. Его первая реплика сразу начинается с сути ответа на жалобу клиента.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Данных для ответа не хватало с самого начала: тип и параметры заявки оператор не проверял и не уточнил у клиента. Условие N/A не выполнено, поэтому ответ no.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "тип и параметры вашей заявки я пока не проверял"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 6
+   },
+   "na_reason": null,
+   "confidence": 0.86,
+   "distribution": {
+    "yes": 0.1,
+    "no": 0.86,
+    "na": 0.04
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Системное событие подтверждает идентификацию клиента до перехода к обсуждению заявки. Оператор подключился уже после подтверждения личности.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.95,
+    "no": 0.03,
+    "na": 0.02
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор объяснил общий механизм исполнения рыночной заявки и порядок подачи претензии с перечнем приложений. Основной вопрос клиента о причине именно его цены остался открытым, поэтому выбран шаг 10.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "конкретную причину исполнения мы не выяснили"
+    },
+    {
+     "message_index": 6,
+     "quote": "Причину именно вашей цены я сейчас не установил"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.5586,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0098,
+    "5": 0.0098,
+    "10": 0.5586,
+    "15": 0.06860000000000001,
+    "20": 0.3332
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на недовольство клиента по конкретной проблеме: признал, что покупка дороже ожидаемого увеличила расходы, и объяснил порядок претензии.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство: покупка дороже ожидаемого увеличила расходы"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.74,
+   "distribution": {
+    "yes": 0.74,
+    "no": 0.26
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные и связные, порядок изложения понятен. Заметный сбой: оператор привёл сравнение с чужим остатком, которое не относилось к запросу клиента и только запутало ход объяснения.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Для сравнения: у другого клиента"
+    },
+    {
+     "message_index": 8,
+     "quote": "Подведу итог"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.48,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.18,
+    "7": 0.48,
+    "10": 0.34
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора, перечислив порядок подачи претензии и приложения, и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Спасибо за звонок, до свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор раскрыл конфиденциальную информацию другого клиента: ФИО-плейсхолдер, номер счёта и сумму остатка на счёте 4 280 000 тенге. Это нарушение, поэтому флаг установлен.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "у другого клиента, [ФИО скрыто], на счёте [Номер скрыт] остаток 4 280 000 тенге"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.93,
+   "distribution": {
+    "yes": 0.93,
+    "no": 0.06999999999999995
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 3619,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 531,
+   "cost": 0.000152,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1057,
+   "output_tokens": 2829,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 11343,
+   "cost": 0.001553,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "yes",
+  "04": "10",
+  "05": "yes",
+  "06": "7",
+  "07": "yes",
+  "08": "yes"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 0
+}

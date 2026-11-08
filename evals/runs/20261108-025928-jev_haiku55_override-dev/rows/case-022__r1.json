@@ -1,0 +1,272 @@
+{
+ "case_id": "case-022",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор в первом ответе (#1) не поздоровался и не представился. Приветствие и представление бота не учитываются.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 1
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Данных для ответа было недостаточно: клиент не понял, куда нажимать, и спросил об этом. Оператор не уточнил, что клиент видит на экране, и дал неясную инструкцию «Теперь там заново, заново войдите». Уведомления о входе, о которых просил клиент, оператор не уточнил и не обсудил. Условие N/A не выполнено.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Теперь там заново, заново войдите."
+    },
+    {
+     "message_index": 2,
+     "quote": "Где там?"
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 0.9,
+   "distribution": {
+    "yes": 0.03,
+    "no": 0.9,
+    "na": 0.07
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор снял блокировку входа в аккаунт, то есть выполнил защищённое действие. Подтверждения личности клиента в диалоге нет, системного события о подтверждении тоже нет. Запрос требовал идентификации, поэтому N/A не применим.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос решён: блокировка снята, клиент вошёл в приложение. Оператор дал пошаговую инструкцию. Пропущена второстепенная просьба клиента включить уведомления о входе, поэтому оценка 15, а не 20.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "The failed-attempt lock has been removed; your password has not changed."
+    },
+    {
+     "message_index": 6,
+     "quote": "Your access is restored and you have signed in successfully."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.6272,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0,
+    "5": 0.0,
+    "10": 0.3332,
+    "15": 0.6272,
+    "20": 0.0196
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор ответил на просьбу клиента, но тон был пренебрежительным: клиент сказал, что устал, а оператор ответил «Не надо повторять». Вежливости и признания неудобства клиента не было.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 1
+   },
+   "na_reason": null,
+   "confidence": 0.73,
+   "distribution": {
+    "yes": 0.27,
+    "no": 0.73
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы в целом понятны и приводят к результату. Был один заметный сбой: неясная реплика #1 вынудила клиента переспросить, но клиент смог продолжить и понять инструкцию. Это вопрос степени, поэтому оценка 10 сохраняется.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Теперь там заново, заново войдите."
+    },
+    {
+     "message_index": 4,
+     "quote": "Close the mobile app completely, then reopen it."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.64,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.06,
+    "7": 0.3,
+    "10": 0.64
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, сообщив, что доступ восстановлен и вход выполнен, и попрощался фразой «Goodbye.». Критерий выполнен.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Your access is restored and you have signed in successfully."
+    },
+    {
+     "message_index": 6,
+     "quote": "Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.95,
+    "no": 0.05,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления в явном виде, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге не выявлено. Резкая реплика #1 является грубостью тона, но не оскорблением в смысле критерия.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.69,
+   "distribution": {
+    "yes": 0.31,
+    "no": 0.69
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 2956,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 707,
+   "cost": 0.000124,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 646,
+   "output_tokens": 3239,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 13893,
+   "cost": 0.001717,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "repair",
+   "request_id": "explain_repair",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2276,
+   "output_tokens": 180,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 1492,
+   "cost": 0.000351,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "no",
+  "04": "15",
+  "05": "no",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "08": "jev",
+  "07": "jev"
+ },
+ "rep": 1
+}

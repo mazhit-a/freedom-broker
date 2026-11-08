@@ -1,0 +1,249 @@
+{
+ "case_id": "case-027",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе (\"Hello, my name is Alex\"), что соответствует критерию.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Данных для ответа сразу не хватало, и оператор уточнил сумму, дату, валюту, статус и тип счёта назначения, поэтому N/A неприменимо.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "When did you submit it, what amount and currency, and what status does the app show?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Is the destination a bank account in your own name"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.86,
+   "distribution": {
+    "yes": 0.86,
+    "no": 0.13,
+    "na": 0.01
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор сам требовал подтверждения личности через приложение, но клиент не смог его подтвердить (экран не загрузился), а оператор всё равно отправил инструкцию на отмену защищённого действия. Проверка не подтверждена, поэтому ответ no, а не na.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "please approve the identity check in your brokerage app"
+    },
+    {
+     "message_index": 10,
+     "quote": "I'll go ahead and send the cancellation instruction anyway"
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 10
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.99,
+    "na": 0.01
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ключевая рекомендация оператора ошибочна: он советовал отправить повторный идентичный запрос на вывод и игнорировать предупреждение системы, а также внести ещё 50 000 тенге. Это может привести к проблемам с деньгами клиента, поэтому оценка 0.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Submit another withdrawal for the same amount to the same bank now."
+    },
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.7623,
+   "distribution": {
+    "na": 0.01,
+    "0": 0.7623,
+    "5": 0.0198,
+    "10": 0.0693,
+    "15": 0.029699999999999997,
+    "20": 0.1089
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и отреагировал на описанное клиентом неудобство (нужны деньги на аренду), признав тревогу клиента.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "I understand why having your rent money tied up is worrying."
+    },
+    {
+     "message_index": 22,
+     "quote": "I understand; putting in more money isn't workable when you need it for rent."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.94,
+   "distribution": {
+    "yes": 0.94,
+    "no": 0.06
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора в целом ясные и связные, порядок вопросов логичен. Заранее было объявлено ожидание (hold на тридцать секунд), поэтому оценка 10.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "I'll put you on hold for about thirty seconds while I submit it."
+    },
+    {
+     "message_index": 14,
+     "quote": "That requests cancellation; it does not confirm that the original withdrawal has stopped."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.78,
+   "distribution": {
+    "0": 0.01,
+    "4": 0.02,
+    "7": 0.19,
+    "10": 0.78
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора, предложил обратиться при необходимости и попрощался.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Please contact us if you need further help. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента, предложения платной услуги в обход компании или раскрытия конфиденциальной информации не выявлено. Ошибочные советы оператора учтены в критерии 04, а не как грубое нарушение из списка.",
+   "evidence": [
+    {
+     "message_index": 20,
+     "quote": "Then you would need to deposit another fifty thousand tenge first"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.05,
+    "no": 0.95
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4036,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 535,
+   "cost": 0.00017,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1878,
+   "output_tokens": 3063,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 12552,
+   "cost": 0.001752,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "no",
+  "04": "0",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 0
+}

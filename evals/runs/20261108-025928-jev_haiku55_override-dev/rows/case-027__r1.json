@@ -1,0 +1,254 @@
+{
+ "case_id": "case-027",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался и назвал своё имя: «Hello, my name is Alex».",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали (срочность аренды, сумму) и уточнил недостающее: дату подачи, сумму, валюту и статус в приложении.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "When did you submit it, what amount and currency"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.81,
+   "distribution": {
+    "yes": 0.81,
+    "no": 0.18,
+    "na": 0.01
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Запрос на отмену вывода требовал идентификации. Оператор попросил подтвердить проверку личности в приложении, клиент не смог это сделать, системного события о подтверждении личности нет, но оператор всё равно отправил инструкцию по отмене.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "please approve the identity check in your brokerage app"
+    },
+    {
+     "message_index": 10,
+     "quote": "I'll go ahead and send the cancellation instruction anyway"
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 10
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.99,
+    "na": 0.01
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ключевая рекомендация ошибочна: оператор советовал подать повторный вывод на ту же сумму, хотя клиент сообщал, что система резервирует средства и предупреждает не повторять запрос. Совет создаёт риск двойного списания.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Submit another withdrawal for the same amount to the same bank now."
+    },
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.7326,
+   "distribution": {
+    "na": 0.01,
+    "0": 0.7326,
+    "5": 0.0198,
+    "10": 0.0792,
+    "15": 0.029699999999999997,
+    "20": 0.1287
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и отреагировал на описанное клиентом неудобство: признал тревогу из-за денег на аренду.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "I understand why having your rent money tied up is worrying."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.94,
+   "distribution": {
+    "yes": 0.94,
+    "no": 0.06
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы оператора противоречивы: сначала он сказал, что отмена не подтверждена, затем велел подать дубликат, потом велел внести 50 000 тенге, а в итоге посоветовал оставить существующий запрос. Клиенту пришлось возражать и уточнять, поэтому оценка 10 не подтверждается. Ожидание оператор предупредил.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Submit another withdrawal for the same amount to the same bank now."
+    },
+    {
+     "message_index": 20,
+     "quote": "you would need to deposit another fifty thousand tenge first"
+    },
+    {
+     "message_index": 22,
+     "quote": "leave the existing request in place"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "disputed": true,
+   "dispute_reason": "Оценка 10 требует ясных и связных ответов, но реплики оператора противоречат друг другу: дубликат вывода, затем внесение денег, затем оставление запроса. Клиент возражал и уточнял, поэтому подходит шкала 4.",
+   "confidence": 0.79,
+   "distribution": {
+    "0": 0.01,
+    "4": 0.02,
+    "7": 0.18,
+    "10": 0.79
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора, предложил обратиться за помощью и попрощался.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Please contact us if you need further help. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента нет, платной услуги в обход компании не предлагалось, конфиденциальная информация не раскрывалась. Ошибочный совет по дубликату вывода не относится к перечисленным грубым нарушениям.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.94,
+   "distribution": {
+    "yes": 0.06,
+    "no": 0.94
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4036,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 1116,
+   "cost": 0.00017,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1878,
+   "output_tokens": 3809,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 16133,
+   "cost": 0.002125,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {
+  "06": "Оценка 10 требует ясных и связных ответов, но реплики оператора противоречат друг другу: дубликат вывода, затем внесение денег, затем оставление запроса. Клиент возражал и уточнял, поэтому подходит шкала 4."
+ },
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "no",
+  "04": "0",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {
+  "06": {
+   "from": "10",
+   "to": "4"
+  }
+ },
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "explainer",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 1
+}

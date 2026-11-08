@@ -1,0 +1,242 @@
+{
+ "case_id": "case-022",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор в своём первом ответе не поздоровался и не представился. Реплика начинается с упрёка клиенту, приветствия и представления нет.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 1
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент сообщил об ошибке без текста и не помнил её содержание. Оператор не уточнил недостающие детали об ошибке и сразу дал инструкцию, поэтому данных с самого начала не хватало.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Ошибку закрыл, текст не помню."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 0.84,
+   "distribution": {
+    "yes": 0.03,
+    "no": 0.84,
+    "na": 0.13
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор снял блокировку безопасности аккаунта и предоставил доступ, однако подтверждение личности клиента в разговоре не зафиксировано. Это защищённое действие, поэтому требовалась идентификация.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 1
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос решён: оператор снял блокировку и подтвердил восстановление доступа. Вопрос клиента о включении уведомлений о входе оператор не закрыл, поэтому пропущена второстепенная деталь.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "The failed-attempt lock has been removed"
+    },
+    {
+     "message_index": 6,
+     "quote": "Your access is restored"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.6859999999999999,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0,
+    "5": 0.0,
+    "10": 0.27440000000000003,
+    "15": 0.6859999999999999,
+    "20": 0.0196
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент сообщил, что устал от ситуации, а оператор ответил резко и отмахнулся от повтора. Реакции на неудобство клиента как на конкретную проблему не было.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 6
+   },
+   "na_reason": null,
+   "confidence": 0.84,
+   "distribution": {
+    "yes": 0.16,
+    "no": 0.84
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "В целом ответы ясные и по порядку, инструкция на английском дана последовательно и понятно. Формулировка в реплике о повторном входе была неясной, и клиенту пришлось переспросить, но он смог продолжить.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Теперь там заново, заново войдите."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.69,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.06,
+    "7": 0.25,
+    "10": 0.69
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, сообщив о восстановлении доступа и успешном входе, и попрощался.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Your access is restored and you have signed in successfully. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.03,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге не выявлено. Оператор сообщил только о снятии блокировки и восстановлении доступа.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.64,
+   "distribution": {
+    "yes": 0.36,
+    "no": 0.64
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 2956,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 726,
+   "cost": 0.000124,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 646,
+   "output_tokens": 2961,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 12469,
+   "cost": 0.001578,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "no",
+  "04": "15",
+  "05": "no",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 0
+}

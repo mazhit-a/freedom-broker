@@ -1,0 +1,251 @@
+{
+ "case_id": "case-013",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Первый ответ оператора (#3) сразу даёт инструкцию без приветствия и представления. Приветствие и представление бота в #1 не засчитываются оператору.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Перезапустите телефон и попробуйте открыть приложение заново."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 3
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил ключевые детали, например версию приложения и систему устройства, до того как давал инструкции. Клиент сам сообщил их позже (#6). Оператор также не уточнил, какую именно заявку нужно проверить, и сразу перешёл к общим действиям. Данных для ответа с самого начала не хватало, поэтому N/A не применяется.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Перезапустите телефон и попробуйте открыть приложение заново."
+    },
+    {
+     "message_index": 5,
+     "quote": "Откройте страницу приложения в магазине и проверьте наличие обновления."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 9
+   },
+   "na_reason": null,
+   "confidence": 0.66,
+   "distribution": {
+    "yes": 0.32,
+    "no": 0.66,
+    "na": 0.02
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед раскрытием списка подключений и завершением сессии оператор потребовал проверку личности, и системное событие подтвердило её до защищённого действия.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Для просмотра подключений и завершения сессии нужна проверка личности."
+    },
+    {
+     "message_index": 15,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.02,
+    "na": 0.01
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Вход был восстановлен, но главный вопрос клиента о статусе отправленной заявки на продажу остался без ответа. Оператор сам признал, что статус не проверил. Часть запроса закрыта, существенный вопрос остался открытым.",
+   "evidence": [
+    {
+     "message_index": 41,
+     "quote": "Жоқ, сауда өтініміңіздің мәртебесін анықтаған жоқпын."
+    },
+    {
+     "message_index": 45,
+     "quote": "Осы чатта мәртебені тексере алмаймын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.8736,
+   "distribution": {
+    "na": 0.04,
+    "0": 0.0192,
+    "5": 0.0096,
+    "10": 0.8736,
+    "15": 0.0096,
+    "20": 0.048
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор не отреагировал на замечание клиента о том, что перезапуск уже делался (#4), а на явное выражение усталости и потери времени (#34) ответил только инструкцией по диагностике, без признания проблемы клиента. Вежливость сама по себе не покрывает требование реагировать на конкретное неудобство.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Я же написал, уже перезапускал."
+    },
+    {
+     "message_index": 34,
+     "quote": "Осы белгісіздік әбден шаршатты."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 34
+   },
+   "na_reason": null,
+   "confidence": 0.56,
+   "distribution": {
+    "yes": 0.44,
+    "no": 0.56
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы в основном ясные и связные. Оператор заранее предупредил о времени ожидания при регистрации диагностики. Заметного сбоя в порядке ответов не видно.",
+   "evidence": [
+    {
+     "message_index": 37,
+     "quote": "Диагностиканы тіркеп, техникалық өтініш нөмірін алу үшін бір минутқа дейін уақыт қажет."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.67,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.08,
+    "7": 0.25,
+    "10": 0.67
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог обращения в заключительном сообщении и попрощался.",
+   "evidence": [
+    {
+     "message_index": 51,
+     "quote": "Сау болыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге не выявлено. Оператор, наоборот, просил не отправлять коды и пароли в чат.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Коды и пароль сюда не отправляйте."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.8,
+   "distribution": {
+    "yes": 0.2,
+    "no": 0.8
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 6117,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 833,
+   "cost": 0.000257,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2985,
+   "output_tokens": 3665,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 14947,
+   "cost": 0.002164,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "yes",
+  "04": "10",
+  "05": "no",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 0
+}

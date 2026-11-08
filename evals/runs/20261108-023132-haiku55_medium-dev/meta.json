@@ -74,5 +74,28 @@
   }
  },
  "cost_actual": 0.084091,
- "cost_recomputed": 0.084091
+ "cost_recomputed": 0.084091,
+ "judge": {
+  "model": "claude-sonnet-5-5",
+  "effort": "medium",
+  "mode": "batch",
+  "n_requested": 48,
+  "n_judged": 48,
+  "n_skipped": 0,
+  "skipped": {},
+  "errors": {},
+  "stopped": null,
+  "cost_estimated": 0.468912,
+  "cost_actual": 0.48486,
+  "usage": {
+   "input_tokens": 240538,
+   "output_tokens": 46317,
+   "cache_read_tokens": 100721,
+   "cache_write_tokens": 2143
+  },
+  "served_models": [
+   "claude-sonnet-5-5"
+  ],
+  "finished": "2026-11-08T02:44:57.678067+00:00"
+ }
 }

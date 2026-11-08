@@ -1,0 +1,251 @@
+{
+ "case_id": "case-010",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался и представился по имени: «Здравствуйте, меня зовут Арман».",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Здравствуйте, меня зовут Арман"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Данных для ответа не хватало с начала: клиент не назвал конкретную заявку. Оператор не уточнил, о какой сделке идёт речь, и отвечал общими объяснениями, пока клиент сам не указал покупку акций.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Но вы даже не спросили, какая заявка"
+    },
+    {
+     "message_index": 6,
+     "quote": "По вашему брокерскому счёту сегодня отображаются три исполненные заявки"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 10
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99,
+    "na": 0.0
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до того, как оператор начал обсуждать данные по счёту и сделки.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    },
+    {
+     "message_index": 6,
+     "quote": "По вашему брокерскому счёту сегодня отображаются три исполненные заявки"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общие пояснения о рынке и типах заявок и не указал, где и как подать претензию. Клиенту по-прежнему непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Точного раздела или адреса для претензии я сейчас не назову"
+    },
+    {
+     "message_index": 24,
+     "quote": "Дополнительных сведений по процедуре у меня сейчас нет"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.6566000000000001,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.28419999999999995,
+    "5": 0.6566000000000001,
+    "10": 0.0392,
+    "15": 0.0,
+    "20": 0.0
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент выразил недовольство и неудобство, но оператор не отреагировал на конкретную проблему и отказался обсуждать переживания клиента.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "Обсуждать ваши переживания я не буду"
+    }
+   ],
+   "checked_range": {
+    "from": 11,
+    "to": 12
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Клиенту приходилось переспрашивать и уточнять: ответы были общими и не отвечали на прямые вопросы. Оператор также долго молчал без предупреждения об ожидании.",
+   "evidence": [
+    {
+     "message_index": 21,
+     "quote": "Я понял слова, но не порядок действий"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.87,
+   "distribution": {
+    "0": 0.01,
+    "4": 0.87,
+    "7": 0.1,
+    "10": 0.02
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор не подвёл итог, не предложил дальнейшую помощь и не попрощался. Чат был закрыт без завершающих реплик оператора, при этом клиент не прерывал диалог.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Дополнительных сведений по процедуре у меня сейчас нет"
+    },
+    {
+     "message_index": 25,
+     "quote": "Ладно, закрывайте чат."
+    }
+   ],
+   "checked_range": {
+    "from": 24,
+    "to": 26
+   },
+   "na_reason": null,
+   "confidence": 0.94,
+   "distribution": {
+    "yes": 0.03,
+    "no": 0.94,
+    "na": 0.03
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор предложил частную платную консультацию вне компании с оплатой на личную карту, то есть в обход компании. Это грубое нарушение.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "оплатите переводом на мою личную карту"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.030000000000000027
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4152,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 823,
+   "cost": 0.000174,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1574,
+   "output_tokens": 3142,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 12948,
+   "cost": 0.001761,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "no",
+  "03": "yes",
+  "04": "5",
+  "05": "no",
+  "06": "4",
+  "07": "no",
+  "08": "yes"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 1
+}

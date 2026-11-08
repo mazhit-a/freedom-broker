@@ -1,0 +1,248 @@
+{
+ "case_id": "case-033",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор в первом ответе (#4) не поздоровался и не представился. Фраза «Иә, сұрағыңызды естідім» является ответом на вопрос, а не приветствием или представлением. Приветствие бота (#0) оператору не засчитывается.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Иә, сұрағыңызды естідім."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент задал уточняющие вопросы (о карте или банковском реквизите, о разделе, о подтверждении). Оператор не уточнил недостающие детали и отказался отвечать по существу. N/A неприменим, так как данных для ответа с самого начала не хватало.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Бұрын басқа жерде карта нөмірін сұраған еді."
+    },
+    {
+     "message_index": 16,
+     "quote": "Сізге нақты қай деректемені енгізу керегін осы әңгімеде растап айта алмаймын."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 16
+   },
+   "na_reason": null,
+   "confidence": 0.8,
+   "distribution": {
+    "yes": 0.12,
+    "no": 0.8,
+    "na": 0.08
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос был общим: как вывести деньги на свой банковский счёт. Оператор не раскрывал данные клиента и не выполнял защищённых действий, поэтому идентификация не требовалась.",
+   "evidence": [
+    {
+     "message_index": 45,
+     "quote": "Осы қоңырауда мен сіздің атыңыздан өтінім құрған жоқпын"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: оператор давал только общую информацию, не раскрывал персональные данные и не совершал операций с счётом клиента.",
+   "confidence": 0.58,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.41,
+    "na": 0.58
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общую схему процесса (#25) и прямо сообщил, что не может дать пошаговую инструкцию. Клиенту по-прежнему непонятно, как действовать: экраны, поля и подтверждение не разъяснены.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Жалпы сызбасы: қосымшада ақша шығару өтінімі жасалады"
+    },
+    {
+     "message_index": 49,
+     "quote": "Иә, сіз сұраған толық қадамдық нұсқаулықты бере алмадым."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.735,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0196,
+    "5": 0.735,
+    "10": 0.21559999999999999,
+    "15": 0.0,
+    "20": 0.0098
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив. Он отреагировал на затруднение клиента с маленьким экраном и опасение ошибиться при вводе данных, а также извинился за постановку на ожидание без предупреждения.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Ұсақ экранда ұзын нөмірді тексеру қиын екенін түсінемін."
+    },
+    {
+     "message_index": 23,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные и связные, но был один заметный сбой: клиента поставили на ожидание без предупреждения. Клиент смог понять ответы и продолжить разговор.",
+   "evidence": [
+    {
+     "message_index": 23,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.82,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.12,
+    "7": 0.82,
+    "10": 0.06
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора (#55) и попрощался с клиентом (#58).",
+   "evidence": [
+    {
+     "message_index": 55,
+     "quote": "Қысқаша қорытынды:"
+    },
+    {
+     "message_index": 58,
+     "quote": "Сау болыңыз, күніңіз жақсы өтсін."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге нет. Оператор отказался давать детали и не раскрывал данные клиента.",
+   "evidence": [
+    {
+     "message_index": 45,
+     "quote": "Осы қоңырауда мен сіздің атыңыздан өтінім құрған жоқпын"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.87,
+   "distribution": {
+    "yes": 0.13,
+    "no": 0.87
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 9037,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 821,
+   "cost": 0.00038,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 4858,
+   "output_tokens": 3757,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 15422,
+   "cost": 0.002397,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "na",
+  "04": "5",
+  "05": "yes",
+  "06": "7",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 0
+}

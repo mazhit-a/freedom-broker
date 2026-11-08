@@ -1,0 +1,238 @@
+{
+ "case_id": "case-015",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался и представился («Hello, I'm Alex»). Приветствие бота не учитывалось.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Hello, I'm Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали (сумма около 100 000 KZT, индивидуальный брокерский счёт в тенге) и уточнил недостающее: тип счёта и сумму инвестирования.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Are you using your individual brokerage account or an investment management account, and how much are you planning to invest?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02,
+    "na": 0.0
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Оператор запросил подтверждение личности до проверки баланса, а система подтвердила личность клиента до раскрытия данных о счёте.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Before I check your balance, please complete the identity confirmation prompt in the app."
+    },
+    {
+     "message_index": 8,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор закрыл все существенные вопросы: баланс и комиссию, расчёт суммы, дедлайн, отмену и повторную подачу, распределение и возврат средств, порядок подачи, статус заявки, историю заявок, уведомления, ограничения продажи и вывод резерва.",
+   "evidence": [
+    {
+     "message_index": 21,
+     "quote": "The offer page lists 12 November at 16:00 Almaty time as the application deadline."
+    },
+    {
+     "message_index": 41,
+     "quote": "Yes. I checked the application record"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.7566,
+   "distribution": {
+    "na": 0.03,
+    "0": 0.0097,
+    "5": 0.0,
+    "10": 0.0097,
+    "15": 0.194,
+    "20": 0.7566
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и отреагировал на конкретное неудобство клиента: повторное отключение кнопки «Continue» без объяснения.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I understand why a disabled button with no clear explanation is frustrating."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора ясные и связные, порядок изложения логичный. Небольшая пауза перед проверкой статуса не сопровождалась предупреждением, но это вопрос степени, и существенного сбоя не видно.",
+   "evidence": [
+    {
+     "message_index": 41,
+     "quote": "Yes. I checked the application record"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.84,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.01,
+    "7": 0.15,
+    "10": 0.84
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог статуса заявки и сообщил, что дополнительных шагов от клиента не требуется, а также указал, где найти страницу заявки.",
+   "evidence": [
+    {
+     "message_index": 61,
+     "quote": "There is no additional confirmation step required from you at this stage."
+    },
+    {
+     "message_index": 63,
+     "quote": "The application record remains accessible under Investments → IPO → My applications."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.59,
+   "distribution": {
+    "yes": 0.59,
+    "no": 0.39,
+    "na": 0.02
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено. Баланс сообщён клиенту после подтверждения личности.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Your individual account has 125,000 KZT available."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.94,
+   "distribution": {
+    "yes": 0.06,
+    "no": 0.94
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4841,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 790,
+   "cost": 0.000203,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 3384,
+   "output_tokens": 2853,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 12071,
+   "cost": 0.001798,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "yes",
+  "04": "20",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 1
+}

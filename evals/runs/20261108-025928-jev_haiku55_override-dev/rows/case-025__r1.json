@@ -1,0 +1,242 @@
+{
+ "case_id": "case-025",
+ "variant": "jev_haiku55_override",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе (#3) поздоровался и представился по имени. Приветствие и представление выполнены оператором, а не ботом.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Алия, служба поддержки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Данных для ответа сразу не хватало: тариф, биржа и сумма были неизвестны. Клиент прямо указал на пропуск уточнения, но оператор затем использовал его данные (тариф Старт, KASE, 50 000 тенге) и уточнил условия по ходу разговора. Поэтому ответ yes сохранён как поддержанный транскриптом, хотя уточнение было запоздалым.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "А какой тариф и биржа вы даже не спросили."
+    },
+    {
+     "message_index": 8,
+     "quote": "я начала с общей формулы, не уточнив ваши условия"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.47,
+   "distribution": {
+    "yes": 0.47,
+    "no": 0.47,
+    "na": 0.06
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос касался общих условий тарифа и расчёта комиссии, раскрытия данных счёта не потребовалось. Клиент сам сказал, что смотреть счёт не нужно, поэтому условие N/A выполнено.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Ничего по моему счёту смотреть не надо, объясните сам расчёт."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: клиент просил объяснить общий расчёт тарифа и явно отказался от просмотра счёта.",
+   "confidence": 0.96,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.04,
+    "na": 0.96
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор разобрал расчёт комиссии, ответил на все вопросы клиента (минимум, 200 000 тенге, две заявки, продажа, отмена неисполненной заявки) и дал корректный итог: 200 тенге за покупку и продажу.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Да, вы правильно поняли: выбирается большая из двух сумм, а не их сумма."
+    },
+    {
+     "message_index": 24,
+     "quote": "Если понадобятся другие расчёты, обращайтесь. До свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.9405,
+   "distribution": {
+    "na": 0.05,
+    "0": 0.0,
+    "5": 0.0,
+    "10": 0.0,
+    "15": 0.0095,
+    "20": 0.9405
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и на недовольство клиента («у вас тарифы как ребус») отреагировал конкретно: извинился за неудобное изложение условий и перешёл к объяснению.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Простите, что условия изложены неудобно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы ясные и связные, оператор признал свою ошибку с общей формулой и последовательно дал числовые примеры. Явного ожидания, требующего предупреждения, не было, поэтому оценка 10 сохранена.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Сто тенге сверху не добавляются."
+    },
+    {
+     "message_index": 14,
+     "quote": "Да, поскольку в прочитанной строке указаны и покупка, и продажа."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.87,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.01,
+    "7": 0.12,
+    "10": 0.87
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог примера (покупка 50 000 и продажа 60 000, по 100 тенге каждая, всего 200 тенге) и попрощался, предложив дальнейшую помощь.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Итак, в вашем примере покупка на 50 тысяч и продажа на 60 тысяч — по 100 тенге комиссии каждая, всего 200 тенге"
+    },
+    {
+     "message_index": 24,
+     "quote": "До свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений клиента, предложения платной услуги в обход компании или раскрытия конфиденциальной информации в репликах оператора не выявлено.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Если понадобятся другие расчёты, обращайтесь."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.84,
+   "distribution": {
+    "yes": 0.16,
+    "no": 0.84
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 5479,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 810,
+   "cost": 0.00023,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2537,
+   "output_tokens": 3172,
+   "cache_read_tokens": 3296,
+   "cache_write_tokens": 0,
+   "latency_ms": 14162,
+   "cost": 0.001873,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "na",
+  "04": "20",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "overrides": {},
+ "source": {
+  "01": "jev",
+  "02": "jev",
+  "03": "jev",
+  "04": "jev",
+  "05": "jev",
+  "06": "jev",
+  "07": "jev",
+  "08": "jev"
+ },
+ "rep": 1
+}
