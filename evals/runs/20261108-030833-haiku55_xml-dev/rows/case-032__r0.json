@@ -1,0 +1,180 @@
+{
+ "case_id": "case-032",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на казахском языке и представился по имени.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Сәлеметсіз бе!"
+    },
+    {
+     "message_index": 2,
+     "quote": "Менің атым Айдана"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали обращения (номер TEST-041, количество и лимит) и разобрал расхождение в исполнении заявки, уточнив данные по сделкам.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "Шотыңыздағы TEST-041 өтінімін аштым"
+    },
+    {
+     "message_index": 18,
+     "quote": "қырық дана 1500 теңгеден, алпыс дана 1505 теңгеден сатылған"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Оператор запросил подтверждение личности до раскрытия данных по заявке, и система подтвердила личность клиента до того, как оператор раскрыл детали.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "жеке басыңызды растау қажет"
+    },
+    {
+     "message_index": 10,
+     "quote": "Клиенттің жеке басы расталды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор закрыл основной вопрос о расхождении суммы, объяснил комиссию и лимит, а также дал следующий шаг: регистрацию жалобы с номером, сроки ответа и место его просмотра.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Комиссия есебінде екі рет 200 теңгеден ұсталым жоқ"
+    },
+    {
+     "message_index": 28,
+     "quote": "Шағым тіркелді, нөмірі TEST-C204"
+    },
+    {
+     "message_index": 32,
+     "quote": "Мәртебесі мен жазбаша жауап сол жерде болады"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежливо отреагировал на недовольство клиента: признал тревожность ситуации, выразил понимание по поводу неожиданной комиссии и извинился за постановку на ожидание.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "алаңдататынын түсінемін"
+    },
+    {
+     "message_index": 18,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз"
+    },
+    {
+     "message_index": 24,
+     "quote": "Комиссия сіз үшін күтпеген шығын болғанын түсінемін"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Объяснение двух исполнений было сформулировано запутанно, клиент попросил объяснить проще. Оператор поставил клиента на ожидание без предупреждения. Тем не менее ответы в итоге стали понятны, и клиент продолжил разговор.",
+   "evidence": [
+    {
+     "message_index": 14,
+     "quote": "Орындау бөлек, есеп бір"
+    },
+    {
+     "message_index": 19,
+     "quote": "Қарапайым айтып беріңізші"
+    },
+    {
+     "message_index": 18,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог обращения, спросил о дополнительных вопросах и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 36,
+     "quote": "Тағы көмектесетін сұрағыңыз бар ма?"
+    },
+    {
+     "message_index": 38,
+     "quote": "Қорытындылаймын"
+    },
+    {
+     "message_index": 38,
+     "quote": "сау болыңыз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, навязывания платной услуги в обход компании или раскрытия конфиденциальной информации третьим лицам не выявлено. Данные заявки раскрыты только после подтверждения личности клиента.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "Шотыңыздағы TEST-041 өтінімін аштым"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 3857,
+   "output_tokens": 3553,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 14880,
+   "cost": 0.002193,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

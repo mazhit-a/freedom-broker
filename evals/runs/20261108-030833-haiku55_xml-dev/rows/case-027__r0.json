@@ -1,0 +1,151 @@
+{
+ "case_id": "case-027",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе: «Hello, my name is Alex».",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали (срок отправки, сумма, статус, назначение) и уточнил недостающее: когда подана заявка, сумма, валюта и статус.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "When did you submit it, what amount and currency, and what status does the app show?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор сам потребовал подтверждения личности в приложении, клиент не смог его подтвердить, но оператор всё равно отправил инструкцию на отмену, то есть защищённое действие совершено без подтверждённой идентификации.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "please approve the identity check in your brokerage app."
+    },
+    {
+     "message_index": 10,
+     "quote": "I'll go ahead and send the cancellation instruction anyway."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 14
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ключевая рекомендация ошибочна: оператор советовал подать повторный запрос на вывод и игнорировать предупреждение системы, что могло привести к блокировке средств или ошибочным платежам.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Submit another withdrawal for the same amount to the same bank now."
+    },
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и отреагировал на описанное клиентом неудобство, связанное с арендой и деньгами, которые заморожены.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "I understand why having your rent money tied up is worrying."
+    },
+    {
+     "message_index": 22,
+     "quote": "I understand; putting in more money isn't workable when you need it for rent."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора в целом ясные и связные; перед переводом на удержание оператор предупредил о примерном времени ожидания (около тридцати секунд).",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "I'll put you on hold for about thirty seconds while I submit it."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора, предложил дальнейшую помощь и попрощался.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Please contact us if you need further help. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании или раскрытия конфиденциальной информации не выявлено; ошибочные рекомендации относятся к качеству консультации, а не к грубым нарушениям.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1824,
+   "output_tokens": 2759,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 11881,
+   "cost": 0.001592,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

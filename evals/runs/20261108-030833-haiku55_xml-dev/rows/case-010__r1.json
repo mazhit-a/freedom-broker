@@ -1,0 +1,165 @@
+{
+ "case_id": "case-010",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе: «Здравствуйте, меня зовут Арман.»",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Здравствуйте, меня зовут Арман."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент просил проверить конкретную сделку, но оператор не уточнил, какая заявка нужна, и дал общие объяснения вместо уточнения недостающих деталей.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Но вы даже не спросили, какая заявка."
+    },
+    {
+     "message_index": 6,
+     "quote": "По вашему брокерскому счёту сегодня отображаются три исполненные заявки."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 9
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед обсуждением операций по счёту личность клиента была подтверждена системой до перехода к оператору.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общее объяснение и не выяснил причину исполнения. Клиенту не назвали раздел или адрес для претензии, и он не понимает, как действовать дальше.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Точного раздела или адреса для претензии я сейчас не назову."
+    },
+    {
+     "message_index": 24,
+     "quote": "Дополнительных сведений по процедуре у меня сейчас нет."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор не отреагировал на выраженное клиентом недовольство и неудобство, а отказался обсуждать его переживания. На жалобу на долгое молчание ответил формально.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Очень неприятно."
+    },
+    {
+     "message_index": 12,
+     "quote": "Обсуждать ваши переживания я не буду."
+    },
+    {
+     "message_index": 16,
+     "quote": "Я на связи."
+    }
+   ],
+   "checked_range": {
+    "from": 11,
+    "to": 16
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы расплывчатые и часто уходят от вопроса, из-за чего клиент вынужден переспрашивать. Перед длинной паузой в три минуты оператор не предупредил клиента об ожидании.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Вы больше трёх минут молчали, я думал чат завис."
+    },
+    {
+     "message_index": 21,
+     "quote": "Где кнопка или адрес для претензии? Как найти эту историю?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор не подвёл итог, не предложил дальнейшую помощь и не попрощался. Чат был закрыт оператором без завершающей реплики.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Чат закрыт оператором."
+    }
+   ],
+   "checked_range": {
+    "from": 24,
+    "to": 26
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор предложил разобрать сделку в обход компании за плату на личную карту, что является предложением платной услуги в обход компании.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "оплатите переводом на мою личную карту"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1521,
+   "output_tokens": 2759,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 11565,
+   "cost": 0.001562,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

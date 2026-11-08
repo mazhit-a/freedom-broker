@@ -1,0 +1,150 @@
+{
+ "case_id": "case-021",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор не поздоровался и не представился в первом ответе. Его первая реплика сразу начинается с ответа на жалобу.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство: покупка дороже ожидаемого увеличила расходы."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Данных с самого начала не хватало: клиент не назвал тип заявки и параметры, и оператор не уточнил их, прямо указав, что параметры не проверял.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "тип и параметры вашей заявки я пока не проверял"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до работы оператора, защищённое действие требовало именно этого.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор закрыл часть запроса: объяснил порядок подачи претензии и список приложений. Существенный вопрос о причине именно этой цены остался открытым, и оператор сам признал, что причину не установил.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Причину именно вашей цены я сейчас не установил."
+    },
+    {
+     "message_index": 8,
+     "quote": "конкретную причину исполнения мы не выяснили"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на недовольство клиента, признав его и объяснив ситуацию с ценой.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясны, но клиенту пришлось повторно спрашивать о причине цены, а вставка про чужой остаток сбила ход разговора. Это один заметный сбой.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Только причина моей цены так и не ясна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог по порядку подачи претензии и попрощался.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Подведу итог: порядок подачи претензии и список приложений я сообщил"
+    },
+    {
+     "message_index": 8,
+     "quote": "Спасибо за звонок, до свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор раскрыл конфиденциальную информацию другого клиента: остаток на его счёте и часть реквизитов счёта.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "остаток 4 280 000 тенге"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1003,
+   "output_tokens": 2304,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 9655,
+   "cost": 0.001283,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

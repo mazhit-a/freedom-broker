@@ -1,0 +1,155 @@
+{
+ "case_id": "case-025",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался и представился: «Здравствуйте, меня зовут Алия, служба поддержки.»",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Алия, служба поддержки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент сообщил о намерении купить акции без указания тарифа, биржи и суммы. Оператор начал с общей формулы и не уточнил недостающие детали; тариф и биржу выяснил сам клиент. Данных для ответа сразу не хватало, поэтому N/A не применим.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "хотел просто акции купить"
+    },
+    {
+     "message_index": 8,
+     "quote": "Вы правы, я начала с общей формулы, не уточнив ваши условия."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 8
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос касался общего расчёта комиссии и не требовал идентификации клиента; клиент прямо сказал, что смотреть его счёт не нужно.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Ничего по моему счёту смотреть не надо"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор закрыл основной вопрос о расчёте комиссии: процентная часть, минимум, две заявки, продажа, обслуживание, биржевой сбор, отмена заявки. Расчёты корректны и итог по примеру дан.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Сто тенге сверху не добавляются."
+    },
+    {
+     "message_index": 20,
+     "quote": "подача и отмена бесплатны"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на раздражение клиента, вызванное неудобной таблицей тарифов, извинившись и признав неудобство.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Понимаю ваше раздражение"
+    },
+    {
+     "message_index": 5,
+     "quote": "Простите, что условия изложены неудобно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора в основном ясные и связные, порядок ответов логичен. Небольшой сбой в начале с общей формулой был сразу исправлен.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Вы правы, я начала с общей формулы"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог расчёта, предложил обращаться при других вопросах и попрощался.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Если понадобятся другие расчёты, обращайтесь."
+    },
+    {
+     "message_index": 24,
+     "quote": "До свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации не выявлено.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Итак, в вашем примере покупка на 50 тысяч и продажа на 60 тысяч"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2483,
+   "output_tokens": 2642,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 11107,
+   "cost": 0.0016,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

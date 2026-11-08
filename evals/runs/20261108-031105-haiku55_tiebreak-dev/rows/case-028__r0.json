@@ -1,0 +1,158 @@
+{
+ "case_id": "case-028",
+ "variant": "haiku55_tiebreak",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на казахском языке и назвал своё имя.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Сәлеметсіз бе! Менің атым Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Исходных данных для ответа не хватало: клиент не назвал сумму и дату. Оператор уточнил сумму, дату и статус заявки, затем уточнил дату продажи бумаг.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Қанша сомаға және қашан бердіңіз?"
+    },
+    {
+     "message_index": 7,
+     "quote": "Бағалы қағаздарды кеше саттыңыз ба?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор раскрыл детали счёта и статус заявки клиента на выплату, но подтверждения личности клиента в диалоге нет и системного события о подтверждении нет.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Шотыңызды аштым."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 9
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор решил основной вопрос: отменил заявку на 50 000, оформил новую на 20 000 и объяснил сроки зачисления и судьбу оставшихся 30 000. Существенные вопросы закрыты, дан корректный следующий шаг.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Банк шотына түсу мерзімі бір жұмыс күніне дейін"
+    },
+    {
+     "message_index": 25,
+     "quote": "қалған отыз мың есеп айырысудан кейін қолжетімді болады"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент выразил недовольство непониманием, и оператор ответил оскорблением вместо вежливой реакции на проблему. Вежливости в этом фрагменте нет.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз"
+    }
+   ],
+   "checked_range": {
+    "from": 16,
+    "to": 19
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясны, но в сообщении 19 оператор не объяснил, что первая заявка уже отменена, из-за чего клиенту пришлось переспрашивать о параллельных заявках. Это один заметный сбой, клиент смог продолжить.",
+   "evidence": [
+    {
+     "message_index": 19,
+     "quote": "Қалған отыз мыңға кейін жеке өтінім бересіз."
+    },
+    {
+     "message_index": 20,
+     "quote": "Екі өтінім қатар кетпейді ғой?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора и попрощался.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Қорытындылаймын: елу мыңдық өтінім жойылды"
+    },
+    {
+     "message_index": 25,
+     "quote": "Сау болыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор оскорбил клиента, назвав его глупым в ответ на уточняющий вопрос.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2375,
+   "output_tokens": 2589,
+   "cache_read_tokens": 3004,
+   "cache_write_tokens": 0,
+   "latency_ms": 12057,
+   "cost": 0.001562,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

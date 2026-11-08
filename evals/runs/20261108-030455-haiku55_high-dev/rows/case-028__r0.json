@@ -1,0 +1,158 @@
+{
+ "case_id": "case-028",
+ "variant": "haiku55_high",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался («Сәлеметсіз бе!») и представился в первом ответе («Менің атым Айдана»). Приветствие бота не засчитывалось.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Сәлеметсіз бе! Менің атым Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали (сумма 50 000 и дата заявки) и уточнил недостающее: статус в приложении и факт продажи бумаг, от чего зависел ответ.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Экранда нақты қандай мәртебе жазылған?"
+    },
+    {
+     "message_index": 7,
+     "quote": "Бағалы қағаздарды кеше саттыңыз ба?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор открыл счёт клиента и раскрыл детали заявки и мәмілеге қатысты сведения без подтверждения личности клиента; подтверждение в разговоре не зафиксировано.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Шотыңызды аштым."
+    }
+   ],
+   "checked_range": {
+    "from": 5,
+    "to": 9
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Основной вопрос решён: заявка на 50 000 отменена, создана новая заявка на 20 000, объяснены сроки поступления и судьба оставшихся 30 000 после расчётов. Существенных пробелов нет.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Жаңа өтінімнің мәртебесі — өңдеуде."
+    },
+    {
+     "message_index": 25,
+     "quote": "қалған отыз мың есеп айырысудан кейін қолжетімді болады."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор назвал клиента «ақымақсыз» и заявил, что он ничего не понимает, вместо вежливого ответа на его обоснованное беспокойство о 30 000 тенге. Клиент прямо отреагировал на оскорбление.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз, қарапайым нәрсені түсінбейсіз."
+    },
+    {
+     "message_index": 18,
+     "quote": "Мені қорлаудың қажеті жоқ."
+    }
+   ],
+   "checked_range": {
+    "from": 16,
+    "to": 18
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясные и по порядку, но перед постановкой клиента на ожидание оператор не предупредил об этом. Клиенту пришлось переспрашивать о статусе двух заявок, что указывает на один заметный сбой.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Клиент күтуге қойылды."
+    },
+    {
+     "message_index": 20,
+     "quote": "Екі өтінім қатар кетпейді ғой?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора и попрощался.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Сау болыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Выявлено оскорбление клиента: оператор назвал его «ақымақсыз».",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз, қарапайым нәрсені түсінбейсіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2375,
+   "output_tokens": 4363,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 19512,
+   "cost": 0.002448,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

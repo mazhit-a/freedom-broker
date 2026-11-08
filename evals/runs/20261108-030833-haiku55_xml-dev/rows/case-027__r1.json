@@ -1,0 +1,159 @@
+{
+ "case_id": "case-027",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе: «Hello, my name is Alex.»",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали (невыполненный вывод, срочность) и уточнил недостающее: дату подачи, сумму, валюту, статус и реквизиты.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "When did you submit it, what amount and currency"
+    },
+    {
+     "message_index": 6,
+     "quote": "Is the destination a bank account in your own name"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор попросил подтвердить проверку личности в приложении, но клиент не смог это сделать, и подтверждения не было. Тем не менее оператор отправил инструкцию на отмену, то есть совершил защищённое действие без подтверждённой идентификации.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "please approve the identity check in your brokerage app"
+    },
+    {
+     "message_index": 10,
+     "quote": "I'll go ahead and send the cancellation instruction anyway."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 10
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ключевая рекомендация оператора ошибочна: он советовал отправить дубликат вывода на ту же сумму, игнорировать предупреждение системы и внести деньги на депозит. Это могло привести к неверным действиям клиента с его средствами.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Submit another withdrawal for the same amount to the same bank now."
+    },
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и реагировал на переживания клиента о срочной оплате аренды: признал их и отнёсся к проблеме с деньгами.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "I understand why having your rent money tied up is worrying."
+    },
+    {
+     "message_index": 22,
+     "quote": "putting in more money isn't workable when you need it for rent"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы оператора противоречивы: сначала он предлагал дубликат вывода, который будто бы объединится автоматически, затем требовал внести деньги, а после просил оставить запрос без изменений. Клиенту приходилось возражать и разбираться в непонятной логике.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "the system automatically merges the two into one payment"
+    },
+    {
+     "message_index": 20,
+     "quote": "Then you would need to deposit another fifty thousand tenge first"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора, предложил обратиться при необходимости и попрощался.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Please contact us if you need further help. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации не выявлено. Рекомендации оператора ошибочны, но под критерии флага они не попадают.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1824,
+   "output_tokens": 2868,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 12433,
+   "cost": 0.001647,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

@@ -1,0 +1,155 @@
+{
+ "case_id": "case-015",
+ "variant": "haiku55_tiebreak",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на английском языке клиента и представился в первом ответе (сообщение #4). Приветствие бота не учитывалось.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Hello, I'm Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали запроса (индивидуальный брокерский счёт, сумма около 100 000 KZT) и уточнил недостающее до расчёта. Далее он корректно рассчитал сумму и комиссию.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Are you using your individual brokerage account or an investment management account, and how much are you planning to invest?"
+    },
+    {
+     "message_index": 11,
+     "quote": "For 100 shares, the subscription amount is 100,000 KZT and the fee is 200 KZT."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед раскрытием баланса оператор потребовал подтверждение личности; событие подтверждения личности зафиксировано до ответа с суммами (сообщения #6, #8, #9).",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Before I check your balance, please complete the identity confirmation prompt in the app."
+    },
+    {
+     "message_index": 9,
+     "quote": "Your individual account has 125,000 KZT available."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос (баланс, комиссия, срок, порядок подачи и статус заявки) решён полностью. Второстепенный административный вопрос клиента о часовом поясе времени на PDF-подтверждении оператор не закрыл, ответив только по количеству и сумме.",
+   "evidence": [
+    {
+     "message_index": 32,
+     "quote": "will the downloadable confirmation PDF show its timestamp in Almaty time or UTC?"
+    },
+    {
+     "message_index": 33,
+     "quote": "The quantity is correct for your plan."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретное неудобство клиента: зависшую кнопку Continue без объяснения. Он признал проблему и предложил, как её избежать.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I understand why a disabled button with no clear explanation is frustrating."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные и связные. Однако после вопроса клиента о статусе заявки (#40 в 10:00) оператор ответил только в 13:00, без предупреждения об ожидании. Это один заметный сбой, но клиент смог продолжить.",
+   "evidence": [
+    {
+     "message_index": 40,
+     "quote": "Received. There's an application reference [Reference hidden]. Does Received mean it went through?"
+    },
+    {
+     "message_index": 41,
+     "quote": "Yes. I checked the application record"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор подвёл итог статуса заявки и напомнил о разделе истории, но не попрощался с клиентом. Клиент закрыл тему словами благодарности, а оператор на это не ответил.",
+   "evidence": [
+    {
+     "message_index": 63,
+     "quote": "The application record remains accessible under Investments → IPO → My applications."
+    }
+   ],
+   "checked_range": {
+    "from": 61,
+    "to": 63
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений клиента, предложения платной услуги в обход компании или раскрытия конфиденциальной информации не выявлено. Суммы баланса раскрыты только после подтверждения личности и относились к заявке клиента.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Your individual account has 125,000 KZT available."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 3307,
+   "output_tokens": 3065,
+   "cache_read_tokens": 3004,
+   "cache_write_tokens": 0,
+   "latency_ms": 13228,
+   "cost": 0.001893,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

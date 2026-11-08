@@ -1,0 +1,162 @@
+{
+ "case_id": "case-009",
+ "variant": "haiku55_high",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор не поздоровался и не представился в своём первом ответе (#4). Приветствие и представление бота не засчитываются оператору.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент задавал конкретные вопросы о том, какой адрес указать, подходит ли PDF-выписка, формат и размер файла. Оператор не уточнил недостающие данные и не дал определённого ответа, ограничившись общими формулировками.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 11
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента была подтверждена системным событием до передачи чата оператору и до его первых ответов с данными заявки.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    },
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор указал общую подсказку: нужен подтверждающий адрес документ. Однако он не подтвердил, подходит ли выписка, и не объяснил, как загрузить документ с экрана. Клиент прямо написал, что всё ещё не понимает, как действовать.",
+   "evidence": [
+    {
+     "message_index": 14,
+     "quote": "So I still don't know whether my statement is acceptable or how to submit it from this screen."
+    },
+    {
+     "message_index": 15,
+     "quote": "I haven't confirmed whether that statement meets your application's requirements"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и отреагировал на конкретные неудобства клиента: повторную загрузку паспорта и отсутствие кнопки загрузки на экране.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice"
+    },
+    {
+     "message_index": 13,
+     "quote": "I'm sorry the screen gives you a document request without an upload button or requirements."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы связные и понятны, клиент понимает, что не хватает адресного документа. Однако ответы на вопросы о типе адреса и формате были расплывчатыми, и клиенту пришлось повторно уточнять, что делать с выпиской. Это один заметный сбой.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    },
+    {
+     "message_index": 15,
+     "quote": "The guidance I've provided is general."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог состояния заявки, указал незакрытый пункт и попрощался с клиентом. Чат не оборвался, клиент сам написал, что это всё.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Your application remains pending KYC, with proof of address outstanding."
+    },
+    {
+     "message_index": 17,
+     "quote": "Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений клиента, предложения платной услуги в обход компании или раскрытия конфиденциальной информации в переписке оператора не выявлено.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "No documents or application details were changed during this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1036,
+   "output_tokens": 3877,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 16985,
+   "cost": 0.002071,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

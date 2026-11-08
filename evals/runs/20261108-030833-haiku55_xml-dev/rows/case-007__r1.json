@@ -1,0 +1,158 @@
+{
+ "case_id": "case-007",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на казахском языке и назвал своё имя.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Менің атым — Әлия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент прямо спрашивал, за что взяты 2 000 теңге, но оператор не уточнил детали и не выяснил недостающие данные по этой сумме, а сказал, что не смог определить услугу.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "осы жауапта анықтай алмадым"
+    },
+    {
+     "message_index": 9,
+     "quote": "Комиссиялар операция түріне қарай есептеледі."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 13
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системным событием до того, как оператор раскрыл данные о шknown счёте и комиссиях.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Клиенттің жеке басы расталды."
+    },
+    {
+     "message_index": 5,
+     "quote": "Сіздің негізгі шотыңызда «Стандарт» тарифі қосылған."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор объяснил комиссию 1 500 теңге, но вопрос о 2 000 теңге и возможности возврата остался открытым, корректного следующего шага не дано.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "осы жауапта анықтай алмадым"
+    },
+    {
+     "message_index": 14,
+     "quote": "Ал қалған ақшаға жауап та, не істеу керегі де жоқ."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент выразил сильное недовольство и злость из-за списания, но оператор не отреагировал на эту конкретную проблему и не признал неудобство клиента.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Осыған ашуланып отырмын!"
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 13
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы оператора расплывчаты и не отвечают на вопрос, клиенту пришлось несколько раз переспрашивать и уточнять одно и то же.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Тарифтер қолданбаның «Құжаттар» бөлімінде орналасқан."
+    },
+    {
+     "message_index": 12,
+     "quote": "Бірақ менің басты сұрағым әлі тұр"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора и попрощался.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Сау болыңыз!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании и раскрытия конфиденциальной информации третьим лицам не выявлено; данные предоставлены верифицированному клиенту по его счёту.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Сіздің негізгі шотыңызда «Стандарт» тарифі қосылған."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1376,
+   "output_tokens": 2576,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 11235,
+   "cost": 0.001456,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

@@ -1,0 +1,147 @@
+{
+ "case_id": "case-025",
+ "variant": "haiku55_tiebreak",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "В первом ответе оператор поздоровался и представилась: «Здравствуйте, меня зовут Алия, служба поддержки».",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Алия, служба поддержки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнила недостающие детали: тариф и биржу клиент назвал сам по собственной инициативе, а оператор начала с общей формулы без уточнений. Клиент прямо указал на это.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "А какой тариф и биржа вы даже не спросили."
+    },
+    {
+     "message_index": 5,
+     "quote": "В общем виде процентную комиссию считают так"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Клиент прямо указал, что по счёту смотреть не нужно, а запрос был общим разъяснением расчёта комиссии без доступа к данным клиента. Условие N/A выполнено.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Ничего по моему счёту смотреть не надо"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор закрыла все существенные вопросы клиента: расчёт комиссии, минимум, продажу, обслуживание, биржевой сбор, отмену заявки. Дала итоговый корректный расчёт.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Итак, в вашем примере покупка на 50 тысяч и продажа на 60 тысяч"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлива, извинилась за неудобство изложения условий и отреагировала на раздражение клиента.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Понимаю ваше раздражение"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясные и связные, но первый ответ был общей формулой без уточнения условий клиента, что потребовало дополнительных вопросов. Это один заметный сбой, клиент смог продолжить.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "В общем виде процентную комиссию считают так"
+    },
+    {
+     "message_index": 6,
+     "quote": "А какой тариф и биржа вы даже не спросили."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвела итог расчёта, предложила дальнейшую помощь и попрощалась.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "До свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Да, вы правильно поняли"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2461,
+   "output_tokens": 3017,
+   "cache_read_tokens": 3004,
+   "cache_write_tokens": 0,
+   "latency_ms": 12218,
+   "cost": 0.001785,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

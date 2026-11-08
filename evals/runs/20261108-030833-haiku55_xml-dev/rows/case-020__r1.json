@@ -1,0 +1,159 @@
+{
+ "case_id": "case-020",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе: назвал имя и поддержку брокера.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Здравствуйте, меня зовут Алия, поддержка брокера."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "na",
+   "rationale": "Клиент сразу попросил только общие действия без проверки счёта, поэтому данных для ответа хватало с самого начала.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Мне без проверки счёта, просто общие действия скажите"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Данных для ответа хватало с самого начала: клиент явно запросил общие действия без проверки счёта."
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос о general-действиях по приложению не требовал идентификации, клиент прямо отказался от проверки счёта, и защищённых данных оператор не раскрывал.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Мне без проверки счёта"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал общие подсказки: перезапуск и смену сети. Но рекомендация, куда отправить обращение, противоречивая и неверная, и клиенту так и не стало понятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Только его не запускайте, сначала отправьте из него обращение."
+    },
+    {
+     "message_index": 5,
+     "quote": "через сайт нельзя, только в приложении"
+    },
+    {
+     "message_index": 6,
+     "quote": "А куда написать без приложения, так и не понял."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор был вежлив, но не отреагировал на выраженное клиентом раздражение и непонимание, а сразу перешёл к формальному завершению.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "уже очень раздражает"
+    },
+    {
+     "message_index": 6,
+     "quote": "перестал понимать порядок"
+    },
+    {
+     "message_index": 7,
+     "quote": "До свидания."
+    }
+   ],
+   "checked_range": {
+    "from": 2,
+    "to": 7
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы оператора противоречивы: сначала запуск приложения, затем указание не запускать, и клиенту пришлось переспрашивать порядок действий.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Только его не запускайте"
+    },
+    {
+     "message_index": 5,
+     "quote": "Его нужно открыть, не открывая, ну до запуска отправить."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор предложил дальнейшую помощь через поддержку и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Если появятся другие вопросы, обращайтесь в поддержку. До свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге не выявлено.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Если появятся другие вопросы, обращайтесь в поддержку."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 774,
+   "output_tokens": 3085,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 12933,
+   "cost": 0.00165,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

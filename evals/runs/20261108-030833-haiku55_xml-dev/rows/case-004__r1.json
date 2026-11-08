@@ -1,0 +1,136 @@
+{
+ "case_id": "case-004",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на казахском языке («Сәлеметсіз бе!») и представился в первом же ответе, назвав имя Айдана.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Сәлеметсіз бе! Менің атым — Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл выбранную клиентом тему («Тарифтер мен комиссиялар») и уточнил недостающее, спросив, что именно клиент хочет узнать.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Нақты нені білгіңіз келеді?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос о тарифах и комиссиях является общей справочной информацией и не требовал идентификации клиента.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Тарифтер мен комиссиялар"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: вопрос о тарифах и комиссиях общий."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Клиент так и не сформулировал свой вопрос: написал, что печатает, и покинул чат до ответа по существу.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Бір сәт, сұрағымды жазып жатырмын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат закончился до того, как клиент сформулировал запрос."
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и доброжелателен; клиент недовольства не выражал, поэтому реагировать на проблему не требовалось.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора ясные и связные; на паузу клиента («Бір сәт») оператор адекватно отреагировал.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Клиент покинул чат сразу после реплики оператора, до возможности подвести итог или попрощаться.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Клиент чаттан шығып кетті."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат оборвался до возможности его завершить: клиент вышел из чата."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании или раскрытия конфиденциальной информации в диалоге не выявлено.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 424,
+   "output_tokens": 2134,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 9308,
+   "cost": 0.00114,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

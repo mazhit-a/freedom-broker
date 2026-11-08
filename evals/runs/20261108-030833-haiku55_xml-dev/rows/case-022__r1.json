@@ -1,0 +1,156 @@
+{
+ "case_id": "case-022",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор в первом ответе не поздоровался и не представился; реплика сразу переходит к делу.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Вопрос клиента о включении уведомлений о входе остался без внимания и уточнения; оператор также не уточнил детали ошибки, которые клиент не помнил.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "можно включить уведомления о входе?"
+    },
+    {
+     "message_index": 4,
+     "quote": "The failed-attempt lock has been removed"
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Снятие блокировки аккаунта является защищённым действием, но подтверждения личности клиента в диалоге нет и системного события о подтверждении не зафиксировано.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной запрос о снятии блокировки решён, и оператор дал понятные шаги для входа; второстепенный вопрос об уведомлениях не закрыт.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "The failed-attempt lock has been removed"
+    },
+    {
+     "message_index": 5,
+     "quote": "I'm in now. The app opens normally."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "На жалобу клиента «я уже замучился» оператор ответил резко и не отреагировал на его неудобство.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом понятны, но фраза «Теперь там заново, заново войдите.» была неясной, из-за чего клиенту пришлось переспрашивать.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Теперь там заново, заново войдите."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог восстановления доступа и попрощался.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, платных услуг в обход компании или раскрытия конфиденциальной информации не выявлено.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "your password has not changed."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 595,
+   "output_tokens": 2448,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 10243,
+   "cost": 0.001314,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

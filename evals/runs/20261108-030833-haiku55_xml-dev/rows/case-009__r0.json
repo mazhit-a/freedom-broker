@@ -1,0 +1,158 @@
+{
+ "case_id": "case-009",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор не поздоровался и не представился в своём первом ответе (#4). Приветствие и представление от бота не засчитываются.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document and proof of address."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Данных для ответа не хватало с самого начала: клиент не знал, какой документ нужен. Оператор не уточнил, какой адрес использовать и допустимы ли PDF и размер файла, а отослал к разделу, которого клиент не видит.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "The outstanding item is proof of address"
+    },
+    {
+     "message_index": 11,
+     "quote": "File-format and size requirements are normally displayed in the KYC upload section."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 12
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системным событием до передачи оператору и до обсуждения заявки.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общие рекомендации. Он не подтвердил, подходит ли выписка, и не указал способ загрузки с экрана клиента. Клиенту по-прежнему непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I haven't confirmed whether that statement meets your application's requirements"
+    },
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретные неудобства клиента: повторную загрузку паспорта и экран без кнопки загрузки.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice"
+    },
+    {
+     "message_index": 13,
+     "quote": "I'm sorry the screen gives you a document request without an upload button or requirements."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы расплывчатые, и клиенту приходилось переспрашивать о статусе выписки и способе загрузки. Формулировки оператора не дали ясности.",
+   "evidence": [
+    {
+     "message_index": 14,
+     "quote": "So I still don't know whether my statement is acceptable or how to submit it from this screen."
+    },
+    {
+     "message_index": 15,
+     "quote": "The guidance I've provided is general."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог статуса заявки и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации не выявлено.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "No documents or application details were changed during this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1058,
+   "output_tokens": 2245,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 9621,
+   "cost": 0.001259,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

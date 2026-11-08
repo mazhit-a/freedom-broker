@@ -1,0 +1,154 @@
+{
+ "case_id": "case-009",
+ "variant": "haiku55_tiebreak",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор не поздоровался и не представился в первом ответе (#4). Приветствие и представление в сообщении бота не учитываются.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document and proof of address."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент сообщил известные детали: паспорт загружен, есть PDF-выписка с адресом регистрации в Казахстане, клиент находится за границей. Оператор не уточнил, какой адрес использовать и подойдёт ли выписка, а ответил общими фразами.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 9
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системным событием (#2) до того, как оператор раскрыл статус заявки и детали KYC.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор назвал непогашенный пункт (подтверждение адреса), но не смог подтвердить, подходит ли выписка, и не указал способ загрузки на экране клиента. Клиенту дана только общая подсказка, и ему всё ещё непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I haven't confirmed whether that statement meets your application's requirements"
+    },
+    {
+     "message_index": 14,
+     "quote": "So I still don't know whether my statement is acceptable or how to submit it from this screen."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретные неудобства клиента: повторную загрузку паспорта и экран без кнопки загрузки.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice"
+    },
+    {
+     "message_index": 13,
+     "quote": "I'm sorry the screen gives you a document request without an upload button or requirements."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы оператора расплывчатые и уклончивые, например «depends on the applicant's circumstances». Клиенту пришлось переспрашивать и повторно уточнять, что ему непонятно.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    },
+    {
+     "message_index": 14,
+     "quote": "So I still don't know whether my statement is acceptable or how to submit it from this screen."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог текущего статуса заявки и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платной услуги в обход компании или раскрытия конфиденциальной информации не выявлено. Статус заявки сообщён самому клиенту после идентификации.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Your application is pending KYC review."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1036,
+   "output_tokens": 2505,
+   "cache_read_tokens": 3004,
+   "cache_write_tokens": 0,
+   "latency_ms": 10408,
+   "cost": 0.001386,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

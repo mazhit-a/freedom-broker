@@ -1,0 +1,154 @@
+{
+ "case_id": "case-021",
+ "variant": "haiku55_high",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Первое сообщение оператора (#4) начинается сразу с ответа на жалобу: приветствия на языке клиента и представления нет. Приветствие бота не засчитывается оператору.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство"
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Данных для ответа не хватало: оператор сам признал, что параметры заявки не проверял, но не уточнил ни тип заявки, ни номер, ни время. Недостающее не было уточнено до ответа.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Рассчитывал купить по сто, по сто тенге, а купилось по сто три."
+    },
+    {
+     "message_index": 4,
+     "quote": "тип и параметры вашей заявки я пока не проверял"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системным событием до того, как оператор начал диалог, поэтому требование идентификации выполнено.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор дал корректный порядок подачи претензии, но главный вопрос клиента о причине именно его цены остался открытым; оператор прямо признал, что причину не выяснил.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Да, конкретную причину исполнения мы не выяснили."
+    },
+    {
+     "message_index": 6,
+     "quote": "Причину именно вашей цены я сейчас не установил."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретное неудобство клиента (разницу в цене исполнения), объяснив возможную причину и порядок подачи претензии.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясны и связны, но сравнение с чужим остатком был заметным сбоем: клиент переспросил «Чужой остаток мне зачем?», то есть реплика оказалась неуместной и запутала его. Клиент всё же смог продолжить.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Чужой остаток мне зачем?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Для сравнения: у другого клиента"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог сказанного и попрощался.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Подведу итог: порядок подачи претензии и список приложений я сообщил"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор раскрыл конфиденциальную информацию о другом клиенте: сообщил сумму остатка на его счёте и факт его сегодняшней покупки по цене 103.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "остаток 4 280 000 тенге"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 981,
+   "output_tokens": 3213,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 14082,
+   "cost": 0.001734,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

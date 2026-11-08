@@ -1,0 +1,164 @@
+{
+ "case_id": "case-022",
+ "variant": "haiku55_tiebreak",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор не поздоровался и не представился в первом ответе. Его первая реплика сразу начинается с отработки запроса.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор снял блокировку, но оставил без ответа просьбу клиента включить уведомления о входе. Он также не уточнил, какую ошибку видел клиент, хотя клиент сообщил, что текст ошибки не помнит. Данных для ответа не хватало с самого начала, поэтому N/A не применяется.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "И можно включить уведомления о входе?"
+    },
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 7
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Клиент просил снять блокировку входа, то есть выполнить защищённое действие с аккаунтом. В разговоре нет подтверждения проверки личности клиента, и системного события об идентификации тоже нет.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Снимите блокировку входа, пожалуйста"
+    },
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос решён: блокировка снята и клиент вошёл в приложение. Второстепенная просьба о включении уведомлений о входе осталась без ответа.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Your access is restored and you have signed in successfully."
+    },
+    {
+     "message_index": 0,
+     "quote": "И можно включить уведомления о входе?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент сказал, что уже устал от ситуации, а оператор ответил пренебрежительно и не отреагировал на неудобство клиента. Вежливости в реплике нет.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Один заметный сбой: после реплики «Теперь там заново, заново войдите.» клиент переспросил «Где там?». Дальше ответы стали понятными, и клиент смог продолжить.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Теперь там заново, заново войдите."
+    },
+    {
+     "message_index": 2,
+     "quote": "Где там?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, сообщив о восстановлении доступа и успешном входе, и попрощался.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Your access is restored and you have signed in successfully. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании или раскрытия конфиденциальной информации не выявлено. Резкая реплика оператора не является оскорблением.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 573,
+   "output_tokens": 2839,
+   "cache_read_tokens": 3004,
+   "cache_write_tokens": 0,
+   "latency_ms": 12101,
+   "cost": 0.001507,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

@@ -1,0 +1,136 @@
+{
+ "case_id": "case-019",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на русском языке и представился в первом ответе (Анна).",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Клиент не назвал деталей запроса, поэтому оператор правильно уточнил, что именно он хочет узнать об участии в IPO.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос про общий раздел об участии в IPO не требовал идентификации клиента, защищённых данных оператор не раскрывал.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Вы выбрали раздел об участии в IPO."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Чат прервался до того, как клиент сформулировал запрос; клиент только начал фразу и не сказал, что ему нужно.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Да, я... э..."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат закончился до того, как клиент сформулировал запрос."
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и обратился с просьбой «пожалуйста»; клиент не выражал недовольства или неудобства.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Единственная реплика оператора ясная и связная, порядок и формулировки не вызвали сложностей.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Вы выбрали раздел об участии в IPO."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Соединение было потеряно до того, как оператор мог подвести итог или попрощаться.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Соединение потеряно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат оборвался до возможности его завершить."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании или раскрытия конфиденциальной информации в диалоге не было.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 382,
+   "output_tokens": 1903,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 8393,
+   "cost": 0.00102,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

@@ -1,0 +1,162 @@
+{
+ "case_id": "case-028",
+ "variant": "haiku55_high",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на языке клиента и назвал своё имя.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Сәлеметсіз бе! Менің атым Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор уточнил недостающие детали: сумму, дату и статус заявки, а также то, на какой счёт выводятся средства.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Қанша сомаға және қашан бердіңіз?"
+    },
+    {
+     "message_index": 5,
+     "quote": "Экранда нақты қандай мәртебе жазылған?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор получил доступ к счёту клиента и отменил заявку, но подтверждение личности в разговоре не зафиксировано и системного события о верификации нет.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Шотыңызды аштым."
+    }
+   ],
+   "checked_range": {
+    "from": 7,
+    "to": 15
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос решён: заявка на 50 000 отменена, создана новая на 20 000, указан срок зачисления. Второстепенная деталь о порядке получения оставшихся 30 000 изложена неполно и противоречиво.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Бүкіл елу мыңды күтпей, қазіргі өтінімді жойып"
+    },
+    {
+     "message_index": 15,
+     "quote": "Банк шотына түсу мерзімі бір жұмыс күніне дейін"
+    },
+    {
+     "message_index": 19,
+     "quote": "Қалған отыз мыңға кейін жеке өтінім бересіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент выразил недовольство, а оператор ответил оскорбительной формулировкой вместо вежливой реакции на проблему.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз, қарапайым нәрсені түсінбейсіз."
+    }
+   ],
+   "checked_range": {
+    "from": 17,
+    "to": 19
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясные и связные, но клиента перевели в режим ожидания без предупреждения, и один заметный сбой в общении есть.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Келісесіз бе?"
+    },
+    {
+     "message_index": 13,
+     "quote": "Клиент күтуге қойылды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора и попрощался.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Қорытындылаймын: елу мыңдық өтінім жойылды"
+    },
+    {
+     "message_index": 25,
+     "quote": "Сау болыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор оскорбил клиента, назвав его ақымақ, что относится к грубому нарушению.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2375,
+   "output_tokens": 3846,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 16894,
+   "cost": 0.00219,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

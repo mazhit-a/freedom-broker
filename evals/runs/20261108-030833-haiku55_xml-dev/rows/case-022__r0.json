@@ -1,0 +1,164 @@
+{
+ "case_id": "case-022",
+ "variant": "haiku55_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор не поздоровался и не представился в своём первом ответе; реплика сразу начинается с замечания клиенту.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил, какой экран и какие действия нужны клиенту, и оставил без ответа запрос о включении уведомлений о входе, хотя данных для ответа было недостаточно.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "И можно включить уведомления о входе?"
+    },
+    {
+     "message_index": 1,
+     "quote": "Теперь там заново, заново войдите."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор снял блокировку аккаунта и разрешил вход без подтверждения личности клиента; системного события о подтверждении личности в диалоге нет.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной запрос о снятии блокировки решён, и клиент смог войти, но вопрос об уведомлениях о входе остался без ответа.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "The failed-attempt lock has been removed"
+    },
+    {
+     "message_index": 5,
+     "quote": "The app opens normally."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент сообщил, что устал от ситуации, но оператор ответил раздражённым замечанием и не отреагировал на его неудобство.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "я уже замучился"
+    },
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном понятны, но первая инструкция была неясной, клиенту пришлось переспрашивать, где нужное действие, и после этого оператор перешёл на английский язык.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Теперь там заново, заново войдите."
+    },
+    {
+     "message_index": 2,
+     "quote": "Где там? На этом экране кнопку нажать или приложение закрыть?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог восстановления доступа и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Your access is restored and you have signed in successfully. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании или раскрытия конфиденциальной информации не выявлено; замечание оператора резкое, но не является оскорблением.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 595,
+   "output_tokens": 2510,
+   "cache_read_tokens": 3057,
+   "cache_write_tokens": 0,
+   "latency_ms": 10712,
+   "cost": 0.001345,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

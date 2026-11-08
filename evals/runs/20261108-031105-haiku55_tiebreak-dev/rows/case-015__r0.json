@@ -1,0 +1,155 @@
+{
+ "case_id": "case-015",
+ "variant": "haiku55_tiebreak",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе клиенту (сообщение #4), поэтому критерий выполнен.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Hello, I'm Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор уточнил недостающие данные: тип счёта и сумму инвестиции. Затем учёл ответы клиента при расчёте резерва и комиссии.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Are you using your individual brokerage account or an investment management account, and how much are you planning to invest?"
+    },
+    {
+     "message_index": 11,
+     "quote": "The total reservation would be 100,200 KZT, leaving 24,800 KZT available."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Оператор запросил подтверждение личности до проверки баланса и раскрытия данных. Системное событие подтверждения личности зафиксировано до ответа с суммой на счёте.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "please complete the identity confirmation prompt in the app"
+    },
+    {
+     "message_index": 8,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос о подаче заявки решён: подтверждены сумма, комиссия, срок, отмена и статус заявки. Пропущена второстепенная деталь: оператор не ответил на вопрос о часовом поясе временной метки PDF-подтверждения.",
+   "evidence": [
+    {
+     "message_index": 32,
+     "quote": "will the downloadable confirmation PDF show its timestamp in Almaty time or UTC?"
+    },
+    {
+     "message_index": 33,
+     "quote": "The quantity is correct for your plan."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на описанное клиентом неудобство: признал раздражение от неактивной кнопки и предложил конкретное решение.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I understand why a disabled button with no clear explanation is frustrating."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясные и связные. Заметный сбой: после статуса «Received» оператор ответил только через примерно три минуты (с 10:00 до 13:00), при этом ожидание не было заранее объявлено клиенту.",
+   "evidence": [
+    {
+     "message_index": 39,
+     "quote": "What exact status does the application show now?"
+    },
+    {
+     "message_index": 41,
+     "quote": "Yes. I checked the application record: your request for 100 shares is received."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор подвёл итог статуса заявки и указал, где её проверить, но не попрощался с клиентом перед закрытием чата. Критерий требует и итога/предложения помощи, и прощания.",
+   "evidence": [
+    {
+     "message_index": 63,
+     "quote": "The application record remains accessible under Investments → IPO → My applications."
+    }
+   ],
+   "checked_range": {
+    "from": 61,
+    "to": 65
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в переписке оператора не выявлено.",
+   "evidence": [
+    {
+     "message_index": 41,
+     "quote": "Yes. I checked the application record: your request for 100 shares is received."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 3307,
+   "output_tokens": 3184,
+   "cache_read_tokens": 3004,
+   "cache_write_tokens": 0,
+   "latency_ms": 13749,
+   "cost": 0.001953,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

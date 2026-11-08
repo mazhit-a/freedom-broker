@@ -1,0 +1,154 @@
+{
+ "case_id": "case-028",
+ "variant": "haiku55_tiebreak",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался («Сәлеметсіз бе!») и в первом ответе представился («Менің атым Айдана»).",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Сәлеметсіз бе!"
+    },
+    {
+     "message_index": 3,
+     "quote": "Менің атым Айдана"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали (сумма 50 000 теңге, дата заявки) и уточнил недостающее: статус в приложении и факт продажи ценных бумаг.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Қанша сомаға және қашан бердіңіз?"
+    },
+    {
+     "message_index": 7,
+     "quote": "Бағалы қағаздарды кеше саттыңыз ба?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Запрос касался просмотра и изменения заявки на вывод средств, оператор раскрыл данные счёта и статус операций, но подтверждения личности клиента в разговоре нет.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Шотыңызды аштым."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 9
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос о статусе вывода решён: объяснены причина задержки и вариант с отменой и новой заявкой на 20 000 теңге. Не отвечено на второстепенный вопрос клиента о том, куда придёт уведомление о зачислении.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "қолжетімді жиырма мыңға бөлек өтінім беруге болады"
+    },
+    {
+     "message_index": 6,
+     "quote": "түскені туралы хабарлама қайда келеді?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор нагрубил клиенту, назвав его «ақымақ» в ответ на его уточняющий вопрос о сохранности оставшихся 30 000 теңге, и не отреагировал на выраженное недовольство корректно.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз"
+    }
+   ],
+   "checked_range": {
+    "from": 16,
+    "to": 19
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясные, но клиенту пришлось переспрашивать о судьбе двух заявок, а также не было предупреждения перед постановкой клиента на ожидание. Это один заметный сбой, клиент продолжил диалог.",
+   "evidence": [
+    {
+     "message_index": 20,
+     "quote": "Екі өтінім қатар кетпейді ғой?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора и попрощался.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Сау болыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Выявлено оскорбление клиента: оператор назвал его «ақымақ».",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2375,
+   "output_tokens": 2787,
+   "cache_read_tokens": 3004,
+   "cache_write_tokens": 0,
+   "latency_ms": 12776,
+   "cost": 0.001661,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}
