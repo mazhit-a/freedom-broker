@@ -10,6 +10,34 @@ class LLMError(RuntimeError):
     pass
 
 
+class LLMFatalError(LLMError):
+    pass
+
+
+QUOTA_MARKERS = ("insufficient_quota", "no credits", "credit balance is too low", "exceeded your current quota")
+FATAL_TEXT_MARKERS = QUOTA_MARKERS + (
+    "openai_api_key is not set",
+    "authenticationerror",
+    "permissiondeniederror",
+    "status 401",
+    "status 403",
+    "error code: 401",
+    "error code: 403",
+    "does not match requested model",
+    "not strict compatible",
+)
+
+
+def is_quota_text(message: str | None) -> bool:
+    low = (message or "").lower()
+    return any(marker in low for marker in QUOTA_MARKERS)
+
+
+def is_fatal_text(message: str | None) -> bool:
+    low = (message or "").lower()
+    return any(marker in low for marker in FATAL_TEXT_MARKERS)
+
+
 @dataclass
 class LLMResult:
     text: str
@@ -95,13 +123,19 @@ class LLMClient:
         try:
             return self.sdk.messages.create(**kwargs)
         except Exception as exc:
-            raise LLMError(f"{type(exc).__name__}: {exc}") from exc
+            text = f"{type(exc).__name__}: {exc}"
+            status = getattr(exc, "status_code", None)
+            if status in (401, 403) or (status == 400 and "credit balance is too low" in text.lower()):
+                raise LLMFatalError(text) from exc
+            raise LLMError(text) from exc
 
     def complete(self, system_text: str, messages: list[dict], schema: dict | None = None) -> LLMResult:
         use_schema = schema if self.structured_enabled else None
         started = time.perf_counter()
         try:
             response = self._send(self._request(system_text, messages, use_schema))
+        except LLMFatalError:
+            raise
         except LLMError as err:
             cause = err.__cause__
             status = getattr(cause, "status_code", None)

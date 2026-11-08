@@ -64,6 +64,14 @@ def retry_run_item(run_id: int, conversation_pk: int, conn=Depends(get_db), clie
         raise HTTPException(status_code=exc.status, detail={"code": exc.code, "message": exc.message})
 
 
+@router.post("/{run_id}/cancel")
+def cancel_run(run_id: int, conn=Depends(get_db)):
+    try:
+        return batch.cancel_run(conn, run_id)
+    except batch.RetryError as exc:
+        raise HTTPException(status_code=exc.status, detail={"code": exc.code, "message": exc.message})
+
+
 @router.get("")
 def list_runs(
     response: Response,

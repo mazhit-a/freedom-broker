@@ -5,7 +5,7 @@ import time
 from typing import Any
 
 from backend.app.core.config import Settings, get_settings
-from backend.app.services.llm_client import LLMError, LLMResult
+from backend.app.services.llm_client import LLMError, LLMFatalError, LLMResult
 from backend.app.services.model_profiles import ModelProfile, profile_cost, profile_from_settings
 from backend.app.services.openai_support import (
     SCHEMA_NAME,
@@ -13,6 +13,7 @@ from backend.app.services.openai_support import (
     call_with_ceiling,
     convert_schema,
     describe_error,
+    is_fatal,
     is_retryable,
     map_response_row,
     redact,
@@ -35,7 +36,7 @@ def _inflight_gate(size: int) -> threading.BoundedSemaphore:
 def build_openai_sdk(settings: Settings):
     key = settings.openai_api_key
     if not key:
-        raise LLMError("OPENAI_API_KEY is not set")
+        raise LLMFatalError("OPENAI_API_KEY is not set")
     import openai
 
     return openai.OpenAI(api_key=key, max_retries=0, timeout=settings.openai_call_ceiling_s)
@@ -65,7 +66,7 @@ class OpenAIClient:
         strict = convert_schema(copy.deepcopy(schema))
         problems = strict_problems(strict)
         if problems:
-            raise LLMError("schema is not strict compatible: " + "; ".join(problems))
+            raise LLMFatalError("schema is not strict compatible: " + "; ".join(problems))
         return strict
 
     def _request(self, system_text: str, messages: list[dict], schema: dict) -> dict:
@@ -96,6 +97,8 @@ class OpenAIClient:
                 raise
             except Exception as exc:
                 last = exc
+                if is_fatal(exc):
+                    raise LLMFatalError(describe_error(exc, [key])) from None
                 if not is_retryable(exc):
                     raise LLMError(describe_error(exc, [key])) from None
                 if attempt < attempts_max:
@@ -111,7 +114,7 @@ class OpenAIClient:
         row = map_response_row(response, "call", requested, latency, attempts, total)
         served = row["model"] if isinstance(row["model"], str) and row["model"] else requested
         if served != requested and not served.startswith(requested + "-"):
-            raise LLMError(f"served model {served!r} does not match requested model {requested!r}")
+            raise LLMFatalError(f"served model {served!r} does not match requested model {requested!r}")
         usage = row["usage"]
         cached = usage["cached_input_tokens"]
         tokens_in = max(usage["input_tokens"] - cached, 0)

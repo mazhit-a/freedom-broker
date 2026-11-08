@@ -196,6 +196,19 @@ def is_retryable(exc: BaseException) -> bool:
     return type(exc).__name__ in TIMEOUT_NAMES
 
 
+def is_fatal(exc: BaseException) -> bool:
+    from backend.app.services.llm_client import is_quota_text
+
+    code = getattr(exc, "status_code", None)
+    if code in (401, 403):
+        return True
+    if code != 429:
+        return False
+    parts = [str(exc), str(getattr(exc, "code", "") or ""), str(getattr(exc, "body", "") or "")]
+    text = " ".join(parts)
+    return is_quota_text(text) or "billing" in text.lower()
+
+
 def describe_error(exc: BaseException, secrets: list[str] | None = None) -> str:
     code = getattr(exc, "status_code", None)
     head = type(exc).__name__ + (f" status {code}" if code else "")

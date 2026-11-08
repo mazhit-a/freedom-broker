@@ -204,12 +204,12 @@ def test_no_key_fails_fast_per_item(env):
     add_dataset(env, "NK", 3)
     client = OpenAIClient(settings=settings, sleep=lambda s: None)
     snap = batch.run_job_sync(env, "NK", version_id(env), client, concurrency=2, sleep=lambda s: None)
-    assert snap["status"] == "completed"
-    assert snap["failed"] == 3 and snap["throttled_retries"] == 0
-    assert all("OPENAI_API_KEY is not set" in f["error"] for f in snap["failures"])
-    assert item_statuses(env) == ["failed"] * 3
+    assert snap["status"] == "failed"
+    assert snap["failed"] >= 1 and snap["failed"] + snap["cancelled"] == 3 and snap["throttled_retries"] == 0
+    assert all("OPENAI_API_KEY is not set" in f["error"] for f in snap["failures"][: snap["failed"]])
+    assert sorted(item_statuses(env)) == sorted(["failed"] * snap["failed"] + ["cancelled"] * snap["cancelled"])
     statuses = [r["status"] for r in env.execute("SELECT status FROM evaluation").fetchall()]
-    assert statuses == ["failed"] * 3
+    assert statuses == ["failed"] * snap["failed"]
 
 
 def test_retry_failed_reruns_after_throttle_exhaustion(env):
@@ -237,9 +237,9 @@ def test_failure_surface_provider_errors_after_client_retries(env, code, expecte
 def test_failure_surface_auth_401_is_failed_non_retryable_and_redacted(env):
     sdk = FakeOpenAI(default=StatusError(401, f"Incorrect API key provided: {SECRET}"))
     snap = run(env, "AU", 2, sdk, concurrency=1)
-    assert snap["failed"] == 2 and snap["throttled_retries"] == 0
-    assert sdk.calls == 2
-    assert all("status 401" in f["error"] for f in snap["failures"])
+    assert snap["failed"] == 1 and snap["cancelled"] == 1 and snap["throttled_retries"] == 0
+    assert sdk.calls == 1
+    assert "status 401" in snap["failures"][0]["error"]
     assert SECRET not in json.dumps(snap)
     assert SECRET not in stored_text(env)
 
@@ -334,7 +334,7 @@ def test_health_with_key_is_ready_and_secret_never_leaks(env, monkeypatch, caplo
             bodies.append(r.text)
             bodies.append(client.get("/api/v1/batches").text)
             bodies.append(client.get(f"/api/v1/batches/{snap['id']}").text)
-    assert snap["failed"] == 2
+    assert snap["failed"] >= 1
     for text in bodies:
         assert SECRET not in text
     assert SECRET not in caplog.text
