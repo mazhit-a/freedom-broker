@@ -23,6 +23,7 @@ class LLMResult:
     structured: bool = False
     model: str = ""
     raw: Any = field(default=None, repr=False)
+    meta: dict = field(default_factory=dict)
 
     @property
     def refused(self) -> bool:
@@ -141,5 +142,10 @@ class LLMClient:
         )
 
 
-def get_llm_client() -> LLMClient:
+def get_llm_client():
+    settings = get_settings()
+    if settings.llm_provider == "openai":
+        from backend.app.services.openai_client import OpenAIClient
+
+        return OpenAIClient(settings=settings)
     return LLMClient()
