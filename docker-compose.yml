@@ -1,0 +1,16 @@
+services:
+  cqa:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      CQA_DB_PATH: /data/cqa.db
+    volumes:
+      - cqa-data:/data
+    restart: unless-stopped
+
+volumes:
+  cqa-data:
