@@ -2,7 +2,7 @@ import { api, ensureConfigured } from "../api.js";
 import { CqaElement, html, raw } from "../base-element.js";
 import { EVENTS, emit, navigate } from "../events.js";
 import { integer, number } from "../format.js";
-import { can } from "../roles.js";
+import { can, canOpenSection } from "../roles.js";
 import { SHARED_CSS } from "../shared/styles.js";
 import { emptyPanel, errorPanel } from "../shared/state-panel.js";
 import {
@@ -215,7 +215,11 @@ export class CqaConversationList extends CqaElement {
     const total = this._data ? this._data.evaluated : 0;
     const shown = this.items().length;
     const counts = this._data ? countsText(total, shown, this.locale) : "";
-    return html`<div class="head"><div class="row gap-3" style="align-items:baseline"><h1>${this.t("list.title")}</h1><span class="counts" data-counts>${counts}</span></div><div class="row gap-2"><a class="btn" href="#/runs" data-nav="runs">${this.t("list.loadSet")}</a><a class="btn" href="#/checklists" data-nav="checklists">${this.t("list.checklists")}</a></div></div>`;
+    const links = [
+      canOpenSection(this.role, "runs") ? html`<a class="btn" href="#/runs" data-nav="runs">${this.t("list.loadSet")}</a>` : html``,
+      canOpenSection(this.role, "checklists") ? html`<a class="btn" href="#/checklists" data-nav="checklists">${this.t("list.checklists")}</a>` : html``
+    ];
+    return html`<div class="head"><div class="row gap-3" style="align-items:baseline"><h1>${this.t("list.title")}</h1><span class="counts" data-counts>${counts}</span></div><div class="row gap-2">${links}</div></div>`;
   }
 
   filtersHtml() {

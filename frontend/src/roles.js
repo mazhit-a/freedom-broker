@@ -18,6 +18,20 @@ const CAPABILITIES = {
   operator: ["file-appeal"]
 };
 
+const SECTION_ACCESS = {
+  operator: ["overview", "conversations", "appeals"]
+};
+
+export function allowedSections(role, sections) {
+  const allowed = SECTION_ACCESS[normalizeRole(role)];
+  return allowed ? sections.filter((s) => allowed.includes(s)) : sections.slice();
+}
+
+export function canOpenSection(role, section) {
+  const allowed = SECTION_ACCESS[normalizeRole(role)];
+  return !allowed || allowed.includes(section);
+}
+
 export function normalizeRole(value) {
   const key = String(value ?? "").trim().toLowerCase();
   return LEGACY[key] || DEFAULT_ROLE;

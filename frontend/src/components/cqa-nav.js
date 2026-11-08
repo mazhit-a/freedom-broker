@@ -1,6 +1,7 @@
 import { CqaElement, html, raw } from "../base-element.js";
 import { navigate } from "../events.js";
 import { integer } from "../format.js";
+import { allowedSections } from "../roles.js";
 import { SECTIONS, formatHash } from "../routes.js";
 import { SHARED_CSS } from "../shared/styles.js";
 
@@ -32,7 +33,7 @@ export class CqaNav extends CqaElement {
   template() {
     const current = this.getAttribute("route") || "";
     const open = this.openAppeals();
-    const items = SECTIONS.map((key) => {
+    const items = allowedSections(this.role, SECTIONS).map((key) => {
       const badge =
         key === "appeals" && open !== null
           ? html`<span class="chip c-warn tnum count" data-count>${integer(open, this.locale)}</span><span class="sr">${this.t("nav.openSuffix")}</span>`

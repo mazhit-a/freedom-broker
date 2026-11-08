@@ -2,6 +2,7 @@ import { api, ensureConfigured } from "../api.js";
 import { CqaElement, html } from "../base-element.js";
 import { EVENTS, emit } from "../events.js";
 import { setLocale } from "../i18n/index.js";
+import { canOpenSection } from "../roles.js";
 import { ID_ATTRIBUTE, formatHash, parseHash, screenTag } from "../routes.js";
 import { SHARED_CSS } from "../shared/styles.js";
 import { emptyPanel } from "../shared/state-panel.js";
@@ -123,8 +124,9 @@ export class CqaApp extends CqaElement {
 
   currentRoute() {
     const hash = globalThis.location ? globalThis.location.hash : "";
-    if (hash && hash !== "#") return parseHash(hash);
-    return parseHash(this.getAttribute("route") || "");
+    const route = hash && hash !== "#" ? parseHash(hash) : parseHash(this.getAttribute("route") || "");
+    if (route.known && !canOpenSection(this.role, route.name)) return parseHash("overview");
+    return route;
   }
 
   renderNow() {

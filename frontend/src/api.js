@@ -321,7 +321,8 @@ const real = {
       to: filter.to,
       language: filter.language,
       channel: wireChannel(filter.channel),
-      attention_limit: filter.attentionLimit
+      attention_limit: filter.attentionLimit,
+      operator: operatorParam(filter)
     });
     return mapOverview(raw);
   },
