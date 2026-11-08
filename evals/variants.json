@@ -153,5 +153,10 @@
     "name": "jev_haiku55",
     "workflow": "jev_explain",
     "params": {"profile": "claude-haiku-5-5", "effort": "medium"}
+  },
+  {
+    "name": "jev_haiku55_override",
+    "workflow": "jev_explain",
+    "params": {"profile": "claude-haiku-5-5", "effort": "medium", "dispute_mode": "override"}
   }
 ]

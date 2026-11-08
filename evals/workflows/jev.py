@@ -25,6 +25,13 @@ EXPLAIN_RULES = """Explanation mode. The answers for every criterion were alread
 4. Output format: the results list objects have the extra required fields disputed (boolean) and dispute_reason (string or null)."""
 
 
+EXPLAIN_RULES_OVERRIDE = """Explanation mode with override. The answers for every criterion were already decided by an independent scoring model. Treat them as the default: explain them, and correct one only when the transcript clearly contradicts it.
+1. For every criterion whose fixed answer the transcript supports, copy the fixed answer unchanged into "answer", write the rationale in Russian and give evidence quotes, checked_range and na_reason according to the rules above. Set "disputed" to false and "dispute_reason" to null.
+2. If the transcript clearly contradicts a fixed answer, set "disputed" to true, put the reason in Russian into "dispute_reason", and put YOUR OWN answer, which must differ from the fixed answer, into "answer". Support your own answer with a rationale, evidence quotes, checked_range and na_reason exactly as the rules above require for any answer.
+3. Do not dispute an answer on a matter of degree or taste; dispute only when the transcript clearly shows the fixed answer is wrong.
+4. Output format: the results list objects have the extra required fields disputed (boolean) and dispute_reason (string or null)."""
+
+
 def explain_schema(cfg) -> dict:
     schema = copy.deepcopy(build_schema(cfg))
     item = schema["properties"]["results"]["items"]
@@ -34,17 +41,18 @@ def explain_schema(cfg) -> dict:
     return schema
 
 
-def explain_system(cfg) -> str:
-    return build_system_prompt(cfg) + "\n\n" + EXPLAIN_RULES
+def explain_system(cfg, mode: str = "keep") -> str:
+    rules = EXPLAIN_RULES_OVERRIDE if mode == "override" else EXPLAIN_RULES
+    return build_system_prompt(cfg) + "\n\n" + rules
 
 
-def explain_user(conv: dict, messages: list[dict], fixed: dict[str, Any]) -> str:
+def explain_user(conv: dict, messages: list[dict], fixed: dict[str, Any], fixed_label: str = "Fixed answers (do not change)") -> str:
     head = f"Conversation metadata: channel={conv.get('channel')}, language={conv.get('language')}, messages={len(messages)}"
     return (
         head
         + "\n\nTranscript:\n"
         + "\n".join(transcript_lines(messages))
-        + "\n\nFixed answers (do not change):\n"
+        + "\n\n" + fixed_label + ":\n"
         + json.dumps(fixed, ensure_ascii=False, sort_keys=True)
         + "\n\nExplain every criterion now."
     )
@@ -189,6 +197,37 @@ def explain_validator(fixed: dict[str, Any]):
     return validate
 
 
+def override_validator(fixed: dict[str, Any]):
+    def validate(c: Criterion, item: Any, messages: list[dict]):
+        if not isinstance(item, dict):
+            return None, [f"criterion {c.id}: result must be an object"]
+        row, errors = validate_item(c, item, messages)
+        answer, _ = normalize_answer(c, item.get("answer"))
+        disputed = item.get("disputed") is True
+        reason = item.get("dispute_reason")
+        reason_ok = isinstance(reason, str) and bool(reason.strip())
+        extra: list[str] = []
+        if disputed:
+            if not reason_ok:
+                extra.append(f"criterion {c.id}: dispute_reason is required when disputed is true")
+            if answer == fixed.get(c.id):
+                extra.append(f"criterion {c.id}: a dispute must give an answer that differs from the fixed answer {fixed.get(c.id)!r}")
+        else:
+            if answer != fixed.get(c.id):
+                extra.append(f"criterion {c.id}: the answer may differ from {fixed.get(c.id)!r} only when disputed is true")
+            if reason is not None:
+                extra.append(f"criterion {c.id}: dispute_reason must be null when disputed is false")
+        if errors or extra:
+            return None, errors + extra
+        row = dict(row)
+        if disputed:
+            row["disputed"] = True
+            row["dispute_reason"] = reason.strip()
+        return row, []
+
+    return validate
+
+
 class JevExplain(Workflow):
     name = "jev_explain"
     stage_count = 3
@@ -198,13 +237,17 @@ class JevExplain(Workflow):
         init_compiled(self)
         self.profile_name = self.params.get("profile", "claude-sonnet-5-5")
         self.profile = resolve_profile(self.profile_name, self.params.get("effort"))
+        self.dispute_mode = self.params.get("dispute_mode", "keep")
+        if self.dispute_mode not in ("keep", "override"):
+            raise ValueError("dispute_mode must be 'keep' or 'override'")
         self.schema = explain_schema(cfg)
         self.ids = [c.id for c in cfg.criteria]
 
     def make_pass(self, fixed: dict[str, Any]) -> ReviewPass:
         return ReviewPass(
             self.cfg, "explain", "explain", self.profile_name, self.profile, self.schema,
-            [cid for cid in self.ids if cid in fixed], "explain", explain_validator(fixed),
+            [cid for cid in self.ids if cid in fixed], "explain",
+            override_validator(fixed) if self.dispute_mode == "override" else explain_validator(fixed),
         )
 
     def fixed_answers(self, state: dict) -> dict[str, Any]:
@@ -222,7 +265,8 @@ class JevExplain(Workflow):
             pass_ = self.make_pass(fixed)
             state["pass"] = pass_
             shown = {cid: str(v) for cid, v in fixed.items()}
-            req = pass_.first_request(state, explain_system(self.cfg), explain_user(conv, messages, shown))
+            label = "Default answers (correct only when the transcript clearly contradicts them)" if self.dispute_mode == "override" else "Fixed answers (do not change)"
+            req = pass_.first_request(state, explain_system(self.cfg, self.dispute_mode), explain_user(conv, messages, shown, label))
 
             def reduce_first(st, responses):
                 record_calls(st, "first", responses)
@@ -244,6 +288,7 @@ class JevExplain(Workflow):
         ns = state["explain"]
         results: dict[str, dict] = {}
         disputes: dict[str, str] = {}
+        overrides: dict[str, dict] = {}
         for cid, row in ns["ok"].items():
             jev = state["jev_rows"][cid]
             merged = dict(row)
@@ -252,6 +297,8 @@ class JevExplain(Workflow):
             results[cid] = merged
             if row.get("disputed"):
                 disputes[cid] = row["dispute_reason"]
+                if self.dispute_mode == "override":
+                    overrides[cid] = {"from": str(state["fixed"][cid]), "to": str(row["answer"])}
         review = dict(state["jev_problems"])
         review.update(ns["review"])
         return build_candidate(
@@ -260,6 +307,8 @@ class JevExplain(Workflow):
             disputes=disputes,
             explained=True,
             jev_answers={cid: str(v) for cid, v in state["fixed"].items()},
+            overrides=overrides,
+            source={cid: ("explainer" if cid in overrides else "jev") for cid in results},
         )
 
     def expected_calls(self):
