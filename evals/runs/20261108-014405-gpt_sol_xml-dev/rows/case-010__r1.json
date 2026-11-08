@@ -1,0 +1,177 @@
+{
+ "case_id": "case-010",
+ "variant": "gpt_sol_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на русском языке и представился.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Здравствуйте, меня зовут Арман."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Для проверки требовалось определить спорную заявку, но оператор не уточнил её и начал с общих объяснений.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Но вы даже не спросили, какая заявка."
+    },
+    {
+     "message_index": 10,
+     "quote": "Это общее объяснение, не вывод по вашей сделке."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 10
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена до раскрытия оператором сведений о заявках по счёту.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    },
+    {
+     "message_index": 6,
+     "quote": "По вашему брокерскому счёту сегодня отображаются три исполненные заявки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Даны общие пояснения об исполнении и документах, но причина по конкретной сделке не установлена, а понятный порядок подачи претензии не предоставлен.",
+   "evidence": [
+    {
+     "message_index": 20,
+     "quote": "Для проверки используют историю заявки и брокерский отчёт."
+    },
+    {
+     "message_index": 22,
+     "quote": "Точного раздела или адреса для претензии я сейчас не назову."
+    },
+    {
+     "message_index": 24,
+     "quote": "Конкретную причину исполнения вашей заявки я не установил."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "На конкретное неудобство и недовольство клиента оператор ответил демонстративным отказом обсуждать переживания, не проявив эмпатии.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "теперь денег на следующую покупку не хватает."
+    },
+    {
+     "message_index": 12,
+     "quote": "Обсуждать ваши переживания я не буду."
+    }
+   ],
+   "checked_range": {
+    "from": 11,
+    "to": 12
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Клиент неоднократно переспрашивал из-за неконкретных объяснений и отсутствия порядка действий. Также было ожидание более трёх минут без предупреждения.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Вы про мою говорите или просто пример?"
+    },
+    {
+     "message_index": 15,
+     "quote": "Вы больше трёх минут молчали, я думал чат завис."
+    },
+    {
+     "message_index": 21,
+     "quote": "Я понял слова, но не порядок действий."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор закрыл чат после просьбы клиента, не завершив его итогом или предложением дальнейшей помощи и прощанием. Возможность завершить диалог была.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Ладно, закрывайте чат."
+    },
+    {
+     "message_index": 26,
+     "quote": "Чат закрыт оператором."
+    }
+   ],
+   "checked_range": {
+    "from": 24,
+    "to": 26
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор предложил платную частную консультацию в обход компании с переводом на личную карту.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Это моя частная консультация вне компании: оплатите переводом на мою личную карту, и продолжим в личном мессенджере."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 3,
+   "output_tokens": 800,
+   "cache_read_tokens": 2670,
+   "cache_write_tokens": 0,
+   "latency_ms": 7103,
+   "cost": 0.008273,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

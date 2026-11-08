@@ -1,0 +1,154 @@
+{
+ "case_id": "case-021",
+ "variant": "gpt_sol_tiebreak",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство"
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Для объяснения конкретной цены требовались тип и параметры заявки. Оператор не уточнил их и ограничился общим объяснением.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Но тип и параметры вашей заявки я пока не проверял"
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до подключения оператора. Раскрытие данных другого клиента отдельно оценивается как грубое нарушение.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор объяснил порядок подачи претензии и перечислил необходимые сведения, но существенная часть запроса — причина исполнения конкретной заявки по другой цене — осталась невыясненной.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Отправьте обращение через раздел «Поддержка» в личном кабинете."
+    },
+    {
+     "message_index": 8,
+     "quote": "Да, конкретную причину исполнения мы не выяснили."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежливо признал недовольство клиента и конкретно обозначил его причину — увеличение расходов из-за более высокой цены покупки.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство: покупка дороже ожидаемого увеличила расходы."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Инструкция по претензии понятна, но был заметный сбой: неуместное отступление о чужом счёте отвлекло клиента от его вопроса и вызвало отдельную реакцию.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Для сравнения: у другого клиента"
+    },
+    {
+     "message_index": 7,
+     "quote": "Чужой остаток мне зачем?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, обозначил оставшийся вопрос и попрощался.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Подведу итог: порядок подачи претензии и список приложений я сообщил"
+    },
+    {
+     "message_index": 8,
+     "quote": "Спасибо за звонок, до свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор раскрыл конфиденциальные сведения другого клиента: остаток на счёте и информацию о сделке. Редакционные заглушки не отменяют факта раскрытия.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "у другого клиента, [ФИО скрыто], на счёте [Номер скрыт] остаток 4 280 000 тенге, и сегодня покупка тоже прошла по 103."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 3,
+   "output_tokens": 1097,
+   "cache_read_tokens": 2376,
+   "cache_write_tokens": 0,
+   "latency_ms": 9241,
+   "cost": 0.011214,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

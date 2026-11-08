@@ -1,0 +1,170 @@
+{
+ "case_id": "case-009",
+ "variant": "gpt_sol_low",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document and proof of address."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор давал общие рекомендации, не уточнив обстоятельства и параметры экрана, необходимые для ответа о документе и способе его подачи.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    },
+    {
+     "message_index": 11,
+     "quote": "File-format and size requirements are normally displayed in the KYC upload section."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 15
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность подтверждена до раскрытия статуса заявки и недостающего документа.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    },
+    {
+     "message_index": 7,
+     "quote": "Your application is pending KYC review."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор назвал недостающий тип документа, но ограничился общей подсказкой. Приемлемость выписки, нужный адрес, формат, размер и способ подачи остались невыясненными; конкретного следующего шага нет.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "The outstanding item is proof of address"
+    },
+    {
+     "message_index": 15,
+     "quote": "I haven't confirmed whether that statement meets your application's requirements, and I don't have a confirmed upload route for the screen you've described."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежливо и конкретно отреагировал на повторную загрузку паспорта, пребывание за границей и неудобство экрана без кнопки загрузки.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice, especially while you're abroad without your usual paperwork."
+    },
+    {
+     "message_index": 13,
+     "quote": "I'm sorry the screen gives you a document request without an upload button or requirements."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы ясные, последовательные и грамотные; явного ожидания, требующего предупреждения, нет. Неполнота консультации учтена отдельно.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "The guidance I've provided is general."
+    },
+    {
+     "message_index": 17,
+     "quote": "No documents or application details were changed during this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог по статусу заявки и отсутствию изменений, поблагодарил клиента и попрощался.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Your application remains pending KYC, with proof of address outstanding."
+    },
+    {
+     "message_index": 17,
+     "quote": "Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и неправомерного раскрытия конфиденциальных данных не выявлено.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Please don't send document images in this chat."
+    },
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 3,
+   "output_tokens": 775,
+   "cache_read_tokens": 2304,
+   "cache_write_tokens": 0,
+   "latency_ms": 6492,
+   "cost": 0.007986,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

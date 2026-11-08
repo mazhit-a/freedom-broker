@@ -1,0 +1,158 @@
+{
+ "case_id": "case-009",
+ "variant": "gpt_sol_tiebreak",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился; приветствие бота не учитывается.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document and proof of address."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор отметил зависимость требований от обстоятельств клиента, но не уточнил эти обстоятельства и не выяснил недостающие данные для конкретного ответа.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 15
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до раскрытия оператором статуса заявки и недостающего документа.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    },
+    {
+     "message_index": 7,
+     "quote": "Your application is pending KYC review. The outstanding item is proof of address"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор определил недостающий документ, но оставил без решения существенные вопросы: допустимость выписки, выбор адреса, требования к файлу и способ загрузки. Конкретного следующего шага не предложено.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "The outstanding item is proof of address"
+    },
+    {
+     "message_index": 15,
+     "quote": "I haven't confirmed whether that statement meets your application's requirements, and I don't have a confirmed upload route for the screen you've described."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и адресно отреагировал на повторную загрузку паспорта, пребывание за границей и отсутствие понятного способа подачи документа.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice, especially while you're abroad without your usual paperwork."
+    },
+    {
+     "message_index": 13,
+     "quote": "I'm sorry the screen gives you a document request without an upload button or requirements."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы ясные, связные и своевременные; явного ожидания не было. Неполнота консультации не связана с неясностью формулировок или нарушением порядка диалога.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "The document should be complete and legible, with no details cut off."
+    },
+    {
+     "message_index": 15,
+     "quote": "The guidance I've provided is general."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог по статусу заявки и отсутствию изменений, поблагодарил клиента и попрощался.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Your application remains pending KYC, with proof of address outstanding. No documents or application details were changed during this chat. Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и неправомерного раскрытия конфиденциальных данных не выявлено. Оператор также предостерёг от отправки документов в чат.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Please don't send document images in this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 3,
+   "output_tokens": 1150,
+   "cache_read_tokens": 2367,
+   "cache_write_tokens": 0,
+   "latency_ms": 9197,
+   "cost": 0.011743,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

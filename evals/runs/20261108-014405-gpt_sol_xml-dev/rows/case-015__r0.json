@@ -1,0 +1,175 @@
+{
+ "case_id": "case-015",
+ "variant": "gpt_sol_xml",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "В первом ответе оператор поздоровался на языке клиента и представился.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Hello, I'm Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл выбранное IPO и до консультации уточнил тип счёта и сумму инвестирования; причину неактивной кнопки также выяснил уточняющим вопросом.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Are you using your individual brokerage account or an investment management account, and how much are you planning to invest?"
+    },
+    {
+     "message_index": 15,
+     "quote": "Which screen were you on, and was there an error message or an unchecked box below the quantity?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность подтверждена системным событием до раскрытия баланса и проверки заявки.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Customer identity verified."
+    },
+    {
+     "message_index": 9,
+     "quote": "Your individual account has 125,000 KZT available."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной запрос решён: проверены средства, разъяснены комиссия и сроки, заявка успешно подана. Однако второстепенный вопрос о часовом поясе в PDF-подтверждении остался без ответа.",
+   "evidence": [
+    {
+     "message_index": 32,
+     "quote": "will the downloadable confirmation PDF show its timestamp in Almaty time or UTC?"
+    },
+    {
+     "message_index": 33,
+     "quote": "The quantity is correct for your plan."
+    },
+    {
+     "message_index": 49,
+     "quote": "Your application has been submitted successfully, and the required money is reserved while allocation is pending."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор общался вежливо, прямо признал неудобство из-за неактивной кнопки и помог устранить конкретную причину.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I understand why a disabled button with no clear explanation is frustrating."
+    },
+    {
+     "message_index": 17,
+     "quote": "Open and read the linked document, then select the box if you understand and accept those risks."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные и последовательные, однако перед проверкой статуса возникло трёхминутное ожидание без предупреждения.",
+   "evidence": [
+    {
+     "message_index": 40,
+     "quote": "Does Received mean it went through?"
+    },
+    {
+     "message_index": 41,
+     "quote": "Yes. I checked the application record: your request for 100 shares is received."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор подвёл итог, но не попрощался перед самостоятельным закрытием чата, хотя возможность завершить разговор была.",
+   "evidence": [
+    {
+     "message_index": 61,
+     "quote": "Your application remains Received, with allocation pending."
+    },
+    {
+     "message_index": 63,
+     "quote": "The application record remains accessible under Investments → IPO → My applications."
+    },
+    {
+     "message_index": 65,
+     "quote": "Chat closed by agent."
+    }
+   ],
+   "checked_range": {
+    "from": 60,
+    "to": 65
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации посторонним не выявлено. Данные счёта сообщались после идентификации; коды оператор просил не передавать.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Customer identity verified."
+    },
+    {
+     "message_index": 37,
+     "quote": "Complete any confirmation inside the app yourself; do not share a code here."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 2259,
+   "output_tokens": 836,
+   "cache_read_tokens": 1718,
+   "cache_write_tokens": 0,
+   "latency_ms": 7078,
+   "cost": 0.01305,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

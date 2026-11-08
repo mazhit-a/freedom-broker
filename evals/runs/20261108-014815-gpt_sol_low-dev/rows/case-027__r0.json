@@ -1,0 +1,163 @@
+{
+ "case_id": "case-027",
+ "variant": "gpt_sol_low",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на языке клиента и представился в первом ответе.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "До рекомендации оператор уточнил дату, сумму, валюту, статус вывода, принадлежность счёта и доступность отмены.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "When did you submit it, what amount and currency, and what status does the app show?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Is the destination a bank account in your own name, and is there an active Cancel button on the withdrawal?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор отправил распоряжение на отмену без подтверждённой идентификации, хотя клиент прямо сообщил, что проверку не прошёл.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "I haven't approved anything."
+    },
+    {
+     "message_index": 14,
+     "quote": "I've submitted the cancellation instruction."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 14
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ключевая рекомендация ошибочна: оператор советовал повторить ожидающий вывод и внести дополнительные деньги, обещая автоматическое объединение вопреки предупреждению приложения. Последующий совет ждать не исправляет эту рекомендацию.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "A duplicate request moves the original to the front of the payment queue, and the system automatically merges the two into one payment."
+    },
+    {
+     "message_index": 17,
+     "quote": "It says not to repeat a pending request."
+    },
+    {
+     "message_index": 20,
+     "quote": "Then you would need to deposit another fifty thousand tenge first and submit the duplicate after that."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и адресно признал тревогу клиента из-за денег на аренду, а также невозможность дополнительного пополнения.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "I understand why having your rent money tied up is worrying."
+    },
+    {
+     "message_index": 22,
+     "quote": "I understand; putting in more money isn't workable when you need it for rent."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Реплики ясные и последовательные по форме; оператор предупредил об удержании и его длительности. Ошибочность финансовой рекомендации учтена отдельно в критерии консультации.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "I'll put you on hold for about thirty seconds while I submit it."
+    },
+    {
+     "message_index": 14,
+     "quote": "That requests cancellation; it does not confirm that the original withdrawal has stopped."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, предложил обратиться за дальнейшей помощью и попрощался.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "To recap, I've sent a cancellation instruction, but cancellation is not confirmed, and you've decided not to submit another withdrawal. Please contact us if you need further help. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании и раскрытия конфиденциальной информации нет. Совет пополнить счёт ошибочен, но не является предложением обходной платной услуги.",
+   "evidence": [
+    {
+     "message_index": 20,
+     "quote": "Then you would need to deposit another fifty thousand tenge first and submit the duplicate after that."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 1343,
+   "output_tokens": 825,
+   "cache_read_tokens": 1625,
+   "cache_write_tokens": 0,
+   "latency_ms": 6983,
+   "cost": 0.011099,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

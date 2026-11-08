@@ -1,0 +1,140 @@
+{
+ "case_id": "case-019",
+ "variant": "gpt_sol_low",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровалась на языке клиента и представилась в первом ответе.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учла выбранный раздел и уточнила конкретную потребность клиента.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Вы выбрали раздел об участии в IPO. Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "До обрыва оператор только уточняла тему обращения; защищённых действий и раскрытия данных не было.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: конкретный вопрос не сформулирован, персональные данные не запрашивались."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Клиент не успел сформулировать вопрос до потери соединения.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Да, я... э..."
+    },
+    {
+     "message_index": 5,
+     "quote": "Соединение потеряно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Разговор закончился до того, как клиент сформулировал запрос."
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор общалась вежливо; клиент не выразил недовольства и не описал неудобств.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Реплика ясная и последовательная, оператор сразу перешла к уточнению вопроса. Явного ожидания не было.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Вы выбрали раздел об участии в IPO. Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Соединение потеряно во время начала ответа клиента, возможности завершить разговор не было.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Соединение потеряно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Разговор оборвался до возможности его завершить."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "В единственной реплике оператора нет оскорблений, предложений услуг в обход компании или раскрытия конфиденциальной информации.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна. Вы выбрали раздел об участии в IPO."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 3,
+   "output_tokens": 637,
+   "cache_read_tokens": 1888,
+   "cache_write_tokens": 0,
+   "latency_ms": 6005,
+   "cost": 0.006565,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

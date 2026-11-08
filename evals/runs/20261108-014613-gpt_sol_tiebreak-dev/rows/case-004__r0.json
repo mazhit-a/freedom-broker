@@ -1,0 +1,148 @@
+{
+ "case_id": "case-004",
+ "variant": "gpt_sol_tiebreak",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровалась на казахском языке и представилась в первом ответе.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Сәлеметсіз бе! Менің атым — Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учла выбранную тему и запросила недостающие детали до консультации.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Тарифтер мен комиссиялар бөлімін таңдаған екенсіз. Нақты нені білгіңіз келеді?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "До выхода клиента обсуждалась только тема обращения, защищённых действий и раскрытия данных не было.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Нақты нені білгіңіз келеді?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "На данном этапе запрос не требовал идентификации."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Клиент выбрал общую тему, но не успел сформулировать конкретный запрос.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Бір сәт, сұрағымды жазып жатырмын."
+    },
+    {
+     "message_index": 7,
+     "quote": "Клиент чаттан шығып кетті."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат закончился до того, как клиент сформулировал запрос."
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежливо предложила клиенту спокойно дописать вопрос; недовольства или жалоб на неудобства не было.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы ясные, последовательные и своевременные; ожидания по инициативе оператора не было.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Нақты нені білгіңіз келеді?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Клиент вышел из чата во время подготовки вопроса, не дав оператору возможности завершить диалог.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Клиент чаттан шығып кетті."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат оборвался до возможности его завершить."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "В репликах оператора нет оскорблений, предложений платных услуг в обход компании или раскрытия конфиденциальной информации.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Тарифтер мен комиссиялар бөлімін таңдаған екенсіз. Нақты нені білгіңіз келеді?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 245,
+   "output_tokens": 684,
+   "cache_read_tokens": 1688,
+   "cache_write_tokens": 0,
+   "latency_ms": 6003,
+   "cost": 0.007499,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

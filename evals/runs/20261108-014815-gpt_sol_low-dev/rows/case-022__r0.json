@@ -1,0 +1,172 @@
+{
+ "case_id": "case-022",
+ "variant": "gpt_sol_low",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил неизвестную причину ошибки и сразу заявил о снятии блокировки, хотя текст ошибки клиент не помнил.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Ошибку закрыл, текст не помню."
+    },
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Снятие блокировки аккаунта — защищённое действие; до него проверка личности не подтверждена.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Доступ восстановлен, однако отдельный запрос о включении уведомлений о входе остался без ответа.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "И можно включить уведомления о входе?"
+    },
+    {
+     "message_index": 5,
+     "quote": "Right, right, I'm in now. The app opens normally."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "На выраженное неудобство оператор ответил резкой фразой, не проявив понимания конкретной проблемы клиента.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "я уже замучился."
+    },
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Из-за неопределённой первоначальной инструкции клиенту пришлось переспрашивать. После переключения языка оператор дал понятные шаги.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Теперь там заново, заново войдите."
+    },
+    {
+     "message_index": 2,
+     "quote": "Где там? На этом экране кнопку нажать или приложение закрыть?"
+    },
+    {
+     "message_index": 4,
+     "quote": "Close the mobile app completely, then reopen it."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог восстановления доступа и попрощался.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Your access is restored and you have signed in successfully. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании или раскрытия конфиденциальной информации не выявлено. Резкий тон сам по себе не является перечисленной грубой ошибкой.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    },
+    {
+     "message_index": 4,
+     "quote": "The failed-attempt lock has been removed; your password has not changed."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 428,
+   "output_tokens": 715,
+   "cache_read_tokens": 1625,
+   "cache_write_tokens": 0,
+   "latency_ms": 6207,
+   "cost": 0.008169,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}
