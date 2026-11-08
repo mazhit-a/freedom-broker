@@ -39,6 +39,15 @@ PROFILES: dict[str, ModelProfile] = {
         price_cache_write=2.5,
         supports_effort=True,
     ),
+    "claude-haiku-5-5": ModelProfile(
+        model="claude-haiku-5-5",
+        effort="medium",
+        price_input=0.10,
+        price_output=0.50,
+        price_cache_read=0.01,
+        price_cache_write=0.125,
+        supports_effort=True,
+    ),
     "claude-haiku-4-5": ModelProfile(
         model="claude-haiku-4-5",
         effort=None,

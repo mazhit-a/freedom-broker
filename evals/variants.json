@@ -143,5 +143,15 @@
     "name": "jev_sol_flag",
     "workflow": "jev_sol_hybrid",
     "params": {"prompt": "v2", "model": "gpt-6.1-sol", "effort": "medium", "jev_scope": "flag"}
+  },
+  {
+    "name": "haiku55_medium",
+    "workflow": "single_call",
+    "params": {"prompt": "v2", "profile": "claude-haiku-5-5", "effort": "medium"}
+  },
+  {
+    "name": "jev_haiku55",
+    "workflow": "jev_explain",
+    "params": {"profile": "claude-haiku-5-5", "effort": "medium"}
   }
 ]

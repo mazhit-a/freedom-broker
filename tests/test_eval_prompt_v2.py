@@ -78,3 +78,19 @@ def test_annotation_does_not_mutate_case_messages():
     before = json.dumps(CASE)
     annotate_gaps(CASE["conversation"]["messages"])
     assert json.dumps(CASE) == before
+
+
+def test_haiku_5_5_profile_and_price_agree():
+    from backend.app.services.model_profiles import get_profile
+    from evals.prices import price_for
+
+    profile = get_profile("claude-haiku-5-5")
+    price = price_for("claude-haiku-5-5")
+    assert profile.supports_effort and profile.effort == "medium" and profile.thinking_budget is None
+    assert (profile.price_input, profile.price_output, profile.price_cache_read, profile.price_cache_write) == (
+        price.input,
+        price.output,
+        price.cache_read,
+        price.cache_write,
+    )
+    assert price.input == 0.10 and price.output == 0.50
