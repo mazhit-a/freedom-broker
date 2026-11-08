@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     llm_price_cache_read: float = 0.2
     llm_price_cache_write: float = 5.0
     llm_prompt_version: str = "v1"
+    llm_fallback_model: str = ""
     llm_estimate_tokens_input: int = 5000
     llm_estimate_tokens_output: int = 800
     llm_estimate_latency_s: float = 40.0
