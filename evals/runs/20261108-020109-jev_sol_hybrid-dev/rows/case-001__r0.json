@@ -1,0 +1,222 @@
+{
+ "case_id": "case-001",
+ "variant": "jev_sol_hybrid",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровалась на языке клиента и представилась.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте! Меня зовут Алия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учла тему обращения и до консультации уточнила, где клиент подавал заявку.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Вижу, что вопрос по возврату документов при открытии счёта. Уточните, заявку подавали в приложении или на сайте?"
+    },
+    {
+     "message_index": 4,
+     "quote": "В приложении."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена до раскрытия причины возврата документов и сведений по заявке.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Личность клиента подтверждена."
+    },
+    {
+     "message_index": 6,
+     "quote": "В вашей заявке указана причина возврата: блик на лицевой стороне удостоверения, часть текста не читается."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор объяснила причину возврата и порядок замены фотографии, но оставила без ответа отдельный существенный вопрос о допустимых форматах файлов.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "И какие форматы файлов можно загружать?"
+    },
+    {
+     "message_index": 8,
+     "quote": "На главном экране приложения откройте «Заявка на открытие счёта», затем «Документы» → «Удостоверение личности» → «Заменить фото лицевой стороны»."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежливо отреагировала на конкретное неудобство повторной загрузки и пояснила, что заново заполнять анкету не требуется.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Понимаю, повторно загружать удостоверение неудобно."
+    },
+    {
+     "message_index": 6,
+     "quote": "Заново заполнять анкету не нужно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Из-за неопределённого указания места загрузки клиенту пришлось переспрашивать. После этого оператор дала понятный путь по экранам приложения.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "загрузите его туда же"
+    },
+    {
+     "message_index": 7,
+     "quote": "Туда же — это куда именно? Не понял, какой экран открыть."
+    },
+    {
+     "message_index": 8,
+     "quote": "Извините, не указала путь."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор закрыла чат после инструкции, не попрощавшись и не предложив дальнейшую помощь. Признаков обрыва связи нет.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Чат закрыт оператором."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 9
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и неправомерного раскрытия конфиденциальных сведений не выявлено; данные заявки сообщены после подтверждения личности.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Личность клиента подтверждена."
+    },
+    {
+     "message_index": 6,
+     "quote": "В вашей заявке указана причина возврата: блик на лицевой стороне удостоверения, часть текста не читается."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 1960,
+   "output_tokens": 85,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 1022,
+   "cost": 8.2e-05,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 2433,
+   "output_tokens": 897,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 8532,
+   "cost": 0.013836,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "source": {
+  "01": "jev",
+  "02": "sol",
+  "03": "sol",
+  "04": "sol",
+  "05": "jev",
+  "06": "sol",
+  "07": "sol",
+  "08": "jev"
+ },
+ "jev_detail": {
+  "01": {
+   "answer": "yes",
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "05": {
+   "answer": "yes",
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "08": {
+   "answer": "no",
+   "confidence": 0.87,
+   "distribution": {
+    "yes": 0.13,
+    "no": 0.87
+   }
+  }
+ },
+ "rep": 0
+}

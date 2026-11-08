@@ -1,0 +1,228 @@
+{
+ "case_id": "case-010",
+ "variant": "jev_sol_hybrid",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на русском языке и представился.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Здравствуйте, меня зовут Арман."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил, какая из трёх заявок спорная, и давал общие объяснения без выяснения параметров конкретной сделки.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "По вашему брокерскому счёту сегодня отображаются три исполненные заявки."
+    },
+    {
+     "message_index": 10,
+     "quote": "Это общее объяснение, не вывод по вашей сделке."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 24
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность подтверждена до того, как оператор сообщил сведения о заявках на счёте.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    },
+    {
+     "message_index": 6,
+     "quote": "По вашему брокерскому счёту сегодня отображаются три исполненные заявки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Даны лишь общие пояснения об исполнении и документах. Причина по конкретной сделке не установлена, понятный порядок подачи претензии не предложен.",
+   "evidence": [
+    {
+     "message_index": 20,
+     "quote": "Для проверки используют историю заявки и брокерский отчёт."
+    },
+    {
+     "message_index": 22,
+     "quote": "Точного раздела или адреса для претензии я сейчас не назову."
+    },
+    {
+     "message_index": 24,
+     "quote": "Конкретную причину исполнения вашей заявки я не установил."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "На конкретное неудобство и повторную попытку получить разбор оператор ответил демонстративным отказом обсуждать переживания клиента.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "теперь денег на следующую покупку не хватает. Уже второй раз пытаюсь добиться разбора."
+    },
+    {
+     "message_index": 12,
+     "quote": "Обсуждать ваши переживания я не буду."
+    }
+   ],
+   "checked_range": {
+    "from": 11,
+    "to": 12
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Клиент неоднократно переспрашивал из-за отсутствия последовательного порядка действий. Кроме того, оператор допустил ожидание более трёх минут без предупреждения.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Вы больше трёх минут молчали, я думал чат завис."
+    },
+    {
+     "message_index": 21,
+     "quote": "Я понял слова, но не порядок действий. Где кнопка или адрес для претензии? Как найти эту историю?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор имел возможность завершить диалог после просьбы клиента закрыть чат, но не попрощался и не оформил завершение итогом или предложением дальнейшей помощи.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Ладно, закрывайте чат."
+    },
+    {
+     "message_index": 26,
+     "quote": "Чат закрыт оператором."
+    }
+   ],
+   "checked_range": {
+    "from": 24,
+    "to": 26
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор предложил платную частную консультацию в обход компании с переводом на личную карту.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Это моя частная консультация вне компании: оплатите переводом на мою личную карту, и продолжим в личном мессенджере."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 2851,
+   "output_tokens": 85,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 721,
+   "cost": 0.00012,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 3,
+   "output_tokens": 1262,
+   "cache_read_tokens": 2891,
+   "cache_write_tokens": 0,
+   "latency_ms": 8970,
+   "cost": 0.012915,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "source": {
+  "01": "jev",
+  "02": "sol",
+  "03": "sol",
+  "04": "sol",
+  "05": "jev",
+  "06": "sol",
+  "07": "sol",
+  "08": "jev"
+ },
+ "jev_detail": {
+  "01": {
+   "answer": "yes",
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "05": {
+   "answer": "no",
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99
+   }
+  },
+  "08": {
+   "answer": "yes",
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.030000000000000027
+   }
+  }
+ },
+ "rep": 1
+}

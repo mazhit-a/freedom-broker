@@ -1,0 +1,226 @@
+{
+ "case_id": "case-027",
+ "variant": "jev_sol_hybrid",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на английском языке и представился.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "До консультации оператор уточнил время подачи, сумму, валюту, статус вывода, принадлежность счёта и доступность отмены.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "When did you submit it, what amount and currency, and what status does the app show?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Is the destination a bank account in your own name, and is there an active Cancel button on the withdrawal?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор отправил распоряжение об отмене, хотя клиент прямо сообщил, что проверка личности не пройдена. Подтверждения идентификации до защищённого действия нет.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "I haven't approved anything."
+    },
+    {
+     "message_index": 10,
+     "quote": "I'll go ahead and send the cancellation instruction anyway."
+    },
+    {
+     "message_index": 14,
+     "quote": "I've submitted the cancellation instruction."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 14
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ключевая рекомендация ошибочна: оператор предложил дублировать вывод ради ускорения, проигнорировать предупреждение приложения и внести дополнительные средства. Обещание автоматического объединения противоречит описанным правилам обработки заявок.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "A duplicate request moves the original to the front of the payment queue, and the system automatically merges the two into one payment."
+    },
+    {
+     "message_index": 17,
+     "quote": "But the app says each withdrawal is processed separately and reserves its own amount. It says not to repeat a pending request."
+    },
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    },
+    {
+     "message_index": 20,
+     "quote": "Then you would need to deposit another fifty thousand tenge first and submit the duplicate after that."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор общался вежливо и прямо отреагировал на переживания из-за аренды и невозможность внести дополнительные деньги.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "I understand why having your rent money tied up is worrying."
+    },
+    {
+     "message_index": 22,
+     "quote": "I understand; putting in more money isn't workable when you need it for rent."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Реплики сформулированы ясно, порядок разговора понятен. Оператор заранее предупредил об удержании и его длительности, затем поблагодарил за ожидание. Ошибочность рекомендаций оценена отдельно в критерии 04.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "I'll put you on hold for about thirty seconds while I submit it."
+    },
+    {
+     "message_index": 14,
+     "quote": "Thank you for waiting."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, уточнил, что отмена не подтверждена, предложил обращаться за дальнейшей помощью и попрощался.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "To recap, I've sent a cancellation instruction, but cancellation is not confirmed, and you've decided not to submit another withdrawal. Please contact us if you need further help. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, раскрытия конфиденциальных сведений или предложения платной услуги в обход компании нет. Предложение пополнить брокерский счёт является ошибочной рекомендацией, но не предложением сторонней платной услуги.",
+   "evidence": [
+    {
+     "message_index": 20,
+     "quote": "Then you would need to deposit another fifty thousand tenge first and submit the duplicate after that."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 2735,
+   "output_tokens": 85,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 713,
+   "cost": 0.000115,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 3,
+   "output_tokens": 1424,
+   "cache_read_tokens": 3294,
+   "cache_write_tokens": 0,
+   "latency_ms": 11584,
+   "cost": 0.014575,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "source": {
+  "01": "jev",
+  "02": "sol",
+  "03": "sol",
+  "04": "sol",
+  "05": "jev",
+  "06": "sol",
+  "07": "sol",
+  "08": "jev"
+ },
+ "jev_detail": {
+  "01": {
+   "answer": "yes",
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02
+   }
+  },
+  "05": {
+   "answer": "yes",
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.95,
+    "no": 0.05
+   }
+  },
+  "08": {
+   "answer": "no",
+   "confidence": 0.9299999999999999,
+   "distribution": {
+    "yes": 0.07,
+    "no": 0.9299999999999999
+   }
+  }
+ },
+ "rep": 1
+}

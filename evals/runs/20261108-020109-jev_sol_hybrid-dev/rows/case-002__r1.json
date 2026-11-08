@@ -1,0 +1,207 @@
+{
+ "case_id": "case-002",
+ "variant": "jev_sol_hybrid",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на языке клиента и представился.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте! Меня зовут Алия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "na",
+   "rationale": "Клиент сразу сформулировал общий вопрос и уточнил, что проверка счёта не нужна; дополнительных сведений для ответа не требовалось.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "безопасно брать реквизиты из сообщения в стороннем чате или нужно брать их в официальном приложении брокера?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Данных для ответа хватало с самого начала."
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Консультация носила общий характер, без раскрытия персональных данных и защищённых действий.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "По моему счёту ничего проверять не надо."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "По существу вопрос закрыт: оператор указал официальный источник реквизитов, предупредил о подмене и объяснил, что сверить перед переводом. Бессвязные добавления отдельно учтены в оценке управления диалогом.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Для пополнения берите актуальные реквизиты только в официальном приложении или личном кабинете брокера, в разделе пополнения счёта."
+    },
+    {
+     "message_index": 5,
+     "quote": "Перед переводом сверяйте получателя и назначение платежа с официальной инструкцией."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор сохранил вежливый тон и прямо извинился за путаницу, о которой сообщил клиент.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Я совсем запутался."
+    },
+    {
+     "message_index": 5,
+     "quote": "Извините за путаницу."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 0,
+   "rationale": "Повторяющиеся взаимоисключающие инструкции делают ход диалога непонятным: клиент прямо спрашивает, ждать или писать, а оператор продолжает противоречивые указания даже при завершении.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Пока ничего не пишите, сейчас обязательно ответьте."
+    },
+    {
+     "message_index": 4,
+     "quote": "Мне ждать ответа или писать?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Диалог окончен, не уходите: до начала окончания сначала дождитесь уже отправленного ответа, который мы ещё не начинали."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл содержательный итог и попрощался. Противоречивое дополнение к завершению учтено в критерии управления диалогом.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Итог: используйте реквизиты из официального приложения, а не из стороннего чата. Всего доброго, до свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено; оператор рекомендует официальный канал получения реквизитов.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Реквизиты из стороннего чата не используйте: они могут быть подменены."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 1845,
+   "output_tokens": 85,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 678,
+   "cost": 7.7e-05,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 424,
+   "output_tokens": 1204,
+   "cache_read_tokens": 1921,
+   "cache_write_tokens": 0,
+   "latency_ms": 9394,
+   "cost": 0.01308,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "source": {
+  "01": "jev",
+  "02": "sol",
+  "03": "sol",
+  "04": "sol",
+  "05": "jev",
+  "06": "sol",
+  "07": "sol",
+  "08": "jev"
+ },
+ "jev_detail": {
+  "01": {
+   "answer": "yes",
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02
+   }
+  },
+  "05": {
+   "answer": "yes",
+   "confidence": 0.77,
+   "distribution": {
+    "yes": 0.77,
+    "no": 0.23
+   }
+  },
+  "08": {
+   "answer": "no",
+   "confidence": 0.88,
+   "distribution": {
+    "yes": 0.12,
+    "no": 0.88
+   }
+  }
+ },
+ "rep": 1
+}

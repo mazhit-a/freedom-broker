@@ -1,0 +1,203 @@
+{
+ "case_id": "case-004",
+ "variant": "jev_sol_hybrid",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "В первом ответе оператор поздоровалась на казахском языке и представилась.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Сәлеметсіз бе! Менің атым — Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учла выбранную тему и уточнила, что именно интересует клиента, прежде чем давать консультацию.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Тарифтер мен комиссиялар бөлімін таңдаған екенсіз. Нақты нені білгіңіз келеді?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Обсуждение ограничилось выбором темы тарифов и комиссий; персональные данные не раскрывались, защищённые действия не выполнялись.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Тарифтер мен комиссиялар"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "На данном этапе запрос не требовал идентификации."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Клиент сообщил, что ещё пишет вопрос, и вышел из чата, не сформулировав конкретный запрос.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Бір сәт, сұрағымды жазып жатырмын."
+    },
+    {
+     "message_index": 7,
+     "quote": "Клиент чаттан шығып кетті."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат закончился до того, как клиент сформулировал запрос."
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор общалась вежливо и спокойно предоставила клиенту время написать вопрос. Недовольства клиент не выражал.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Реплики ясные и последовательные, ответы оперативные. Ожидания со стороны оператора не было.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Нақты нені білгіңіз келеді?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Клиент неожиданно вышел из чата во время подготовки вопроса; возможности штатно завершить разговор у оператора не было.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Клиент чаттан шығып кетті."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат оборвался до возможности его завершить."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "В репликах оператора нет оскорблений, предложений платных услуг в обход компании или раскрытия конфиденциальной информации.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Тарифтер мен комиссиялар бөлімін таңдаған екенсіз. Нақты нені білгіңіз келеді?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 1445,
+   "output_tokens": 85,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 715,
+   "cost": 6.1e-05,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 3,
+   "output_tokens": 1141,
+   "cache_read_tokens": 2196,
+   "cache_write_tokens": 0,
+   "latency_ms": 9155,
+   "cost": 0.011636,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "source": {
+  "01": "jev",
+  "02": "sol",
+  "03": "sol",
+  "04": "sol",
+  "05": "jev",
+  "06": "sol",
+  "07": "sol",
+  "08": "jev"
+ },
+ "jev_detail": {
+  "01": {
+   "answer": "yes",
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "05": {
+   "answer": "yes",
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "08": {
+   "answer": "no",
+   "confidence": 0.84,
+   "distribution": {
+    "yes": 0.16,
+    "no": 0.84
+   }
+  }
+ },
+ "rep": 1
+}

@@ -1,0 +1,221 @@
+{
+ "case_id": "case-009",
+ "variant": "jev_sol_hybrid",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document and proof of address."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор начал с общих требований вместо выяснения недостающих сведений по заявке. Позже не уточнил обстоятельства, от которых, по его словам, зависели требования к адресу и документу.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 15
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до раскрытия оператором статуса заявки и сведений о недостающем документе.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    },
+    {
+     "message_index": 7,
+     "quote": "Your application is pending KYC review."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Часть запроса закрыта: оператор установил, что требуется подтверждение адреса. Однако существенные вопросы о подходящем адресе, допустимости выписки, формате, размере файла и способе подачи остались без конкретного ответа или следующего шага.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "The outstanding item is proof of address"
+    },
+    {
+     "message_index": 15,
+     "quote": "I haven't confirmed whether that statement meets your application's requirements, and I don't have a confirmed upload route for the screen you've described."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежливо и адресно отреагировал на повторную загрузку паспорта, нахождение клиента за границей и отсутствие понятного способа подачи документа.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice, especially while you're abroad without your usual paperwork."
+    },
+    {
+     "message_index": 13,
+     "quote": "I'm sorry the screen gives you a document request without an upload button or requirements."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы ясные, грамотные и последовательные; оператор прямо обозначил ограничения предоставленной информации. Явного ожидания, требующего предупреждения, не было. Повторные вопросы клиента связаны с неполнотой консультации, а не с непонятными формулировками.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "The document should be complete and legible, with no details cut off."
+    },
+    {
+     "message_index": 15,
+     "quote": "The guidance I've provided is general."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, уточнил, что изменений в заявке не было, поблагодарил клиента и попрощался.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Your application remains pending KYC, with proof of address outstanding."
+    },
+    {
+     "message_index": 17,
+     "quote": "Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и неправомерного раскрытия конфиденциальной информации не выявлено. Данные заявки обсуждались после подтверждения личности; оператор также предостерёг от отправки изображений документов в чат.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    },
+    {
+     "message_index": 13,
+     "quote": "Please don't send document images in this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 1738,
+   "output_tokens": 85,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 712,
+   "cost": 7.3e-05,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 715,
+   "output_tokens": 1399,
+   "cache_read_tokens": 1921,
+   "cache_write_tokens": 0,
+   "latency_ms": 13005,
+   "cost": 0.015612,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "source": {
+  "01": "jev",
+  "02": "sol",
+  "03": "sol",
+  "04": "sol",
+  "05": "jev",
+  "06": "sol",
+  "07": "sol",
+  "08": "jev"
+ },
+ "jev_detail": {
+  "01": {
+   "answer": "no",
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "05": {
+   "answer": "yes",
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.03
+   }
+  },
+  "08": {
+   "answer": "no",
+   "confidence": 0.94,
+   "distribution": {
+    "yes": 0.06,
+    "no": 0.94
+   }
+  }
+ },
+ "rep": 0
+}

@@ -1,0 +1,227 @@
+{
+ "case_id": "case-022",
+ "variant": "jev_sol_hybrid",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Причина невозможности входа не была подтверждена: клиент не помнил ошибку. Оператор не уточнил обстоятельства и сразу сообщил о снятии блокировки; запрос об уведомлениях также не прояснил.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Ошибку закрыл, текст не помню."
+    },
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор сообщил о выполнении защищённого действия — снятии блокировки аккаунта — без подтверждённой проверки личности.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Блокировку попыток входа в ваш аккаунт снял."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 1
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Доступ восстановлен, что подтвердил клиент. Однако отдельный существенный запрос о включении уведомлений о входе остался без ответа.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "И можно включить уведомления о входе?"
+    },
+    {
+     "message_index": 5,
+     "quote": "Right, right, I'm in now. The app opens normally."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "На выраженное клиентом неудобство оператор ответил резко, без признания проблемы или сочувствия.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "я уже замучился"
+    },
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Из-за неопределённой первоначальной инструкции клиенту пришлось переспросить, что именно сделать. Затем оператор дал понятную последовательность действий на запрошенном языке.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Теперь там заново, заново войдите."
+    },
+    {
+     "message_index": 2,
+     "quote": "Где там? На этом экране кнопку нажать или приложение закрыть?"
+    },
+    {
+     "message_index": 4,
+     "quote": "Close the mobile app completely, then reopen it."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог восстановления доступа и попрощался.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Your access is restored and you have signed in successfully. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено. Резкая реплика не содержит прямого оскорбления.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Не надо повторять, я услышал."
+    },
+    {
+     "message_index": 4,
+     "quote": "On the sign-in screen, enter your usual username and password once."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 1655,
+   "output_tokens": 85,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 784,
+   "cost": 7e-05,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 3,
+   "output_tokens": 1278,
+   "cache_read_tokens": 2379,
+   "cache_write_tokens": 0,
+   "latency_ms": 10710,
+   "cost": 0.013024,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "source": {
+  "01": "jev",
+  "02": "sol",
+  "03": "sol",
+  "04": "sol",
+  "05": "jev",
+  "06": "sol",
+  "07": "sol",
+  "08": "jev"
+ },
+ "jev_detail": {
+  "01": {
+   "answer": "no",
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "05": {
+   "answer": "no",
+   "confidence": 0.73,
+   "distribution": {
+    "yes": 0.27,
+    "no": 0.73
+   }
+  },
+  "08": {
+   "answer": "no",
+   "confidence": 0.69,
+   "distribution": {
+    "yes": 0.31,
+    "no": 0.69
+   }
+  }
+ },
+ "rep": 1
+}
