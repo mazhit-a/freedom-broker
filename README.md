@@ -18,7 +18,7 @@
 ```bash
 git clone <ссылка на репозиторий>
 cd freedom-broker
-cp .env.example .env        # впишите OPENAI_API_KEY и CQA_API_URL
+cp .env.example .env        # впишите только OPENAI_API_KEY
 docker compose up -d --build
 ```
 
@@ -50,7 +50,8 @@ cp .env.example .env
 | Переменная | Что вписать |
 |---|---|
 | `OPENAI_API_KEY` | ключ OpenAI (секрет, в репозиторий не попадает: `.env` в `.gitignore`) |
-| `CQA_API_URL` | полный адрес GET из задания организаторов (без `group_id`, он добавляется сам) |
+
+Адрес API организаторов `CQA_API_URL` уже прописан в `.env.example`; для контрольного набора меняется только `group_id`.
 
 Остальные переменные уже имеют рабочие значения по умолчанию (таблица в разделе 3).
 
@@ -121,7 +122,7 @@ node --test frontend/tests/*.test.js   # интерфейс: компонент�
 | `OPENAI_CALL_CEILING_S` | `180` | потолок времени одного вызова, секунды |
 | `OPENAI_MAX_ATTEMPTS` | `5` | попыток на вызов (408, 409, 429, 5xx, таймауты) |
 | `OPENAI_MAX_INFLIGHT` | `12` | потолок одновременных вызовов |
-| `CQA_API_URL` | пусто | адрес GET организаторов (не публиковать) |
+| `CQA_API_URL` | адрес организаторов (в `.env.example`) | адрес GET без `group_id`, он добавляется при импорте |
 | `CQA_DB_PATH` | `cqa.db` | файл SQLite |
 | `LLM_API_KEY`, `LLM_BASE_URL`, `LLM_MAX_TOKENS` | | ключ и параметры Anthropic (только для отката) |
 | `LLM_PRICE_*` | в коде цены Opus | только для anthropic и bedrock; у openai цены берутся из профиля модели |
