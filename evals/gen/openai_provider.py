@@ -105,6 +105,13 @@ def make_client(api_key: str, timeout: float = DEFAULT_CEILING_SECONDS):
     return openai.OpenAI(api_key=api_key, max_retries=0, timeout=timeout)
 
 
+def make_default_client(timeout: float = DEFAULT_CEILING_SECONDS, env: dict | None = None, dotenv_path: Path | None = None):
+    key = load_api_key(env, dotenv_path)
+    if not key:
+        return None, []
+    return make_client(key, timeout), [key]
+
+
 def redact(text: str, secrets: list[str] | None = None) -> str:
     out = str(text)
     for s in secrets or []:
@@ -282,6 +289,7 @@ def map_response(response, custom_id: str, requested_model: str, latency: float,
         "text": None,
         "error": None,
         "model": served,
+        "served_model_reported": bool(_get(response, "model")),
         "requested_model": requested_model,
         "usage": usage,
         "cost_usd": usage_cost(served, usage, requested_model),

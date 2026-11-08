@@ -13,6 +13,7 @@ ERROR = "error"
 
 ANTHROPIC = "anthropic"
 JEV = "jev"
+OPENAI = "openai"
 
 REFUSAL_REASON = "Модель отказалась от оценки (refusal)"
 

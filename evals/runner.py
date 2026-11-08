@@ -12,12 +12,13 @@ from typing import Any, Callable
 
 from evals import prices
 from evals.decisions import JEV_MODEL, DecisionsClient, DecisionsError, compute_cost, map_answers, specs_for_questions
+from evals.gen import openai_provider
 from evals.gen.assemble import verify_hash
 from evals.gen.common import DATASET_PATH, ROOT
 from evals.graders import load_checklist
 from evals.ledger import Ledger
 from evals.workflows import build_workflow
-from evals.workflows.base import ANTHROPIC, ERROR, JEV, OK, REFUSED, TRUNCATED, LLMRequest, Response
+from evals.workflows.base import ANTHROPIC, ERROR, JEV, OK, OPENAI, REFUSED, TRUNCATED, LLMRequest, Response
 
 RUNS_DIR = ROOT / "evals" / "runs"
 VARIANTS_PATH = ROOT / "evals" / "variants.json"
@@ -120,6 +121,18 @@ def model_matches(served: str, requested: str) -> bool:
     return served == requested or served.startswith(requested + "-")
 
 
+class OpenAIKeyMissing(RuntimeError):
+    pass
+
+
+class UniformRng:
+    def __init__(self, rng: Callable[[], float]):
+        self.rng = rng
+
+    def uniform(self, a: float, b: float) -> float:
+        return a + (b - a) * self.rng()
+
+
 class ResponseStore:
     def __init__(self, directory: Path):
         self.dir = Path(directory)
@@ -166,6 +179,8 @@ class Executor:
         poll_max: float = 120.0,
         max_wait: float = 90000.0,
         max_spend: float | None = None,
+        openai_client: Any = None,
+        openai_ceiling: float = openai_provider.DEFAULT_CEILING_SECONDS,
         sleep: Callable[[float], None] = time.sleep,
         clock: Callable[[], float] = time.monotonic,
         rng: Callable[[], float] = random.random,
@@ -188,6 +203,10 @@ class Executor:
         self.poll_max = poll_max
         self.max_wait = max_wait
         self.max_spend = max_spend
+        self._openai = openai_client
+        self.openai_secrets: list[str] = []
+        self.openai_ceiling = openai_ceiling
+        self.openai_spent = 0.0
         self.sleep = sleep
         self.clock = clock
         self.rng = rng
@@ -214,6 +233,15 @@ class Executor:
             with_options = getattr(base, "with_options", None)
             self._live_sdk = with_options(max_retries=0) if callable(with_options) else base
         return self._live_sdk
+
+    @property
+    def openai(self):
+        if self._openai is None:
+            client, secrets = openai_provider.make_default_client(self.openai_ceiling)
+            if client is None:
+                raise OpenAIKeyMissing(f"{openai_provider.KEY_ENV} is not set in the environment or .env, the openai stage cannot run")
+            self._openai, self.openai_secrets = client, secrets
+        return self._openai
 
     def backoff(self, attempt: int, retry_after: float | None) -> float:
         exp = min(self.backoff_cap, self.backoff_base * (2 ** (attempt - 1)))
@@ -331,6 +359,84 @@ class Executor:
             raw=body,
         )
 
+    def from_openai_row(self, request: LLMRequest, row: dict) -> Response:
+        requested = request.params.get("model", "")
+        usage = row.get("usage") or {}
+        cached = int(usage.get("cached_input_tokens") or 0)
+        raw_status, error = row.get("status"), row.get("error")
+        served = row.get("model") if isinstance(row.get("model"), str) else ""
+        status = {"ok": OK, "truncated": TRUNCATED, "refusal": REFUSED}.get(raw_status, ERROR)
+        if raw_status == "incomplete" and error == "response incomplete: content_filter":
+            status = REFUSED
+        if status == OK and not row.get("served_model_reported", True):
+            status, error = ERROR, "response carries no served model"
+        elif status == OK and not model_matches(served, requested):
+            status, error = ERROR, f"served model {served!r} does not match requested model {requested!r}"
+        if status == ERROR and not error:
+            error = f"openai call ended with status {raw_status}"
+        text = (row.get("text") or "") if status == OK else ""
+        stop = {"ok": "completed", "refusal": "refusal"}.get(raw_status) or (
+            (row.get("error") or "").removeprefix("response incomplete: ") if raw_status in ("truncated", "incomplete") else raw_status
+        )
+        return Response(
+            request.request_id,
+            status,
+            kind=OPENAI,
+            model=served,
+            text=text,
+            stop_reason=stop,
+            input_tokens=max(0, int(usage.get("input_tokens") or 0) - cached),
+            output_tokens=int(usage.get("output_tokens") or 0),
+            cache_read_tokens=cached,
+            latency_ms=int(float(row.get("latency_s") or 0) * 1000),
+            cost=float(row.get("cost_usd") or 0.0),
+            structured=True,
+            batch=False,
+            attempts=int(row.get("attempts") or 1),
+            error=error if status != OK else None,
+            data={"reasoning_tokens": int(usage.get("reasoning_tokens") or 0), "total_s": row.get("total_s")},
+            raw=None,
+        )
+
+    def run_openai(self, items: list[tuple[str, LLMRequest]], store: "ResponseStore", requests: dict[str, LLMRequest]) -> tuple[dict[str, Response], list[str]]:
+        client = self.openai
+        by_id = dict(items)
+        guard = None
+        if self.max_spend is not None:
+            first = items[0][1].params
+            guard = openai_provider.SpendGuard(
+                max(0.0, self.max_spend - self.openai_spent), first["model"], int(first.get("max_output_tokens") or openai_provider.DEFAULT_MAX_OUTPUT_TOKENS)
+            )
+            try:
+                guard.check_start()
+            except openai_provider.BudgetRefused as exc:
+                raise BudgetStop(str(exc))
+        fresh: dict[str, Response] = {}
+
+        def on_result(row: dict) -> None:
+            cid = row["custom_id"]
+            resp = self.from_openai_row(by_id[cid], row)
+            fresh[cid] = resp
+            store.put(cid, by_id[cid], resp)
+
+        _, skipped = openai_provider.run_requests(
+            client,
+            [{"custom_id": cid, "request": req.params} for cid, req in items],
+            guard=guard,
+            concurrency=self.concurrency,
+            ceiling=self.openai_ceiling,
+            max_attempts=self.max_attempts,
+            on_result=on_result,
+            sleep=self.sleep,
+            rng=UniformRng(self.rng),
+            clock=self.clock,
+            secrets=self.openai_secrets,
+        )
+        return fresh, skipped
+
+    def check_openai(self) -> None:
+        self.openai
+
     def pool(self, fn: Callable[[LLMRequest], Response], items: list[tuple[str, LLMRequest]]) -> dict[str, Response]:
         if not items:
             return {}
@@ -406,7 +512,7 @@ class Executor:
             if not (resp.input_tokens or resp.output_tokens or resp.cache_read_tokens or resp.cache_write_tokens or resp.cost):
                 continue
             req = requests[cid]
-            provider = "openrouter" if resp.kind == JEV else "anthropic"
+            provider = {JEV: "openrouter", OPENAI: "openai"}.get(resp.kind, "anthropic")
             mode = "batch" if resp.batch else "live"
             g = groups.setdefault(
                 (req.group, provider, resp.model or req.params.get("model", ""), mode),
@@ -420,7 +526,10 @@ class Executor:
             g["cost"] += resp.cost
         for (group, provider, model, mode), g in sorted(groups.items()):
             with self.lock:
-                self.spent += g["cost"]
+                if provider == "openai":
+                    self.openai_spent += g["cost"]
+                else:
+                    self.spent += g["cost"]
             if self.ledger is not None:
                 self.ledger.append(
                     {"run_id": run_id, "kind": kind, "group": group, "provider": provider, "model": model, "mode": mode, **g, "cost": round(g["cost"], 6)}
@@ -437,11 +546,16 @@ class Executor:
                 todo.append((cid, req))
         if not todo:
             return out
-        if self.max_spend is not None and self.spent >= self.max_spend:
-            raise BudgetStop(f"spent ${self.spent:.4f} reached --max-spend ${self.max_spend:.4f}")
         anth = [x for x in todo if x[1].kind == ANTHROPIC]
         jev = [x for x in todo if x[1].kind == JEV]
+        oai = [x for x in todo if x[1].kind == OPENAI]
+        if self.max_spend is not None:
+            if (anth or jev) and self.spent >= self.max_spend:
+                raise BudgetStop(f"spent ${self.spent:.4f} reached --max-spend ${self.max_spend:.4f}")
+            if oai and self.openai_spent >= self.max_spend:
+                raise BudgetStop(f"OpenAI spent ${self.openai_spent:.4f} reached --max-spend ${self.max_spend:.4f}")
         fresh: dict[str, Response] = {}
+        skipped: list[str] = []
         if self.mode == "batch":
             fresh.update(self.run_batch(anth, pending_dir or (store.dir.parent / "batches")) if anth else {})
         else:
@@ -450,8 +564,13 @@ class Executor:
         requests = dict(todo)
         for cid, resp in fresh.items():
             store.put(cid, requests[cid], resp)
+        if oai:
+            oai_fresh, skipped = self.run_openai(oai, store, requests)
+            fresh.update(oai_fresh)
         self.log(fresh, requests, run_id, kind)
         out.update(fresh)
+        if skipped:
+            raise BudgetStop(f"OpenAI spend reached --max-spend ${self.max_spend:.4f} with {len(skipped)} requests not sent; rerun with the same run id to resume")
         return out
 
 

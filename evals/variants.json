@@ -103,5 +103,25 @@
     "name": "opus_low_fix05_marks",
     "workflow": "single_call",
     "params": {"prompt": "v2", "pause_marks": true, "profile": "claude-opus-5-5", "effort": "low"}
+  },
+  {
+    "name": "gpt_sol_medium",
+    "workflow": "openai_single_call",
+    "params": {"prompt": "v2", "model": "gpt-6.1-sol", "effort": "medium"}
+  },
+  {
+    "name": "gpt_sol_low",
+    "workflow": "openai_single_call",
+    "params": {"prompt": "v2", "model": "gpt-6.1-sol", "effort": "low"}
+  },
+  {
+    "name": "opus_high_fix05",
+    "workflow": "single_call",
+    "params": {"prompt": "v2", "profile": "claude-opus-5-5", "effort": "high"}
+  },
+  {
+    "name": "opus_medium_fix05",
+    "workflow": "single_call",
+    "params": {"prompt": "v2", "profile": "claude-opus-5-5", "effort": "medium"}
   }
 ]

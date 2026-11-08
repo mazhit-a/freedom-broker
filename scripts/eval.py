@@ -11,7 +11,7 @@ from evals import compiler, judge, judge_run, report, runner
 from evals.gen import ambiguity
 from evals.gen.common import DATASET_PATH, SONNET_MODEL
 from evals.graders import CHECKLIST_PATH, index_cases, load_checklist
-from evals.ledger import BudgetError, Ledger
+from evals.ledger import BudgetError, Ledger, is_openai_model
 from evals.workflows import build_workflow
 
 GEN_OUT = ROOT / "evals" / "gen" / "out"
@@ -54,41 +54,68 @@ def cmd_run(args, factory=None) -> int:
             wf = build_workflow(variants[name], cfg)
         except compiler.CompiledError as exc:
             raise SystemExit(f"refused to start variant {name}: {exc}")
-        est = ledger.estimate_plan(wf.estimate_plan(), len(cases) * args.reps, args.mode)
-        plans.append((name, wf, est))
+        counted, openai = ledger.estimate_split(wf.estimate_plan(), len(cases) * args.reps, args.mode)
+        plans.append((name, wf, counted, openai))
     total = round(sum(p[2] for p in plans), 6)
+    openai_total = round(sum(p[3] for p in plans), 6)
+    has_counted = any(not is_openai_model(m) for _, wf, _, _ in plans for _, m, _ in wf.estimate_plan())
+    has_openai = any(is_openai_model(m) for _, wf, _, _ in plans for _, m, _ in wf.estimate_plan())
+    openai_only = has_openai and not has_counted
     spent, remaining = ledger.spent(), ledger.remaining()
     print("dry run: nothing is sent, add --execute to run" if not args.execute else "execute: requests will be sent")
     print(f"dataset: {args.dataset} (version {dataset.get('version')}, hash {dataset_hash_short(dataset)})")
     print(f"split: {args.split}, cases: {len(cases)}, reps: {args.reps}, limit: {args.limit or 'none'}, mode: {args.mode}")
     print("variants:")
-    for name, wf, est in plans:
+    for name, wf, est, oai in plans:
         v = variants[name]
         reqs = sum(n for _, _, n in wf.estimate_plan()) * len(cases) * args.reps
         models = ", ".join(sorted({m for _, m, _ in wf.estimate_plan()}))
-        print(f"  {name}: workflow={v['workflow']} models={models} cases={len(cases)} reps={args.reps} requests={reqs} estimated {money(est)}")
+        cost = f"estimated {money(est)}" if not (oai and not est) else f"estimated OpenAI {money(oai)} (not counted against the budget)"
+        print(f"  {name}: workflow={v['workflow']} models={models} cases={len(cases)} reps={args.reps} requests={reqs} {cost}")
+    if has_openai and args.mode == "batch":
+        print("note: openai requests are never batched, the openai stages run live at the standard price (no batch discount)")
     print(f"estimated total: {money(total)}")
+    if has_openai:
+        print(f"estimated OpenAI total: {money(openai_total)} (not counted against the budget, paid to OpenAI separately)")
     print(f"spent so far: {money(spent)} of {money(ledger.budget)} budget, remaining {money(remaining)}")
+    if has_openai:
+        print(f"OpenAI spent so far: {money(ledger.summary()['openai'])} (not counted against the budget)")
     judge_est = judge_run.estimate_judge(ledger, len(cases) * args.reps * len(plans), args.mode)
     print(f"judging these runs would add about {money(judge_est)} (separate command)")
     print(f"max-spend: {money(args.max_spend) if args.max_spend is not None else 'not given'}")
+    if has_openai:
+        if openai_only:
+            print("max-spend applies to: the OpenAI spend (OpenAI-only run, the $ budget is not checked)")
+        else:
+            print("max-spend applies to: the budget spend and, separately, to the OpenAI spend (each must fit under it)")
+    else:
+        print("max-spend applies to: the budget spend")
     if not args.execute:
         return 0
     try:
-        ledger.check(total, args.max_spend)
+        if not openai_only:
+            ledger.check(total, args.max_spend)
+        if has_openai:
+            ledger.check_openai(openai_total, args.max_spend)
     except BudgetError as exc:
         print(f"refused: {exc}")
         return 2
     executor = factory(cfg, args.mode, args.concurrency, args.max_spend, ledger)
+    if has_openai:
+        try:
+            executor.check_openai()
+        except runner.OpenAIKeyMissing as exc:
+            print(f"refused: {exc}")
+            return 2
     code = 0
-    for name, wf, est in plans:
+    for name, wf, est, oai in plans:
         out = runner.Runner(dataset, executor, args.runs_dir, args.dataset, cfg).run(
-            variants[name], cases, args.split, args.reps, args.resume, args.limit, est
+            variants[name], cases, args.split, args.reps, args.resume, args.limit, round(est + oai, 6)
         )
         meta = out["meta"]
         print(
             f"{out['run_id']}: {meta['status']}, rows {meta['n_rows']}/{meta['n_rows_expected']}, errors {out['n_errors']}, "
-            f"cost {money(meta['cost_actual'])} (estimated {money(est)})"
+            f"cost {money(meta['cost_actual'])} (estimated {money(est + oai)})"
         )
         if out["stopped"] or out["n_errors"]:
             code = 1
@@ -239,6 +266,9 @@ def cmd_ledger(args) -> int:
         print(f"  {k}: {money(v)}")
     print("by run:")
     for k, v in s["by_run"].items():
+        print(f"  {k}: {money(v)}")
+    print(f"OpenAI spend (not counted against the budget): {money(s['openai'])}")
+    for k, v in s["openai_by_run"].items():
         print(f"  {k}: {money(v)}")
     if s["uncounted"]:
         print("recorded but not counted against the budget:")

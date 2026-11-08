@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 LEDGER_PATH = ROOT / "evals" / "ledger.json"
 DEFAULT_BUDGET = 10.0
 COUNTED_PROVIDERS = ("anthropic", "jev", "openrouter")
+OPENAI_PROVIDER = "openai"
+OPENAI_MODEL_PREFIX = "gpt-"
 
 
 class BudgetError(RuntimeError):
@@ -35,7 +37,12 @@ DEFAULT_ESTIMATES: dict[str, TokenEstimate] = {
     "explain": TokenEstimate(1800, 3500, 0, 1200),
     "jev": TokenEstimate(3500, 0, 0, 0),
     "blind": TokenEstimate(1500, 2000, 0, 700),
+    "openai_single_call": TokenEstimate(4100, 0, 0, 2500),
 }
+
+
+def is_openai_model(model: str) -> bool:
+    return model.startswith(OPENAI_MODEL_PREFIX)
 
 
 def now_iso() -> str:
@@ -47,7 +54,7 @@ def empty_ledger() -> dict:
 
 
 def request_cost(model: str, est: TokenEstimate, mode: str) -> float:
-    batch = mode == "batch" and model != JEV_MODEL
+    batch = mode == "batch" and model != JEV_MODEL and not is_openai_model(model)
     return prices.cost(model, est.input, est.output, est.cache_read, est.cache_write, batch=batch)
 
 
@@ -102,8 +109,11 @@ class Ledger:
         by_run: dict[str, float] = defaultdict(float)
         by_provider: dict[str, float] = defaultdict(float)
         uncounted: dict[str, float] = defaultdict(float)
+        openai_by_run: dict[str, float] = defaultdict(float)
         for e in data["entries"]:
             cost = float(e.get("cost") or 0)
+            if e.get("provider") == OPENAI_PROVIDER:
+                openai_by_run[e.get("run_id", "?")] += cost
             if e.get("counts", e.get("provider") in COUNTED_PROVIDERS):
                 by_run[e.get("run_id", "?")] += cost
                 by_provider[e.get("provider", "?")] += cost
@@ -117,6 +127,8 @@ class Ledger:
             "by_run": {k: round(v, 6) for k, v in sorted(by_run.items())},
             "by_provider": {k: round(v, 6) for k, v in sorted(by_provider.items())},
             "uncounted": {k: round(v, 6) for k, v in sorted(uncounted.items())},
+            "openai": round(sum(openai_by_run.values()), 6),
+            "openai_by_run": {k: round(v, 6) for k, v in sorted(openai_by_run.items())},
             "entries": len(data["entries"]),
         }
 
@@ -148,12 +160,27 @@ class Ledger:
             return table[(group, "")]
         return DEFAULT_ESTIMATES.get(group, TokenEstimate())
 
-    def estimate_plan(self, plan: list[tuple[str, str, int]], n_cases: int, mode: str) -> float:
+    def estimate_split(self, plan: list[tuple[str, str, int]], n_cases: int, mode: str) -> tuple[float, float]:
         table = self.estimates()
-        total = 0.0
+        counted = openai = 0.0
         for group, model, per_case in plan:
-            total += n_cases * per_case * request_cost(model, self.token_estimate(group, model, table), mode)
-        return round(total, 6)
+            cost = n_cases * per_case * request_cost(model, self.token_estimate(group, model, table), mode)
+            if is_openai_model(model):
+                openai += cost
+            else:
+                counted += cost
+        return round(counted, 6), round(openai, 6)
+
+    def estimate_plan(self, plan: list[tuple[str, str, int]], n_cases: int, mode: str) -> float:
+        return self.estimate_split(plan, n_cases, mode)[0]
+
+    def check_openai(self, estimate: float, max_spend: float | None) -> None:
+        if max_spend is None:
+            raise BudgetError("--max-spend is required for a run that sends requests")
+        if max_spend <= 0:
+            raise BudgetError("--max-spend must be positive")
+        if estimate > max_spend:
+            raise BudgetError(f"estimated OpenAI cost ${estimate:.4f} exceeds --max-spend ${max_spend:.4f} (OpenAI spend, not counted against the budget)")
 
     def check(self, estimate: float, max_spend: float | None) -> None:
         if max_spend is None:
