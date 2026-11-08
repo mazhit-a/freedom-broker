@@ -1,0 +1,121 @@
+{
+ "case_id": "case-004",
+ "variant": "opus_low_fix05",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на казахском и представился в первом ответе.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Сәлеметсіз бе! Менің атым — Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл выбранную тему и уточнил конкретный вопрос.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Тарифтер мен комиссиялар бөлімін таңдаған екенсіз. Нақты нені білгіңіз келеді?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос не был сформулирован, данные не раскрывались.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: клиент ушёл до формулировки вопроса."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Клиент покинул чат до формулировки запроса.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Чат закончился до того, как клиент сформулировал запрос."
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив, недовольства не было.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы ясные и связные.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Клиент вышел из чата, завершить было невозможно.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Чат оборвался уходом клиента до возможности завершения."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Грубых нарушений нет.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Нақты нені білгіңіз келеді?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 402,
+   "output_tokens": 793,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.009025,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 1
+}

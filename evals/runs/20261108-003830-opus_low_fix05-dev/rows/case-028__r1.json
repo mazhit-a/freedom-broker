@@ -1,0 +1,146 @@
+{
+ "case_id": "case-028",
+ "variant": "opus_low_fix05",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на казахском и представился в первом ответе.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Сәлеметсіз бе! Менің атым Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор уточнил сумму, дату, статус и счёт вывода до ответа.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Экранда нақты қандай мәртебе жазылған?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор открыл счёт, раскрыл данные и отменил/создал заявку без подтверждения личности.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Шотыңызды аштым."
+    }
+   ],
+   "checked_range": {
+    "from": 2,
+    "to": 15
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Объяснены причина задержки, сроки, судьба остатка, где смотреть статус; создана заявка на доступную сумму.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Қалған отыз мың жоғалмайды"
+    },
+    {
+     "message_index": 15,
+     "quote": "төртінші қарашаның соңына дейін"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор оскорбил клиента и не извинился после замечания.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз, қарапайым нәрсені түсінбейсіз."
+    }
+   ],
+   "checked_range": {
+    "from": 16,
+    "to": 19
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные, но ожидание не было предупреждено перед холдом.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Клиент күтуге қойылды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог и попрощался.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Қорытындылаймын"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оскорбление клиента.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 2375,
+   "output_tokens": 879,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.013831,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 1
+}

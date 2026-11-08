@@ -1,0 +1,163 @@
+{
+ "case_id": "case-032",
+ "variant": "opus_low_fix05",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на казахском и представился в первой реплике.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Сәлеметсіз бе! Менің атым Айдана"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "В первом ответе оператор дал общее объяснение, не уточнив номер заявки и детали; клиенту пришлось самому настаивать на разборе своего случая.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Өтінім бірнеше мәмілемен орындалуы мүмкін"
+    },
+    {
+     "message_index": 5,
+     "quote": "Мен жалпы ережені емес, өзімдікін айтып тұрмын."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 5
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Данные счёта раскрыты только после системного подтверждения личности.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Клиенттің жеке басы расталды."
+    },
+    {
+     "message_index": 12,
+     "quote": "Растау келді."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Объяснены исполнение, расчёт и комиссия, зарегистрирована жалоба, указаны срок и где смотреть ответ.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Жалпы түсім 150300 теңге."
+    },
+    {
+     "message_index": 28,
+     "quote": "Шағым тіркелді, нөмірі TEST-C204."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив, отреагировал на недовольство по конкретной сумме и комиссии, извинился за ожидание.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Комиссия сіз үшін күтпеген шығын болғанын түсінемін."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Бессвязная реплика привела к переспросу клиента, кроме того постановка на удержание без предупреждения.",
+   "evidence": [
+    {
+     "message_index": 14,
+     "quote": "Орындау бөлек, есеп бір, екеуі бір өтінімге, бірақ баға екеу"
+    },
+    {
+     "message_index": 19,
+     "quote": "түсінбедім"
+    },
+    {
+     "message_index": 18,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, предложил помощь и попрощался.",
+   "evidence": [
+    {
+     "message_index": 38,
+     "quote": "Қорытындылаймын"
+    },
+    {
+     "message_index": 38,
+     "quote": "сау болыңыз!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальной информации нет.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Құпиясөзді немесе кодты маған айтпаңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 3835,
+   "output_tokens": 1142,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.019381,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

@@ -1,0 +1,149 @@
+{
+ "case_id": "case-021",
+ "variant": "gpt_sol_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился.",
+   "evidence": [],
+   "checked_range": {
+    "from": 3,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Для объяснения конкретной сделки требовалось уточнить тип и параметры заявки, но оператор этого не сделал.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Но тип и параметры вашей заявки я пока не проверял"
+    }
+   ],
+   "checked_range": {
+    "from": 1,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системой до подключения оператора. Раскрытие чужих данных отдельно учтено как грубая ошибка.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор объяснил порядок подачи претензии и перечислил необходимые сведения, но существенный вопрос о причине цены конкретной сделки остался без ответа.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Отправьте обращение через раздел «Поддержка» в личном кабинете."
+    },
+    {
+     "message_index": 8,
+     "quote": "Да, конкретную причину исполнения мы не выяснили."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор общался вежливо и прямо отреагировал на недовольство клиента из-за дополнительных расходов.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Понимаю ваше недовольство: покупка дороже ожидаемого увеличила расходы."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Инструкции понятны, но неуместное сравнение с другим клиентом нарушило последовательность консультации и вызвало встречный вопрос. Явного ожидания не было.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Чужой остаток мне зачем?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Укажите номер заявки из истории поручений, инструмент, дату и время, ожидаемую и фактическую цену; приложите скриншот заявки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог консультации, обозначил оставшийся вопрос и попрощался.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Подведу итог: порядок подачи претензии и список приложений я сообщил"
+    },
+    {
+     "message_index": 8,
+     "quote": "Спасибо за звонок, до свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор раскрыл сведения об остатке на счёте и сделке другого клиента. Редактирование идентификаторов в транскрипте не отменяет нарушения конфиденциальности.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "у другого клиента, [ФИО скрыто], на счёте [Номер скрыт] остаток 4 280 000 тенге, и сегодня покупка тоже прошла по 103."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 3,
+   "output_tokens": 1074,
+   "cache_read_tokens": 2313,
+   "cache_write_tokens": 0,
+   "latency_ms": 9830,
+   "cost": 0.010977,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

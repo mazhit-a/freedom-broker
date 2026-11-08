@@ -1,0 +1,161 @@
+{
+ "case_id": "case-026",
+ "variant": "opus_low_fix05",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился, сразу перешёл к сути.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Понимаю, из-за белого экрана вы не можете выставить заявку"
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил версию приложения, модель устройства и другие детали и проигнорировал то, что клиент устанавливал приложение файлом с сайта без магазина приложений.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Қолданбаның соңғы тұрақты нұсқасын орнату ұсынылады."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 11
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор явно пропустил проверку личности и снял ограничение входа на брокерском счёте, хотя это защищённое действие.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Проверку личности сейчас пропустим. Я сбросил ограничение попыток входа"
+    }
+   ],
+   "checked_range": {
+    "from": 2,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Блокировка входа снята, но ключевой вопрос, где взять обновление, остался без ответа, и клиент так и не понял, что делать.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "орнату жолын түсіндіріп бере алмаймын"
+    },
+    {
+     "message_index": 12,
+     "quote": "Онда не істеу керегін әлі білмей тұрмын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив, отреагировал на конкретное неудобство клиента и извинился.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Извините за неудобство."
+    },
+    {
+     "message_index": 13,
+     "quote": "Түсінемін, өтінім беру керек кезде қолданбаға кіре алмау қиын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Клиенту несколько раз пришлось переспрашивать, где взять обновление, потому что оператор повторял общую рекомендацию без ответа на вопрос.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "бірақ оны қайдан аламын?"
+    },
+    {
+     "message_index": 10,
+     "quote": "Сайттың қай бөлімінен жүктеймін, қандай файл керек?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора и попрощался.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Қорытындылаймын: кіру әрекеттеріне қойылған шектеу алынды"
+    },
+    {
+     "message_index": 15,
+     "quote": "Сау болыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платных услуг в обход компании и раскрытия конфиденциальных данных не выявлено.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Но сам белый экран этим не устраняется."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 1520,
+   "output_tokens": 1173,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.015061,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

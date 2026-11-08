@@ -1,0 +1,142 @@
+{
+ "case_id": "case-031",
+ "variant": "opus_low_fix05",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на русском и представился в первом ответе.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Здравствуйте, меня зовут Дана, служба поддержки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор уточнил резидентство, тип клиента и способ открытия до ответа.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "вы совершеннолетний гражданин и налоговый резидент Казахстана?"
+    },
+    {
+     "message_index": 10,
+     "quote": "Открывать будете дистанционно через приложение или хотите посетить офис?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Общая консультация потенциального клиента, персональные данные не раскрывались.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Клиент ещё не клиент, запрос общий и не требовал идентификации."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ключевая рекомендация ошибочна: оператор утверждает, что KYC можно пропустить и торговать без ограничений, что противоречит обязательной проверке у брокера.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "Проверку личности можно полностью пропустить, и счёт всё равно будет открыт для пополнения и торговли без ограничений."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент дважды выразил раздражение из-за проблем с документами и камерой, оператор проигнорировал это и перешёл к следующему этапу.",
+   "evidence": [
+    {
+     "message_index": 23,
+     "quote": "уже надоело с такими приложениями"
+    },
+    {
+     "message_index": 24,
+     "quote": "После анкеты следующий этап — принятие документов обслуживания в приложении."
+    }
+   ],
+   "checked_range": {
+    "from": 9,
+    "to": 24
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы связные, об ожидании оператор предупредил.",
+   "evidence": [
+    {
+     "message_index": 28,
+     "quote": "Пожалуйста, оставайтесь на линии, потребуется около двадцати секунд."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Подвёл итог, предложил помощь и попрощался.",
+   "evidence": [
+    {
+     "message_index": 49,
+     "quote": "Если понадобится дальнейшая помощь, обращайтесь. До свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет.",
+   "evidence": [
+    {
+     "message_index": 41,
+     "quote": "Личные сведения и документы по телефону передавать не нужно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 3467,
+   "output_tokens": 1039,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.017615,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}
