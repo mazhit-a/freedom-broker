@@ -211,6 +211,8 @@ def cmd_judge(args, factory=None) -> int:
         est = judge_run.estimate_judge(ledger, n, args.mode)
         out = judge_run.run_judge(run_dir, dataset, executor, cfg, estimate=est)
         print(f"{run_dir.name}: judged {len(out['judgements'])}, cost {money(out['cost'])} (estimated {money(est)}), errors {len(out['errors'])}")
+        if out["stopped"]:
+            print(f"STOPPED: {out['stopped']}")
         if out["errors"] or out["stopped"]:
             code = 1
     return code
