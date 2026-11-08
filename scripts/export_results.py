@@ -8,7 +8,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from backend.app.services.results_export import build_export  # noqa: E402
+from backend.app.services.checklist import NotFound  # noqa: E402
+from backend.app.services.results_export import ExportError, build_export  # noqa: E402
 
 
 def main() -> int:
@@ -20,9 +21,17 @@ def main() -> int:
     ap.add_argument("--db", default=os.environ.get("CQA_DB_PATH", "cqa.db"))
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
-    conn = sqlite3.connect(f"file:{Path(args.db).resolve()}?mode=ro", uri=True)
+    db = Path(args.db).resolve()
+    if not db.exists():
+        print(f"database {db} not found: start the backend once so it creates the file, or pass --db. With Docker run the command inside the container, see the README.", file=sys.stderr)
+        return 2
+    conn = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
     conn.row_factory = sqlite3.Row
-    payload = build_export(conn, args.dataset, args.team_name, args.version_id)
+    try:
+        payload = build_export(conn, args.dataset, args.team_name, args.version_id)
+    except (NotFound, ExportError) as exc:
+        print(f"export failed: {exc}", file=sys.stderr)
+        return 1
     out = Path(args.out) if args.out else ROOT / "results" / args.set / "results.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

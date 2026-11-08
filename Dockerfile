@@ -8,6 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY backend ./backend
 COPY frontend ./frontend
+COPY scripts/export_results.py ./scripts/export_results.py
 
 ENV CQA_DB_PATH=/data/cqa.db
 EXPOSE 8000

@@ -9,7 +9,8 @@ context
 docs
 evals
 tests
-scripts
+scripts/*
+!scripts/export_results.py
 TASK.md
 main.py
 dev.json

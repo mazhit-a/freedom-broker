@@ -10,6 +10,7 @@ services:
       CQA_DB_PATH: /data/cqa.db
     volumes:
       - cqa-data:/data
+      - ./results:/app/results
     restart: unless-stopped
 
 volumes:
