@@ -58,6 +58,17 @@ PROFILES: dict[str, ModelProfile] = {
         price_cache_write=1.25,
         supports_effort=False,
     ),
+    "gpt-6.1-sol": ModelProfile(
+        model="gpt-6.1-sol",
+        provider="openai",
+        effort="medium",
+        max_tokens=32000,
+        price_input=2.0,
+        price_output=10.0,
+        price_cache_read=0.1,
+        price_cache_write=0.0,
+        supports_effort=True,
+    ),
 }
 
 
@@ -68,7 +79,24 @@ def get_profile(name: str) -> ModelProfile:
         raise KeyError(f"unknown model profile {name!r}, known: {sorted(PROFILES)}") from None
 
 
+def _openai_profile(settings: Settings) -> ModelProfile:
+    base = PROFILES.get(settings.llm_model) or ModelProfile(model=settings.llm_model, provider="openai", supports_effort=True)
+    changes = {
+        "model": settings.llm_model,
+        "provider": "openai",
+        "effort": settings.llm_effort,
+        "max_tokens": settings.openai_max_output_tokens,
+    }
+    for name in ("price_input", "price_output", "price_cache_read", "price_cache_write"):
+        field = f"llm_{name}"
+        if field in settings.model_fields_set:
+            changes[name] = getattr(settings, field)
+    return base.with_overrides(**changes)
+
+
 def profile_from_settings(settings: Settings) -> ModelProfile:
+    if settings.llm_provider == "openai":
+        return _openai_profile(settings)
     return ModelProfile(
         model=settings.llm_model,
         provider=settings.llm_provider,
