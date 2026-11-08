@@ -1,0 +1,150 @@
+{
+ "case_id": "case-028",
+ "variant": "opus_low_fix05_marks",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первой реплике поздоровался на казахском и представился.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Сәлеметсіз бе! Менің атым Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор уточнил сумму, время, статус заявки и счёт вывода до ответа.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Қанша сомаға және қашан бердіңіз?"
+    },
+    {
+     "message_index": 5,
+     "quote": "Экранда нақты қандай мәртебе жазылған?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Подтверждения личности в разговоре нет, однако оператор открыл счёт, раскрыл данные и отменил/создал заявку на вывод.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Шотыңызды аштым."
+    }
+   ],
+   "checked_range": {
+    "from": 2,
+    "to": 15
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос решён: заявка заменена, сроки и судьба остатка объяснены; не ответил прямо, куда придёт уведомление о зачислении.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Банк шотына түсу мерзімі бір жұмыс күніне дейін"
+    },
+    {
+     "message_index": 6,
+     "quote": "түскені туралы хабарлама қайда келеді?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор оскорбил клиента и не извинился после его замечания.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз, қарапайым нәрсені түсінбейсіз."
+    }
+   ],
+   "checked_range": {
+    "from": 16,
+    "to": 19
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы ясные, но клиента поставили на удержание без предупреждения об ожидании.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Клиент күтуге қойылды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог и попрощался.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Қорытындылаймын: елу мыңдық өтінім жойылды"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Выявлено оскорбление клиента.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 2375,
+   "output_tokens": 1227,
+   "cache_read_tokens": 2977,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.017318,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

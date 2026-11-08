@@ -657,6 +657,38 @@
    "cost": 0.014853,
    "ts": "2026-11-07T23:52:27+00:00",
    "counts": true
+  },
+  {
+   "run_id": "20261108-001850-opus_low_fix05_marks-dev",
+   "kind": "run",
+   "group": "single_call",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "mode": "batch",
+   "requests": 24,
+   "input_tokens": 49412,
+   "output_tokens": 24824,
+   "cache_read_tokens": 68471,
+   "cache_write_tokens": 2977,
+   "cost": 0.361361,
+   "ts": "2026-11-08T00:27:20+00:00",
+   "counts": true
+  },
+  {
+   "run_id": "20261108-001850-opus_low_fix05_marks-dev",
+   "kind": "judge",
+   "group": "judge",
+   "provider": "anthropic",
+   "model": "claude-sonnet-5-5",
+   "mode": "batch",
+   "requests": 24,
+   "input_tokens": 112835,
+   "output_tokens": 22573,
+   "cache_read_tokens": 49289,
+   "cache_write_tokens": 2143,
+   "cost": 0.233301,
+   "ts": "2026-11-08T00:35:10+00:00",
+   "counts": true
   }
  ]
 }

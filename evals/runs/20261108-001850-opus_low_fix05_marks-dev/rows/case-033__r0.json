@@ -1,0 +1,151 @@
+{
+ "case_id": "case-033",
+ "variant": "opus_low_fix05_marks",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился, сразу перешёл к сути.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Иә, сұрағыңызды естідім."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "na",
+   "rationale": "Клиент сразу чётко сформулировал запрос: раздел, данные, способ подтверждения; уточнять было нечего.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Қай бөлімге кіріп, қандай деректерді жазып, қалай растаймын?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Данных для ответа хватало с самого начала: клиент полностью описал общий вопрос."
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос общий, без доступа к счёту и без защищённых действий.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Менің шотымды қараудың қажеті жоқ."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации — общая консультация без раскрытия данных."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Дана лишь общая подсказка про заявку на вывод; раздел, перечень данных и способ подтверждения не названы, следующий шаг не предложен, клиент не знает, как действовать.",
+   "evidence": [
+    {
+     "message_index": 50,
+     "quote": "қайда кіріп, нені толтырып, қалай растайтыным әлі белгісіз"
+    },
+    {
+     "message_index": 55,
+     "quote": "бөлімнің нақты атауы, деректер тізімі және растау қадамдары ашық қалды"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив, реагировал на конкретные неудобства: мелкий экран, удержание без предупреждения, неполный ответ.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Ұсақ экранда ұзын нөмірді тексеру қиын екенін түсінемін."
+    },
+    {
+     "message_index": 23,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы ясные, но оператор поставил клиента на удержание без предупреждения — один заметный сбой.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "күтемін деп айтпаған соң үзіліп қалды ма дедім"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог и попрощался.",
+   "evidence": [
+    {
+     "message_index": 55,
+     "quote": "Қысқаша қорытынды"
+    },
+    {
+     "message_index": 58,
+     "quote": "Сау болыңыз, күніңіз жақсы өтсін."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет.",
+   "evidence": [
+    {
+     "message_index": 29,
+     "quote": "Құпия кодтарды ешкімге айтпаңыз, маған да қажет емес."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 4784,
+   "output_tokens": 1179,
+   "cache_read_tokens": 2977,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.021656,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}

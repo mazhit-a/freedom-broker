@@ -1,0 +1,102 @@
+{
+ "run_id": "20261108-001850-opus_low_fix05_marks-dev",
+ "variant": "opus_low_fix05_marks",
+ "split": "dev",
+ "reps": 1,
+ "mode": "batch",
+ "dataset_hash": "8d32af582b63e544d3c7d73784efe058e1406016a4a482d677cbbed35a057adf",
+ "limit": null,
+ "workflow": "single_call",
+ "params": {
+  "prompt": "v2",
+  "pause_marks": true,
+  "profile": "claude-opus-5-5",
+  "effort": "low"
+ },
+ "dataset_path": "/Users/alibekabilmazhit/freedom-broker/evals/dataset.json",
+ "dataset_version": 1,
+ "expected_calls": 1,
+ "cases": [
+  "case-001",
+  "case-002",
+  "case-003",
+  "case-004",
+  "case-007",
+  "case-008",
+  "case-009",
+  "case-010",
+  "case-013",
+  "case-014",
+  "case-015",
+  "case-016",
+  "case-019",
+  "case-020",
+  "case-021",
+  "case-022",
+  "case-025",
+  "case-026",
+  "case-027",
+  "case-028",
+  "case-031",
+  "case-032",
+  "case-033",
+  "case-034"
+ ],
+ "status": "complete",
+ "cost_estimated": 0.388392,
+ "git_sha": "fa00d9428b73c408794d720a7eb6598da5aeed33",
+ "git_dirty": true,
+ "started": "2026-11-08T00:18:50.841839+00:00",
+ "finished": "2026-11-08T00:27:20.275194+00:00",
+ "n_rows": 24,
+ "n_rows_expected": 24,
+ "n_errors": 0,
+ "served_models": [
+  "claude-opus-5-5"
+ ],
+ "usage": {
+  "total": {
+   "calls": 24,
+   "input_tokens": 49412,
+   "output_tokens": 24824,
+   "cache_read_tokens": 68471,
+   "cache_write_tokens": 2977,
+   "cost": 0.361361
+  },
+  "by_model": {
+   "claude-opus-5-5": {
+    "calls": 24,
+    "input_tokens": 49412,
+    "output_tokens": 24824,
+    "cache_read_tokens": 68471,
+    "cache_write_tokens": 2977,
+    "cost": 0.361361
+   }
+  }
+ },
+ "cost_actual": 0.361361,
+ "cost_recomputed": 0.361361,
+ "judge": {
+  "model": "claude-sonnet-5-5",
+  "effort": "medium",
+  "mode": "batch",
+  "n_requested": 24,
+  "n_judged": 24,
+  "n_skipped": 0,
+  "skipped": {},
+  "errors": {},
+  "stopped": null,
+  "cost_estimated": 0.234768,
+  "cost_actual": 0.233301,
+  "usage": {
+   "input_tokens": 112835,
+   "output_tokens": 22573,
+   "cache_read_tokens": 49289,
+   "cache_write_tokens": 2143
+  },
+  "served_models": [
+   "claude-sonnet-5-5"
+  ],
+  "finished": "2026-11-08T00:35:10.461533+00:00"
+ }
+}

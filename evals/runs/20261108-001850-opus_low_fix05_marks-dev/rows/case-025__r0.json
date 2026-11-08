@@ -1,0 +1,142 @@
+{
+ "case_id": "case-025",
+ "variant": "opus_low_fix05_marks",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на русском и представился в первом ответе.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Алия, служба поддержки."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнил тариф, биржу и сумму до ответа и дал общую формулу; клиент сам указал на это, оператор признал ошибку.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "А какой тариф и биржа вы даже не спросили."
+    },
+    {
+     "message_index": 8,
+     "quote": "Вы правы, я начала с общей формулы, не уточнив ваши условия."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 8
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос касался общего расчёта комиссии без данных счёта.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Клиент просил объяснить расчёт без просмотра счёта, идентификация не требовалась."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Все вопросы клиента о расчёте комиссии, минимуме, продаже, сборах и отмене заявок закрыты корректно.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Сто тенге сверху не добавляются."
+    },
+    {
+     "message_index": 20,
+     "quote": "подача и отмена бесплатны"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретное неудобство клиента с таблицей.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Понимаю ваше раздражение: вместо покупки пришлось полчаса разбираться в таблице."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы ясные, последовательные, ожидания не было.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "минимум применяется к каждой исполненной заявке отдельно"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, предложил помощь и попрощался.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Если понадобятся другие расчёты, обращайтесь. До свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, платных услуг в обход компании и раскрытия конфиденциальных данных нет.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Да, вы правильно поняли"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-opus-5-5",
+   "input_tokens": 2461,
+   "output_tokens": 988,
+   "cache_read_tokens": 2977,
+   "cache_write_tokens": 0,
+   "latency_ms": null,
+   "cost": 0.0151,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": true,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "batch",
+ "structured": true,
+ "rep": 0
+}
