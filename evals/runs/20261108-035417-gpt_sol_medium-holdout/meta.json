@@ -1,0 +1,66 @@
+{
+ "run_id": "20261108-035417-gpt_sol_medium-holdout",
+ "variant": "gpt_sol_medium",
+ "split": "holdout",
+ "reps": 1,
+ "mode": "live",
+ "dataset_hash": "8d32af582b63e544d3c7d73784efe058e1406016a4a482d677cbbed35a057adf",
+ "limit": null,
+ "workflow": "openai_single_call",
+ "params": {
+  "prompt": "v2",
+  "model": "gpt-6.1-sol",
+  "effort": "medium"
+ },
+ "dataset_path": "/Users/alibekabilmazhit/freedom-broker/evals/dataset.json",
+ "dataset_version": 1,
+ "expected_calls": 1,
+ "cases": [
+  "case-005",
+  "case-006",
+  "case-011",
+  "case-012",
+  "case-017",
+  "case-018",
+  "case-023",
+  "case-024",
+  "case-029",
+  "case-030",
+  "case-035",
+  "case-036"
+ ],
+ "status": "complete",
+ "cost_estimated": 0.154836,
+ "git_sha": "a55ccbdc6c6f816952f1ffba0fa8d0ade3609680",
+ "git_dirty": true,
+ "started": "2026-11-08T03:54:17.060420+00:00",
+ "finished": "2026-11-08T03:54:59.255904+00:00",
+ "n_rows": 12,
+ "n_rows_expected": 12,
+ "n_errors": 0,
+ "served_models": [
+  "gpt-6.1-sol"
+ ],
+ "usage": {
+  "total": {
+   "calls": 12,
+   "input_tokens": 17282,
+   "output_tokens": 12409,
+   "cache_read_tokens": 17875,
+   "cache_write_tokens": 0,
+   "cost": 0.160441
+  },
+  "by_model": {
+   "gpt-6.1-sol": {
+    "calls": 12,
+    "input_tokens": 17282,
+    "output_tokens": 12409,
+    "cache_read_tokens": 17875,
+    "cache_write_tokens": 0,
+    "cost": 0.160441
+   }
+  }
+ },
+ "cost_actual": 0.160441,
+ "cost_recomputed": 0.160441
+}

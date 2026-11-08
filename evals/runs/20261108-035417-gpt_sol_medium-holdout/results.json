@@ -1,0 +1,1924 @@
+[
+ {
+  "case_id": "case-005",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "В первом ответе оператор поздоровалась на русском языке клиента и представилась.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте! Меня зовут Алия."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "na",
+    "rationale": "Запрос изначально содержал необходимые сведения: два вида документов, период и срочность.",
+    "evidence": [
+     {
+      "message_index": 0,
+      "quote": "Нужны брокерская выписка и справка об удержанном налоге за 2025 год по моему счёту."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": "Данных для ответа хватало с самого начала; уточнение потребности не требовалось."
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность подтверждена системой до формирования и предоставления документа по счёту.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 7,
+      "quote": "I have generated your brokerage statement for 1 January–31 December 2025."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 10,
+    "rationale": "Брокерская выписка получена, но существенная часть запроса — справка об удержанном налоге — осталась без ответа даже после повторного вопроса.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "Downloaded the statement, thanks. But I still need the tax withholding certificate for 2025. Where do I get that?"
+     },
+     {
+      "message_index": 9,
+      "quote": "Your 2025 brokerage statement has been provided and downloaded successfully."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлива и прямо признала неудобство поиска документов с учётом срочности запроса.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Понимаю, что искать документы неудобно, особенно когда они нужны сегодня."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Инструкция ясная, переход на английский соблюдён, но есть заметный сбой управления диалогом: вместо ответа на повторный вопрос оператор перешла к завершению.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "In the app, open Profile → Documents → Prepared documents, select “Brokerage statement 2025”, and tap Download PDF."
+     },
+     {
+      "message_index": 9,
+      "quote": "Thank you for contacting us. Goodbye!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвела итог по полученной выписке и попрощалась. Нерешённый вопрос о справке учтён в оценке полноты консультации.",
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Your 2025 brokerage statement has been provided and downloaded successfully. Thank you for contacting us. Goodbye!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальных данных не выявлено; документ предоставлялся после подтверждения личности.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 7,
+      "quote": "In the app, open Profile → Documents → Prepared documents, select “Brokerage statement 2025”, and tap Download PDF."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 2011,
+    "output_tokens": 775,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "latency_ms": 9516,
+    "cost": 0.011772,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-006",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "no",
+    "rationale": "В первом ответе оператор не поздоровался и не представился; приветствие бота не учитывается.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "I'm sorry the device issue is blocking access to your trading account."
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 3
+    },
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор учёл проблему со сменой устройства и до решения уточнил операционную систему и точный текст ошибки.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "On the new phone, are you using Android or iOS, and what is the exact error text?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "no",
+    "rationale": "Оператор сообщил о сбросе привязки устройства — защищённом действии, но проверка личности до него нигде не подтверждена.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "I've reset the device binding on your account."
+     }
+    ],
+    "checked_range": {
+     "from": 0,
+     "to": 5
+    },
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 20,
+    "rationale": "После исправления первоначальной инструкции оператор дал конкретный следующий шаг: повторный вход и регистрацию нового устройства с SMS-кодом. Подтверждение результата не получено из-за ухода клиента; нарушение идентификации учтено отдельно.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "Close the app completely and reopen it. Tap Sign in and enter your usual login details. When prompted to register this phone, tap Register device and enter the SMS code in the app only; don't send it here."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежливо признал конкретное неудобство — невозможность доступа к торговому счёту — и извинился за ошибку в инструкции.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "I'm sorry the device issue is blocking access to your trading account."
+     },
+     {
+      "message_index": 7,
+      "quote": "Sorry, I put the steps in the wrong order."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Противоречивый порядок действий заставил клиента переспросить. Позже оператор исправил инструкцию и изложил шаги понятно.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Do the sign-in after the device step, but start with sign-in before that step."
+     },
+     {
+      "message_index": 6,
+      "quote": "Sorry, which comes first? Those instructions sound backwards. What exactly do I tap?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "na",
+    "rationale": "Клиент покинул чат во время проверки результата, до возможности штатно завершить разговор.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "Please try that now. What screen appears after you sign in?"
+     },
+     {
+      "message_index": 9,
+      "quote": "Client left the chat."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": "Чат оборвался из-за ухода клиента до возможности завершения."
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложений платной услуги в обход компании и раскрытия конфиденциальной информации не выявлено. Оператор отдельно предупредил не отправлять SMS-код в чат.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "enter the SMS code in the app only; don't send it here."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 364,
+    "output_tokens": 765,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 7424,
+    "cost": 0.00854,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-011",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор в первом ответе поздоровался на языке клиента и представился.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Hello, I'm Alex."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "До первой рекомендации оператор не уточнил характер сбоя и уже выполненные действия. Эти сведения клиент сообщил сам после совета перезапустить приложение.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Please fully close the app and reopen it as a first troubleshooting step."
+     },
+     {
+      "message_index": 5,
+      "quote": "Already tried that. I'm on Android, login works but the portfolio screen just keeps spinning."
+     }
+    ],
+    "checked_range": {
+     "from": 0,
+     "to": 5
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность подтверждена системным событием до раскрытия результатов проверки счёта и сброса сессии.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "Customer identity verified."
+     },
+     {
+      "message_index": 8,
+      "quote": "Your account check shows that the mobile session is stuck synchronizing."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 15,
+    "rationale": "Основная проблема доступа к портфелю решена, но вопрос о месте публикации уведомлений о технических работах остался без ответа даже после повторного обращения.",
+    "evidence": [
+     {
+      "message_index": 12,
+      "quote": "That worked, holdings and orders are showing again. Thanks. And where can I find those maintenance notices?"
+     },
+     {
+      "message_index": 15,
+      "quote": "We've reset the stuck mobile session, and you've confirmed that Portfolio loads and refreshes normally."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежлив и адресно отреагировал на неудобство клиента из-за невозможности проверить активы.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "I'm sorry the app is keeping you from checking your holdings."
+     },
+     {
+      "message_index": 15,
+      "quote": "Thank you for your patience."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 10,
+    "rationale": "Инструкции ясные и последовательные; перед выполнением сброса оператор предупредил о длительности ожидания и затем сообщил о завершении.",
+    "evidence": [
+     {
+      "message_index": 10,
+      "quote": "This may take up to a minute; please leave the app closed while I do that."
+     },
+     {
+      "message_index": 11,
+      "quote": "The session reset is complete. Please reopen the app, sign in again, and open Portfolio."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог восстановления работы портфеля, обозначил действие при повторном сбое и попрощался.",
+    "evidence": [
+     {
+      "message_index": 15,
+      "quote": "We've reset the stuck mobile session, and you've confirmed that Portfolio loads and refreshes normally. If the loading issue returns, please contact us again. Thank you for your patience. Goodbye!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено. Оператор направил клиента в защищённую форму проверки.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Enter any verification code only in that secure prompt, not in a message here."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 560,
+    "output_tokens": 1130,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 11898,
+    "cost": 0.012582,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-012",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор в первом ответе поздоровалась на русском языке и представилась.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте! Меня зовут Дана."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "До консультации оператор уточнила время подачи заявки, валюту и текущий статус, учитывая известную проблему с выводом.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "По выводу уточните, пожалуйста: когда подали заявку, в какой валюте и какой статус видите сейчас?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность подтверждена системным событием до раскрытия причины отказа, доступного остатка и других данных заявки.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 11,
+      "quote": "Банк отклонил перевод с причиной «Счёт получателя закрыт»."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 20,
+    "rationale": "Все существенные вопросы закрыты: объяснены отказ и возврат, порядок новой заявки, комиссии, сроки, доступность средств и отсутствие двойного списания; статус новой заявки проверен.",
+    "evidence": [
+     {
+      "message_index": 15,
+      "quote": "Возврат уже завершён, ждать его не нужно. Отклонённую заявку изменить нельзя."
+     },
+     {
+      "message_index": 17,
+      "quote": "По вашему тарифу комиссия брокера за этот вывод в тенге — 0 тенге; за отклонённую заявку комиссия также не списана."
+     },
+     {
+      "message_index": 19,
+      "quote": "Сегодняшнее зачисление гарантировать нельзя."
+     },
+     {
+      "message_index": 23,
+      "quote": "Новая заявка на 100 000 тенге зарегистрирована, статус «Принята в обработку»."
+     },
+     {
+      "message_index": 25,
+      "quote": "В обработке только новая заявка, резерв один — 100 000 тенге."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Оператор вежлива, но не отреагировала на конкретное неудобство клиента: повторную задержку оплаты аренды и напряжение с арендодателем. После жалобы последовал только технический комментарий.",
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Я уже второй раз из-за этого откладываю оплату, хозяин квартиры нервничает. Очень неудобно всё это."
+     },
+     {
+      "message_index": 10,
+      "quote": "Открываю ответ банка по заявке."
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 27
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Оператор предупредила об ожидании, однако запутанное объяснение порядка действий заставило клиента переспросить и отдельно запросить пошаговую инструкцию.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "Это займёт до двух минут."
+     },
+     {
+      "message_index": 13,
+      "quote": "Реквизиты — после возврата, заявку — после реквизитов; старую не меняем, новую вместо неё."
+     },
+     {
+      "message_index": 14,
+      "quote": "Не понял порядок. Возврат ещё ждать или он уже был? И где именно менять реквизиты? Напишите по шагам."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвела итог, напомнила срок и дальнейшие действия при задержке, затем попрощалась.",
+    "evidence": [
+     {
+      "message_index": 27,
+      "quote": "Итог: старая заявка отклонена из-за закрытого банковского счёта, новая принята на действующий счёт."
+     },
+     {
+      "message_index": 27,
+      "quote": "До свидания!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальных данных не выявлено. Данные заявки сообщались после подтверждения личности.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Для просмотра вашей заявки подтвердите личность через уведомление в приложении брокера. Код в чат присылать не нужно."
+     },
+     {
+      "message_index": 7,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 23,
+      "quote": "Новая заявка на 100 000 тенге зарегистрирована, статус «Принята в обработку»."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 1172,
+    "output_tokens": 986,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 11060,
+    "cost": 0.012367,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-017",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "В первом ответе оператор поздоровалась на русском языке и представилась.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Здравствуйте! Меня зовут Алия."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор учла тему обращения и до консультации уточнила год и формат документов, затем интерфейс клиента.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "За какой год нужны документы и в каком формате?"
+     },
+     {
+      "message_index": 11,
+      "quote": "Вы сейчас в мобильном приложении или в веб-кабинете?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность подтверждена системным событием до раскрытия сведений о доступных документах счета.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 9,
+      "quote": "По вашему счету доступно формирование брокерского отчета за 2025 год."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 10,
+    "rationale": "Оператор помогла скачать годовой отчет, но существенная часть запроса — подтвержденный иностранный налог, страны удержания и порядок получения документа — осталась без решения и следующего шага.",
+    "evidence": [
+     {
+      "message_index": 39,
+      "quote": "Файл на телефоне тоже открывается."
+     },
+     {
+      "message_index": 42,
+      "quote": "Подтвержденную сумму иностранного налога, разбивку по странам и способ получения подтверждающего документа я вам не предоставила."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор общалась вежливо, извинилась за ожидание и адресно отреагировала на тревогу клиента из-за подготовки декларации.",
+    "evidence": [
+     {
+      "message_index": 20,
+      "quote": "не предупредила вас об ожидании, извините."
+     },
+     {
+      "message_index": 22,
+      "quote": "Понимаю ваше беспокойство: для декларации нужна точная сумма налога, а не предположение по зачислениям."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "Ответы ясные и последовательные, но был один заметный сбой: ожидание более пяти минут без предупреждения, из-за которого клиент напомнил о себе.",
+    "evidence": [
+     {
+      "message_index": 19,
+      "quote": "Вы здесь? Больше пяти минут нет ответа."
+     },
+     {
+      "message_index": 20,
+      "quote": "Проверяла состав доступного отчета и не предупредила вас об ожидании"
+     },
+     {
+      "message_index": 15,
+      "quote": "Укажите начало 01.01.2025 и окончание 31.12.2025 включительно, формат PDF и нажмите «Сформировать»."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвела итог, явно обозначила нерешенную часть запроса и попрощалась.",
+    "evidence": [
+     {
+      "message_index": 44,
+      "quote": "Итог: брокерский отчет за весь 2025 год вы скачали в PDF; вопрос о подтверждении иностранного налога остался нерешенным."
+     },
+     {
+      "message_index": 44,
+      "quote": "Спасибо за обращение, до свидания!"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложений платных услуг в обход компании и неправомерного раскрытия конфиденциальных сведений не выявлено.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Коды и документы в этот чат отправлять не нужно."
+     },
+     {
+      "message_index": 40,
+      "quote": "храните его в защищенном месте и не размещайте в открытом доступе."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 1680,
+    "output_tokens": 849,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 9660,
+    "cost": 0.012013,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-018",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор в первом ответе поздоровался на казахском языке и представился.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Сәлеметсіз бе! Менің атым — Дана."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор учёл условия для расчётов, но не уточнил источник или версию тарифа для ответа о дате вступления в силу, запрошенной с самого начала.",
+    "evidence": [
+     {
+      "message_index": 0,
+      "quote": "Осы тарифтің күшіне енген күнін де айтыңызшы."
+     },
+     {
+      "message_index": 66,
+      "quote": "Дату вступления в силу я не сообщаю."
+     }
+    ],
+    "checked_range": {
+     "from": 0,
+     "to": 66
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "na",
+    "rationale": "Обсуждались общие условия тарифа без доступа к счёту и защищённых действий.",
+    "evidence": [
+     {
+      "message_index": 62,
+      "quote": "Мы разбираем общую формулу по тексту тарифа, без просмотра вашего счёта и без операций с ним."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": "Запрос об общей формуле расчёта комиссии не требовал идентификации."
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 10,
+    "rationale": "Комиссии и плата за ведение счёта разъяснены корректно, но существенный вопрос о дате действия тарифа остался без ответа и дальнейшего шага.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Екі операция үшін барлығы 200 теңге. Шот жүргізу ақысы — айына 0 теңге."
+     },
+     {
+      "message_index": 66,
+      "quote": "Дату вступления в силу я не сообщаю."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Оператор прямо оскорбил клиента в ответ на жалобу о неудобстве расчётов и впоследствии не извинился.",
+    "evidence": [
+     {
+      "message_index": 44,
+      "quote": "Вы тупица, если не можете разобраться с простым процентом."
+     }
+    ],
+    "checked_range": {
+     "from": 43,
+     "to": 70
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Расчёты изложены понятно, однако вместо ответа о дате оператор повторил условия тарифа, из-за чего клиенту пришлось повторно уточнять вопрос.",
+    "evidence": [
+     {
+      "message_index": 64,
+      "quote": "В приведённом вами тексте указаны ставка 0,05%, минимум 100 тенге за исполненную заявку и нулевая плата за ведение счёта."
+     },
+     {
+      "message_index": 65,
+      "quote": "Мне нужна именно дата вступления в силу, не повтор условий."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "Возможность завершить диалог была, но оператор не попрощался и не предложил дальнейшую помощь; заключительная реплика не содержит полноценного завершения.",
+    "evidence": [
+     {
+      "message_index": 70,
+      "quote": "Больше мне добавить нечего."
+     }
+    ],
+    "checked_range": {
+     "from": 67,
+     "to": 70
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "yes",
+    "rationale": "Зафиксировано прямое оскорбление клиента.",
+    "evidence": [
+     {
+      "message_index": 44,
+      "quote": "Вы тупица, если не можете разобраться с простым процентом."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 2915,
+    "output_tokens": 1161,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 11026,
+    "cost": 0.017603,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-023",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор в первом ответе поздоровалась на казахском языке и представилась.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Сәлеметсіз бе! Менің атым Айдана."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "Оператор уточнила цель обращения до консультации; клиент не успел сформулировать вопрос из-за обрыва связи.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Айтыңызшы, нақты қандай сұрағыңыз бар?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "na",
+    "rationale": "До обрыва связи оператор не раскрывала данные и не выполняла защищённых действий.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Запрос, требующий идентификации, не прозвучал; общая просьба уточнить вопрос не требует проверки личности."
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": "na",
+    "rationale": "Оценить консультацию невозможно: клиент не успел озвучить запрос.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Связь оборвалась до того, как клиент сформулировал запрос."
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор общалась вежливо; клиент не выражал недовольства и не описывал неудобств, требующих отдельной реакции.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Айтыңызшы, нақты қандай сұрағыңыз бар?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 10,
+    "rationale": "Ответ оператора ясный и последовательный: приветствие, представление и уточнение вопроса. Явного ожидания не было.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Сіз шот ашу және құжаттарды тексеру бөліміне хабарластыңыз. Айтыңызшы, нақты қандай сұрағыңыз бар?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "na",
+    "rationale": "Оператор не получила возможности завершить разговор из-за обрыва связи.",
+    "evidence": [],
+    "checked_range": null,
+    "na_reason": "Разговор оборвался до возможности его завершить: в сообщении 5 зафиксирована потеря связи."
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "В единственной реплике оператора нет оскорблений, предложения платных услуг в обход компании или раскрытия конфиденциальной информации.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Сәлеметсіз бе! Менің атым Айдана. Сіз шот ашу және құжаттарды тексеру бөліміне хабарластыңыз. Айтыңызшы, нақты қандай сұрағыңыз бар?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 301,
+    "output_tokens": 632,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 6669,
+    "cost": 0.007084,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-024",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "no",
+    "rationale": "В первом ответе оператор не поздоровался и не представился.",
+    "evidence": [],
+    "checked_range": {
+     "from": 0,
+     "to": 2
+    },
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "yes",
+    "rationale": "До консультации оператор уточнил год и вид документа, учитывая запрос для налоговой.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "за какой год он нужен и что требуется — сведения о доходах для декларации или выписка об остатке на счёте?"
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность подтверждена до раскрытия информации о наличии отчёта по счёту клиента.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 5,
+      "quote": "по вашему счёту за 2025 год отчёт о доходах сформирован."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 5,
+    "rationale": "Оператор подтвердил наличие отчёта, но дал лишь общую подсказку без конкретного пути поиска и скачивания. Клиент прямо сообщил, что не понял, как действовать.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "В целом такие документы нужно искать в личном кабинете, среди отчётов."
+     },
+     {
+      "message_index": 6,
+      "quote": "А где именно и как скачать, так и не понял."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор вежливо общался и адресно отреагировал на неудобство, связанное с поиском документа.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "Понимаю, неприятно тратить время на поиск документа."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Из-за неконкретной формулировки о поиске среди отчётов клиенту пришлось повторно спрашивать, где найти и как скачать документ.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "В целом такие документы нужно искать в личном кабинете, среди отчётов."
+     },
+     {
+      "message_index": 6,
+      "quote": "А где именно и как скачать, так и не понял."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвёл итог, обозначил нерешённый вопрос, предложил продолжить при повторном обращении и попрощался.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "Итак, наличие отчёта за 2025 год подтвердили, но порядок скачивания ещё не разобрали."
+     },
+     {
+      "message_index": 7,
+      "quote": "Если обратитесь снова, поможем продолжить. Спасибо за звонок, до свидания."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений и предложений платных услуг в обход компании нет. Информация по счёту сообщена после подтверждения личности, неправомерного раскрытия не выявлено.",
+    "evidence": [
+     {
+      "message_index": 4,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 5,
+      "quote": "Вижу, по вашему счёту за 2025 год отчёт о доходах сформирован."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 483,
+    "output_tokens": 1090,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 9673,
+    "cost": 0.012028,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-029",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "В первом ответе оператор поздоровалась на русском языке и представилась.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "Здравствуйте, меня зовут Алия, служба поддержки."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "До первой рекомендации оператор не уточнила причину отклонения документов и не проверила заявку, хотя клиент сообщил о повторных неудачных загрузках. Вместо этого дала общий список документов.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Уже три раза загружал"
+     },
+     {
+      "message_index": 4,
+      "quote": "Загрузите изображения удостоверения в раздел документов."
+     },
+     {
+      "message_index": 5,
+      "quote": "Так я это уже сделал."
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 6
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "yes",
+    "rationale": "Личность подтверждена системным событием до раскрытия сведений по заявке. Оператор корректно направила клиента на подтверждение в приложении.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Подтвердите его только в приложении, код мне не называйте."
+     },
+     {
+      "message_index": 8,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 9,
+      "quote": "Вижу вашу заявку."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 20,
+    "rationale": "В итоге закрыты все существенные вопросы: причина возврата, нужная фотография, порядок замены, необходимость паспорта и визита, сроки и действия при задержке.",
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Сейчас требуется заменить только фотографию лицевой стороны."
+     },
+     {
+      "message_index": 11,
+      "quote": "По текущему замечанию паспорт и визит в офис не требуются."
+     },
+     {
+      "message_index": 13,
+      "quote": "Нажмите «Заменить фото», загрузите новый снимок и нажмите «Отправить на проверку»."
+     },
+     {
+      "message_index": 15,
+      "quote": "Если после одного рабочего дня статус не изменится, обратитесь в поддержку из текущей заявки и укажите время повторной отправки."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "no",
+    "rationale": "Оператор общалась корректно, но не признала раздражение и потерю времени клиента, несмотря на два явных сообщения о неудобстве; ответы остались исключительно инструктивными.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "полвечера потратил, раздражает ужасно."
+     },
+     {
+      "message_index": 12,
+      "quote": "Мне и так неудобно, я из-за этого с работы отвлекался."
+     }
+    ],
+    "checked_range": {
+     "from": 3,
+     "to": 17
+    },
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 7,
+    "rationale": "В начале был заметный сбой: общий ответ вместо разбора повторной ошибки загрузки. Далее инструкции ясные и последовательные, об ожидании проверки оператор предупредила.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Вы именно мою заявку можете проверить?"
+     },
+     {
+      "message_index": 6,
+      "quote": "Проверка обычно занимает до минуты."
+     },
+     {
+      "message_index": 13,
+      "quote": "Откройте текущую заявку на главном экране, затем «Документы» и карточку лицевой стороны удостоверения с замечанием."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "После сообщения клиента об отсутствии вопросов возможность завершить разговор была, но оператор не подвела итог, не предложила дальнейшую помощь и не попрощалась.",
+    "evidence": [
+     {
+      "message_index": 16,
+      "quote": "Спасибо, вопросов больше нет."
+     },
+     {
+      "message_index": 17,
+      "quote": "Хорошо."
+     }
+    ],
+    "checked_range": {
+     "from": 16,
+     "to": 17
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальных данных не выявлено. Сведения по заявке сообщены после идентификации, документы предложено отправлять только через приложение.",
+    "evidence": [
+     {
+      "message_index": 8,
+      "quote": "Личность клиента подтверждена."
+     },
+     {
+      "message_index": 13,
+      "quote": "Фотографию отправляйте только через приложение, не в переписку и не на личные адреса."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 1157,
+    "output_tokens": 1408,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 12643,
+    "cost": 0.016556,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-030",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "Оператор в первом ответе поздоровалась на казахском языке и представилась.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Сәлеметсіз бе! Менің атым — Айдана."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор не уточнила нужный год и самостоятельно выбрала 2025-й, хотя клиенту требовался 2024-й.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Сізге 2025 жылға үзінді дайындаймын."
+     },
+     {
+      "message_index": 10,
+      "quote": "Бірақ маған 2024 жыл керек болатын."
+     }
+    ],
+    "checked_range": {
+     "from": 1,
+     "to": 10
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "no",
+    "rationale": "Оператор сообщила о формировании документа по счёту клиента в личном кабинете, но проверка личности до этого защищённого действия нигде не подтверждена.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Қазір сіздің шотыңыз бойынша 2025 жылғы үзіндіні жеке кабинетіңізге қалыптастырдым."
+     }
+    ],
+    "checked_range": {
+     "from": 0,
+     "to": 5
+    },
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 10,
+    "rationale": "Клиент получил выписку за нужный год, но существенный вопрос о подтверждении удержанного за рубежом налога остался без решения и следующего шага.",
+    "evidence": [
+     {
+      "message_index": 12,
+      "quote": "Жылын өзгерттім, үзінді шықты."
+     },
+     {
+      "message_index": 13,
+      "quote": "Шетелде ұсталған салықты растайтын құжатты кім беретінін және оны қайдан сұрату керегін қазір айта алмаймын."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор была вежлива и адресно отреагировала на неудобство клиента, связанное с поиском раздела документов.",
+    "evidence": [
+     {
+      "message_index": 5,
+      "quote": "Құжаттар бөлімін таба алмай уақытыңыз кеткені өкінішті. Жүктеп алу жолын көрсетемін."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Из-за неопределённой инструкции клиенту пришлось переспросить, какой раздел и элемент нужно открыть. Затем оператор дала понятный маршрут.",
+    "evidence": [
+     {
+      "message_index": 7,
+      "quote": "Сол жерден ашасыз, ішіндегі екіншісін басасыз."
+     },
+     {
+      "message_index": 8,
+      "quote": "Қай жердің екіншісі? Мен қазір басты бетте тұрмын."
+     },
+     {
+      "message_index": 9,
+      "quote": "Қосымшада «Профиль» бөлімін ашыңыз, одан «Құжаттар», содан кейін «Шот бойынша үзінді» тармағына кіріңіз."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "Возможность завершить разговор была, но оператор ограничилась согласием: не подвела итог, не предложила дальнейшую помощь и не попрощалась.",
+    "evidence": [
+     {
+      "message_index": 15,
+      "quote": "Жарайды."
+     }
+    ],
+    "checked_range": {
+     "from": 14,
+     "to": 16
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложения платной услуги в обход компании и явного раскрытия конфиденциальной информации не выявлено. Отсутствие проверки перед формированием документа учтено отдельно в критерии идентификации.",
+    "evidence": [
+     {
+      "message_index": 11,
+      "quote": "2024 жылғы үзінді үшін осы бетте «Жаңа үзінді» батырмасын басыңыз."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 1037,
+    "output_tokens": 1147,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 8701,
+    "cost": 0.013706,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-035",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "В первом ответе оператор поздоровалась на русском языке и представилась.",
+    "evidence": [
+     {
+      "message_index": 2,
+      "quote": "Здравствуйте, меня зовут Алия, брокерская поддержка."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "na",
+    "rationale": "Клиент сразу сообщил параметры поручения, комиссию, доступную сумму и вопросы для консультации; дополнительных уточнений не требовалось.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Свободных долларов у меня двести десять, других заявок нет. Расскажите ещё про распределение и возврат остатка."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": "Данных для ответа хватало с самого начала."
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "no",
+    "rationale": "Оператор отправила инвестиционное поручение, однако до этого проверка личности нигде не подтверждена. Названные клиентом имя и счёт не подтверждают прохождение идентификации.",
+    "evidence": [
+     {
+      "message_index": 26,
+      "quote": "Я отправила заявку на участие с указанными вами параметрами."
+     }
+    ],
+    "checked_range": {
+     "from": 0,
+     "to": 26
+    },
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 10,
+    "rationale": "Оператор объяснила распределение, риски, комиссию, возврат резерва и проверку результата. Однако существенный вопрос о точном сроке отмены заявки остался без ответа.",
+    "evidence": [
+     {
+      "message_index": 34,
+      "quote": "до какого точного времени я могу отменить заявку, если передумаю?"
+     },
+     {
+      "message_index": 35,
+      "quote": "О результате распределения будет уведомление в приложении."
+     },
+     {
+      "message_index": 47,
+      "quote": "неиспользованный резерв освобождается в течение двух рабочих дней после завершения расчётов."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор общалась вежливо, признала неудобство из-за зависания приложения и предложила конкретную помощь с проверкой заявки без повторной отправки.",
+    "evidence": [
+     {
+      "message_index": 6,
+      "quote": "Понимаю, обидно потратить вечер и не закончить заявку. Сегодня проведу вас по шагам и объясню, где после отправки проверить её состояние, чтобы не создавать повторную."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 4,
+    "rationale": "Из-за сложного определения аллокации клиенту пришлось переспросить. Затем оператор объяснила понятнее; об ожидании перед отправкой поручения предупредила.",
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "аллокация — исполнение по коэффициенту удовлетворения в объёме доступного размещения относительно поданной величины."
+     },
+     {
+      "message_index": 10,
+      "quote": "Не понял совсем. Относительно чего? Скажите проще"
+     },
+     {
+      "message_index": 23,
+      "quote": "Пожалуйста, оставайтесь на линии, потребуется около сорока секунд."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "yes",
+    "rationale": "Оператор подвела итог, предложила обращаться за дальнейшей помощью и попрощалась.",
+    "evidence": [
+     {
+      "message_index": 59,
+      "quote": "Если потребуется помощь, обращайтесь в поддержку. Спасибо за звонок, до свидания."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено. Нарушение идентификации при отправке поручения учтено отдельно.",
+    "evidence": [
+     {
+      "message_index": 43,
+      "quote": "Для такого примера при цене десять долларов — да."
+     },
+     {
+      "message_index": 59,
+      "quote": "Если потребуется помощь, обращайтесь в поддержку."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 3340,
+    "output_tokens": 1193,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 10734,
+    "cost": 0.018773,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ },
+ {
+  "case_id": "case-036",
+  "variant": "gpt_sol_medium",
+  "results": {
+   "01": {
+    "criterion_id": "01",
+    "answer": "yes",
+    "rationale": "В первом ответе оператор поздоровалась на русском языке и представилась.",
+    "evidence": [
+     {
+      "message_index": 3,
+      "quote": "Здравствуйте, меня зовут Дана, служба поддержки брокера."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "02": {
+    "criterion_id": "02",
+    "answer": "no",
+    "rationale": "Оператор не уточнила счёт и размещение даже после сообщения о двух заявках и предложила обработать последнюю заявку без установления нужной.",
+    "evidence": [
+     {
+      "message_index": 13,
+      "quote": "Название и счёт сейчас уточнять не будем. Обработаю последнюю заявку на участие"
+     }
+    ],
+    "checked_range": {
+     "from": 4,
+     "to": 23
+    },
+    "na_reason": null
+   },
+   "03": {
+    "criterion_id": "03",
+    "answer": "no",
+    "rationale": "Защищённое действие — отмена заявки — выполнено без подтверждения личности. Оператор прямо признала отсутствие проверки.",
+    "evidence": [
+     {
+      "message_index": 29,
+      "quote": "Да, подтверждение вы не прошли. Я продолжила без него и выполнила отмену по вашему устному согласию."
+     }
+    ],
+    "checked_range": {
+     "from": 5,
+     "to": 29
+    },
+    "na_reason": null
+   },
+   "04": {
+    "criterion_id": "04",
+    "answer": 0,
+    "rationale": "Ключевая рекомендация ошибочна: оператор отменила заявку ради сохранения участия вопреки приведённым клиентом правилам и продолжила уверять, что новая заявка не нужна. Полезные инструкции по новостям и уведомлениям не исправляют основную ошибку.",
+    "evidence": [
+     {
+      "message_index": 18,
+      "quote": "В распределении участвуют только действующие принятые заявки. Отменённые заявки не участвуют"
+     },
+     {
+      "message_index": 19,
+      "quote": "При отмене оператором действует исключение: участие сохраняется"
+     },
+     {
+      "message_index": 31,
+      "quote": "Заново не отправляйте. После выполненной мной отмены просто ожидайте результатов распределения."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "05": {
+    "criterion_id": "05",
+    "answer": "yes",
+    "rationale": "Оператор общалась вежливо, адресно признала беспокойство клиента из-за денег, неопределённости и потраченного времени, извинилась за неудобство.",
+    "evidence": [
+     {
+      "message_index": 9,
+      "quote": "Понимаю ваше беспокойство: деньги подготовлены, а ясности по участию нет, и вы уже потратили полдня. Извините за это неудобство."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "06": {
+    "criterion_id": "06",
+    "answer": 10,
+    "rationale": "Реплики ясные и последовательные по форме, инструкции понятны. Перед удержанием оператор предупредила об ожидании и назвала примерную длительность. Ошибочность самой рекомендации учтена отдельно.",
+    "evidence": [
+     {
+      "message_index": 23,
+      "quote": "Поставлю звонок на удержание примерно на тридцать секунд, затем вернусь."
+     },
+     {
+      "message_index": 39,
+      "quote": "Откройте настройки телефона, затем список приложений, выберите приложение брокера и раздел «Уведомления»."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   },
+   "07": {
+    "criterion_id": "07",
+    "answer": "no",
+    "rationale": "Перед завершением звонка оператор не попрощалась и не предложила дальнейшую помощь. Признаков внезапного обрыва, исключавшего завершение, нет.",
+    "evidence": [
+     {
+      "message_index": 41,
+      "quote": "Переключатель находится в настройках телефона, не внутри брокерского приложения."
+     }
+    ],
+    "checked_range": {
+     "from": 34,
+     "to": 42
+    },
+    "na_reason": null
+   },
+   "08": {
+    "criterion_id": "08",
+    "answer": "no",
+    "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено. Отмена без идентификации является нарушением проверки личности, но не относится к трём перечисленным здесь признакам.",
+    "evidence": [
+     {
+      "message_index": 29,
+      "quote": "Я продолжила без него и выполнила отмену по вашему устному согласию."
+     },
+     {
+      "message_index": 35,
+      "quote": "Общие объявления о результатах размещений находятся в разделе «Новости» приложения."
+     }
+    ],
+    "checked_range": null,
+    "na_reason": null
+   }
+  },
+  "needs_review": {},
+  "calls": [
+   {
+    "stage": "first",
+    "request_id": "main",
+    "provider": "openai",
+    "model": "gpt-6.1-sol",
+    "input_tokens": 2262,
+    "output_tokens": 1273,
+    "cache_read_tokens": 1625,
+    "cache_write_tokens": 0,
+    "latency_ms": 11925,
+    "cost": 0.017417,
+    "structured": true,
+    "stop_reason": "completed",
+    "status": "ok",
+    "truncated": false,
+    "batch": false,
+    "attempts": 1
+   }
+  ],
+  "refused": false,
+  "error": null,
+  "mode": "live",
+  "structured": true,
+  "rep": 0
+ }
+]

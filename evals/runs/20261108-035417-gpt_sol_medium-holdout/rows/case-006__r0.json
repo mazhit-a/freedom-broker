@@ -1,0 +1,154 @@
+{
+ "case_id": "case-006",
+ "variant": "gpt_sol_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился; приветствие бота не учитывается.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "I'm sorry the device issue is blocking access to your trading account."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 3
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл проблему со сменой устройства и до решения уточнил операционную систему и точный текст ошибки.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "On the new phone, are you using Android or iOS, and what is the exact error text?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор сообщил о сбросе привязки устройства — защищённом действии, но проверка личности до него нигде не подтверждена.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "I've reset the device binding on your account."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 5
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "После исправления первоначальной инструкции оператор дал конкретный следующий шаг: повторный вход и регистрацию нового устройства с SMS-кодом. Подтверждение результата не получено из-за ухода клиента; нарушение идентификации учтено отдельно.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Close the app completely and reopen it. Tap Sign in and enter your usual login details. When prompted to register this phone, tap Register device and enter the SMS code in the app only; don't send it here."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежливо признал конкретное неудобство — невозможность доступа к торговому счёту — и извинился за ошибку в инструкции.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "I'm sorry the device issue is blocking access to your trading account."
+    },
+    {
+     "message_index": 7,
+     "quote": "Sorry, I put the steps in the wrong order."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Противоречивый порядок действий заставил клиента переспросить. Позже оператор исправил инструкцию и изложил шаги понятно.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Do the sign-in after the device step, but start with sign-in before that step."
+    },
+    {
+     "message_index": 6,
+     "quote": "Sorry, which comes first? Those instructions sound backwards. What exactly do I tap?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Клиент покинул чат во время проверки результата, до возможности штатно завершить разговор.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Please try that now. What screen appears after you sign in?"
+    },
+    {
+     "message_index": 9,
+     "quote": "Client left the chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат оборвался из-за ухода клиента до возможности завершения."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платной услуги в обход компании и раскрытия конфиденциальной информации не выявлено. Оператор отдельно предупредил не отправлять SMS-код в чат.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "enter the SMS code in the app only; don't send it here."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 364,
+   "output_tokens": 765,
+   "cache_read_tokens": 1625,
+   "cache_write_tokens": 0,
+   "latency_ms": 7424,
+   "cost": 0.00854,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

@@ -1,0 +1,159 @@
+{
+ "case_id": "case-011",
+ "variant": "gpt_sol_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на языке клиента и представился.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Hello, I'm Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "До первой рекомендации оператор не уточнил характер сбоя и уже выполненные действия. Эти сведения клиент сообщил сам после совета перезапустить приложение.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Please fully close the app and reopen it as a first troubleshooting step."
+    },
+    {
+     "message_index": 5,
+     "quote": "Already tried that. I'm on Android, login works but the portfolio screen just keeps spinning."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 5
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность подтверждена системным событием до раскрытия результатов проверки счёта и сброса сессии.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Customer identity verified."
+    },
+    {
+     "message_index": 8,
+     "quote": "Your account check shows that the mobile session is stuck synchronizing."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основная проблема доступа к портфелю решена, но вопрос о месте публикации уведомлений о технических работах остался без ответа даже после повторного обращения.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "That worked, holdings and orders are showing again. Thanks. And where can I find those maintenance notices?"
+    },
+    {
+     "message_index": 15,
+     "quote": "We've reset the stuck mobile session, and you've confirmed that Portfolio loads and refreshes normally."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и адресно отреагировал на неудобство клиента из-за невозможности проверить активы.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "I'm sorry the app is keeping you from checking your holdings."
+    },
+    {
+     "message_index": 15,
+     "quote": "Thank you for your patience."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Инструкции ясные и последовательные; перед выполнением сброса оператор предупредил о длительности ожидания и затем сообщил о завершении.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "This may take up to a minute; please leave the app closed while I do that."
+    },
+    {
+     "message_index": 11,
+     "quote": "The session reset is complete. Please reopen the app, sign in again, and open Portfolio."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог восстановления работы портфеля, обозначил действие при повторном сбое и попрощался.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "We've reset the stuck mobile session, and you've confirmed that Portfolio loads and refreshes normally. If the loading issue returns, please contact us again. Thank you for your patience. Goodbye!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено. Оператор направил клиента в защищённую форму проверки.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Enter any verification code only in that secure prompt, not in a message here."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 560,
+   "output_tokens": 1130,
+   "cache_read_tokens": 1625,
+   "cache_write_tokens": 0,
+   "latency_ms": 11898,
+   "cost": 0.012582,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

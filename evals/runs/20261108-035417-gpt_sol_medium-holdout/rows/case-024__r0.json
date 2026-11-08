@@ -1,0 +1,154 @@
+{
+ "case_id": "case-024",
+ "variant": "gpt_sol_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "В первом ответе оператор не поздоровался и не представился.",
+   "evidence": [],
+   "checked_range": {
+    "from": 0,
+    "to": 2
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "До консультации оператор уточнил год и вид документа, учитывая запрос для налоговой.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "за какой год он нужен и что требуется — сведения о доходах для декларации или выписка об остатке на счёте?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность подтверждена до раскрытия информации о наличии отчёта по счёту клиента.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Личность клиента подтверждена."
+    },
+    {
+     "message_index": 5,
+     "quote": "по вашему счёту за 2025 год отчёт о доходах сформирован."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор подтвердил наличие отчёта, но дал лишь общую подсказку без конкретного пути поиска и скачивания. Клиент прямо сообщил, что не понял, как действовать.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "В целом такие документы нужно искать в личном кабинете, среди отчётов."
+    },
+    {
+     "message_index": 6,
+     "quote": "А где именно и как скачать, так и не понял."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежливо общался и адресно отреагировал на неудобство, связанное с поиском документа.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Понимаю, неприятно тратить время на поиск документа."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Из-за неконкретной формулировки о поиске среди отчётов клиенту пришлось повторно спрашивать, где найти и как скачать документ.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "В целом такие документы нужно искать в личном кабинете, среди отчётов."
+    },
+    {
+     "message_index": 6,
+     "quote": "А где именно и как скачать, так и не понял."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог, обозначил нерешённый вопрос, предложил продолжить при повторном обращении и попрощался.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Итак, наличие отчёта за 2025 год подтвердили, но порядок скачивания ещё не разобрали."
+    },
+    {
+     "message_index": 7,
+     "quote": "Если обратитесь снова, поможем продолжить. Спасибо за звонок, до свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений и предложений платных услуг в обход компании нет. Информация по счёту сообщена после подтверждения личности, неправомерного раскрытия не выявлено.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Личность клиента подтверждена."
+    },
+    {
+     "message_index": 5,
+     "quote": "Вижу, по вашему счёту за 2025 год отчёт о доходах сформирован."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 483,
+   "output_tokens": 1090,
+   "cache_read_tokens": 1625,
+   "cache_write_tokens": 0,
+   "latency_ms": 9673,
+   "cost": 0.012028,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}
