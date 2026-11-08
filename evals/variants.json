@@ -138,5 +138,10 @@
     "name": "jev_sol_hybrid",
     "workflow": "jev_sol_hybrid",
     "params": {"prompt": "v2", "model": "gpt-6.1-sol", "effort": "medium"}
+  },
+  {
+    "name": "jev_sol_flag",
+    "workflow": "jev_sol_hybrid",
+    "params": {"prompt": "v2", "model": "gpt-6.1-sol", "effort": "medium", "jev_scope": "flag"}
   }
 ]

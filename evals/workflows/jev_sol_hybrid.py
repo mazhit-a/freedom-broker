@@ -30,7 +30,14 @@ FIXED_BEGIN = "=== FIXED CLASSIFICATIONS (criterion id: fixed answer) ==="
 FIXED_END = "=== END FIXED CLASSIFICATIONS ==="
 
 
-def jev_criteria(cfg) -> list[Criterion]:
+SCOPES = ("strict_yes_no", "flag")
+
+
+def jev_criteria(cfg, scope: str = "strict_yes_no") -> list[Criterion]:
+    if scope not in SCOPES:
+        raise ValueError(f"jev_scope must be one of {SCOPES}")
+    if scope == "flag":
+        return [c for c in cfg.criteria if c.type == "flag"]
     return [c for c in cfg.criteria if c.type == "flag" or (c.type == "yes_no" and not c.na_allowed)]
 
 
@@ -98,9 +105,10 @@ class JevSolHybrid(Workflow):
             raise ValueError(f"effort must be one of {op.EFFORTS}")
         self.max_output_tokens = int(self.params.get("max_output_tokens", op.DEFAULT_MAX_OUTPUT_TOKENS))
         self.show_confidence = bool(self.params.get("show_confidence", False))
-        self.jev_criteria = jev_criteria(cfg)
+        self.jev_scope = self.params.get("jev_scope", "strict_yes_no")
+        self.jev_criteria = jev_criteria(cfg, self.jev_scope)
         if not self.jev_criteria:
-            raise ValueError("the checklist has no strictly yes/no or flag criteria for the decision model")
+            raise ValueError(f"the checklist has no criteria for the decision model under jev_scope {self.jev_scope!r}")
         self.jev_ids = [c.id for c in self.jev_criteria]
         self.schema = hybrid_schema(cfg)
         self.ids = [c.id for c in cfg.criteria]

@@ -81,7 +81,7 @@ def test_variants_registered_and_existing_unchanged():
         "workflow": "jev_sol_hybrid",
         "params": {"prompt": "v2", "model": "gpt-6.1-sol", "effort": "medium"},
     }
-    assert "jev_sol_hybrid_t02" not in VARIANTS and list(VARIANTS)[-1] == "jev_sol_hybrid"
+    assert "jev_sol_hybrid_t02" not in VARIANTS and "jev_sol_hybrid" in VARIANTS
     assert VARIANTS["gpt_sol_medium"]["workflow"] == "openai_single_call"
     assert VARIANTS["jev_sonnet"]["workflow"] == "jev_explain"
 
@@ -271,3 +271,30 @@ def test_dry_run_shows_both_spends(tmp_path, capsys):
     assert JEV_MODEL in out and "gpt-6.1-sol" in out
     assert env.factory_calls == 0
     print(out)
+
+
+def test_flag_scope_selects_only_flag_criteria_by_type():
+    from evals.graders import load_checklist
+    from evals.workflows.jev_sol_hybrid import jev_criteria
+
+    cfg = load_checklist()
+    assert [c.id for c in jev_criteria(cfg, "flag")] == ["08"]
+    assert [c.id for c in jev_criteria(cfg)] == ["01", "05", "08"]
+
+
+def test_unknown_scope_is_rejected_and_variant_is_registered():
+    import json
+
+    import pytest
+
+    from evals.graders import load_checklist
+    from evals.workflows import build_workflow
+    from evals.workflows.jev_sol_hybrid import jev_criteria
+
+    cfg = load_checklist()
+    with pytest.raises(ValueError):
+        jev_criteria(cfg, "everything")
+    variants = {v["name"]: v for v in json.load(open("evals/variants.json"))}
+    wf = build_workflow(variants["jev_sol_flag"], cfg)
+    assert wf.jev_ids == ["08"] and wf.jev_scope == "flag"
+    assert build_workflow(variants["jev_sol_hybrid"], cfg).jev_ids == ["01", "05", "08"]
