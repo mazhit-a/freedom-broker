@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from backend.app.api.v1.batches import BatchStart, _batch_channel, start_batch
 from backend.app.core.database import get_db
 from backend.app.services import batch, catalog
+from backend.app.services.clients import client_for
 from backend.app.services import checklist as checklist_service
 from backend.app.services.llm_client import LLMClient, get_llm_client
 
@@ -25,7 +26,7 @@ def list_models(conn=Depends(get_db)):
 def start_run(body: RunStart, conn=Depends(get_db), client: LLMClient = Depends(get_llm_client)):
     if catalog.find_model(conn, body.model) is None:
         raise HTTPException(status_code=422, detail={"code": "unknown_model", "message": f"Unknown model {body.model}"})
-    return start_batch(body, conn, client)
+    return start_batch(body, conn, client_for(body.model, client))
 
 
 @router.get("/estimate")
@@ -50,7 +51,7 @@ def estimate_run(
     if not conn.execute("SELECT 1 FROM checklist_version WHERE id = ?", (version_id,)).fetchone():
         raise HTTPException(status_code=404, detail="Checklist version not found")
     try:
-        return catalog.estimate(conn, dataset, version_id, force, retry_failed, concurrency, conversation_pks)
+        return catalog.estimate(conn, dataset, version_id, force, retry_failed, concurrency, conversation_pks, model)
     except LookupError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
 

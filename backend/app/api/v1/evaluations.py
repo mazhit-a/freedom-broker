@@ -7,6 +7,8 @@ from backend.app.core.database import get_db
 from backend.app.services import checklist as checklist_service
 from backend.app.services.appeals import with_review
 from backend.app.services.evaluator import evaluate_conversation, get_evaluation
+from backend.app.services import catalog
+from backend.app.services.clients import client_for
 from backend.app.services.llm_client import LLMClient, get_llm_client
 
 router = APIRouter(tags=["evaluations"])
@@ -21,9 +23,12 @@ def _default_version_id(conn) -> Optional[int]:
 def evaluate(
     conversation_pk: int,
     checklist_version_id: Optional[int] = None,
+    model: Optional[str] = None,
     conn=Depends(get_db),
     client: LLMClient = Depends(get_llm_client),
 ):
+    if catalog.find_model(conn, model) is None:
+        raise ApiError(422, f"Unknown model {model}", "unknown_model")
     channel_row = conn.execute("SELECT channel FROM conversation WHERE id = ?", (conversation_pk,)).fetchone()
     version_id = checklist_service.resolve_version_id(
         conn, checklist_version_id, channel_row["channel"] if channel_row else None
@@ -35,7 +40,7 @@ def evaluate(
     if checklist_service.is_draft(conn, version_id):
         raise ApiError(422, "Draft checklist versions cannot be evaluated", "checklist_version_draft")
     try:
-        return evaluate_conversation(conn, conversation_pk, version_id, client)
+        return evaluate_conversation(conn, conversation_pk, version_id, client_for(model, client))
     except LookupError as exc:
         raise ApiError(404, str(exc), "not_found")
 
