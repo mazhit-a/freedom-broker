@@ -169,7 +169,7 @@ def test_v2_matches_eval_builder_on_seeded_checklist():
 
 def test_registry_renders_identical_to_eval_builders():
     cfg = load_checklist()
-    assert set(shared_prompts.PROMPTS) == {"v1", "v2", "v3_xml", "v3_tiebreak"}
+    assert set(shared_prompts.PROMPTS) == {"v1", "v2", "v3_xml", "v3_tiebreak", "v4_xml_tiebreak"}
     assert single_call.PROMPTS is shared_prompts.PROMPTS
     assert shared_prompts.PROMPTS["v1"][0](cfg) == build_system_prompt(cfg)
     assert shared_prompts.PROMPTS["v1"][1](CONV, MESSAGES) == build_user_prompt(CONV, MESSAGES)

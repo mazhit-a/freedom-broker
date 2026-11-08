@@ -178,5 +178,10 @@
     "name": "gpt_sol_high",
     "workflow": "openai_single_call",
     "params": {"prompt": "v2", "model": "gpt-6.1-sol", "effort": "high"}
+  },
+  {
+    "name": "gpt_sol_xml_tiebreak",
+    "workflow": "openai_single_call",
+    "params": {"prompt": "v4_xml_tiebreak", "model": "gpt-6.1-sol", "effort": "medium"}
   }
 ]

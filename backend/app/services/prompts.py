@@ -93,3 +93,20 @@ PROMPTS = {
     "v3_tiebreak": (build_system_prompt_tiebreak, build_user_prompt_v1),
     "v3_xml": (build_system_prompt_xml, build_user_prompt_xml),
 }
+
+
+def build_system_prompt_xml_tiebreak(cfg) -> str:
+    import html
+
+    from backend.app.services.evaluator import OUTPUT_FORMAT, render_criterion
+
+    titles = {s.id: s.title for s in cfg.sections}
+    rules = v2_rules()
+    rules = rules[:-1] + [TIEBREAK_RULE] + rules[-1:]
+    rules_text = "\n".join(f"{i}. {r}" for i, r in enumerate(rules, 1))
+    criteria = "\n".join(f'<criterion id="{c.id}">\n{render_criterion(c, titles)}\n</criterion>' for c in cfg.criteria)
+    name = html.escape(cfg.name, quote=True)
+    return f"<rules>\n{rules_text}\n</rules>\n\n<checklist name=\"{name}\">\n{criteria}\n</checklist>\n\n<output_format>\n{OUTPUT_FORMAT}\n</output_format>"
+
+
+PROMPTS["v4_xml_tiebreak"] = (build_system_prompt_xml_tiebreak, build_user_prompt_xml)
