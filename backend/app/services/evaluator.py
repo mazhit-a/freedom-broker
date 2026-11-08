@@ -5,12 +5,15 @@ import sqlite3
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
+from backend.app.core.config import Settings, get_settings
 from backend.app.schemas.checklist import ChecklistConfig, Criterion
 from backend.app.services.checklist import get_version
+from backend.app.services import prompts
 from backend.app.services.llm_client import LLMClient, LLMError, LLMResult
 from backend.app.services.scoring import ScoreResult, score
 
 PROMPT_VERSION = "v1"
+TRUNCATED_REASON = "Ответ модели обрезан (лимит токенов)"
 FUZZY_THRESHOLD = 0.85
 MIN_BLOCK = 3
 
@@ -307,14 +310,25 @@ def score_results(cfg: ChecklistConfig, results: dict[str, dict]) -> ScoreResult
     return score(cfg, {cid: res["answer"] for cid, res in results.items()})
 
 
+def resolve_prompts(version: str) -> tuple[SystemPromptBuilder, UserPromptBuilder]:
+    if version not in prompts.PROMPTS:
+        raise ValueError(f"Unknown prompt version {version!r}; known versions: {', '.join(prompts.PROMPTS)}")
+    return prompts.PROMPTS[version]
+
+
 def run_evaluation(
     client: LLMClient,
     cfg: ChecklistConfig,
     conv: dict,
     messages: list[dict],
-    system_builder: SystemPromptBuilder = build_system_prompt,
-    user_builder: UserPromptBuilder = build_user_prompt,
+    system_builder: SystemPromptBuilder | None = None,
+    user_builder: UserPromptBuilder | None = None,
+    settings: Settings | None = None,
 ) -> Outcome:
+    if system_builder is None or user_builder is None:
+        default_system, default_user = resolve_prompts((settings or get_settings()).llm_prompt_version)
+        system_builder = system_builder or default_system
+        user_builder = user_builder or default_user
     out = Outcome()
     system_text = system_builder(cfg)
     user_text = user_builder(conv, messages)
@@ -339,6 +353,8 @@ def run_evaluation(
     if first.refused:
         out.refused = True
         return fail_all("Модель отказалась от оценки (refusal)")
+    if first.stop_reason == "max_tokens":
+        return fail_all(TRUNCATED_REASON)
     ok, bad = _validate_pass(cfg, first.text, messages, ids)
     out.results.update(ok)
     if not bad:
@@ -370,6 +386,10 @@ def run_evaluation(
         for cid, errs in bad.items():
             out.review[cid] = "; ".join(errs) + "; repair refused"
         return out
+    if second.stop_reason == "max_tokens":
+        for cid in bad:
+            out.review[cid] = TRUNCATED_REASON
+        return out
     ok2, bad2 = _validate_pass(cfg, second.text, messages, list(bad))
     out.results.update(ok2)
     for cid, errs in bad2.items():
@@ -388,11 +408,18 @@ def _load_conversation(conn: sqlite3.Connection, pk: int) -> tuple[dict, list[di
     return dict(row), [dict(m) for m in msgs]
 
 
-def evaluate_conversation(conn: sqlite3.Connection, conversation_pk: int, version_id: int, client: LLMClient) -> dict:
+def evaluate_conversation(conn: sqlite3.Connection, conversation_pk: int, version_id: int, client: LLMClient, settings: Settings | None = None) -> dict:
     conv, messages = _load_conversation(conn, conversation_pk)
     version = get_version(conn, version_id)
     cfg = version.config
-    outcome = run_evaluation(client, cfg, conv, messages)
+    settings = settings or get_settings()
+    prompt_version = settings.llm_prompt_version
+    try:
+        outcome = run_evaluation(client, cfg, conv, messages, settings=settings)
+    except ValueError as exc:
+        outcome = Outcome(error=str(exc))
+        for c in cfg.criteria:
+            outcome.review[c.id] = str(exc)
 
     result = score_results(cfg, outcome.results)
 
@@ -410,7 +437,15 @@ def evaluate_conversation(conn: sqlite3.Connection, conversation_pk: int, versio
         status = "completed"
     total_status = "calculated" if result.calculated else "not_calculated"
     raw_output = json.dumps(
-        {"calls": outcome.raw, "structured": outcome.structured, "refused": outcome.refused, "error": outcome.error, "review": outcome.review},
+        {
+            "calls": outcome.raw,
+            "prompt_version": prompt_version,
+            "calls_meta": [getattr(c, "meta", None) or {} for c in outcome.calls],
+            "structured": outcome.structured,
+            "refused": outcome.refused,
+            "error": outcome.error,
+            "review": outcome.review,
+        },
         ensure_ascii=False,
     )
     cur = conn.execute(
@@ -421,7 +456,7 @@ def evaluate_conversation(conn: sqlite3.Connection, conversation_pk: int, versio
             conversation_pk,
             version_id,
             client.model,
-            PROMPT_VERSION,
+            prompt_version,
             status,
             float(result.total) if result.total is not None else None,
             total_status,
