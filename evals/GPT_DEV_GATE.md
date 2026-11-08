@@ -38,7 +38,9 @@ Pick `v4_xml_tiebreak` only if it is at least as accurate as `v3_xml` on correct
 
 Criteria 04, 02 and 07 were never human-adjudicated, and gpt-6.1-sol also wrote the dataset labels and rationales; the judge score lead is inflated by authorship.
 
-FINAL_PROMPT: PENDING
+Decision (2026-11-08, made by the user): the production configuration is the one already measured, prompt v2 at medium effort (variant gpt_sol_medium: 91.4% exact against the corrected reference, 93.5% against the original labels, 0 repair turns, 0 errors, 100% evidence grounded, $0.0124 per conversation, p50 9.7 s, p95 12.7 s). The combined v4_xml_tiebreak dev run and the high-effort run are not performed. v3_xml (+4 answers, -0 against v2) and v3_tiebreak (+3, -0) stay registered in the prompt registry but are not selected; the gain from either is within what 24 dev cases can show.
+
+FINAL_PROMPT: v2
 
 ## Commands for the later live step
 
