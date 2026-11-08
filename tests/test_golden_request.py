@@ -6,6 +6,7 @@ import pytest
 
 from backend.app.core import config
 from backend.app.core.database import connect, init_db
+from backend.app.schemas.checklist import ChecklistConfig
 from backend.app.services import checklist as checklist_service
 from backend.app.services.evaluator import (
     build_schema,
@@ -21,13 +22,15 @@ from tests.test_evaluator import MSGS, FakeSDK, fixed_good, payload
 GOLDEN = Path(__file__).parent / "fixtures" / "golden_request.json"
 CONV = {"channel": "agent chat", "language": "RU"}
 
+EN_SEED = Path(__file__).parent / "fixtures" / "checklist_seed_en.json"
+
 
 @pytest.fixture(scope="module")
 def cfg(tmp_path_factory):
     path = str(tmp_path_factory.mktemp("g") / "g.db")
     init_db(path)
     conn = connect(path)
-    checklist_service.seed_default(conn)
+    checklist_service.create_checklist(conn, ChecklistConfig.model_validate(json.loads(EN_SEED.read_text(encoding="utf-8"))))
     vid = conn.execute("SELECT default_version_id FROM checklist").fetchone()[0]
     out = checklist_service.get_version(conn, vid).config
     conn.close()

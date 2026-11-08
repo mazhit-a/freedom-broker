@@ -144,7 +144,7 @@ def test_prompt_structure_and_request_shape(db):
     assert "thinking" not in call and "tool_choice" not in call and "temperature" not in call
     system = call["system"]
     assert system[0]["cache_control"] == {"type": "ephemeral"}
-    assert "Main question solved, minor detail missed" in system[0]["text"]
+    assert "Основной вопрос решён, пропущена второстепенная деталь." in system[0]["text"]
     assert "[#0 |" not in system[0]["text"]
     user = call["messages"][0]["content"]
     assert "[#3 | 00:40 | operator] Здравствуйте, меня зовут Анна" in user

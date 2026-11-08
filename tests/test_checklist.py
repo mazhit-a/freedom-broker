@@ -46,8 +46,8 @@ def test_seed_default_version(client):
     c6 = next(c for c in criteria if c["id"] == "06")
     assert [s["value"] for s in c4["scale_steps"]] == [20, 15, 10, 5, 0]
     assert [s["value"] for s in c6["scale_steps"]] == [10, 7, 4, 0]
-    assert c4["scale_steps"][1]["descriptor"] == "Main question solved, minor detail missed"
-    assert c6["scale_steps"][1]["descriptor"] == "One noticeable glitch, client can still understand and continue"
+    assert c4["scale_steps"][1]["descriptor"] == "Основной вопрос решён, пропущена второстепенная деталь."
+    assert c6["scale_steps"][1]["descriptor"] == "Один заметный сбой, но клиент может понять ответ и продолжить."
 
 
 def test_seed_not_duplicated_on_restart(client, monkeypatch):
@@ -70,7 +70,7 @@ def test_new_version_immutable_and_default_selectable(client):
     assert not v2["is_default"]
     again = client.get(f"/api/v1/checklist-versions/{v1['id']}").json()
     assert again["config"] == v1["config"]
-    assert again["config"]["criteria"][0]["title"] == "Rapport"
+    assert again["config"]["criteria"][0]["title"] == "Установление контакта"
     r = client.put(f"/api/v1/checklists/{cl['id']}/default", json={"version_id": v2["id"]})
     assert r.status_code == 200 and r.json()["is_default"]
     cl2 = client.get(f"/api/v1/checklists/{cl['id']}").json()

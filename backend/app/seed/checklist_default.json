@@ -1,17 +1,53 @@
 {
-  "name": "Default operator quality checklist",
+  "name": "Чек-лист качества чатов",
   "sections": [
-    {"id": "opening", "title": "Opening & understanding", "labels": {"ru": {"title": "Начало и понимание запроса"}}},
-    {"id": "security", "title": "Security & resolution", "labels": {"ru": {"title": "Безопасность и решение вопроса"}}},
-    {"id": "conduct", "title": "Conduct & closing", "labels": {"ru": {"title": "Ведение диалога и завершение"}}},
-    {"id": "gross", "title": "Gross violations", "labels": {"ru": {"title": "Грубые нарушения"}}}
+    {
+      "id": "opening",
+      "title": "Начало и понимание запроса",
+      "labels": {
+        "en": {
+          "title": "Opening & understanding"
+        }
+      }
+    },
+    {
+      "id": "security",
+      "title": "Безопасность и решение",
+      "labels": {
+        "en": {
+          "title": "Security & resolution"
+        }
+      }
+    },
+    {
+      "id": "conduct",
+      "title": "Ведение и завершение диалога",
+      "labels": {
+        "en": {
+          "title": "Conduct & closing"
+        }
+      }
+    },
+    {
+      "id": "gross",
+      "title": "Грубые нарушения",
+      "labels": {
+        "en": {
+          "title": "Gross violations"
+        }
+      }
+    }
   ],
   "criteria": [
     {
       "id": "01",
-      "title": "Rapport",
-      "labels": {"ru": {"title": "Установление контакта"}},
-      "description": "The operator greeted the client in the client's language and introduced themselves in the first operator reply. The bot's greeting does not satisfy this criterion.",
+      "title": "Установление контакта",
+      "labels": {
+        "en": {
+          "title": "Rapport"
+        }
+      },
+      "description": "Оператор поздоровался на языке клиента и представился в первом ответе оператора. Приветствие бота это условие не выполняет.",
       "section": "opening",
       "weight": 10,
       "type": "yes_no",
@@ -19,50 +55,84 @@
     },
     {
       "id": "02",
-      "title": "Needs discovery",
-      "labels": {"ru": {"title": "Выявление потребности", "na_condition": "Данных было достаточно с самого начала, уточнение не требовалось."}},
-      "description": "The operator used the known details and clarified what was missing before answering.",
+      "title": "Выявление потребности",
+      "labels": {
+        "en": {
+          "title": "Needs discovery",
+          "na_condition": "The data was sufficient from the start, no clarification was needed."
+        }
+      },
+      "description": "Оператор учёл известные детали и уточнил недостающее до ответа.",
       "section": "opening",
       "weight": 15,
       "type": "yes_no",
       "na_allowed": true,
-      "na_condition": "The data was sufficient from the start, no clarification was needed."
+      "na_condition": "Данных для ответа хватало с самого начала, уточнение не требовалось."
     },
     {
       "id": "03",
-      "title": "Identification",
-      "labels": {"ru": {"title": "Идентификация", "na_condition": "Запрос не требовал идентификации клиента (например, общий вопрос о тарифах)."}},
-      "description": "Identity verification was confirmed before disclosing data or performing a protected action. If verification was required but not confirmed in the conversation, the answer is No.",
+      "title": "Идентификация",
+      "labels": {
+        "en": {
+          "title": "Identification",
+          "na_condition": "The request did not require identity verification (for example a general tariff question)."
+        }
+      },
+      "description": "Проверка личности подтверждена до раскрытия данных или защищённого действия. Если проверка требовалась, но в переписке не подтверждена, ответ «Нет».",
       "section": "security",
       "weight": 20,
       "type": "yes_no",
       "na_allowed": true,
-      "na_condition": "The request did not require identity verification (for example a general tariff question)."
+      "na_condition": "Запрос не требовал идентификации клиента (например, общий вопрос о тарифах)."
     },
     {
       "id": "04",
-      "title": "Correct and complete consultation",
-      "labels": {"ru": {"title": "Корректная и полная консультация", "na_condition": "Чат завершился до того, как клиент сформулировал запрос."}},
-      "description": "Was the client's request solved correctly and fully.",
+      "title": "Корректная и полная консультация",
+      "labels": {
+        "en": {
+          "title": "Correct and complete consultation",
+          "na_condition": "The chat ended before the client formulated a request."
+        }
+      },
+      "description": "Был ли запрос клиента решён корректно и полно.",
       "section": "security",
       "weight": 20,
       "type": "scale",
       "na_allowed": true,
-      "na_condition": "The chat ended before the client formulated a request.",
+      "na_condition": "Чат закончился до того, как клиент сформулировал запрос.",
       "scale_steps": [
-        {"value": 20, "descriptor": "All material questions closed or a correct next step given"},
-        {"value": 15, "descriptor": "Main question solved, minor detail missed"},
-        {"value": 10, "descriptor": "Part closed, a material question left open"},
-        {"value": 5, "descriptor": "General hint only, client still unsure how to act"},
-        {"value": 0, "descriptor": "No substantive answer or the key recommendation is wrong"}
+        {
+          "value": 20,
+          "descriptor": "Все существенные вопросы закрыты или дан корректный следующий шаг."
+        },
+        {
+          "value": 15,
+          "descriptor": "Основной вопрос решён, пропущена второстепенная деталь."
+        },
+        {
+          "value": 10,
+          "descriptor": "Часть запроса закрыта, существенный вопрос остался открытым."
+        },
+        {
+          "value": 5,
+          "descriptor": "Есть общая подсказка, но клиенту всё ещё непонятно, как действовать."
+        },
+        {
+          "value": 0,
+          "descriptor": "Ответа по существу нет или ключевая рекомендация ошибочна."
+        }
       ],
       "max_step": 20
     },
     {
       "id": "05",
-      "title": "Empathy and client focus",
-      "labels": {"ru": {"title": "Эмпатия и клиентоориентированность"}},
-      "description": "The operator was polite and, if the client expressed dissatisfaction or inconvenience, responded to that specific problem.",
+      "title": "Эмпатия и клиентоориентированность",
+      "labels": {
+        "en": {
+          "title": "Empathy and client focus"
+        }
+      },
+      "description": "Оператор вежлив и, если клиент выразил недовольство или описал неудобство, отреагировал на конкретную проблему.",
       "section": "conduct",
       "weight": 15,
       "type": "yes_no",
@@ -70,37 +140,62 @@
     },
     {
       "id": "06",
-      "title": "Dialogue management, speed, literacy",
-      "labels": {"ru": {"title": "Ведение диалога, скорость, грамотность"}},
-      "description": "How clearly and consistently the operator communicated.",
+      "title": "Управление диалогом, скорость и грамотность",
+      "labels": {
+        "en": {
+          "title": "Dialogue management, speed, literacy"
+        }
+      },
+      "description": "Насколько ясно и последовательно оператор общался.",
       "section": "conduct",
       "weight": 15,
       "type": "scale",
       "na_allowed": false,
       "scale_steps": [
-        {"value": 10, "descriptor": "Clear and coherent; if there was an explicit wait, operator warned"},
-        {"value": 7, "descriptor": "One noticeable glitch, client can still understand and continue"},
-        {"value": 4, "descriptor": "Client has to re-ask because of wording or ordering"},
-        {"value": 0, "descriptor": "Incoherent or contradictory, flow unclear"}
+        {
+          "value": 10,
+          "descriptor": "Ответы ясные и связные. Если было явное ожидание, оператор предупредил."
+        },
+        {
+          "value": 7,
+          "descriptor": "Один заметный сбой, но клиент может понять ответ и продолжить."
+        },
+        {
+          "value": 4,
+          "descriptor": "Клиенту приходится переспрашивать из-за формулировок или порядка ответов."
+        },
+        {
+          "value": 0,
+          "descriptor": "Из-за бессвязных или противоречивых реплик ход диалога непонятен."
+        }
       ],
       "max_step": 10
     },
     {
       "id": "07",
-      "title": "Closing",
-      "labels": {"ru": {"title": "Завершение диалога", "na_condition": "Чат оборвался до возможности завершить диалог."}},
-      "description": "The operator summarised or offered further help and said goodbye.",
+      "title": "Завершение",
+      "labels": {
+        "en": {
+          "title": "Closing",
+          "na_condition": "The chat broke off before closing was possible."
+        }
+      },
+      "description": "Оператор подвёл итог или предложил дальнейшую помощь и попрощался.",
       "section": "conduct",
       "weight": 5,
       "type": "yes_no",
       "na_allowed": true,
-      "na_condition": "The chat broke off before closing was possible."
+      "na_condition": "Чат оборвался до возможности его завершить."
     },
     {
       "id": "08",
-      "title": "Gross violations",
-      "labels": {"ru": {"title": "Грубые нарушения"}},
-      "description": "Insulting the client, offering a paid service bypassing the company, or disclosing confidential information. Bypassing the company: the operator proposes the client transfer money to them personally for investing, or asks for the client's personal number for a private paid consultation. The offer alone is enough.",
+      "title": "Грубые ошибки",
+      "labels": {
+        "en": {
+          "title": "Gross violations"
+        }
+      },
+      "description": "Оскорбление клиента, предложение платной услуги в обход компании или раскрытие конфиденциальной информации. Обход компании: оператор предлагает клиенту перевести деньги ему лично для инвестирования или просит личный номер клиента для платной консультации в частном порядке. Достаточно самого предложения.",
       "section": "gross",
       "weight": 0,
       "type": "flag",

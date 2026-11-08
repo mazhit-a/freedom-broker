@@ -166,11 +166,12 @@ def test_batch_channel_default(client, monkeypatch):
     assert seen == [calls_cl["id"]]
 
 
-def test_seed_has_russian_labels_and_scoring_fields_unchanged(client):
+def test_seed_is_russian_with_english_labels_and_scoring_fields_unchanged(client):
     cfg = seed_cfg()
-    assert cfg["criteria"][0]["labels"]["ru"]["title"] == "Установление контакта"
-    assert cfg["sections"][0]["labels"]["ru"]["title"] == "Начало и понимание запроса"
-    assert cfg["criteria"][1]["labels"]["ru"]["na_condition"]
+    assert cfg["criteria"][0]["title"] == "Установление контакта"
+    assert cfg["criteria"][0]["labels"]["en"]["title"] == "Rapport"
+    assert cfg["sections"][0]["title"] == "Начало и понимание запроса"
+    assert cfg["criteria"][1]["labels"]["en"]["na_condition"]
     stripped = copy.deepcopy(cfg)
     for c in stripped["criteria"]:
         c.pop("labels", None)
@@ -178,8 +179,8 @@ def test_seed_has_russian_labels_and_scoring_fields_unchanged(client):
     assert [c["weight"] for c in stripped["criteria"]] == [10, 15, 20, 20, 15, 15, 5, 0]
     assert sum(c["weight"] for c in stripped["criteria"]) == 100
     v = client.get(f"{API}/checklist-versions/{first_checklist(client)['default_version_id']}").json()
-    assert v["config"]["criteria"][0]["labels"]["ru"]["title"] == "Установление контакта"
-    assert v["config"]["criteria"][0]["title"] == "Rapport"
+    assert v["config"]["criteria"][0]["title"] == "Установление контакта"
+    assert v["config"]["criteria"][0]["labels"]["en"]["title"] == "Rapport"
 
 
 def test_labels_optional_and_roundtrip(client):
@@ -188,7 +189,7 @@ def test_labels_optional_and_roundtrip(client):
     r = client.post(f"{API}/checklists", json={**cfg, "name": "L"})
     assert r.status_code == 201
     assert r.json()["config"]["criteria"][0]["labels"]["kk"]["title"] == "Байланыс"
-    assert r.json()["config"]["criteria"][1]["labels"]["ru"]["title"]
+    assert r.json()["config"]["criteria"][1]["labels"]["en"]["title"]
 
 
 def test_init_db_migrates_old_database_idempotently(tmp_path):
