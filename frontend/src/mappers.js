@@ -457,6 +457,8 @@ export function mapRun(raw) {
     failed: raw.failed ?? 0,
     running: raw.running ?? raw.in_flight ?? 0,
     queued: raw.queued ?? null,
+    cancelled: raw.cancelled ?? 0,
+    error: typeof raw.error === "string" && raw.error.trim() ? raw.error : null,
     percent: raw.percent ?? 0,
     averageTotal: raw.average_total ?? null,
     cost: raw.cost_total ?? null,

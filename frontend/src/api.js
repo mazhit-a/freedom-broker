@@ -467,6 +467,17 @@ const real = {
     return mapRun(await getJson("/runs/" + number, { limit: 500 }));
   },
 
+  async cancelRun(runId) {
+    const number = runNumber(runId);
+    try {
+      return mapRun(await sendJson("POST", "/runs/" + number + "/cancel"));
+    } catch (error) {
+      if (error instanceof ApiError && error.code === "http_404") throw new ApiError(404, "run_not_found", error.message);
+      if (error instanceof ApiError && error.code === "http_409") throw new ApiError(409, "run_not_active", error.message);
+      throw error;
+    }
+  },
+
   async getWaveform() {
     throw notImplemented("BG-30", "waveform peaks");
   }

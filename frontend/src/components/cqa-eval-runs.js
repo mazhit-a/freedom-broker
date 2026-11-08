@@ -9,12 +9,15 @@ import { chip, langChip } from "../shared/chip.js";
 import { dataTable } from "../shared/data-table.js";
 import { emptyPanel, errorPanel, loadingPanel } from "../shared/state-panel.js";
 import {
+  cancelOutcome,
+  cancelledPercent,
   errorKey,
   isJsonFile,
   itemKind,
   otherVersionLabel,
   progressSegments,
   queuedCount,
+  runCanCancel,
   runIsActive,
   savedVersionOptions,
   validateDatasetText,
@@ -26,7 +29,7 @@ const ITEMS_LIMIT = 100;
 
 const UPLOAD_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="color:var(--cqa-ink-3);flex:none"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m17 8-5-5-5 5"></path><path d="M12 3v12"></path></svg>';
 
-const ITEM_TONE = { done: "ok", lowConfidence: "na", failed: "bad", running: "warn", queued: "na" };
+const ITEM_TONE = { done: "ok", lowConfidence: "na", failed: "bad", running: "warn", queued: "na", cancelled: "na" };
 
 export class CqaEvalRuns extends CqaElement {
   constructor() {
@@ -41,6 +44,7 @@ export class CqaEvalRuns extends CqaElement {
     this._run = null;
     this._runLoading = false;
     this._pollError = false;
+    this._cancelBusy = new Set();
     this._epoch = 0;
     this._timer = null;
     this._estimateToken = 0;
@@ -116,9 +120,11 @@ export class CqaEvalRuns extends CqaElement {
       .seg-done { background: var(--cqa-brand-deep); }
       .seg-failed { background: var(--cqa-bad); }
       .seg-run { background: var(--cqa-warn); }
+      .seg-cancel { background: var(--cqa-line-strong); }
       .counters { display: flex; gap: 18px; flex-wrap: wrap; font-size: var(--cqa-fs-13); font-variant-numeric: tabular-nums; }
       .counters b { font-weight: 600; }
       .counters .bad { color: var(--cqa-bad); }
+      .counters .muted { color: var(--cqa-ink-3); }
       .counters .spent { margin-left: auto; color: var(--cqa-ink-3); }
       .cur .tbl-wrap, .hist .tbl-wrap { border: 0; border-radius: 0; border-top: 1px solid var(--cqa-line); }
       .foot { padding: 10px 16px; border-top: 1px solid var(--cqa-line); font-size: var(--cqa-fs-12); color: var(--cqa-ink-3); }
@@ -133,6 +139,10 @@ export class CqaEvalRuns extends CqaElement {
       .linkbtn:hover { color: var(--cqa-ink); }
       .linkbtn[aria-current="true"] { font-weight: 600; color: var(--cqa-ink); }
       .banner { margin: 0 20px 12px; padding: 8px 12px; border-radius: 8px; background: var(--cqa-bad-bg); color: var(--cqa-bad); font-size: var(--cqa-fs-12); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+      .banner.top { margin: 16px 20px 0; padding: 10px 14px; font-size: var(--cqa-fs-13); align-items: flex-start; flex-direction: column; gap: 2px; overflow-wrap: anywhere; }
+      .banner.top b { font-weight: 600; }
+      .stop { white-space: nowrap; }
+      .run-err { display: block; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--cqa-fs-12); color: var(--cqa-bad); }
       .fill { padding: 20px; }
     `;
   }
@@ -235,10 +245,12 @@ export class CqaEvalRuns extends CqaElement {
       const run = await api.getRun(id, { limit: ITEMS_LIMIT });
       if (epoch !== this._epoch) return;
       const wasActive = runIsActive(this._run);
+      const previous = this._run.status;
       this._run = run;
       this._pollError = false;
       this.mergeRun(run);
       this.renderPart();
+      if (previous === "cancelling" && run.status === "cancelled") this.toast(this.t("runs.cancel.done", { id: run.id }), "ok");
       if (wasActive && !runIsActive(run)) this.refreshRuns();
     } catch (error) {
       if (epoch !== this._epoch) return;
@@ -367,6 +379,71 @@ export class CqaEvalRuns extends CqaElement {
     }
   }
 
+  askConfirm(detail) {
+    let node = this;
+    let hasApp = false;
+    while (node) {
+      if (node.localName === "cqa-app") hasApp = true;
+      node = node.parentNode || node.host || null;
+    }
+    if (!hasApp) return Promise.resolve(globalThis.confirm ? globalThis.confirm(`${detail.heading}. ${detail.description}`) : false);
+    return new Promise((resolve) => emit(this, EVENTS.confirm, { ...detail, resolve }));
+  }
+
+  canCancel(run) {
+    return runCanCancel(run) && can(this.role, "start-run") && run.status !== "cancelling" && !this._cancelBusy.has(run.id);
+  }
+
+  async cancelRunById(id) {
+    const known = (this._run && this._run.id === id ? this._run : null) || this._runs.find((r) => r.id === id);
+    if (!known || !this.canCancel(known)) return;
+    const ok = await this.askConfirm({
+      heading: this.t("runs.cancel.title", { id }),
+      description: this.t("runs.cancel.text"),
+      confirmLabel: this.t("runs.cancel.confirm"),
+      cancelLabel: this.t("runs.cancel.keep")
+    });
+    if (!ok) return;
+    const epoch = this._epoch;
+    this._cancelBusy.add(id);
+    this.renderPart();
+    try {
+      const run = await api.cancelRun(id);
+      this._cancelBusy.delete(id);
+      if (epoch !== this._epoch) return;
+      if (this._run && this._run.id === id) this._run = { ...run, items: this._run.items, itemsTotal: this._run.itemsTotal };
+      this.mergeRun(run);
+      this.renderPart();
+      this.toast(this.t(run.status === "cancelled" ? "runs.cancel.done" : "runs.cancel.started", { id }), "ok");
+      this.schedulePoll();
+    } catch (error) {
+      this._cancelBusy.delete(id);
+      if (epoch !== this._epoch) return;
+      this.renderPart();
+      const outcome = cancelOutcome(error);
+      if (outcome === "finished") this.toast(this.t("runs.cancel.finished"), "ok");
+      else this.toast(this.errorText(error), "bad");
+      if (outcome !== "failed") this.refreshAfterCancel(id);
+    }
+  }
+
+  async refreshAfterCancel(id) {
+    const epoch = this._epoch;
+    try {
+      const [runs, run] = await Promise.all([api.listRuns({ limit: 50 }), this._run && this._run.id === id ? api.getRun(id, { limit: ITEMS_LIMIT }) : Promise.resolve(null)]);
+      if (epoch !== this._epoch) return;
+      this._runs = runs;
+      if (run) {
+        this._run = run;
+        this.mergeRun(run);
+        this.schedulePoll();
+      }
+      this.renderPart();
+    } catch (error) {
+      return;
+    }
+  }
+
   errorText(error, scope = "") {
     const key = errorKey(error);
     if (key === "generic" && scope === "start") return `${this.t("runs.error.start")} (${error && error.code ? error.code : "error"})`;
@@ -403,6 +480,8 @@ export class CqaEvalRuns extends CqaElement {
       this.refreshEstimate();
     } else if (action === "start") {
       this.start();
+    } else if (action === "cancel-run") {
+      this.cancelRunById(target.getAttribute("data-id"));
     } else if (action === "retry-item") {
       this.retryItem(target.getAttribute("data-id"));
     } else if (action === "open-run") {
@@ -609,9 +688,20 @@ export class CqaEvalRuns extends CqaElement {
   }
 
   statusChip(run) {
-    if (run.status === "running") return html`<span class="chip c-warn" data-run-status="running"><span class="dot"></span>${this.t("runs.run.running")}</span>`;
-    if (run.status === "completed") return html`<span class="chip c-ok" data-run-status="completed">${this.t("runs.run.completed")}</span>`;
-    return html`<span class="chip c-na" data-run-status="${run.status}">${this.t("runs.run.failed")}</span>`;
+    const status = run.status;
+    if (status === "running" || status === "cancelling") return html`<span class="chip c-warn" data-run-status="${status}"><span class="dot"></span>${this.t(`runs.run.${status}`)}</span>`;
+    if (status === "completed") return html`<span class="chip c-ok" data-run-status="completed">${this.t("runs.run.completed")}</span>`;
+    if (status === "failed") return html`<span class="chip c-bad" data-run-status="failed">${this.t("runs.run.failed")}</span>`;
+    if (status === "queued" || status === "cancelled" || status === "interrupted") return html`<span class="chip c-na" data-run-status="${status}">${this.t(`runs.run.${status}`)}</span>`;
+    return html`<span class="chip c-na" data-run-status="${status}">${this.t("runs.run.failed")}</span>`;
+  }
+
+  stopButton(run, compact) {
+    if (!runCanCancel(run)) return html``;
+    const busy = this._cancelBusy.has(run.id) || run.status === "cancelling";
+    const allowed = can(this.role, "start-run");
+    const label = busy ? this.t("runs.cancel.busy") : this.t("runs.cancel");
+    return html`<button type="button" class="btn btn-sm stop${compact ? " btn-ghost" : ""}" data-action="cancel-run" data-id="${run.id}" data-focus-id="${compact ? "stop-row-" : "stop-"}${run.id}" aria-label="${this.t("runs.cancel.for", { id: run.id })}" ${raw(allowed && !busy ? "" : "disabled")}>${icon("close", 12)}${label}</button>`;
   }
 
   currentSection() {
@@ -636,22 +726,26 @@ export class CqaEvalRuns extends CqaElement {
       ? html`<p class="banner" role="alert">${this.t("runs.error.poll")}<button type="button" class="btn btn-sm" data-action="retry-poll" data-focus-id="retry-poll">${icon("retry", 12)}${this.t("action.retry")}</button></p>`
       : html``;
     const queued = queuedCount(run);
+    const errorBanner = run.error ? html`<div class="banner top" role="alert" data-run-error><b>${this.t("runs.run.errorLabel")}</b><span data-run-error-text>${run.error}</span></div>` : html``;
     return html`<section class="card cur" aria-labelledby="cur-h" data-run="${run.id}">
+      ${errorBanner}
       <div class="head">
         <div class="head-top">
           <h2 id="cur-h" tabindex="-1" data-run-heading>${this.t("runs.run.title", { id: run.id })}</h2>
           ${this.statusChip(run)}
           <span class="meta">${meta}</span>
           <span class="time" data-time>${time}</span>
+          ${this.stopButton(run, false)}
         </div>
         <div class="bar" role="progressbar" aria-label="${this.t("runs.run.progress")}" aria-valuemin="0" aria-valuemax="${seg.max}" aria-valuenow="${seg.now}">
-          <span class="seg-done" style="width:${seg.done}%"></span><span class="seg-failed" style="width:${seg.failed}%"></span><span class="seg-run" style="width:${seg.running}%"></span>
+          <span class="seg-done" style="width:${seg.done}%"></span><span class="seg-failed" style="width:${seg.failed}%"></span><span class="seg-run" style="width:${seg.running}%"></span>${run.cancelled ? html`<span class="seg-cancel" style="width:${cancelledPercent(run)}%"></span>` : html``}
         </div>
         <div class="counters">
           <span data-count="done"><b>${integer(run.done, locale)}</b> ${this.t("runs.counter.done")}</span>
           <span data-count="running"><b>${integer(run.running, locale)}</b> ${this.t("runs.counter.running")}</span>
           <span data-count="queued"><b>${integer(queued, locale)}</b> ${this.t("runs.counter.queued")}</span>
           <span class="bad" data-count="failed"><b>${integer(run.failed, locale)}</b> ${this.t("runs.counter.failed")}</span>
+          ${run.cancelled ? html`<span class="muted" data-count="cancelled"><b>${integer(run.cancelled, locale)}</b> ${this.t("runs.counter.cancelled")}</span>` : html``}
           <span class="spent" data-spent>${spent}</span>
         </div>
       </div>
@@ -691,7 +785,7 @@ export class CqaEvalRuns extends CqaElement {
         label: this.t("runs.col.time"),
         width: "66px",
         minPx: 66,
-        cell: (i) => (i.latencyMs === null || itemKind(i) === "queued" ? html`<span class="muted-cell">—</span>` : html`<span class="tnum">${this.t("runs.seconds", { value: number(i.latencyMs / 1000, locale, 1) })}</span>`)
+        cell: (i) => (i.latencyMs === null || itemKind(i) === "queued" || itemKind(i) === "cancelled" ? html`<span class="muted-cell">—</span>` : html`<span class="tnum">${this.t("runs.seconds", { value: number(i.latencyMs / 1000, locale, 1) })}</span>`)
       },
       {
         key: "total",
@@ -702,7 +796,7 @@ export class CqaEvalRuns extends CqaElement {
         cell: (i) => {
           const kind = itemKind(i);
           if (kind === "running") return html`<span class="skeleton-cell" aria-hidden="true"></span>`;
-          if (i.total === null || kind === "failed" || kind === "queued") return html`<span class="muted-cell">—</span>`;
+          if (i.total === null || kind === "failed" || kind === "queued" || kind === "cancelled") return html`<span class="muted-cell">—</span>`;
           return html`<span class="strong" data-total>${number(i.total, locale, 2)}</span>`;
         }
       },
@@ -727,6 +821,7 @@ export class CqaEvalRuns extends CqaElement {
       parts.push(html`<span class="note"><span data-reason>${item.error || this.t("runs.item.noReason")}</span><button type="button" class="btn btn-sm" data-action="retry-item" data-id="${item.conversationId}" data-focus-id="retry-${item.conversationId}" aria-label="${this.t("runs.item.retryFor", { id: item.conversationId })}" ${raw(allowed ? "" : "disabled")}>${icon("retry", 14)}${this.t("action.retry")}</button></span>`);
     }
     if (kind === "lowConfidence") parts.push(html`<span class="note">${this.t("runs.item.needsQa")}</span>`);
+    if (kind === "cancelled") parts.push(html`<span class="note muted-cell" data-skipped>${this.t("runs.item.cancelled")}</span>`);
     if (item.gross && (kind === "done" || kind === "lowConfidence")) parts.push(chip({ tone: "crit", text: this.t("runs.item.gross") }));
     if (item.otherVersionTotal !== null && (kind === "done" || kind === "lowConfidence")) {
       const total = number(item.otherVersionTotal, locale, 2);
@@ -766,7 +861,7 @@ export class CqaEvalRuns extends CqaElement {
         width: "92px",
         minPx: 92,
         align: "num",
-        cell: (r) => (r.status === "running" ? `${integer(r.processed, locale)} / ${integer(r.total, locale)}` : integer(r.total, locale))
+        cell: (r) => (runIsActive(r) ? `${integer(r.processed, locale)} / ${integer(r.total, locale)}` : integer(r.total, locale))
       },
       {
         key: "average",
@@ -774,9 +869,17 @@ export class CqaEvalRuns extends CqaElement {
         width: "112px",
         minPx: 112,
         align: "num",
-        cell: (r) => (r.status === "running" ? html`<span class="muted-cell">${this.t("runs.history.running")}</span>` : r.averageTotal === null ? html`<span class="muted-cell">—</span>` : html`<span class="strong">${number(r.averageTotal, locale, 2)}</span>`)
+        cell: (r) => (runIsActive(r) ? html`<span class="muted-cell">${this.t("runs.history.running")}</span>` : r.averageTotal === null ? html`<span class="muted-cell">—</span>` : html`<span class="strong">${number(r.averageTotal, locale, 2)}</span>`)
       },
-      { key: "date", label: this.t("runs.hcol.date"), width: "136px", minPx: 136, cell: (r) => html`<span class="tnum">${wallDateTime(r.startedAt, locale)}</span>` }
+      { key: "date", label: this.t("runs.hcol.date"), width: "136px", minPx: 136, cell: (r) => html`<span class="tnum">${wallDateTime(r.startedAt, locale)}</span>` },
+      {
+        key: "status",
+        label: this.t("runs.hcol.status"),
+        width: "minmax(150px, 1fr)",
+        minPx: 150,
+        cell: (r) => html`<span title="${r.error || ""}" data-history-status="${r.status}">${raw(String(this.statusChip(r)).replace(" data-run-status=", " data-hist-status="))}${r.error ? html`<span class="run-err" data-run-error-line>${r.error}</span>` : html``}</span>`
+      },
+      { key: "actions", label: this.t("runs.hcol.actions"), width: "112px", minPx: 112, cell: (r) => this.stopButton(r, true) }
     ];
     return html`${head}${dataTable({ label: this.t("runs.history.label"), columns, rows: this._runs, rowId: (r) => r.id }, locale)}<p class="foot">${this.t("runs.history.note")}</p>`;
   }

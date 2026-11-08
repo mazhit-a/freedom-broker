@@ -109,6 +109,7 @@ function freshStore(options) {
   }
   store.runs.push(initialRun(store));
   for (const h of F.RUN_HISTORY) store.runs.push(historyRun(h));
+  if (options.state === "extraruns") for (const h of F.RUN_EXTRA) store.runs.push(historyRun(h));
   store.runs.sort((a, b) => b.number - a.number);
   return store;
 }
@@ -613,16 +614,18 @@ function historyRun(h) {
     versionId: h.versionId,
     checklistLabel: h.checklistLabel,
     model: h.model,
-    status: "completed",
+    status: h.status || "completed",
     force: false,
     total: h.total,
     skipped: 0,
-    done: h.total,
-    failed: 0,
+    done: h.done === undefined ? h.total : h.done,
+    failed: h.failed || 0,
     running: 0,
-    queued: 0,
+    queued: h.queued || 0,
+    cancelled: 0,
+    error: h.error || null,
     startedMs: Date.parse(h.startedAt),
-    finishedMs: Date.parse(h.finishedAt),
+    finishedMs: h.finishedAt ? Date.parse(h.finishedAt) : null,
     items: [],
     averageTotal: h.averageTotal,
     fixedCost: h.cost
@@ -646,6 +649,7 @@ function rawRun(store, run, paging = null) {
   const elapsed = Math.max(0, (endMs - run.startedMs) / 1000);
   const processed = run.done + run.failed;
   const toRun = run.total - run.skipped;
+  const cancelled = run.cancelled || 0;
   const price = modelPrice(run.model);
   const eta = run.status === "running" && processed > 0 ? round2((elapsed / processed) * Math.max(toRun - processed, 0)) : null;
   const totals = run.items.filter((i) => i.status === "completed" || i.status === "needs_review").map((i) => itemTotal(store, i)).filter((t) => t !== null);
@@ -672,6 +676,8 @@ function rawRun(store, run, paging = null) {
     running: run.running,
     in_flight: run.running,
     queued: run.queued,
+    cancelled,
+    error: run.error || null,
     percent: toRun > 0 ? Math.round((100 * processed) / toRun) : 100,
     average_total: average,
     cost_total: run.fixedCost !== undefined ? run.fixedCost : Math.round(run.done * price * 10000) / 10000,
@@ -714,6 +720,14 @@ function rawRun(store, run, paging = null) {
 }
 
 function advanceRun(store, run) {
+  if (run.status === "cancelling") {
+    for (const item of run.items) if (item.status === "running") item.status = rowByPk(item.rowPk) && rowTotalsProvisional(store, item) ? "needs_review" : "completed";
+    run.done += run.running;
+    run.running = 0;
+    run.status = "cancelled";
+    run.finishedMs = store.nowMs();
+    return;
+  }
   if (run.status !== "running") return;
   for (const item of run.items) if (item.status === "running") item.status = rowByPk(item.rowPk) && rowTotalsProvisional(store, item) ? "needs_review" : "completed";
   run.done += run.running;
@@ -1275,6 +1289,8 @@ export function createMock(options = {}) {
         failed: 0,
         running: 0,
         queued: total,
+        cancelled: 0,
+        error: null,
         startedMs: store.nowMs(),
         finishedMs: null,
         items,
@@ -1291,6 +1307,7 @@ export function createMock(options = {}) {
       await behave();
       const run = store.runs.find((r) => r.number === runNumber(id));
       if (!run) throw fail(404, "http_404", "Run not found");
+      if (run.status === "cancelling") advanceRun(store, run);
       const snapshot = mapRun(rawRun(store, run, { offset: paging.offset || 0, limit: paging.limit || 50 }));
       advanceRun(store, run);
       return snapshot;
@@ -1319,6 +1336,26 @@ export function createMock(options = {}) {
       run.status = "running";
       run.finishedMs = null;
       return mapRun(rawRun(store, run, { offset: 0, limit: 50 }));
+    },
+
+    async cancelRun(runId) {
+      await behave();
+      allowRole("reviewer");
+      const run = store.runs.find((r) => r.number === runNumber(runId));
+      if (!run) throw fail(404, "run_not_found", "Run not found");
+      if (["completed", "failed", "cancelled"].includes(run.status)) throw fail(409, "run_not_active", "Run is not active");
+      if (run.status === "cancelling") return mapRun(rawRun(store, run));
+      for (const item of run.items) if (item.status === "queued") item.status = "cancelled";
+      run.cancelled = (run.cancelled || 0) + run.queued;
+      run.queued = 0;
+      if (run.status === "interrupted" || run.running === 0) {
+        run.status = "cancelled";
+        run.running = 0;
+        run.finishedMs = store.nowMs();
+        return mapRun(rawRun(store, run));
+      }
+      run.status = "cancelling";
+      return mapRun(rawRun(store, run));
     },
 
     async getWaveform(conversationId) {

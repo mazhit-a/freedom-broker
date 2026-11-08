@@ -479,6 +479,44 @@ export const RUN_ITEMS_R0412 = [
   { rowPk: 10, status: "queued", latencyMs: null }
 ];
 
+export const RUN_EXTRA = [
+  {
+    number: 409,
+    groupId: "DEV",
+    datasetLabel: "DEV",
+    versionId: 12,
+    checklistLabel: "v2",
+    model: "LLM-оценщик v3",
+    status: "failed",
+    total: 10,
+    done: 0,
+    failed: 10,
+    queued: 0,
+    averageTotal: null,
+    cost: 0,
+    error: "OpenAI: нет кредитов на аккаунте или неверный ключ, прогон остановлен",
+    startedAt: "2026-11-07T08:10:00+05:00",
+    finishedAt: "2026-11-07T08:10:20+05:00"
+  },
+  {
+    number: 408,
+    groupId: "control",
+    datasetLabel: "Контрольная группа",
+    versionId: 12,
+    checklistLabel: "v2",
+    model: "LLM-оценщик v3",
+    status: "interrupted",
+    total: 10,
+    done: 3,
+    failed: 0,
+    queued: 7,
+    averageTotal: null,
+    cost: 0.01,
+    startedAt: "2026-11-07T07:30:00+05:00",
+    finishedAt: null
+  }
+];
+
 export const RUN_HISTORY = [
   {
     number: 411,

@@ -28,6 +28,7 @@ export function itemKind(item) {
   if (item.status === "failed") return "failed";
   if (item.status === "running") return "running";
   if (item.status === "queued") return "queued";
+  if (item.status === "cancelled") return "cancelled";
   if (item.status === "needs_review") return "lowConfidence";
   return "done";
 }
@@ -48,7 +49,13 @@ export function progressSegments(run) {
 export function queuedCount(run) {
   if (run.queued !== null && run.queued !== undefined) return run.queued;
   const base = run.toRun ?? run.total - run.skipped;
-  return Math.max(0, base - run.done - run.failed - run.running);
+  return Math.max(0, base - run.done - run.failed - run.running - (run.cancelled || 0));
+}
+
+export function cancelledPercent(run) {
+  const base = run.toRun ?? run.total - run.skipped;
+  if (!base || base <= 0 || !run.cancelled) return 0;
+  return Math.max(0, Math.min(100, (100 * run.cancelled) / base));
 }
 
 export function savedVersionOptions(checklists) {
@@ -97,11 +104,33 @@ export function latencyText(ms) {
 
 export function errorKey(error) {
   const code = error && error.code ? String(error.code) : "";
-  if (["role_forbidden", "draft_version", "dataset_required", "not_implemented", "unknown_model", "item_not_failed", "item_not_found", "run_not_found", "no_checklist_version", "network", "source_failure"].includes(code)) return code;
+  if (["role_forbidden", "draft_version", "dataset_required", "not_implemented", "unknown_model", "item_not_failed", "item_not_found", "run_not_found", "run_not_active", "no_checklist_version", "network", "source_failure"].includes(code)) return code;
   if (error && error.status === 502) return "source_failure";
   return "generic";
 }
 
+export const POLLING_STATUSES = Object.freeze(["queued", "running", "cancelling"]);
+export const FINAL_STATUSES = Object.freeze(["completed", "failed", "cancelled", "interrupted"]);
+export const CANCELLABLE_STATUSES = Object.freeze(["queued", "running", "cancelling", "interrupted"]);
+
 export function runIsActive(run) {
-  return Boolean(run) && run.status === "running";
+  return Boolean(run) && POLLING_STATUSES.includes(run.status);
+}
+
+export function runIsFinal(run) {
+  return Boolean(run) && FINAL_STATUSES.includes(run.status);
+}
+
+export function runCanCancel(run) {
+  return Boolean(run) && CANCELLABLE_STATUSES.includes(run.status);
+}
+
+export function shouldPoll(run) {
+  return runIsActive(run);
+}
+
+export function cancelOutcome(error) {
+  if (error && error.code === "run_not_active") return "finished";
+  if (error && error.code === "run_not_found") return "missing";
+  return "failed";
 }

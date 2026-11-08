@@ -26,7 +26,7 @@ const VERSION_SUMMARY_KEYS = ["appliedCount", "checklistId", "createdAt", "crite
 const VERSION_KEYS = [...VERSION_SUMMARY_KEYS, "config", "name", "warnings"];
 const DATASET_KEYS = ["calls", "chats", "conversations", "groupId", "id", "importedAt", "kind", "label", "source", "sourceFilename"];
 const RUN_KEYS = [
-  "averageTotal", "checklistLabel", "cost", "datasetLabel", "done", "elapsedSeconds", "etaSeconds", "failed", "failures", "finishedAt", "force", "groupId", "id", "items", "itemsTotal", "model", "needsReview", "number", "percent", "processed", "queued", "running", "skipped", "startedAt", "status", "tokensIn", "tokensOut", "toRun", "total", "versionId", "versionLabel"
+  "averageTotal", "cancelled", "checklistLabel", "cost", "datasetLabel", "done", "elapsedSeconds", "error", "etaSeconds", "failed", "failures", "finishedAt", "force", "groupId", "id", "items", "itemsTotal", "model", "needsReview", "number", "percent", "processed", "queued", "running", "skipped", "startedAt", "status", "tokensIn", "tokensOut", "toRun", "total", "versionId", "versionLabel"
 ];
 const RUN_ITEM_KEYS = ["channel", "conversationId", "conversationPk", "error", "evaluationId", "gross", "language", "latencyMs", "otherVersionTotal", "status", "total"];
 
