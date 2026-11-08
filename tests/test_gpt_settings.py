@@ -64,17 +64,57 @@ def test_anthropic_profile_from_settings_unchanged():
     assert (profile.price_input, profile.price_output, profile.price_cache_read, profile.price_cache_write) == (4.0, 20.0, 0.2, 5.0)
 
 
-def test_new_settings_defaults(monkeypatch):
-    for name in ("OPENAI_API_KEY", "LLM_PROMPT_VERSION", "CQA_BATCH_CONCURRENCY"):
+CLEAN_ENV_VARS = ("OPENAI_API_KEY", "LLM_PROVIDER", "LLM_MODEL", "LLM_LABEL", "LLM_EFFORT", "LLM_PROMPT_VERSION", "CQA_BATCH_CONCURRENCY", "LLM_FALLBACK_MODEL")
+
+
+def clean_settings(monkeypatch, **kwargs):
+    for name in CLEAN_ENV_VARS:
         monkeypatch.delenv(name, raising=False)
-    settings = Settings(_env_file=None)
-    assert settings.llm_prompt_version == "v1"
+    return Settings(_env_file=None, **kwargs)
+
+
+def test_new_settings_defaults(monkeypatch):
+    settings = clean_settings(monkeypatch)
+    assert settings.llm_prompt_version == "v2"
     assert settings.openai_api_key == ""
     assert settings.openai_max_output_tokens == 32000
     assert settings.openai_call_ceiling_s == 180
     assert settings.openai_max_attempts == 5
     assert settings.openai_max_inflight == 12
-    assert settings.cqa_batch_concurrency == 4
+    assert settings.cqa_batch_concurrency == 8
+    assert settings.llm_fallback_model == ""
+
+
+def test_clean_environment_yields_the_gpt_profile(monkeypatch):
+    settings = clean_settings(monkeypatch)
+    assert (settings.llm_provider, settings.llm_model, settings.llm_effort, settings.llm_label) == ("openai", "gpt-6.1-sol", "medium", "GPT-6.1 Sol")
+    profile = profile_from_settings(settings)
+    assert profile.provider == "openai" and profile.model == "gpt-6.1-sol" and profile.effort == "medium"
+    assert profile.max_tokens == 32000
+    assert (profile.price_input, profile.price_output, profile.price_cache_read, profile.price_cache_write) == (2.0, 10.0, 0.1, 0.0)
+
+
+def test_rollback_block_restores_opus(monkeypatch):
+    for name in CLEAN_ENV_VARS:
+        monkeypatch.delenv(name, raising=False)
+    settings = Settings(
+        _env_file=None,
+        llm_provider="anthropic",
+        llm_model="claude-opus-5-5",
+        llm_effort="medium",
+        llm_prompt_version="v2",
+    )
+    profile = profile_from_settings(settings)
+    assert profile.provider == "anthropic" and profile.model == "claude-opus-5-5" and profile.effort == "medium"
+    assert (profile.price_input, profile.price_output, profile.price_cache_read, profile.price_cache_write) == (4.0, 20.0, 0.2, 5.0)
+    assert settings.llm_prompt_version == "v2"
+
+
+def test_rollback_with_exact_pre_change_prompt(monkeypatch):
+    for name in CLEAN_ENV_VARS:
+        monkeypatch.delenv(name, raising=False)
+    settings = Settings(_env_file=None, llm_provider="anthropic", llm_model="claude-opus-5-5", llm_prompt_version="v1")
+    assert settings.llm_prompt_version == "v1" and profile_from_settings(settings).provider == "anthropic"
 
 
 def test_gpt_profile_cost():

@@ -11,12 +11,12 @@ class Settings(BaseSettings):
 
     cqa_api_url: str = ""
     cqa_db_path: str = "cqa.db"
-    cqa_batch_concurrency: int = 4
-    llm_provider: str = "anthropic"
+    cqa_batch_concurrency: int = 8
+    llm_provider: str = "openai"
     llm_api_key: str = ""
     llm_base_url: str = "https://api.anthropic.com"
-    llm_model: str = "claude-opus-5-5"
-    llm_label: str = ""
+    llm_model: str = "gpt-6.1-sol"
+    llm_label: str = "GPT-6.1 Sol"
     llm_effort: str = "medium"
     llm_structured_outputs: bool = True
     llm_max_tokens: int = 8192
@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     llm_price_output: float = 20.0
     llm_price_cache_read: float = 0.2
     llm_price_cache_write: float = 5.0
-    llm_prompt_version: str = "v1"
+    llm_prompt_version: str = "v2"
     llm_fallback_model: str = ""
     llm_estimate_tokens_input: int = 5000
     llm_estimate_tokens_output: int = 800

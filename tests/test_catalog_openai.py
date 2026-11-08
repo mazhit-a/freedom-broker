@@ -19,7 +19,7 @@ def openai_env(monkeypatch, tmp_path, **extra):
     for name in CLEAN:
         monkeypatch.delenv(name, raising=False)
     monkeypatch.setenv("CQA_DB_PATH", str(tmp_path / "o.db"))
-    fields = {"llm_provider": "openai", "llm_model": "gpt-6.1-sol", "llm_effort": "medium"}
+    fields = {"llm_provider": "openai", "llm_model": "gpt-6.1-sol", "llm_effort": "medium", "llm_label": ""}
     fields.update(extra)
     return use_settings(monkeypatch, **fields)
 
