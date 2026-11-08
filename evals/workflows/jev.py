@@ -50,10 +50,10 @@ def explain_user(conv: dict, messages: list[dict], fixed: dict[str, Any]) -> str
     )
 
 
-def jev_rows(cfg, answers: dict[str, dict]) -> tuple[dict[str, dict], dict[str, str]]:
+def jev_rows(cfg, answers: dict[str, dict], criteria=None) -> tuple[dict[str, dict], dict[str, str]]:
     rows: dict[str, dict] = {}
     problems: dict[str, str] = {}
-    for c in cfg.criteria:
+    for c in cfg.criteria if criteria is None else criteria:
         a = answers.get(c.id)
         if not isinstance(a, dict):
             problems[c.id] = "Jev returned no answer"

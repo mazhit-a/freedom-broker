@@ -100,11 +100,26 @@ def latency_stats(candidates: list[dict]) -> dict:
     }
 
 
+def jev_share(cand: dict) -> int:
+    source = cand.get("source")
+    if isinstance(source, dict):
+        return sum(1 for v in source.values() if v == "jev")
+    return len(cand.get("results") or {})
+
+
+def source_stats(candidates: list[dict]) -> dict | None:
+    tagged = [c for c in candidates if isinstance(c.get("source"), dict)]
+    if not tagged:
+        return None
+    values = [v for c in tagged for v in c["source"].values()]
+    return {"n_candidates": len(tagged), "jev": values.count("jev"), "sol": values.count("sol")}
+
+
 def dispute_stats(candidates: list[dict]) -> dict | None:
     explained = [c for c in candidates if isinstance(c.get("disputes"), dict)]
     if not explained:
         return None
-    total = sum(len(c.get("results") or {}) for c in explained)
+    total = sum(jev_share(c) for c in explained)
     disputed = sum(len(c["disputes"]) for c in explained)
     return {"n_candidates": len(explained), "disputed": disputed, "criteria": total, "rate": rate(disputed, total)}
 
@@ -154,6 +169,7 @@ def summarize_run(run: dict, cfg: ChecklistConfig | None = None) -> dict:
         "judge": summarize(list(judgements.values())),
         "scores": judged_scores(judgements),
         "disputes": dispute_stats(candidates),
+        "sources": source_stats(candidates),
         "cost": cost_stats(candidates),
         "latency": latency_stats(candidates),
         "breakdown": breakdown(run["dataset"], judgements, grades),
@@ -249,6 +265,9 @@ def run_report(run: dict, cfg: ChecklistConfig | None = None) -> str:
     if s.get("disputes"):
         d = s["disputes"]
         out += ["", f"Explainer dispute rate: {pct(d['rate'])} ({d['disputed']} of {d['criteria']} explained criteria)"]
+    if s.get("sources"):
+        src = s["sources"]
+        out += ["", f"Answer source: jev {src['jev']}, sol {src['sol']} criteria in {src['n_candidates']} candidates"]
     if any(row["n"] for row in g["calibration"]):
         out += ["", "### Confidence calibration", ""]
         out.append(

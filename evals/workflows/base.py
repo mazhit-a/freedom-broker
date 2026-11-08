@@ -18,6 +18,10 @@ OPENAI = "openai"
 REFUSAL_REASON = "Модель отказалась от оценки (refusal)"
 
 
+class InfrastructureError(Exception):
+    pass
+
+
 @dataclass
 class LLMRequest:
     request_id: str

@@ -18,7 +18,7 @@ from evals.gen.common import DATASET_PATH, ROOT
 from evals.graders import load_checklist
 from evals.ledger import Ledger
 from evals.workflows import build_workflow
-from evals.workflows.base import ANTHROPIC, ERROR, JEV, OK, OPENAI, REFUSED, TRUNCATED, LLMRequest, Response
+from evals.workflows.base import ANTHROPIC, ERROR, JEV, OK, OPENAI, REFUSED, TRUNCATED, InfrastructureError, LLMRequest, Response
 
 RUNS_DIR = ROOT / "evals" / "runs"
 VARIANTS_PATH = ROOT / "evals" / "variants.json"
@@ -670,7 +670,23 @@ class Runner:
         try:
             for index in range(workflow.stage_count):
                 active = [r for r in rows if not r.failed]
-                plans = [(r, workflow.stage(index, r.case, r.state)) for r in active]
+                plans = []
+                for r in active:
+                    try:
+                        plans.append((r, workflow.stage(index, r.case, r.state)))
+                    except InfrastructureError as exc:
+                        errors.append(
+                            {
+                                "variant": variant["name"],
+                                "case_id": r.case["id"],
+                                "rep": r.rep,
+                                "stage": f"stage_{index}",
+                                "request_id": "",
+                                "kind": "infrastructure",
+                                "error": str(exc)[:300],
+                            }
+                        )
+                        r.failed = True
                 items: list[tuple[str, LLMRequest]] = []
                 ids: dict[int, dict[str, str]] = {}
                 for r, st in plans:

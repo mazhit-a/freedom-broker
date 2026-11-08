@@ -598,10 +598,18 @@ def build_state(
 
 
 def build_request(
-    conversation: dict, cfg: ChecklistConfig, model: str = JEV_MODEL, style: str = "default", compiled: dict | None = None
+    conversation: dict,
+    cfg: ChecklistConfig,
+    model: str = JEV_MODEL,
+    style: str = "default",
+    compiled: dict | None = None,
+    criterion_ids: Any = None,
 ) -> tuple[dict, list[QuestionSpec]]:
     rich, _ = style_flags(style)
     specs = build_questions(cfg, style, compiled)
+    if criterion_ids is not None:
+        wanted = set(criterion_ids)
+        specs = [s for s in specs if s.criterion_id in wanted]
     header = rich_rules_header() if rich else None
     gaps = style in GAPS_STYLES or (style == COMPILED_STYLE and bool(compiled and compiled["needs_pause_marks"]))
     state = build_state(conversation, header=header, gaps=gaps)

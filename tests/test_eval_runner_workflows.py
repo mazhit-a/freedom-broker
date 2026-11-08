@@ -43,7 +43,7 @@ def conv_messages(case):
 
 
 def test_registry_covers_variants():
-    assert set(REGISTRY) == {"single_call", "openai_single_call", "per_criterion", "extract_then_judge", "jev_only", "jev_explain"}
+    assert set(REGISTRY) == {"single_call", "openai_single_call", "per_criterion", "extract_then_judge", "jev_only", "jev_explain", "jev_sol_hybrid"}
     assert {v["workflow"] for v in VARIANTS.values()} == set(REGISTRY)
     for name in ("baseline", "opus_low", "sonnet_medium", "jev_only", "jev_sonnet", "jev_haiku", "extract_then_judge", "per_criterion"):
         assert name in VARIANTS

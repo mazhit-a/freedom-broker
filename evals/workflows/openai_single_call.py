@@ -4,7 +4,7 @@ from backend.app.services.evaluator import build_schema
 from evals.decisions import annotate_gaps
 from evals.gen import openai_provider as op
 from evals.workflows.base import OPENAI, LLMRequest, Stage, Workflow, build_candidate, record_calls
-from evals.workflows.review import ReviewPass, repair_prompt
+from evals.workflows.review import ReviewPass, default_validator, repair_prompt
 from evals.workflows.single_call import PROMPTS, conversation_of
 from evals.workflows.prompts import with_marks_note
 
@@ -32,8 +32,8 @@ def openai_params(model: str, effort: str, max_output_tokens: int, schema: dict,
 
 
 class OpenAIReviewPass(ReviewPass):
-    def __init__(self, cfg, model: str, effort: str, max_output_tokens: int, schema: dict, wanted: list[str], group: str):
-        super().__init__(cfg, "main", "main", model, None, schema, wanted, group)
+    def __init__(self, cfg, model: str, effort: str, max_output_tokens: int, schema: dict, wanted: list[str], group: str, validator=default_validator):
+        super().__init__(cfg, "main", "main", model, None, schema, wanted, group, validator)
         self.model = model
         self.effort = effort
         self.max_output_tokens = max_output_tokens
