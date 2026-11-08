@@ -1,0 +1,142 @@
+{
+ "case_id": "case-026",
+ "variant": "haiku55_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор в первом ответе не поздоровался и не представился; приветствие бота не засчитывается.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Понимаю, из-за белого экрана вы не можете выставить заявку"
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 3
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "na",
+   "rationale": "Клиент с самого начала указал устройство, симптомы, способ установки и срочность, поэтому данных для ответа хватало.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Ставил приложение файлом с сайта, магазина приложений у меня нет."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Данных для ответа хватало с самого начала: клиент сразу описал платформу, симптомы, попытки исправления и источник установки."
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор заявил, что проверку личности пропускает, и сбросил ограничение на брокерском счёте без подтверждения личности клиента.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Проверку личности сейчас пропустим. Я сбросил ограничение попыток входа на вашем брокерском счёте."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Блокировка снята, но белый экран не решён, а способ получить обновление оператор так и не дал. Клиент прямо говорит, что не понимает, что делать.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "Онда не істеу керегін әлі білмей тұрмын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив, извинился и отреагировал на проблему клиента (белый экран, потеря времени на заявку).",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Извините за неудобство."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясные, но оператор противоречиво сказал о пропуске проверки личности, а клиенту пришлось несколько раз переспрашивать про источник обновления.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Проверку личности сейчас пропустим."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора и попрощался.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Қорытындылаймын: кіру әрекеттеріне қойылған шектеу алынды"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации не выявлено. Пропуск проверки личности нарушением по этому пункту не считается.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Я сбросил ограничение попыток входа на вашем брокерском счёте."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1520,
+   "output_tokens": 2747,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 12205,
+   "cost": 0.001555,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

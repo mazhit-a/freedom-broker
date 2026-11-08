@@ -1,0 +1,86 @@
+{
+ "run_id": "20261108-023417-jev_haiku55-dev",
+ "variant": "jev_haiku55",
+ "split": "dev",
+ "reps": 2,
+ "mode": "live",
+ "dataset_hash": "8d32af582b63e544d3c7d73784efe058e1406016a4a482d677cbbed35a057adf",
+ "limit": null,
+ "workflow": "jev_explain",
+ "params": {
+  "profile": "claude-haiku-5-5",
+  "effort": "medium"
+ },
+ "dataset_path": "/Users/alibekabilmazhit/freedom-broker/evals/dataset.json",
+ "dataset_version": 1,
+ "expected_calls": 2,
+ "cases": [
+  "case-001",
+  "case-002",
+  "case-003",
+  "case-004",
+  "case-007",
+  "case-008",
+  "case-009",
+  "case-010",
+  "case-013",
+  "case-014",
+  "case-015",
+  "case-016",
+  "case-019",
+  "case-020",
+  "case-021",
+  "case-022",
+  "case-025",
+  "case-026",
+  "case-027",
+  "case-028",
+  "case-031",
+  "case-032",
+  "case-033",
+  "case-034"
+ ],
+ "status": "complete",
+ "cost_estimated": 0.048,
+ "git_sha": "dd89772fb7e8b0c1141590451d358e150953777d",
+ "git_dirty": true,
+ "started": "2026-11-08T02:34:17.047131+00:00",
+ "finished": "2026-11-08T02:36:52.616917+00:00",
+ "n_rows": 48,
+ "n_rows_expected": 48,
+ "n_errors": 0,
+ "served_models": [
+  "claude-haiku-5-5",
+  "typesafe/jev-1.14"
+ ],
+ "usage": {
+  "total": {
+   "calls": 96,
+   "input_tokens": 337513,
+   "output_tokens": 147139,
+   "cache_read_tokens": 141372,
+   "cache_write_tokens": 12852,
+   "cost": 0.090616
+  },
+  "by_model": {
+   "typesafe/jev-1.14": {
+    "calls": 48,
+    "input_tokens": 235780,
+    "output_tokens": 12096,
+    "cache_read_tokens": 0,
+    "cache_write_tokens": 0,
+    "cost": 0.009902
+   },
+   "claude-haiku-5-5": {
+    "calls": 48,
+    "input_tokens": 101733,
+    "output_tokens": 135043,
+    "cache_read_tokens": 141372,
+    "cache_write_tokens": 12852,
+    "cost": 0.080714
+   }
+  }
+ },
+ "cost_actual": 0.090616,
+ "cost_recomputed": 0.090616
+}

@@ -1,0 +1,140 @@
+{
+ "case_id": "case-019",
+ "variant": "haiku55_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался по-русски и в первом ответе представился («меня зовут Анна»). Приветствие бота не учитывалось.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Данных для ответа с самого начала не хватало, поэтому условие N/A не выполнено. Оператор уточнил, что именно клиент хочет узнать, и тем самым выявил потребность.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Клиент не успел сформулировать запрос, данные не раскрывались и защищённое действие не выполнялось. Из этого следует, что для данного обращения идентификация не требовалась.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Соединение потеряно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: до обрыва связи клиент не сформулировал запрос, данные не раскрывались и защищённых действий не производилось."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Чат завершился до того, как клиент сформулировал запрос: клиент только начал говорить и связь оборвалась.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Да, я... э..."
+    },
+    {
+     "message_index": 5,
+     "quote": "Соединение потеряно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат закончился до того, как клиент сформулировал запрос."
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и приветлив. Клиент не выражал недовольства и не описывал неудобств, поэтому реагировать на конкретную проблему не требовалось.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора ясные и связные. Заминка клиента была вызвана не оператором, а обрывом связи, поэтому сбоя в управлении диалогом нет.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Вы выбрали раздел об участии в IPO."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Чат оборвался до возможности его завершить: соединение потеряно сразу после ответа клиента, и оператор не смог подвести итог или попрощаться.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Соединение потеряно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат оборвался до возможности его завершить."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге не выявлено.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 360,
+   "output_tokens": 2456,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 10234,
+   "cost": 0.001293,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

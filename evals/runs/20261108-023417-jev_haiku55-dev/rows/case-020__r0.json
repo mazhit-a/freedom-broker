@@ -1,0 +1,237 @@
+{
+ "case_id": "case-020",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался и представился: назвала себя Алией из поддержки брокера.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Здравствуйте, меня зовут Алия, поддержка брокера."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент просил конкретно указать, куда направить техническое обращение, если приложение не открывается. Оператор противоречиво описала порядок действий и не уточнила недостающее, поэтому клиент так и не понял, куда писать без приложения. Данных для ответа не хватало с самого начала, поэтому N/A не применим.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Вы сначала сказали запустить, потом не запускать."
+    },
+    {
+     "message_index": 6,
+     "quote": "А куда написать без приложения, так и не понял."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 6
+   },
+   "na_reason": null,
+   "confidence": 0.88,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.88,
+    "na": 0.11
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Клиент прямо попросил общие действия без проверки счёта, а запрос не требовал идентификации. Условие N/A выполнено.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Мне без проверки счёта, просто общие действия скажите"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: клиент просил только общие действия без проверки счёта.",
+   "confidence": 0.92,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.08,
+    "na": 0.92
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор закрыла часть запроса: дала рекомендации перезапустить приложение и сменить сеть. Существенный вопрос о том, куда отправить техническое обращение без приложения, остался открытым, и клиент его не понял.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Полностью закройте приложение и запустите заново"
+    },
+    {
+     "message_index": 5,
+     "quote": "через сайт нельзя, только в приложении"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.3762,
+   "distribution": {
+    "na": 0.01,
+    "0": 0.3267,
+    "5": 0.28709999999999997,
+    "10": 0.3762,
+    "15": 0.0,
+    "20": 0.0
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент выразил раздражение и описал неудобство: проблема длится с утра и его раздражает. Оператор на это не отреагировала и не извинилась, а сразу перешла к инструкциям и завершению.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "уже очень раздражает"
+    },
+    {
+     "message_index": 7,
+     "quote": "Если появятся другие вопросы, обращайтесь в поддержку. До свидания."
+    }
+   ],
+   "checked_range": {
+    "from": 2,
+    "to": 7
+   },
+   "na_reason": null,
+   "confidence": 0.91,
+   "distribution": {
+    "yes": 0.09,
+    "no": 0.91
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы оператора противоречивы: сначала велено запустить приложение, затем не запускать, и порядок отправки обращения путается. Клиенту пришлось переспрашивать и уточнять, поэтому оценка 4.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Вы сначала сказали запустить, потом не запускать."
+    },
+    {
+     "message_index": 5,
+     "quote": "Его нужно открыть, не открывая, ну до запуска отправить."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.53,
+   "distribution": {
+    "0": 0.47,
+    "4": 0.53,
+    "7": 0.0,
+    "10": 0.0
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор предложила дальнейшую помощь через поддержку и попрощалась фразой до свидания.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Если появятся другие вопросы, обращайтесь в поддержку. До свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.95,
+    "no": 0.05,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента, предложения платной услуги в обход компании или раскрытия конфиденциальной информации в диалоге не выявлено.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Если появятся другие вопросы, обращайтесь в поддержку. До свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.8200000000000001,
+   "distribution": {
+    "yes": 0.18,
+    "no": 0.8200000000000001
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 3244,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 793,
+   "cost": 0.000136,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 815,
+   "output_tokens": 2441,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 10239,
+   "cost": 0.001334,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "no",
+  "03": "na",
+  "04": "10",
+  "05": "no",
+  "06": "4",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 0
+}

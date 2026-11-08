@@ -1,0 +1,265 @@
+{
+ "case_id": "case-028",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался («Сәлеметсіз бе!») на казахском языке клиента и назвал своё имя («Менің атым Айдана»), что соответствует критерию.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Сәлеметсіз бе! Менің атым Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Данных для ответа сразу не хватало: оператор уточнил сумму, дату, статус заявки в приложении и факт продажи ценных бумаг, то есть выяснил недостающие детали до ответа.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Қанша сомаға және қашан бердіңіз?"
+    },
+    {
+     "message_index": 5,
+     "quote": "Экранда нақты қандай мәртебе жазылған?"
+    },
+    {
+     "message_index": 7,
+     "quote": "Бағалы қағаздарды кеше саттыңыз ба?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.03,
+    "na": 0.0
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Запрос касался вывода денег и данных по счёту, что требует идентификации. Подтверждения проверки личности клиента в разговоре нет, а оператор уже раскрыл данные по заявке и сделкам, открыв счёт.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Шотыңызды аштым."
+    },
+    {
+     "message_index": 1,
+     "quote": "Ақша шығару өтінімім жүрмей тұр"
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 7
+   },
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.02,
+    "no": 0.97,
+    "na": 0.01
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор закрыл основной вопрос: объяснил статус обеих заявок, предложил корректный следующий шаг (отмена 50 тысяч и новая заявка на 20 тысяч), назвал сроки зачисления и рекомендовал, куда обращаться при задержке.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "қолжетімді жиырма мыңға бөлек өтінім беруге болады"
+    },
+    {
+     "message_index": 15,
+     "quote": "Жаңа өтінімнің мәртебесі — өңдеуде."
+    },
+    {
+     "message_index": 23,
+     "quote": "қолдау қызметіне қайта хабарласыңыз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.5488000000000001,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0196,
+    "5": 0.0,
+    "10": 0.0392,
+    "15": 0.3724,
+    "20": 0.5488000000000001
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент прямо сказал, что его не нужно оскорблять, но оператор не отреагировал на конкретную жалобу, не извинился и продолжил разговор в том же тоне. Вежливость нарушена оскорбительной репликой.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз"
+    },
+    {
+     "message_index": 18,
+     "quote": "Мені қорлаудың қажеті жоқ."
+    },
+    {
+     "message_index": 19,
+     "quote": "Жиырма мың теңгелік өтінім өңдеуде тұр."
+    }
+   ],
+   "checked_range": {
+    "from": 17,
+    "to": 19
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы в основном ясные и связные, порядок изложения логичный. Однако перед переводом клиента в ожидание (системное сообщение) оператор явно не предупредил о ожидании, а грубая реплика ухудшила ход диалога.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Клиент күтуге қойылды."
+    },
+    {
+     "message_index": 11,
+     "quote": "Нақтылаймын: елу мың теңгелік өтінімді жойып"
+    },
+    {
+     "message_index": 25,
+     "quote": "Қорытындылаймын"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "disputed": true,
+   "dispute_reason": "Клиент был переведён в режим ожидания (сообщение #13) без предупреждения оператора, а шкала 10 предполагает предупреждение при явном ожидании; ответ 10 этому противоречит.",
+   "confidence": 0.51,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.04,
+    "7": 0.45,
+    "10": 0.51
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора и попрощался: перечислил статус обеих заявок и сроки, затем сказал «Сау болыңыз».",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Қорытындылаймын: елу мыңдық өтінім жойылды"
+    },
+    {
+     "message_index": 25,
+     "quote": "Сау болыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор оскорбил клиента, назвав его «ақымақ» в ответ на уточняющий вопрос. Это соответствует флагу грубой ошибки «оскорбление клиента».",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Сіз ақымақсыз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.020000000000000018
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 5619,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 735,
+   "cost": 0.000236,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2440,
+   "output_tokens": 2966,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 14537,
+   "cost": 0.001759,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {
+  "06": "Клиент был переведён в режим ожидания (сообщение #13) без предупреждения оператора, а шкала 10 предполагает предупреждение при явном ожидании; ответ 10 этому противоречит."
+ },
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "no",
+  "04": "20",
+  "05": "no",
+  "06": "10",
+  "07": "yes",
+  "08": "yes"
+ },
+ "rep": 0
+}

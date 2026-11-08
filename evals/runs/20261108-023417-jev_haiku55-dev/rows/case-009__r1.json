@@ -1,0 +1,233 @@
+{
+ "case_id": "case-009",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Первый ответ оператора (#4) сразу переходит к требованиям к документам, без приветствия и представления. Приветствие бота в #1 не учитывается.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks, you generally need a valid identity document and proof of address."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Данных для ответа не хватало с самого начала: клиент не знал, какой документ нужен, и спрашивал о формате и адресе. Оператор не уточнил, какой адрес подходит, и ограничился общими формулировками.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Should I use that address or where I'm staying abroad"
+    },
+    {
+     "message_index": 9,
+     "quote": "The accepted document and address requirements depend on the applicant's circumstances."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 9
+   },
+   "na_reason": null,
+   "confidence": 0.69,
+   "distribution": {
+    "yes": 0.22,
+    "no": 0.69,
+    "na": 0.09
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Системное событие подтверждает идентификацию клиента до передачи оператору и до работы с заявкой.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.96,
+   "distribution": {
+    "yes": 0.96,
+    "no": 0.01,
+    "na": 0.03
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор не закрыл вопрос о приемлемости выписки и способе загрузки. Он прямо признал, что не может подтвердить требования и маршрут загрузки, поэтому клиенту по-прежнему непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I haven't confirmed whether that statement meets your application's requirements"
+    },
+    {
+     "message_index": 14,
+     "quote": "So I still don't know whether my statement is acceptable or how to submit it from this screen."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.5683999999999999,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0196,
+    "5": 0.5683999999999999,
+    "10": 0.3528,
+    "15": 0.0098,
+    "20": 0.0294
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и дважды отреагировал на неудобство клиента: на повторную загрузку паспорта и на отсутствие загрузки на экране.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice"
+    },
+    {
+     "message_index": 13,
+     "quote": "Please don't send document images in this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.96,
+   "distribution": {
+    "yes": 0.96,
+    "no": 0.04
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора связные, статус заявки сформулирован ясно. Явного ожидания, требующего предупреждения, в диалоге не было.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Your application is pending KYC review."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.66,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.17,
+    "7": 0.17,
+    "10": 0.66
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог статуса заявки и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге не выявлено. Оператор, наоборот, попросил не присылать изображения документов в чат.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Please don't send document images in this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.05,
+    "no": 0.95
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 3039,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 635,
+   "cost": 0.000128,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1100,
+   "output_tokens": 2614,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 10446,
+   "cost": 0.001449,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "yes",
+  "04": "5",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 1
+}

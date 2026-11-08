@@ -1,0 +1,239 @@
+{
+ "case_id": "case-032",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на языке клиента (казахский) и представился по имени и должности.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Сәлеметсіз бе! Менің атым Айдана"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл номер заявки TEST-041 и данные клиента о заявке, после проверки личности открыл именно этот заказ и дал его детали.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "Шотыңыздағы TEST-041 өтінімін аштым"
+    },
+    {
+     "message_index": 14,
+     "quote": "Орындау бөлек, есеп бір"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.89,
+   "distribution": {
+    "yes": 0.89,
+    "no": 0.07,
+    "na": 0.04
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед раскрытием данных по заявке оператор потребовал подтверждение личности, и системное событие подтверждает, что личность клиента была подтверждена до раскрытия данных.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "алдымен жеке басыңызды растау қажет"
+    },
+    {
+     "message_index": 10,
+     "quote": "Клиенттің жеке басы расталды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор объяснил разницу в ценах и расчёт суммы, подтвердил комиссию 200 теңге, оформил жалобу TEST-C204 и объяснил, где и когда будет ответ. Существенные вопросы закрыты, дан корректный следующий шаг.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Жалпы түсім 150300 теңге"
+    },
+    {
+     "message_index": 38,
+     "quote": "Орындау мен комиссияны тексеруге TEST-C204 шағымы тіркелді"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.9506,
+   "distribution": {
+    "na": 0.03,
+    "0": 0.0,
+    "5": 0.0,
+    "10": 0.0,
+    "15": 0.0194,
+    "20": 0.9506
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив, извинился за ожидание без предупреждения и отреагировал на конкретное недовольство клиента по комиссии, признав её неожиданным расходом.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз."
+    },
+    {
+     "message_index": 24,
+     "quote": "Комиссия сіз үшін күтпеген шығын болғанын түсінемін."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.98,
+   "distribution": {
+    "yes": 0.98,
+    "no": 0.02
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные и связные, но был один заметный сбой: клиента поставили на ожидание без предупреждения, и ему пришлось переспрашивать объяснение про два исполнения заявки.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Музыка қосылды ғой, не болып кетті?"
+    },
+    {
+     "message_index": 19,
+     "quote": "Жаңа есеп бір, баға екеу дегеніңізді түсінбедім."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.69,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.26,
+    "7": 0.69,
+    "10": 0.05
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор задал вопрос о дальнейшей помощи, подвёл итог по заявке и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 36,
+     "quote": "Тағы көмектесетін сұрағыңыз бар ма?"
+    },
+    {
+     "message_index": 38,
+     "quote": "Хабарласқаныңызға рақмет, сау болыңыз!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге не выявлено. Оператор обсуждал данные заявки самого клиента и не просил пароль или код.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Құпиясөзді немесе кодты маған айтпаңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.89,
+   "distribution": {
+    "yes": 0.11,
+    "no": 0.89
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 7773,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 817,
+   "cost": 0.000326,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 3901,
+   "output_tokens": 2973,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 12425,
+   "cost": 0.001909,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "yes",
+  "04": "20",
+  "05": "yes",
+  "06": "7",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 0
+}

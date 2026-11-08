@@ -1,0 +1,233 @@
+{
+ "case_id": "case-009",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Первый ответ оператора (#4) сразу переходит к требованиям к документам, без приветствия и без представления. Приветствие бота (#1) не учитывается, так как оценивается только оператор.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "For account-opening checks"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Данных для ответа не хватало с самого начала: клиент не знал, какой документ нужен, и не мог понять, подходит ли выписка и какой адрес указывать. Оператор дал общие требования, но не уточнил недостающие детали, например формат файла, допустимый адрес или маршрут загрузки.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Proof of address generally needs to show your name and address."
+    },
+    {
+     "message_index": 11,
+     "quote": "File-format and size requirements are normally displayed in the KYC upload section."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 15
+   },
+   "na_reason": null,
+   "confidence": 0.66,
+   "distribution": {
+    "yes": 0.25,
+    "no": 0.66,
+    "na": 0.09
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед передачей оператору в системе зафиксировано подтверждение личности клиента, то есть проверка была пройдена до работы с заявкой.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Customer identity verified."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.95,
+    "no": 0.01,
+    "na": 0.04
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общую подсказку о требованиях к адресу и документам. Он прямо сказал, что не подтвердил, подходит ли выписка, и не указал рабочий маршрут загрузки, поэтому клиенту по-прежнему непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I haven't confirmed whether that statement meets your application's requirements"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.5841,
+   "distribution": {
+    "na": 0.01,
+    "0": 0.0198,
+    "5": 0.5841,
+    "10": 0.3465,
+    "15": 0.0099,
+    "20": 0.029699999999999997
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на неудобство клиента: извинился за повторную загрузку паспорта и признал, что клиент находится за границей без нужных бумаг.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "I'm sorry you've had to upload your passport twice"
+    },
+    {
+     "message_index": 13,
+     "quote": "Please don't send document images in this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.03
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Реплики оператора связные и последовательны, порядок ответов понятен, явного ожидания, требующего предупреждения, не было. Ответы информативно ограничены, но не противоречивы и не требуют переспрашивания ради понимания хода диалога.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Your application is pending KYC review."
+    },
+    {
+     "message_index": 17,
+     "quote": "No documents or application details were changed during this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.67,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.14,
+    "7": 0.19,
+    "10": 0.67
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог состоянию заявки, указав, что она на рассмотрении KYC и не хватает подтверждения адреса, а затем попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "Thank you for your time, and goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложений платной услуги в обход компании или раскрытия конфиденциальной информации в реплиях оператора не выявлено. Просьба не присылать изображения документов в чат является обычным ограничением безопасности.",
+   "evidence": [
+    {
+     "message_index": 13,
+     "quote": "Please don't send document images in this chat."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.94,
+   "distribution": {
+    "yes": 0.06,
+    "no": 0.94
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 3039,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 647,
+   "cost": 0.000128,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1100,
+   "output_tokens": 2651,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 10799,
+   "cost": 0.001468,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "yes",
+  "04": "5",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 0
+}

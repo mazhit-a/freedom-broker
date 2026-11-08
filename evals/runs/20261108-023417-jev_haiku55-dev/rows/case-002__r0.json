@@ -1,0 +1,235 @@
+{
+ "case_id": "case-002",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом своём ответе поздоровался и представился («Меня зовут Алия»). Приветствие бота не учитывается.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте! Меня зовут Алия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "na",
+   "rationale": "Условие N/A выполнено: для ответа на общий вопрос о безопасности реквизитов данных хватало с самого начала, уточнять что-либо не требовалось.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Общий вопрос про пополнение"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Данных для ответа хватало с самого начала: клиент задал общий вопрос без необходимости уточнений.",
+   "confidence": 0.81,
+   "distribution": {
+    "yes": 0.02,
+    "no": 0.17,
+    "na": 0.81
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Условие N/A выполнено: запрос был общим и не требовал идентификации. Клиент сам указал, что проверять ничего не нужно.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "По моему счёту ничего проверять не надо."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: это общая консультация без раскрытия данных счёта.",
+   "confidence": 0.84,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.16,
+    "na": 0.84
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор дал корректный ответ по существу и следующий шаг: брать реквизиты только в официальном приложении или личном кабинете брокера и сверять получателя перед переводом.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Для пополнения берите актуальные реквизиты только в официальном приложении или личном кабинете брокера"
+    },
+    {
+     "message_index": 6,
+     "quote": "Итог: используйте реквизиты из официального приложения"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.8924,
+   "distribution": {
+    "na": 0.03,
+    "0": 0.0097,
+    "5": 0.0194,
+    "10": 0.0097,
+    "15": 0.0388,
+    "20": 0.8924
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на растерянность клиента: извинился за путаницу и дал ответ на его вопрос о реквизитах.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Извините за путаницу."
+    },
+    {
+     "message_index": 4,
+     "quote": "Я совсем запутался."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.77,
+   "distribution": {
+    "yes": 0.77,
+    "no": 0.23
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ясность снижена: оператор заявил, что ответ будет следующим сообщением, но его не будет, и просил вернуться к сообщению «перед предыдущим». Клиенту пришлось переспрашивать, как действовать, и он прямо написал, что не понял ответ.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Ответ будет следующим сообщением, но следующего сообщения не будет."
+    },
+    {
+     "message_index": 5,
+     "quote": "вернитесь к следующему сообщению перед предыдущим"
+    },
+    {
+     "message_index": 4,
+     "quote": "Про реквизиты так и не понял."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.61,
+   "distribution": {
+    "0": 0.34,
+    "4": 0.61,
+    "7": 0.05,
+    "10": 0.0
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог («Итог: используйте реквизиты из официального приложения») и попрощался («Всего доброго, до свидания!»).",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Итог: используйте реквизиты из официального приложения"
+    },
+    {
+     "message_index": 6,
+     "quote": "Всего доброго, до свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента, предложения платной услуги в обход компании или раскрытия конфиденциальной информации в диалоге не выявлено. Оператор советовал официальный источник реквизитов.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Реквизиты из стороннего чата не используйте: они могут быть подменены."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.87,
+   "distribution": {
+    "yes": 0.13,
+    "no": 0.87
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 3146,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 1045,
+   "cost": 0.000132,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 696,
+   "output_tokens": 2446,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 3213,
+   "latency_ms": 11482,
+   "cost": 0.001694,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "na",
+  "03": "na",
+  "04": "20",
+  "05": "yes",
+  "06": "4",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 0
+}

@@ -1,0 +1,248 @@
+{
+ "case_id": "case-010",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе: «Здравствуйте, меня зовут Арман.» Приветствие бота не учитывается.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Здравствуйте, меня зовут Арман."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент описал конкретную спорную сделку, но оператор не уточнил тип заявки и не учёл известные детали. Клиент прямо указал на это, а оператор дал общие объяснения вместо уточнения.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Но вы даже не спросили, какая заявка."
+    },
+    {
+     "message_index": 9,
+     "quote": "Я сейчас не помню тип заявки."
+    }
+   ],
+   "checked_range": {
+    "from": 5,
+    "to": 9
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99,
+    "na": 0.0
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед обсуждением операций по счёту личность клиента была подтверждена системой до передачи оператору и раскрытия данных.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общее объяснение механики исполнения. Клиенту не объяснили ни причину по его сделке, ни порядок подачи претензии, поэтому ему всё ещё непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Конкретную причину исполнения вашей заявки я не установил."
+    },
+    {
+     "message_index": 22,
+     "quote": "Точного раздела или адреса для претензии я сейчас не назову."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.6566000000000001,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.28419999999999995,
+    "5": 0.6566000000000001,
+    "10": 0.0392,
+    "15": 0.0,
+    "20": 0.0
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор отказался реагировать на недовольство клиента и повторную попытку добиться разбора, а также предлагал платную частную консультацию. Вежливости и реакции на конкретную проблему клиента недостаточно.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "Обсуждать ваши переживания я не буду."
+    },
+    {
+     "message_index": 11,
+     "quote": "Уже второй раз пытаюсь добиться разбора."
+    }
+   ],
+   "checked_range": {
+    "from": 11,
+    "to": 12
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы частично не по существу и требуют переспрашивания: клиенту пришлось повторно просить порядок действий и адрес для претензии. Также было более трёх минут молчания без предупреждения об ожидании.",
+   "evidence": [
+    {
+     "message_index": 21,
+     "quote": "Я понял слова, но не порядок действий."
+    },
+    {
+     "message_index": 15,
+     "quote": "Вы больше трёх минут молчали"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.91,
+   "distribution": {
+    "0": 0.01,
+    "4": 0.91,
+    "7": 0.07,
+    "10": 0.01
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Чат закрыт оператором без итога и без предложения дальнейшей помощи и прощания. Последнее сообщение оператора содержит только признание отсутствия данных.",
+   "evidence": [
+    {
+     "message_index": 25,
+     "quote": "Ладно, закрывайте чат."
+    },
+    {
+     "message_index": 26,
+     "quote": "Чат закрыт оператором."
+    }
+   ],
+   "checked_range": {
+    "from": 24,
+    "to": 26
+   },
+   "na_reason": null,
+   "confidence": 0.95,
+   "distribution": {
+    "yes": 0.02,
+    "no": 0.95,
+    "na": 0.03
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "yes",
+   "rationale": "Оператор предложил платную частную консультацию вне компании с оплатой на личную карту, что является предложением платной услуги в обход компании.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Могу отдельно разобрать вашу сделку за 15 000 тенге лично мне."
+    },
+    {
+     "message_index": 18,
+     "quote": "оплатите переводом на мою личную карту"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.96,
+   "distribution": {
+    "yes": 0.96,
+    "no": 0.040000000000000036
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4152,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 728,
+   "cost": 0.000174,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1563,
+   "output_tokens": 2432,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 10067,
+   "cost": 0.001404,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "no",
+  "03": "yes",
+  "04": "5",
+  "05": "no",
+  "06": "4",
+  "07": "no",
+  "08": "yes"
+ },
+ "rep": 0
+}

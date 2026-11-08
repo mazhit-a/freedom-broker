@@ -1,0 +1,159 @@
+{
+ "case_id": "case-027",
+ "variant": "haiku55_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на английском, языке клиента, и представился как Alex в первом же ответе.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали (вывод, срок, статус) и уточнил недостающие данные: дату подачи, сумму, валюту и статус в приложении, а также тип счёта и доступность кнопки отмены.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "When did you submit it, what amount and currency"
+    },
+    {
+     "message_index": 6,
+     "quote": "Is the destination a bank account in your own name"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Перед защищённым действием (запросом отмены) оператор попросил подтвердить проверку личности, но клиент не смог её пройти, и подтверждения в разговоре нет. Оператор всё равно отправил инструкцию на отмену.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "please approve the identity check in your brokerage app"
+    },
+    {
+     "message_index": 10,
+     "quote": "I'll go ahead and send the cancellation instruction anyway."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 10
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ключевая рекомендация ошибочна: оператор советовал подать повторный вывод на ту же сумму и игнорировать предупреждение системы, что создаёт риск двойного списания. Существенный вопрос клиента о том, как вернуть средства, не решён.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Submit another withdrawal for the same amount to the same bank now."
+    },
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и отреагировал на конкретную проблему клиента, связанную с арендой и застрявшим выводом средств, признав его беспокойство.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "I understand why having your rent money tied up is worrying."
+    },
+    {
+     "message_index": 22,
+     "quote": "I understand; putting in more money isn't workable when you need it for rent."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Формулировки в целом ясные и связные, оператор заранее предупредил о ожидании. Заметный сбой один: противоречивые указания, в которых отмена не подтверждена, но при этом предлагалось подать дубликат.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "I'll put you on hold for about thirty seconds while I submit it."
+    },
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора, предложил обратиться при необходимости и попрощался.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Please contact us if you need further help. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента, предложения платной услуги в обход компании или раскрытия конфиденциальной информации не выявлено. Ошибочная рекомендация подать дубликат вывода под этот критерий не подпадает.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Submit another withdrawal for the same amount to the same bank now."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1802,
+   "output_tokens": 2886,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 12233,
+   "cost": 0.001652,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

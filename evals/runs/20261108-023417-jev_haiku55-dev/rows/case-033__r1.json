@@ -1,0 +1,233 @@
+{
+ "case_id": "case-033",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор в первом ответе (#4) не поздоровался и не представился, сразу перешёл к сути вопроса. Приветствие и представление бота в расчёт не принимаются.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Иә, сұрағыңызды естідім."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.99
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Данных для ответа не хватало с самого начала: клиент спрашивал про шаги, экраны и деректемелер. Оператор не уточнил недостающие детали и сообщил, что нужных сведений в разговоре не даст.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Сізге нақты қай деректемені енгізу керегін осы әңгімеде растап айта алмаймын."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 16
+   },
+   "na_reason": null,
+   "confidence": 0.8,
+   "distribution": {
+    "yes": 0.14,
+    "no": 0.8,
+    "na": 0.06
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Условие N/A выполнено: запрос клиента был общим (порядок вывода средств), данные клиента не раскрывались и защищённое действие не выполнялось, поэтому идентификация не требовалась.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Менің шотымды қараудың қажеті жоқ."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: клиент спрашивал общий порядок вывода на свой банковский счёт, без раскрытия данных и защищённых действий.",
+   "confidence": 0.53,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.46,
+    "na": 0.53
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общую схему (ақша шығару өтінімі арқылы), но прямо сообщил, что экраны, поля и шаги подтверждения не назовёт. Клиенту по-прежнему непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 49,
+     "quote": "Иә, сіз сұраған толық қадамдық нұсқаулықты бере алмадым."
+    },
+    {
+     "message_index": 39,
+     "quote": "нақты экрандар мен толтырылатын жолдарды тізіп берген жоқпын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.7448,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0196,
+    "5": 0.7448,
+    "10": 0.20579999999999998,
+    "15": 0.0,
+    "20": 0.0098
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив. Когда клиент пожаловался на музыку и разрыв связи, оператор конкретно отреагировал: извинился за удержание без предупреждения и вернул разговор.",
+   "evidence": [
+    {
+     "message_index": 23,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в основном ясные и связные, оператор объяснял, что можно и чего нельзя. Однако повторные отказы и формулировки «не могу сказать» заставляли клиента переспрашивать, что является заметным сбоем.",
+   "evidence": [
+    {
+     "message_index": 37,
+     "quote": "Түсіндім, қоңырау кезінде қосымшаны ашуға мәжбүрлемеймін."
+    },
+    {
+     "message_index": 41,
+     "quote": "осы қоңырауда экрандардың нақты ретін бере алмай отырмын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.81,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.13,
+    "7": 0.81,
+    "10": 0.06
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора, перечислив открытые вопросы, и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 55,
+     "quote": "Қысқаша қорытынды:"
+    },
+    {
+     "message_index": 58,
+     "quote": "Сау болыңыз, күніңіз жақсы өтсін."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге не выявлено. Оператор прямо сообщил, что не создавал заявку и не совершал перевод.",
+   "evidence": [
+    {
+     "message_index": 45,
+     "quote": "Тек жалпы ақпарат айтып отырмын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.86,
+   "distribution": {
+    "yes": 0.14,
+    "no": 0.86
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 9037,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 831,
+   "cost": 0.00038,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 4847,
+   "output_tokens": 3101,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 13040,
+   "cost": 0.002067,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "na",
+  "04": "5",
+  "05": "yes",
+  "06": "7",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 1
+}

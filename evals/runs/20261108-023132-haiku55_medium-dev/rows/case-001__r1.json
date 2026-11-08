@@ -1,0 +1,151 @@
+{
+ "case_id": "case-001",
+ "variant": "haiku55_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе (#3) поздоровался по-русски и представился по имени.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Меня зовут Алия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали обращения и уточнил недостающее: через какой канал подана заявка.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Уточните, заявку подавали в приложении или на сайте?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Оператор попросил пройти подтверждение личности до раскрытия причины возврата заявки, и система подтвердила личность клиента до раскрытия данных.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "пройдите подтверждение личности через защищённую форму в чате."
+    },
+    {
+     "message_index": 5,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос решён: оператор назвала причину возврата и дала пошаговую инструкцию по замене фото. Однако вопрос клиента о допустимых форматах файлов остался без ответа, это второстепенная деталь.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Сделайте фото без вспышки, чтобы были видны все края и текст"
+    },
+    {
+     "message_index": 0,
+     "quote": "какие форматы файлов можно загружать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлива и отреагировала на описанное клиентом неудобство из-за повторной загрузки удостоверения.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Понимаю, повторно загружать удостоверение неудобно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора ясные и связные, путь в приложении описан по шагам, ошибка в указании пути была сразу исправлена.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Извините, не указала путь."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор не попрощался и не предложила дальнейшую помощь, чат закрыт без завершающей реплики. Итог был только по замечаниям к обратной стороне документа.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Обратную сторону менять не требуется: по ней замечаний нет."
+    },
+    {
+     "message_index": 9,
+     "quote": "Чат закрыт оператором."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 9
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, платных услуг в обход компании и раскрытия конфиденциальной информации не выявлено.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Заново заполнять анкету не нужно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 726,
+   "output_tokens": 2344,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 2907,
+   "latency_ms": 10828,
+   "cost": 0.001608,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

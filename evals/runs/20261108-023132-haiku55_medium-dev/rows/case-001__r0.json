@@ -1,0 +1,163 @@
+{
+ "case_id": "case-001",
+ "variant": "haiku55_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался и представилась по имени (Алия).",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Меня зовут Алия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учла известные детали (возврат документов, причина возврата в заявке) и уточнила недостающее: способ подачи заявки (приложение или сайт).",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Уточните, заявку подавали в приложении или на сайте?"
+    },
+    {
+     "message_index": 6,
+     "quote": "В вашей заявке указана причина возврата"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед раскрытием причины возврата заявки оператор запросила подтверждение личности, и система подтвердила личность клиента до защищённого действия.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "пройдите подтверждение личности через защищённую форму в чате"
+    },
+    {
+     "message_index": 5,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос о причине возврата и способе исправления решён, но оператор не ответила на второстепенный вопрос клиента о допустимых форматах файлов для загрузки.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "какие форматы файлов можно загружать?"
+    },
+    {
+     "message_index": 8,
+     "quote": "Заменить фото лицевой стороны"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлива и отреагировала на описанное клиентом неудобство (повторная загрузка удостоверения), сказав, что анкету заново заполнять не нужно.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "неудобно всё заново"
+    },
+    {
+     "message_index": 6,
+     "quote": "Понимаю, повторно загружать удостоверение неудобно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответ оператора на шаге «туда же» был неясным, клиенту пришлось переспрашивать, но после уточнения пути ответ стал понятным и клиент мог продолжить.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "загрузите его туда же и нажмите «Отправить на проверку»"
+    },
+    {
+     "message_index": 7,
+     "quote": "Туда же — это куда именно?"
+    },
+    {
+     "message_index": 8,
+     "quote": "Извините, не указала путь."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "Оператор не подвела итог диалога, не предложила дальнейшую помощь и не попрощалась; чат закрыт оператором без завершающей фразы.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Обратную сторону менять не требуется: по ней замечаний нет."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 9
+   },
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании или раскрытия конфиденциальной информации в сообщениях оператора не выявлено.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Извините, не указала путь."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 726,
+   "output_tokens": 2454,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 2907,
+   "latency_ms": 11399,
+   "cost": 0.001663,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

@@ -1,0 +1,236 @@
+{
+ "case_id": "case-026",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Оператор в первом ответе (#3) не поздоровался и не представился, сразу перешёл к сути проблемы. Приветствие бота в #0 не засчитывается оператору.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Понимаю, из-за белого экрана вы не можете выставить заявку и теряете время."
+    }
+   ],
+   "checked_range": {
+    "from": 2,
+    "to": 3
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор учёл известные детали (белый экран после пароля, сообщение о попытках, Android, перезапуск, установка не из магазина), но не уточнил недостающее, например версию приложения или модель устройства, до предложения решения.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Я сбросил ограничение попыток входа на вашем брокерском счёте."
+    },
+    {
+     "message_index": 6,
+     "quote": "Общая рекомендация при таком сбое — обновить приложение до актуальной версии."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 6
+   },
+   "na_reason": null,
+   "confidence": 0.94,
+   "distribution": {
+    "yes": 0.03,
+    "no": 0.94,
+    "na": 0.03
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор сбросил ограничение входа на брокерском счёте и заявил, что проверку личности пропускает. Подтверждения идентификации в диалоге нет, а действие защищённое, поэтому ответ no.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Проверку личности сейчас пропустим."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 5,
+   "rationale": "Оператор дал только общую рекомендацию обновить приложение и прямо сказал, что способ установки и место загрузки не даст. Клиенту непонятно, как действовать, поэтому шаг 5.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "Кеңесім — қолданбаны жаңарту, бірақ орнату жолын түсіндіріп бере алмаймын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.5683999999999999,
+   "distribution": {
+    "na": 0.02,
+    "0": 0.0196,
+    "5": 0.5683999999999999,
+    "10": 0.392,
+    "15": 0.0,
+    "20": 0.0
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив, извинился за неудобство и отреагировал на проблему клиента: сбросил ограничение попыток входа и признал, что клиенту мешает потеря времени.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Извините за неудобство."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.9,
+   "distribution": {
+    "yes": 0.9,
+    "no": 0.1
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Ответы оператора в целом связные, но клиенту пришлось повторно спрашивать, где скачать обновление и какой файл нужен, так как оператор не дал конкретного ответа. Это соответствует шагу 4.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Сайттың қай бөлімінен жүктеймін, қандай файл керек?"
+    },
+    {
+     "message_index": 12,
+     "quote": "Онда не істеу керегін әлі білмей тұрмын."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.38,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.38,
+    "7": 0.27,
+    "10": 0.35
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора, перечислив сделанное и оставшееся, и попрощался фразой Сау болыңыз.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Қорытындылаймын: кіру әрекеттеріне қойылған шектеу алынды, бірақ ақ экран мәселесі шешілген жоқ."
+    },
+    {
+     "message_index": 15,
+     "quote": "Сау болыңыз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в репликах оператора не выявлено. Сброс ограничения без проверки личности относится к другой проблеме и не входит в три категории флага.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Я сбросил ограничение попыток входа на вашем брокерском счёте."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.83,
+   "distribution": {
+    "yes": 0.17,
+    "no": 0.83
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4395,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 701,
+   "cost": 0.000185,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1583,
+   "output_tokens": 3162,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 13086,
+   "cost": 0.001771,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "no",
+  "04": "5",
+  "05": "yes",
+  "06": "4",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 0
+}

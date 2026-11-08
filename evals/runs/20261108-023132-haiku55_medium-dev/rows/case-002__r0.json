@@ -1,0 +1,165 @@
+{
+ "case_id": "case-002",
+ "variant": "haiku55_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе: «Здравствуйте! Меня зовут Алия.»",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте! Меня зовут Алия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "na",
+   "rationale": "Вопрос был общим, и для ответа о безопасности реквизитов данных хватало с самого начала. Уточнений не требовалось.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Общий вопрос про пополнение"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Данных для ответа хватало с самого начала: клиент задал общий вопрос о безопасности реквизитов."
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос о правилах пополнения не требовал идентификации клиента, поэтому проверка личности не была нужна.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Общий вопрос про пополнение"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: это общий вопрос без раскрытия данных счёта."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 15,
+   "rationale": "Основной вопрос решён: оператор дал верную рекомендацию брать реквизиты только в официальном приложении брокера. Однако ответ был подан путано, а второстепенная деталь о том, как именно сверять получателя, описана лишь общо.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "берите актуальные реквизиты только в официальном приложении или личном кабинете брокера"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор извинился за путаницу, но не отреагировал на конкретную проблему клиента. Клиент спросил, ждать ответа или писать, и не понял про реквизиты, а оператор ответил путано и не дал ясного ответа на этот вопрос.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Извините за путаницу."
+    },
+    {
+     "message_index": 5,
+     "quote": "вернитесь к следующему сообщению перед предыдущим"
+    },
+    {
+     "message_index": 6,
+     "quote": "до начала окончания сначала дождитесь уже отправленного ответа"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 6
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 0,
+   "rationale": "Реплики оператора бессвязны и противоречивы: он говорит «ответа ещё нет», просит вернуться к сообщению «перед предыдущим» и дождаться ответа, который «ещё не начинали». Ход диалога для клиента непонятен.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "до начала окончания сначала дождитесь уже отправленного ответа, который мы ещё не начинали."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог («Итог: используйте реквизиты из официального приложения…») и попрощался («Всего доброго, до свидания!»).",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Всего доброго, до свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в сообщениях оператора не выявлено.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Реквизиты из стороннего чата не используйте: они могут быть подменены."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 632,
+   "output_tokens": 2645,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 2907,
+   "latency_ms": 12249,
+   "cost": 0.001749,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "repair",
+   "request_id": "main_repair",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1995,
+   "output_tokens": 526,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 2517,
+   "cost": 0.000492,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 0
+}

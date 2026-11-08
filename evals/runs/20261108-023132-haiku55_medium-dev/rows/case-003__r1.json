@@ -1,0 +1,151 @@
+{
+ "case_id": "case-003",
+ "variant": "haiku55_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Приветствие и представление сделал бот в сообщении #1. Первый ответ оператора (#4) начинается сразу с сути вопроса, без приветствия и представления.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "По вашему счёту сегодня удержана брокерская комиссия"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Запрос клиента был понятен с самого начала: сумма 1500 тенге и вопрос о списании. Оператор учёл известные детали: назвал сделку, её сумму и тариф, по которому рассчитана комиссия.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "за исполненную покупку акций на 1 500 000 тенге"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системным событием до того, как оператор раскрыл данные о списании.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор полно объяснил списание: сделку, ставку тарифа и расчёт. Однако клиент просил копию тарифа и уточнял, куда её отправить. Оператор на этот запрос не ответил, поэтому существенная часть запроса осталась открытой.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "пришлите копию моего тарифа"
+    },
+    {
+     "message_index": 5,
+     "quote": "Итак, списание 1 500 тенге соответствует ставке вашего тарифа"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и на конкретную проблему клиента, списание комиссии, отреагировал: объяснил природу и расчёт удержания. Клиент выразил недовольство («Очень неприятно»), и оператор ответил именно на это.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Очень неприятно, рассчитывал на эту сумму."
+    },
+    {
+     "message_index": 4,
+     "quote": "ставка для этой сделки — 0,1% от суммы"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора ясные и связные, порядок логичный: сумма, ставка, расчёт, итог. Явного ожидания, требующего предупреждения, не было.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Это комиссия за сделку, не плата за обслуживание счёта."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог списания и предложил дальнейшую помощь, затем попрощался.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Если появятся другие вопросы, обращайтесь."
+    },
+    {
+     "message_index": 5,
+     "quote": "До свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации не выявлено. Оператор лишь объяснил комиссию по тарифу клиента.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Если появятся другие вопросы, обращайтесь."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 470,
+   "output_tokens": 3129,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 13227,
+   "cost": 0.001641,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

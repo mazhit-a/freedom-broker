@@ -1,0 +1,223 @@
+{
+ "case_id": "case-004",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался на казахском языке клиента и представился в первом ответе, назвав себя Айданой.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Сәлеметсіз бе! Менің атым — Айдана."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл выбранный клиентом раздел «Тарифтер мен комиссиялар» и уточнил, что именно клиент хочет узнать.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Нақты нені білгіңіз келеді?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.82,
+   "distribution": {
+    "yes": 0.82,
+    "no": 0.16,
+    "na": 0.02
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос про тарифы и комиссии не требовал идентификации клиента, поэтому проверка личности не применялась.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Тарифтер мен комиссиялар"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: клиент выбрал общую информацию о тарифах и комиссиях, без раскрытия данных или защищённого действия.",
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.03,
+    "na": 0.97
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Чат завершился до того, как клиент сформулировал свой вопрос: клиент написал, что ещё пишет вопрос, и покинул чат.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Бір сәт, сұрағымды жазып жатырмын."
+    },
+    {
+     "message_index": 7,
+     "quote": "Клиент чаттан шығып кетті."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат закончился до того, как клиент сформулировал запрос: клиент отошёл от чата, не написав вопрос.",
+   "confidence": 0.97,
+   "distribution": {
+    "na": 0.97,
+    "0": 0.015000000000000013,
+    "5": 0.0003000000000000003,
+    "10": 0.004200000000000004,
+    "15": 0.0,
+    "20": 0.01050000000000001
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и корректно отреагировал на паузу клиента, предложив ему продолжить написание вопроса.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора ясные и связные, порядок диалога понятен; явного ожидания, требующего предупреждения, оператор не создавал.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Нақты нені білгіңіз келеді?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.0,
+    "7": 0.03,
+    "10": 0.97
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Чат оборвался по инициативе клиента до того, как оператор смог его завершить итогом и прощанием.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Клиент чаттан шығып кетті."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат оборвался до возможности его завершить: клиент покинул чат сразу после слов оператора.",
+   "confidence": 0.9,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.1,
+    "na": 0.9
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в сообщениях оператора не выявлено.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Әрине, сұрағыңызды жаза беріңіз."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.79,
+   "distribution": {
+    "yes": 0.21,
+    "no": 0.79
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 2746,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 735,
+   "cost": 0.000115,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 466,
+   "output_tokens": 2064,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 9404,
+   "cost": 0.001111,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "na",
+  "04": "na",
+  "05": "yes",
+  "06": "10",
+  "07": "na",
+  "08": "no"
+ },
+ "rep": 0
+}

@@ -1,0 +1,241 @@
+{
+ "case_id": "case-020",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался и назвал своё имя и компанию, что соответствует критерию.",
+   "evidence": [
+    {
+     "message_index": 1,
+     "quote": "Здравствуйте, меня зовут Алия, поддержка брокера."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент просил общие шаги и способ отправки обращения без приложения. Оператор дал противоречивые инструкции о порядке запуска и отправки и не уточнил недостающее, куда писать без приложения. Данных для ответа с самого начала не хватало, поэтому N/A не применяется.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Только его не запускайте, сначала отправьте из него обращение."
+    },
+    {
+     "message_index": 5,
+     "quote": "Нет, сначала дождитесь ответа на обращение, потом его отправляйте."
+    },
+    {
+     "message_index": 6,
+     "quote": "А куда написать без приложения, так и не понял."
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 5
+   },
+   "na_reason": null,
+   "confidence": 0.92,
+   "distribution": {
+    "yes": 0.01,
+    "no": 0.92,
+    "na": 0.07
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Клиент прямо попросил общие действия без проверки счёта, запрос не требовал идентификации. Условие N/A выполнено.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Мне без проверки счёта, просто общие действия скажите"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: клиент попросил общие действия без проверки счёта.",
+   "confidence": 0.92,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.08,
+    "na": 0.92
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ответа на вопрос, куда отправить техническое обращение без приложения, по существу не дано. Ключевая рекомендация оператора противоречива: сначала не запускать приложение, но отправить обращение из него, и клиенту остаётся непонятно, как действовать.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Его нужно открыть, не открывая, ну до запуска отправить."
+    },
+    {
+     "message_index": 6,
+     "quote": "А куда написать без приложения, так и не понял."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.3663,
+   "distribution": {
+    "na": 0.01,
+    "0": 0.3663,
+    "5": 0.26730000000000004,
+    "10": 0.3564,
+    "15": 0.0,
+    "20": 0.0
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент выразил раздражение из-за неработающего приложения, но оператор на это не отреагировал и сразу перешёл к техническим инструкциям.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "уже очень раздражает"
+    },
+    {
+     "message_index": 3,
+     "quote": "Полностью закройте приложение и запустите заново"
+    }
+   ],
+   "checked_range": {
+    "from": 2,
+    "to": 3
+   },
+   "na_reason": null,
+   "confidence": 0.94,
+   "distribution": {
+    "yes": 0.06,
+    "no": 0.94
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 0,
+   "rationale": "Реплики оператора бессвязны и противоречивы: сначала запустить приложение, затем не запускать, затем открыть не открывая. Из-за этого ход диалога для клиента непонятен.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Только его не запускайте, сначала отправьте из него обращение."
+    },
+    {
+     "message_index": 5,
+     "quote": "Его нужно открыть, не открывая, ну до запуска отправить."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.52,
+   "distribution": {
+    "0": 0.52,
+    "4": 0.48,
+    "7": 0.0,
+    "10": 0.0
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "В завершении оператор предложил обращаться в поддержку при других вопросах и попрощался. Итог не подведён, но предложение дальнейшей помощи и прощание присутствуют, поэтому критерий выполнен.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Если появятся другие вопросы, обращайтесь в поддержку. До свидания."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.96,
+   "distribution": {
+    "yes": 0.96,
+    "no": 0.04,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге не выявлено.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "обращайтесь в поддержку"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.87,
+   "distribution": {
+    "yes": 0.13,
+    "no": 0.87
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 3244,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 711,
+   "cost": 0.000136,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 815,
+   "output_tokens": 2445,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 9783,
+   "cost": 0.001336,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "no",
+  "03": "na",
+  "04": "0",
+  "05": "no",
+  "06": "0",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 1
+}

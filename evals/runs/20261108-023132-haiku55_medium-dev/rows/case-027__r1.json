@@ -1,0 +1,159 @@
+{
+ "case_id": "case-027",
+ "variant": "haiku55_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался и представился по имени.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали (вывод на собственный счёт, сумма, статус) и уточнил недостающие сведения: дату подачи, сумму, валюту, статус и доступность кнопки отмены.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "When did you submit it, what amount and currency, and what status does the app show?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Is the destination a bank account in your own name, and is there an active Cancel button on the withdrawal?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Оператор сам попросил подтвердить проверку личности перед запросом отмены, но клиент не смог её пройти, а подтверждения личности в диалоге нет. Несмотря на это, оператор отправил инструкцию по отмене защищённого действия.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Before I request a cancellation, please approve the identity check in your brokerage app."
+    },
+    {
+     "message_index": 10,
+     "quote": "That's all right, I'll go ahead and send the cancellation instruction anyway."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 10
+   },
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Основная рекомендация оператора ошибочна: он советовал подать повторный вывод на ту же сумму, игнорировать предупреждение системы и внести дополнительные 50 000 тенге. Клиенту это не помогло, а вопрос о непоступлении средств остался открытым.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Submit another withdrawal for the same amount to the same bank now."
+    },
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и дважды признал тревогу клиента из-за необходимости денег на аренду. Формально реакция на описанное неудобство есть, однако по существу рекомендации были вредными.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "I understand why having your rent money tied up is worrying."
+    },
+    {
+     "message_index": 22,
+     "quote": "I understand; putting in more money isn't workable when you need it for rent."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы в целом ясные, оператор заранее предупредил об удержании на тридцать секунд. Есть один заметный сбой: объяснения о резервировании средств противоречат друг другу, а клиент вынужден был переспрашивать о статусе отмены.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "I'll put you on hold for about thirty seconds while I submit it."
+    },
+    {
+     "message_index": 20,
+     "quote": "The second reservation will be released when the requests merge."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора, предложил обратиться при необходимости и попрощался.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Please contact us if you need further help. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, раскрытия конфиденциальной информации или предложения платной услуги в обход компании не выявлено. Совет внести деньги для повторной заявки является ошибочным, но не относится к перечисленным категориям грубых нарушений.",
+   "evidence": [
+    {
+     "message_index": 20,
+     "quote": "Then you would need to deposit another fifty thousand tenge first"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1802,
+   "output_tokens": 3387,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 14656,
+   "cost": 0.001903,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

@@ -1,0 +1,148 @@
+{
+ "case_id": "case-032",
+ "variant": "haiku55_medium",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на казахском языке и представился по имени и роли.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Сәлеметсіз бе! Менің атым Айдана"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "na",
+   "rationale": "Клиент сразу назвал номер заявки, количество, лимит и полученную сумму, поэтому данных для ответа хватало с самого начала.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Жүз дана саттым, лимиті мың бес жүз теңге"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Данных для ответа хватало с самого начала: клиент уже сообщил номер заявки, объём, лимит и фактически полученную сумму."
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Оператор потребовал подтвердить личность до раскрытия данных заявки, и в системе есть подтверждение личности клиента до показа деталей сделок.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "алдымен жеке басыңызды растау қажет"
+    },
+    {
+     "message_index": 10,
+     "quote": "Клиенттің жеке басы расталды."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор разобрал расхождение по средней цене, лимиту, двум сделкам и комиссии 200 теньге, проверил расчёт и оформил жалобу с понятным следующим шагом.",
+   "evidence": [
+    {
+     "message_index": 22,
+     "quote": "Осы өтініш бойынша комиссияның жалпы сомасы 200 теңге"
+    },
+    {
+     "message_index": 28,
+     "quote": "Шағым тіркелді, нөмірі TEST-C204"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор вежлив и отреагировал на конкретное неудобство клиента: непонятное снижение суммы и неожиданную комиссию, предложив жалобу.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Комиссия сіз үшін күтпеген шығын болғанын түсінемін"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Клиенту пришлось переспрашивать из-за неясного ответа про «два исполнения», а перед постановкой на ожидание оператор не предупредил, за что извинился позже.",
+   "evidence": [
+    {
+     "message_index": 14,
+     "quote": "Орындау бөлек, есеп бір"
+    },
+    {
+     "message_index": 18,
+     "quote": "Ескертпей күтуге қойғаным үшін кешіріңіз"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог по заявке, сообщил о жалобе и попрощался с клиентом.",
+   "evidence": [
+    {
+     "message_index": 38,
+     "quote": "Хабарласқаныңызға рақмет, сау болыңыз!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений, предложения платной услуги в обход компании или раскрытия конфиденциальной информации не выявлено; оператор прямо отказался от обещаний отмены сделки.",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Қазір мәмілені жоюға немесе комиссияны қайтаруға уәде бере алмаймын"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 3835,
+   "output_tokens": 3804,
+   "cache_read_tokens": 2907,
+   "cache_write_tokens": 0,
+   "latency_ms": 17644,
+   "cost": 0.002315,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "rep": 1
+}

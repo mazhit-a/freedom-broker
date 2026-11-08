@@ -1,0 +1,232 @@
+{
+ "case_id": "case-003",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "no",
+   "rationale": "Первое сообщение оператора (#4) сразу содержит ответ по существу. Приветствия и представления оператора нет. Приветствие бота в #1 не учитывается.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "По вашему счёту сегодня удержана брокерская комиссия"
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 4
+   },
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 0.0,
+    "no": 1.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Клиент просил объяснить списание и прислать копию тарифа, а также прямо попросил уточнить, куда удобно её отправить. Оператор не уточнил канал получения тарифа, поэтому недостающая информация не была выяснена. Условие N/A не выполнено, так как данных для ответа не хватало с самого начала.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "уточните, куда мне удобно её получить"
+    },
+    {
+     "message_index": 5,
+     "quote": "Если появятся другие вопросы, обращайтесь."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 5
+   },
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.02,
+    "no": 0.97,
+    "na": 0.01
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед раскрытием данных о списании оператору была подтверждена личность клиента: системное событие о подтверждении зафиксировано до ответа оператора.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Оператор объяснил причину списания и ставку тарифа, то есть основной вопрос закрыт. Однако копия тарифа, которую клиент запросил, не предоставлена, и существенный запрос остался открытым.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "ставка для этой сделки — 0,1% от суммы"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.5529,
+   "distribution": {
+    "na": 0.03,
+    "0": 0.0,
+    "5": 0.0,
+    "10": 0.5529,
+    "15": 0.388,
+    "20": 0.029099999999999997
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Клиент прямо выразил недовольство («Очень неприятно, рассчитывал на эту сумму»). Оператор не отреагировал на это неудобство и сразу перешёл к объяснению, что не соответствует требованию.",
+   "evidence": [
+    {
+     "message_index": 0,
+     "quote": "Очень неприятно, рассчитывал на эту сумму."
+    },
+    {
+     "message_index": 4,
+     "quote": "Это комиссия за сделку, не плата за обслуживание счёта."
+    }
+   ],
+   "checked_range": {
+    "from": 4,
+    "to": 5
+   },
+   "na_reason": null,
+   "confidence": 0.59,
+   "distribution": {
+    "yes": 0.41,
+    "no": 0.59
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 7,
+   "rationale": "Ответы оператора в целом ясны и связны, объяснение расчёта понятно. Заметный сбой один: оператор повторил объяснение в последнем сообщении и не ответил на просьбу о тарифе, из-за чего клиенту придётся уточнять.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Итак, списание 1 500 тенге соответствует ставке вашего тарифа"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.61,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.04,
+    "7": 0.61,
+    "10": 0.35
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог списания и попрощался, что соответствует требованию завершения.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "До свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации не выявлено. Оператор объяснил только комиссию за сделку по подключённому тарифу.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Это комиссия за сделку, не плата за обслуживание счёта."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.87,
+   "distribution": {
+    "yes": 0.13,
+    "no": 0.87
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 2869,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 727,
+   "cost": 0.00012,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 533,
+   "output_tokens": 2389,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 9493,
+   "cost": 0.00128,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "no",
+  "02": "no",
+  "03": "yes",
+  "04": "10",
+  "05": "no",
+  "06": "7",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 1
+}

@@ -1,0 +1,234 @@
+{
+ "case_id": "case-027",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе (\"Hello, my name is Alex\"), что соответствует критерию.",
+   "evidence": [
+    {
+     "message_index": 2,
+     "quote": "Hello, my name is Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.03
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор уточнил недостающие детали: дату подачи, сумму, валюту, статус в приложении, тип счёта назначения и наличие активной кнопки отмены. Это соответствует ответу \"yes\".",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "When did you submit it, what amount and currency, and what status does the app show?"
+    },
+    {
+     "message_index": 6,
+     "quote": "Is the destination a bank account in your own name, and is there an active Cancel button on the withdrawal?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.83,
+   "distribution": {
+    "yes": 0.83,
+    "no": 0.16,
+    "na": 0.01
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "no",
+   "rationale": "Запрос требовал идентификации, так как операция касалась вывода средств и защищённого действия. Оператор попросил подтвердить проверку личности, но клиент не смог её пройти (экран не загрузился), а оператор всё равно отправил инструкцию на отмену. Подтверждённой идентификации в разговоре нет, поэтому ответ \"no\".",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "please approve the identity check in your brokerage app."
+    },
+    {
+     "message_index": 10,
+     "quote": "I'll go ahead and send the cancellation instruction anyway."
+    }
+   ],
+   "checked_range": {
+    "from": 8,
+    "to": 10
+   },
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.99,
+    "na": 0.01
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 0,
+   "rationale": "Ключевая рекомендация оператора ошибочна: он советовал подать дубликат вывода, игнорируя предупреждение системы, и утверждал, что запросы автоматически объединятся. Это противоречит предупреждению приложения и может привести к неверным действиям клиента, поэтому оценка 0.",
+   "evidence": [
+    {
+     "message_index": 16,
+     "quote": "Submit another withdrawal for the same amount to the same bank now."
+    },
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.7326,
+   "distribution": {
+    "na": 0.01,
+    "0": 0.7326,
+    "5": 0.0198,
+    "10": 0.0891,
+    "15": 0.029699999999999997,
+    "20": 0.11879999999999999
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и отреагировал на описанное клиентом неудобство (срочная оплата аренды и стресс), признав его важность. Ответ \"yes\".",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "I understand why having your rent money tied up is worrying."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.94,
+   "distribution": {
+    "yes": 0.94,
+    "no": 0.06
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Формулировки оператора в целом ясные и связные, порядок ответов логичен. Явного ожидания, требующего предупреждения, было одно (hold на 30 секунд), и оно было заранее озвучено. Оценка 10 соответствует шкале, хотя содержание советов по существу ошибочно и оценивается в критерии 04.",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "I'll put you on hold for about thirty seconds while I submit it."
+    },
+    {
+     "message_index": 14,
+     "quote": "That requests cancellation; it does not confirm that the original withdrawal has stopped."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.78,
+   "distribution": {
+    "0": 0.01,
+    "4": 0.02,
+    "7": 0.19,
+    "10": 0.78
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог разговора и попрощался, а также предложил обратиться за дальнейшей помощью. Ответ \"yes\".",
+   "evidence": [
+    {
+     "message_index": 26,
+     "quote": "Please contact us if you need further help. Goodbye."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента нет, платной услуги в обход компании не предлагалось, конфиденциальная информация не раскрывалась. Ошибочный совет подать дубликат вывода является серьёзной ошибкой по консультации, но не попадает под три категории грубых нарушений, поэтому нарушение не выявлено.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "You can ignore that warning in this situation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.9299999999999999,
+   "distribution": {
+    "yes": 0.07,
+    "no": 0.9299999999999999
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4036,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 500,
+   "cost": 0.00017,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1867,
+   "output_tokens": 2506,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 10050,
+   "cost": 0.001472,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "no",
+  "04": "0",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 1
+}

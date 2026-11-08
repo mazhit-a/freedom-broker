@@ -1,0 +1,215 @@
+{
+ "case_id": "case-019",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе (сообщение #3) поздоровался и представился по имени Анна. Приветствие сделано на русском, языке клиента.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известную деталь (клиент выбрал раздел об участии в IPO) и уточнил недостающее: что именно клиент хочет узнать. Данных для ответа с самого начала не хватало, поэтому уточнение было нужно.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.81,
+   "distribution": {
+    "yes": 0.81,
+    "no": 0.17,
+    "na": 0.02
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Идентификация не требовалась: клиент не сделал запрос, требующий проверки личности, а оператор лишь уточнил тему раздела. Условие N/A выполнено.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Вы выбрали раздел об участии в IPO"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации.",
+   "confidence": 0.93,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.07,
+    "na": 0.93
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Клиент не успел сформулировать запрос: после неполной реплики (сообщение #4) соединение было потеряно. Условие N/A выполнено.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Да, я... э..."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат закончился до того, как клиент сформулировал запрос.",
+   "confidence": 0.92,
+   "distribution": {
+    "na": 0.92,
+    "0": 0.06319999999999996,
+    "5": 0.0015999999999999992,
+    "10": 0.004799999999999998,
+    "15": 0.0,
+    "20": 0.010399999999999994
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив: поздоровался, использовал слова «пожалуйста» и обратился к клиенту с уточняющим вопросом. Недовольство или неудобство клиента не выражались, поэтому реакции на проблему не требовалось.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответ оператора ясный и связный, порядок реплик понятен. Явного ожидания, о котором нужно было предупредить, не возникло, поэтому сбоев в управлении диалогом нет.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.74,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.0,
+    "7": 0.26,
+    "10": 0.74
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Чат оборвался из-за потери соединения (системное событие), и оператор не получил возможности завершить разговор. Условие N/A выполнено.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Соединение потеряно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Чат оборвался до возможности его завершить.",
+   "confidence": 0.96,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.04,
+    "na": 0.96
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в транскрипте нет. Реплики оператора нейтральны.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.8,
+   "distribution": {
+    "yes": 0.2,
+    "no": 0.8
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 2729,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 770,
+   "cost": 0.000115,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 424,
+   "output_tokens": 2211,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 8565,
+   "cost": 0.00118,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "na",
+  "04": "na",
+  "05": "yes",
+  "06": "10",
+  "07": "na",
+  "08": "no"
+ },
+ "rep": 1
+}

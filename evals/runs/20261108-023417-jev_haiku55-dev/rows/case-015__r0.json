@@ -1,0 +1,231 @@
+{
+ "case_id": "case-015",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе (#4): «Hello, I'm Alex.» Ответ дан на языке клиента (английский).",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Hello, I'm Alex."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор уточнил недостающие данные: тип счёта и сумму инвестиции (#4). Далее учитывал известные детали: 100 000 KZT, индивидуальный брокерский счёт в тенге.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Are you using your individual brokerage account or an investment management account"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.97,
+   "distribution": {
+    "yes": 0.97,
+    "no": 0.02,
+    "na": 0.01
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед раскрытием баланса оператор запросил подтверждение личности (#6). Система подтвердила личность (#8), и только после этого оператор сообщил баланс (#9).",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Before I check your balance"
+    },
+    {
+     "message_index": 9,
+     "quote": "Your individual account has 125,000 KZT available."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "yes": 0.99,
+    "no": 0.01,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор полностью закрыл запрос: проверил баланс, рассчитал резерв при 100 шт. (100 000 + 200 KZT), объяснил риски, сроки, отмену заявки, порядок распределения и возврат средств, а также провёл клиента по шагам подачи до статуса «Received».",
+   "evidence": [
+    {
+     "message_index": 11,
+     "quote": "The total reservation would be 100,200 KZT"
+    },
+    {
+     "message_index": 41,
+     "quote": "That confirms submission, not allocation."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.7663,
+   "distribution": {
+    "na": 0.03,
+    "0": 0.0097,
+    "5": 0.0,
+    "10": 0.0,
+    "15": 0.194,
+    "20": 0.7663
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив. Когда клиент пожаловался на неясную блокировку кнопки «Continue», оператор признал неудобство и сразу перешёл к конкретному решению.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "I understand why a disabled button with no clear explanation is frustrating."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора в основном ясные и последовательные. Оператор дал пошаговые инструкции и предупредил о том, что нужно проверить перед отправкой. Заметного сбоя, требующего переспроса, не выявлено.",
+   "evidence": [
+    {
+     "message_index": 17,
+     "quote": "With a valid quantity entered, Continue should become available."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.8,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.01,
+    "7": 0.19,
+    "10": 0.8
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог статуса заявки (#61) и указал, где её проверить (#63). Прощания от оператора в конце диалога нет, поэтому полное выполнение критерия под сомнением.",
+   "evidence": [
+    {
+     "message_index": 61,
+     "quote": "Your application remains Received, with allocation pending."
+    },
+    {
+     "message_index": 63,
+     "quote": "The application record remains accessible under Investments → IPO → My applications."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "disputed": true,
+   "dispute_reason": "В конце диалога оператор не попрощался с клиентом: после благодарности клиента (#62) оператор ответил только информацией о странице заявок (#63), а чат закрыт системой (#65). Критерий требует итога или предложения помощи и прощания, поэтому ответ «yes» вызывает сомнение.",
+   "confidence": 0.61,
+   "distribution": {
+    "yes": 0.61,
+    "no": 0.37,
+    "na": 0.02
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оператор не оскорблял клиента, не предлагал платных услуг в обход компании и не раскрывал конфиденциальной информации третьим лицам. Баланс был сообщён клиенту после подтверждения личности.",
+   "evidence": [
+    {
+     "message_index": 9,
+     "quote": "Your individual account has 125,000 KZT available."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.9299999999999999,
+   "distribution": {
+    "yes": 0.07,
+    "no": 0.9299999999999999
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4841,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 819,
+   "cost": 0.000203,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 3373,
+   "output_tokens": 3061,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 13435,
+   "cost": 0.0019,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {
+  "07": "В конце диалога оператор не попрощался с клиентом: после благодарности клиента (#62) оператор ответил только информацией о странице заявок (#63), а чат закрыт системой (#65). Критерий требует итога или предложения помощи и прощания, поэтому ответ «yes» вызывает сомнение."
+ },
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "yes",
+  "04": "20",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 0
+}

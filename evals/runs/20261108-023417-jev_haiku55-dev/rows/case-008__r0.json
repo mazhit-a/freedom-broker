@@ -1,0 +1,234 @@
+{
+ "case_id": "case-008",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался и представился: «Здравствуйте! Меня зовут Алия.». Приветствие и представление выполнены оператором, а не ботом.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Меня зовут Алия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учёл известные детали заявки TEST-481 и уточнил параметры по отчёту. В ответе разобраны вид заявки, объём и две сделки с ценами исполнения.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Исполнение прошло двумя сделками: 40 акций по 1010 ₸ и 60 акций по 1020 ₸."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.81,
+   "distribution": {
+    "yes": 0.81,
+    "no": 0.06,
+    "na": 0.13
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Перед раскрытием сведений по заявке оператор попросил подтвердить личность через защищённую кнопку. Система зафиксировала подтверждение личности клиента до передачи данных по заявке.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "подтвердите личность через защищённую кнопку"
+    },
+    {
+     "message_index": 5,
+     "quote": "Личность клиента подтверждена."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор закрыл существенные вопросы: объяснил расчёт средневзвешенной цены, разницу в 1600 ₸, зарегистрировал претензию с номером и дал корректный следующий шаг по скачиванию сделок.",
+   "evidence": [
+    {
+     "message_index": 12,
+     "quote": "Разница с расчётом по 1000 ₸ составляет 1600 ₸"
+    },
+    {
+     "message_index": 16,
+     "quote": "Претензия зарегистрирована под номером CLAIM-024"
+    },
+    {
+     "message_index": 18,
+     "quote": "Откройте «Портфель → История → Заявки → TEST-481 → Сделки»."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.891,
+   "distribution": {
+    "na": 0.1,
+    "0": 0.0,
+    "5": 0.0,
+    "10": 0.0,
+    "15": 0.009000000000000001,
+    "20": 0.891
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Клиент выразил недовольство и описал неудобство из-за большей суммы. Оператор вежливо ответил и отреагировал на конкретную проблему: объяснил механизм исполнения и зарегистрировал претензию с проверкой отображённой котировки.",
+   "evidence": [
+    {
+     "message_index": 14,
+     "quote": "Зарегистрирую претензию с проверкой отображённой котировки"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.85,
+   "distribution": {
+    "yes": 0.85,
+    "no": 0.15
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы оператора ясные и связные. Ожидание было явно обозначено: оператор предупредил, что проверка займёт до двух минут, и что регистрация займёт около минуты.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "Это займёт до двух минут."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.99,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.0,
+    "7": 0.01,
+    "10": 0.99
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "no",
+   "rationale": "После последнего ответа оператора по скачиванию сделок он не подвёл итог, не предложил дальнейшую помощь и не попрощался. Чат закрыт системным событием без прощания оператора.",
+   "evidence": [
+    {
+     "message_index": 18,
+     "quote": "Для сохранения выберите «Отчёт → Скачать PDF»."
+    },
+    {
+     "message_index": 19,
+     "quote": "Чат закрыт оператором."
+    }
+   ],
+   "checked_range": {
+    "from": 17,
+    "to": 19
+   },
+   "na_reason": null,
+   "confidence": 0.68,
+   "distribution": {
+    "yes": 0.28,
+    "no": 0.68,
+    "na": 0.04
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления клиента, предложения платной услуги в обход компании или раскрытия конфиденциальной информации в переписке не выявлено. Оператор объяснил общие правила рыночной заявки без раскрытия данных сверх запроса клиента.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Для ограничения максимальной цены покупки используют лимитную заявку"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.89,
+   "distribution": {
+    "yes": 0.11,
+    "no": 0.89
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 4261,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 794,
+   "cost": 0.000179,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 1620,
+   "output_tokens": 3262,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 12673,
+   "cost": 0.001825,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "yes",
+  "03": "yes",
+  "04": "20",
+  "05": "yes",
+  "06": "10",
+  "07": "no",
+  "08": "no"
+ },
+ "rep": 0
+}

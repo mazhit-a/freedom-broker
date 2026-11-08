@@ -1,0 +1,230 @@
+{
+ "case_id": "case-025",
+ "variant": "jev_haiku55",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор поздоровался и представился в первом ответе: «Здравствуйте, меня зовут Алия, служба поддержки».",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Алия"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор не уточнила тариф и биржу клиента, начала с общей формулы и только после замечания клиента перешла к его условиям. Недостающие данные нужно было выяснить до расчёта.",
+   "evidence": [
+    {
+     "message_index": 6,
+     "quote": "какой тариф и биржа вы даже не спросили"
+    },
+    {
+     "message_index": 8,
+     "quote": "я начала с общей формулы, не уточнив ваши условия"
+    }
+   ],
+   "checked_range": {
+    "from": 3,
+    "to": 8
+   },
+   "na_reason": null,
+   "confidence": 0.46,
+   "distribution": {
+    "yes": 0.45,
+    "no": 0.46,
+    "na": 0.09
+   }
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "Запрос был общим: клиент сам попросил объяснить расчёт комиссии без обращения к его счёту, поэтому проверка личности не требовалась.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Ничего по моему счёту смотреть не надо"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Запрос не требовал идентификации: клиент просил общее объяснение расчёта комиссии и не просил данных по счёту.",
+   "confidence": 0.96,
+   "distribution": {
+    "yes": 0.0,
+    "no": 0.04,
+    "na": 0.96
+   }
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 20,
+   "rationale": "Оператор дала корректный расчёт комиссии для примера клиента: покупка и продажа на 50 и 60 тысяч по 100 тенге, минимум и отдельный расчёт по каждой заявке, итоговая сумма 200 тенге. Основной вопрос полностью закрыт.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "Если понадобятся другие расчёты, обращайтесь"
+    },
+    {
+     "message_index": 22,
+     "quote": "Да, вы правильно поняли"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.9108,
+   "distribution": {
+    "na": 0.08,
+    "0": 0.0,
+    "5": 0.0,
+    "10": 0.0,
+    "15": 0.0092,
+    "20": 0.9108
+   }
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор был вежлив и отреагировал на раздражение клиента из-за сложной таблицы: извинилась и признала неудобство изложения.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Простите, что условия изложены неудобно"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0
+   }
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Ответы ясные и связные, порядок логичный, оператор признала свою ошибку и последовательно объяснила минимум и отдельный расчёт по заявкам. Явного ожидания не было, поэтому предупреждение не требовалось.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Вы правы, я начала с общей формулы"
+    },
+    {
+     "message_index": 14,
+     "quote": "суммарная брокерская комиссия за эти две заявки будет 200 тенге"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.82,
+   "distribution": {
+    "0": 0.0,
+    "4": 0.01,
+    "7": 0.17,
+    "10": 0.82
+   }
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвела итог расчёта по примеру клиента и попрощалась с клиентом.",
+   "evidence": [
+    {
+     "message_index": 24,
+     "quote": "До свидания!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 1.0,
+   "distribution": {
+    "yes": 1.0,
+    "no": 0.0,
+    "na": 0.0
+   }
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорбления, предложения платной услуги в обход компании и раскрытия конфиденциальной информации в диалоге не выявлено. Оператор вежливо отвечала на вопросы.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Понимаю ваше раздражение"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null,
+   "confidence": 0.85,
+   "distribution": {
+    "yes": 0.15,
+    "no": 0.85
+   }
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 5479,
+   "output_tokens": 252,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 731,
+   "cost": 0.00023,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "explain",
+   "provider": "anthropic",
+   "model": "claude-haiku-5-5",
+   "input_tokens": 2525,
+   "output_tokens": 2628,
+   "cache_read_tokens": 3213,
+   "cache_write_tokens": 0,
+   "latency_ms": 10664,
+   "cost": 0.001599,
+   "structured": true,
+   "stop_reason": "end_turn",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "explained": true,
+ "jev_answers": {
+  "01": "yes",
+  "02": "no",
+  "03": "na",
+  "04": "20",
+  "05": "yes",
+  "06": "10",
+  "07": "yes",
+  "08": "no"
+ },
+ "rep": 1
+}
