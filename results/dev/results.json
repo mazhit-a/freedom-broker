@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "team_name": "aleb.",
+  "team_name": "aleb",
   "model": {
     "mode": "external_api",
     "name": "gpt-6.1-sol"
