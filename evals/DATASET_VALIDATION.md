@@ -28,3 +28,16 @@ Claude Sonnet 5.5 answered every case against checklist v2 without seeing the ex
 - The expected results are the reviewer's judgement. They are not independently verified, and one reviewer is a limitation.
 - An independent model agreed on 01, 03 and 08 and disagreed most on 06, 04 and 02. The expected scale steps in particular rest on one reviewer's reading of the v2 descriptors, so 04 and 06 results carry the least confidence.
 - The report breaks results down per criterion for this reason.
+
+## Round 3: blind human adjudication of criterion 06
+
+The human reviewer labelled criterion 06 blind (no labels, model answers or tags shown, shuffled order) for the 12 dev cases where any model disagreed with the dataset label: `evals/review/adjudication_06.json`, scored by `scripts/score_adjudication.py`.
+
+- 11 answered, 1 unsure (case-016).
+- The dataset label matched the human on 2 of 11. In 9 of 11 the label differed, and in 8 of those 9 the label was higher than the human's answer (one lower).
+- Agreement with the human on the 11: Sonnet medium 6, Opus low + fix05 5, Opus medium 5, Jev default 3, gpt-6.1-sol medium 2.
+- The 12 dev cases where all of gpt-6.1-sol, Opus low + fix05 and Opus medium agreed with the label were not adjudicated and keep the dataset label.
+
+Consequence: the 06 labels in dataset v1 run generous relative to the human reviewer, in the direction the Claude models score. Comparisons that reward matching the v1 06 labels favour the model that wrote them (gpt-6.1-sol). A sensitivity analysis with the 9 changed answers as the 06 reference removes gpt-6.1-sol's lead: Opus medium 91.4%, Opus low + fix05 91.1%, gpt-6.1-sol medium 91.4%, Sonnet medium 88.5% exact (original labels: 89.8, 88.8, 93.5, 86.5).
+
+Open: criteria 04, 02 and 07 were flagged by the blind Sonnet check as well and have not been adjudicated by the human. Dataset v1 is unchanged; a v2 with corrected 06 answers has not been frozen.

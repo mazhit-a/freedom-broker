@@ -1,0 +1,64 @@
+{
+ "criterion": "06",
+ "seed": 20261108,
+ "answers": [
+  {
+   "case_id": "case-009",
+   "answer": 7,
+   "unsure": false
+  },
+  {
+   "case_id": "case-002",
+   "answer": 4,
+   "unsure": false
+  },
+  {
+   "case_id": "case-034",
+   "answer": 4,
+   "unsure": false
+  },
+  {
+   "case_id": "case-026",
+   "answer": 7,
+   "unsure": false
+  },
+  {
+   "case_id": "case-027",
+   "answer": 7,
+   "unsure": false
+  },
+  {
+   "case_id": "case-001",
+   "answer": 7,
+   "unsure": false
+  },
+  {
+   "case_id": "case-025",
+   "answer": 7,
+   "unsure": false
+  },
+  {
+   "case_id": "case-021",
+   "answer": 4,
+   "unsure": false
+  },
+  {
+   "case_id": "case-013",
+   "answer": 7,
+   "unsure": false
+  },
+  {
+   "case_id": "case-010",
+   "answer": 4,
+   "unsure": false
+  },
+  {
+   "case_id": "case-022",
+   "answer": 7,
+   "unsure": false
+  },
+  {
+   "case_id": "case-016"
+  }
+ ]
+}
