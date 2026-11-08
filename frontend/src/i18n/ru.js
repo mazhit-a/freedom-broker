@@ -10,7 +10,6 @@ export default {
   "nav.runs": "Запуски",
   "header.role": "Роль",
   "header.locale": "Язык интерфейса",
-  "role.exec": "Руководитель",
   "role.reviewer": "QA / Проверяющий",
   "role.operator": "Оператор",
   "actor.operator": "Оператор A",

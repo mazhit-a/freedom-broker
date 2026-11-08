@@ -1,10 +1,9 @@
-export const ROLES = Object.freeze(["exec", "reviewer", "operator"]);
-export const DEFAULT_ROLE = "exec";
+export const ROLES = Object.freeze(["reviewer", "operator"]);
+export const DEFAULT_ROLE = "reviewer";
 
-const LEGACY = { qa: "reviewer", reviewer: "reviewer", operator: "operator", exec: "exec" };
+const LEGACY = { qa: "reviewer", reviewer: "reviewer", operator: "operator", exec: "reviewer" };
 
 const CAPABILITIES = {
-  exec: [],
   reviewer: [
     "select-criteria",
     "bulk-evaluate",
@@ -46,6 +45,5 @@ export function capabilities(role) {
 }
 
 export function wireRole(role) {
-  const normalized = normalizeRole(role);
-  return normalized === "exec" ? null : normalized;
+  return normalizeRole(role);
 }

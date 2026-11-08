@@ -4,7 +4,7 @@ export const DEMO_DEFAULTS = Object.freeze({
 });
 
 export const DEMO_WIDTHS = Object.freeze([768, 1024, 1440, 0]);
-export const DEMO_ROLES = Object.freeze(["exec", "reviewer", "operator"]);
+export const DEMO_ROLES = Object.freeze(["reviewer", "operator"]);
 export const DEMO_LOCALES = Object.freeze(["ru", "kk", "en"]);
 
 export function demoIds(config, mock) {
@@ -67,7 +67,7 @@ export const DEMO_TEXT = {
     frameLabel: "Приложение CQA",
     stepOf: "Шаг {n} из {m}",
     current: "Сейчас на экране",
-    roles: { exec: "Руководитель", reviewer: "QA / Проверяющий", operator: "Оператор" },
+    roles: { reviewer: "QA / Проверяющий", operator: "Оператор" },
     steps: {
       list: {
         title: "Список диалогов",
@@ -143,7 +143,7 @@ export const DEMO_TEXT = {
     frameLabel: "CQA қолданбасы",
     stepOf: "{m} қадамның {n}-і",
     current: "Қазір экранда",
-    roles: { exec: "Басшы", reviewer: "QA / Тексеруші", operator: "Оператор" },
+    roles: { reviewer: "QA / Тексеруші", operator: "Оператор" },
     steps: {
       list: {
         title: "Диалогтар тізімі",
@@ -219,7 +219,7 @@ export const DEMO_TEXT = {
     frameLabel: "CQA application",
     stepOf: "Step {n} of {m}",
     current: "Now on screen",
-    roles: { exec: "Manager", reviewer: "QA / Reviewer", operator: "Operator" },
+    roles: { reviewer: "QA / Reviewer", operator: "Operator" },
     steps: {
       list: {
         title: "Conversation list",

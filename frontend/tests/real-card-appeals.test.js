@@ -201,8 +201,6 @@ test("submitAppeal sends the operator role and 0-based refs; the role can be ove
   assert.equal(out.status, "new");
   await api.submitAppeal(4, "07", { comment: "c", refs: [], role: wireRole("reviewer") });
   assert.equal(calls[1].body.role, "reviewer");
-  await api.submitAppeal(4, "07", { comment: "c", refs: [], role: wireRole("exec") });
-  assert.equal(calls[2].body.role, null);
   assert.ok(calls.every((c) => c.body.role !== "qa"));
 });
 

@@ -272,7 +272,7 @@ test("roles gate filing and deciding", async () => {
   await rejects(api.startReview(1), { status: 403, code: "role_forbidden" });
   const ok = await api.submitAppeal(101, "05", { comment: "x" });
   assert.equal(ok.status, "new");
-  fresh({ role: "exec" });
+  fresh({ role: "reviewer" });
   await rejects(api.submitAppeal(101, "06", { comment: "x" }), { status: 403, code: "role_forbidden" });
 });
 

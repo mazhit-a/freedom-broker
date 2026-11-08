@@ -10,7 +10,6 @@ export default {
   "nav.runs": "Іске қосулар",
   "header.role": "Рөл",
   "header.locale": "Интерфейс тілі",
-  "role.exec": "Басшы",
   "role.reviewer": "QA / Тексеруші",
   "role.operator": "Оператор",
   "actor.operator": "Оператор A",

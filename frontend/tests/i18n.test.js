@@ -57,12 +57,10 @@ test("setLocale notifies subscribers and normalises", () => {
 test("roles map legacy keys to the combined role", () => {
   assert.equal(normalizeRole("qa"), "reviewer");
   assert.equal(normalizeRole("reviewer"), "reviewer");
-  assert.equal(normalizeRole("unknown"), "exec");
+  assert.equal(normalizeRole("unknown"), "reviewer");
   assert.equal(can("reviewer", "decide-appeal"), true);
   assert.equal(can("reviewer", "file-appeal"), false);
   assert.equal(can("operator", "file-appeal"), true);
   assert.equal(can("operator", "decide-appeal"), false);
-  assert.equal(can("exec", "file-appeal"), false);
   assert.equal(wireRole("qa"), "reviewer");
-  assert.equal(wireRole("exec"), null);
 });

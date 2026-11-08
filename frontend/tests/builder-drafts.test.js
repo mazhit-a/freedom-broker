@@ -252,7 +252,7 @@ test("mock: draft-first checklist, update, finalize validation, delete, role gat
   await api.deleteDraft(made.id);
   assert.equal((await api.listChecklists()).length, before.length);
   await assert.rejects(() => api.deleteDraft(made.id), (e) => e.status === 404);
-  configure({ mock: true, role: "exec" });
+  configure({ mock: true, role: "operator" });
   resetMock();
   await assert.rejects(() => api.createChecklistDraft(blank), (e) => e.code === "role_forbidden");
   await assert.rejects(() => api.deleteDraft(13), (e) => e.code === "role_forbidden");

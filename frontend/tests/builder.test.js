@@ -437,7 +437,7 @@ test("mock lifecycle: draft to saved to applied, channels, activation, role gate
   const created = await api.saveChecklistVersion(chat.id, config, { status: "draft" });
   assert.equal(created.status, "draft");
   assert.equal(created.version, 4);
-  configure({ mock: true, role: "exec" });
+  configure({ mock: true, role: "operator" });
   resetMock();
   await assert.rejects(() => api.saveChecklistVersion(chat.id, config), (e) => e.code === "role_forbidden");
   await assert.rejects(() => api.setChecklistChannels(chat.id, []), (e) => e.code === "role_forbidden");
