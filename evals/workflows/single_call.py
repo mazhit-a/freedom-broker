@@ -1,8 +1,10 @@
 from backend.app.services.evaluator import build_schema, build_system_prompt, build_user_prompt
+from evals.decisions import annotate_gaps
 from evals.workflows.base import Stage, Workflow, build_candidate, record_calls, resolve_profile
+from evals.workflows.prompts import build_system_prompt_v2, with_marks_note
 from evals.workflows.review import ReviewPass
 
-PROMPTS = {"v1": (build_system_prompt, build_user_prompt)}
+PROMPTS = {"v1": (build_system_prompt, build_user_prompt), "v2": (build_system_prompt_v2, build_user_prompt)}
 
 
 def conversation_of(case: dict) -> tuple[dict, list[dict]]:
@@ -19,6 +21,7 @@ class SingleCall(Workflow):
         self.prompt = self.params.get("prompt", "v1")
         if self.prompt not in PROMPTS:
             raise KeyError(f"unknown prompt version {self.prompt!r}, known: {sorted(PROMPTS)}")
+        self.marks = bool(self.params.get("pause_marks", False))
         self.profile_name = self.params.get("profile", "claude-opus-5-5")
         self.profile = resolve_profile(self.profile_name, self.params.get("effort"))
         self.pass_ = ReviewPass(
@@ -29,7 +32,12 @@ class SingleCall(Workflow):
         conv, messages = conversation_of(case)
         if index == 0:
             system_builder, user_builder = PROMPTS[self.prompt]
-            req = self.pass_.first_request(state, system_builder(self.cfg), user_builder(conv, messages))
+            system_text = system_builder(self.cfg)
+            shown = messages
+            if self.marks:
+                system_text = with_marks_note(system_text)
+                shown = annotate_gaps(messages)
+            req = self.pass_.first_request(state, system_text, user_builder(conv, shown))
 
             def reduce_first(st, responses):
                 record_calls(st, "first", responses)

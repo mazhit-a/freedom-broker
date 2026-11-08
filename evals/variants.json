@@ -88,5 +88,20 @@
     "name": "jev_compiled_principled",
     "workflow": "jev_only",
     "params": {"style": "compiled", "compiled": "evals/compiled/8bf8fc9a-principled.json"}
+  },
+  {
+    "name": "opus_low_fix05",
+    "workflow": "single_call",
+    "params": {"prompt": "v2", "profile": "claude-opus-5-5", "effort": "low"}
+  },
+  {
+    "name": "opus_low_marks",
+    "workflow": "single_call",
+    "params": {"prompt": "v1", "pause_marks": true, "profile": "claude-opus-5-5", "effort": "low"}
+  },
+  {
+    "name": "opus_low_fix05_marks",
+    "workflow": "single_call",
+    "params": {"prompt": "v2", "pause_marks": true, "profile": "claude-opus-5-5", "effort": "low"}
   }
 ]
