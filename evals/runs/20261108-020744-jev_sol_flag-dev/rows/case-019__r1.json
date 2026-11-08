@@ -1,0 +1,174 @@
+{
+ "case_id": "case-019",
+ "variant": "jev_sol_flag",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровалась на русском языке и представилась.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "yes",
+   "rationale": "Оператор учла выбранную тему IPO и задала уточняющий вопрос, не переходя к консультации без конкретного запроса.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Вы выбрали раздел об участии в IPO. Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "na",
+   "rationale": "До обрыва связи не возникло необходимости в проверке личности: оператор только уточнила тему обращения.",
+   "evidence": [],
+   "checked_range": null,
+   "na_reason": "Запрос, требующий идентификации, не поступил; раскрытия данных и защищённых действий не было."
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": "na",
+   "rationale": "Оценить консультацию невозможно: клиент не успел сформулировать вопрос.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Да, я... э..."
+    },
+    {
+     "message_index": 5,
+     "quote": "Соединение потеряно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Разговор оборвался до того, как клиент сформулировал запрос."
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "yes",
+   "rationale": "Оператор общалась вежливо и предложила уточнить потребность. Клиент не выражал недовольства и не описывал неудобств.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 10,
+   "rationale": "Реплика оператора ясная и последовательная: приветствие, представление, обозначение темы и уточняющий вопрос. Ожидания не было.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна. Вы выбрали раздел об участии в IPO. Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "na",
+   "rationale": "Оператор не получила возможности завершить разговор из-за потери соединения.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Соединение потеряно."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": "Связь оборвалась до возможности завершить разговор."
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "В единственной реплике оператора нет оскорблений, предложений платных услуг в обход компании или раскрытия конфиденциальных данных.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Здравствуйте, меня зовут Анна. Вы выбрали раздел об участии в IPO. Подскажите, пожалуйста, что именно хотели бы узнать?"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 1036,
+   "output_tokens": 23,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 512,
+   "cost": 4.4e-05,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 291,
+   "output_tokens": 1065,
+   "cache_read_tokens": 1921,
+   "cache_write_tokens": 0,
+   "latency_ms": 9423,
+   "cost": 0.011424,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 2
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "source": {
+  "01": "sol",
+  "02": "sol",
+  "03": "sol",
+  "04": "sol",
+  "05": "sol",
+  "06": "sol",
+  "07": "sol",
+  "08": "jev"
+ },
+ "jev_detail": {
+  "08": {
+   "answer": "no",
+   "confidence": 0.8,
+   "distribution": {
+    "yes": 0.2,
+    "no": 0.8
+   }
+  }
+ },
+ "rep": 1
+}

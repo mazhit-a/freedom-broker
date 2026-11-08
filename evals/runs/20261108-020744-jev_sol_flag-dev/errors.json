@@ -1,0 +1,65 @@
+[
+ {
+  "variant": "jev_sol_flag",
+  "case_id": "case-002",
+  "rep": 1,
+  "stage": "sol",
+  "request_id": "main",
+  "kind": "infrastructure",
+  "error": "RateLimitError status 429: Error code: 429 - You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/."
+ },
+ {
+  "variant": "jev_sol_flag",
+  "case_id": "case-004",
+  "rep": 1,
+  "stage": "sol",
+  "request_id": "main",
+  "kind": "infrastructure",
+  "error": "RateLimitError status 429: Error code: 429 - You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/."
+ },
+ {
+  "variant": "jev_sol_flag",
+  "case_id": "case-007",
+  "rep": 0,
+  "stage": "sol",
+  "request_id": "main",
+  "kind": "infrastructure",
+  "error": "RateLimitError status 429: Error code: 429 - You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/."
+ },
+ {
+  "variant": "jev_sol_flag",
+  "case_id": "case-021",
+  "rep": 0,
+  "stage": "sol",
+  "request_id": "main",
+  "kind": "infrastructure",
+  "error": "RateLimitError status 429: Error code: 429 - You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/."
+ },
+ {
+  "variant": "jev_sol_flag",
+  "case_id": "case-027",
+  "rep": 0,
+  "stage": "sol",
+  "request_id": "main",
+  "kind": "infrastructure",
+  "error": "RateLimitError status 429: Error code: 429 - You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/."
+ },
+ {
+  "variant": "jev_sol_flag",
+  "case_id": "case-027",
+  "rep": 1,
+  "stage": "sol",
+  "request_id": "main",
+  "kind": "infrastructure",
+  "error": "RateLimitError status 429: Error code: 429 - You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/."
+ },
+ {
+  "variant": "jev_sol_flag",
+  "case_id": "case-028",
+  "rep": 1,
+  "stage": "sol",
+  "request_id": "main",
+  "kind": "infrastructure",
+  "error": "RateLimitError status 429: Error code: 429 - You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/."
+ }
+]

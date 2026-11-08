@@ -1,0 +1,205 @@
+{
+ "case_id": "case-007",
+ "variant": "jev_sol_flag",
+ "results": {
+  "01": {
+   "criterion_id": "01",
+   "answer": "yes",
+   "rationale": "Оператор в первом ответе поздоровался на казахском языке и представился.",
+   "evidence": [
+    {
+     "message_index": 3,
+     "quote": "Сәлеметсіз бе! Менің атым — Әлия."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "02": {
+   "criterion_id": "02",
+   "answer": "no",
+   "rationale": "Оператор начал консультацию, не уточнив, какого из двух счетов касаются удержания. Клиент сам указал на этот пробел; назначение второй комиссии также не было выяснено.",
+   "evidence": [
+    {
+     "message_index": 10,
+     "quote": "Менде екі брокерлік шот бар ғой. Қай шотты қарап отырсыз? Мен қай шот екенін әлі айтқан жоқпын."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 13
+   },
+   "na_reason": null
+  },
+  "03": {
+   "criterion_id": "03",
+   "answer": "yes",
+   "rationale": "Личность клиента подтверждена системным событием до раскрытия оператором сведений о счёте и операциях.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Клиенттің жеке басы расталды."
+    },
+    {
+     "message_index": 5,
+     "quote": "Сіздің негізгі шотыңызда «Стандарт» тарифі қосылған."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "04": {
+   "criterion_id": "04",
+   "answer": 10,
+   "rationale": "Комиссия 1 500 тенге объяснена с расчётом. Существенная часть запроса — основание удержания 2 000 тенге и возможность возврата — осталась без ответа и дальнейшего шага.",
+   "evidence": [
+    {
+     "message_index": 7,
+     "quote": "Осы соманың 0,1%-ы — 1 500 теңге."
+    },
+    {
+     "message_index": 13,
+     "quote": "2 000 теңгенің қандай қызметке қатысты екенін және қайтаруға болатынын осы жауапта анықтай алмадым."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "05": {
+   "criterion_id": "05",
+   "answer": "no",
+   "rationale": "Оператор сохранял формально вежливый тон, но не отреагировал на конкретное недовольство клиента из-за необъяснённого списания. Вместо признания проблемы дал общую ссылку на тарифы.",
+   "evidence": [
+    {
+     "message_index": 8,
+     "quote": "Осыған ашуланып отырмын!"
+    },
+    {
+     "message_index": 9,
+     "quote": "Тарифтер қолданбаның «Құжаттар» бөлімінде орналасқан."
+    }
+   ],
+   "checked_range": {
+    "from": 0,
+    "to": 15
+   },
+   "na_reason": null
+  },
+  "06": {
+   "criterion_id": "06",
+   "answer": 4,
+   "rationale": "Неясная формулировка о первой и отдельной комиссиях вынудила клиента переспросить, что именно имелось в виду.",
+   "evidence": [
+    {
+     "message_index": 5,
+     "quote": "Біріншісі минимумға сәйкес, екіншісі бөлек, оны бұған қоспайсыз."
+    },
+    {
+     "message_index": 6,
+     "quote": "Қайсысы бірінші, қайсысы бөлек? «Бұған қоспайсыз» дегеніңіз не? Түсінікті етіп жазыңызшы."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "07": {
+   "criterion_id": "07",
+   "answer": "yes",
+   "rationale": "Оператор подвёл итог консультации и попрощался. Нерешённость части запроса учтена в оценке полноты консультации.",
+   "evidence": [
+    {
+     "message_index": 15,
+     "quote": "Қорытынды: негізгі шоттағы сатып алу комиссиясы — 1 500 теңге, ол тарифке сәйкес."
+    },
+    {
+     "message_index": 15,
+     "quote": "Сау болыңыз!"
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  },
+  "08": {
+   "criterion_id": "08",
+   "answer": "no",
+   "rationale": "Оскорблений и предложений платных услуг в обход компании нет. Данные счёта сообщались после подтверждения личности; признаков неправомерного раскрытия информации не выявлено.",
+   "evidence": [
+    {
+     "message_index": 4,
+     "quote": "Клиенттің жеке басы расталды."
+    },
+    {
+     "message_index": 7,
+     "quote": "1 500 теңге — негізгі шотыңыздағы кешегі 1 500 000 теңгелік сатып алу мәмілесінің комиссиясы."
+    }
+   ],
+   "checked_range": null,
+   "na_reason": null
+  }
+ },
+ "needs_review": {},
+ "calls": [
+  {
+   "stage": "jev",
+   "request_id": "jev",
+   "provider": "jev",
+   "model": "typesafe/jev-1.14",
+   "input_tokens": 2389,
+   "output_tokens": 23,
+   "cache_read_tokens": 0,
+   "cache_write_tokens": 0,
+   "latency_ms": 560,
+   "cost": 0.0001,
+   "structured": false,
+   "stop_reason": null,
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 1
+  },
+  {
+   "stage": "first",
+   "request_id": "main",
+   "provider": "openai",
+   "model": "gpt-6.1-sol",
+   "input_tokens": 838,
+   "output_tokens": 1341,
+   "cache_read_tokens": 1921,
+   "cache_write_tokens": 0,
+   "latency_ms": 9803,
+   "cost": 0.015278,
+   "structured": true,
+   "stop_reason": "completed",
+   "status": "ok",
+   "truncated": false,
+   "batch": false,
+   "attempts": 3
+  }
+ ],
+ "refused": false,
+ "error": null,
+ "mode": "live",
+ "structured": true,
+ "disputes": {},
+ "source": {
+  "01": "sol",
+  "02": "sol",
+  "03": "sol",
+  "04": "sol",
+  "05": "sol",
+  "06": "sol",
+  "07": "sol",
+  "08": "jev"
+ },
+ "jev_detail": {
+  "08": {
+   "answer": "no",
+   "confidence": 0.81,
+   "distribution": {
+    "yes": 0.19,
+    "no": 0.81
+   }
+  }
+ },
+ "rep": 1
+}
