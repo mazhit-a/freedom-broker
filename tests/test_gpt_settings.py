@@ -22,10 +22,17 @@ def test_openai_profile_from_settings_uses_registry():
     assert (profile.price_input, profile.price_output, profile.price_cache_read, profile.price_cache_write) == (2.0, 10.0, 0.1, 0.0)
 
 
-def test_openai_explicit_price_override():
-    profile = profile_from_settings(gpt_settings(llm_price_input=3))
-    assert profile.price_input == 3.0
-    assert profile.price_output == 10.0
+def test_openai_ignores_generic_llm_price_settings():
+    profile = profile_from_settings(
+        gpt_settings(llm_price_input=4.0, llm_price_output=20.0, llm_price_cache_read=0.2, llm_price_cache_write=5.0)
+    )
+    assert (profile.price_input, profile.price_output, profile.price_cache_read, profile.price_cache_write) == (2.0, 10.0, 0.1, 0.0)
+    assert profile_from_settings(gpt_settings(llm_price_input=3)).price_input == 2.0
+
+
+def test_openai_unknown_model_is_never_priced_with_generic_settings():
+    profile = profile_from_settings(Settings(_env_file=None, llm_provider="openai", llm_model="gpt-unknown", llm_price_input=4.0, llm_price_output=20.0))
+    assert (profile.price_input, profile.price_output) == (0.0, 0.0)
 
 
 def test_openai_effort_and_max_output_tokens_applied():

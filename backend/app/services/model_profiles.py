@@ -87,10 +87,6 @@ def _openai_profile(settings: Settings) -> ModelProfile:
         "effort": settings.llm_effort,
         "max_tokens": settings.openai_max_output_tokens,
     }
-    for name in ("price_input", "price_output", "price_cache_read", "price_cache_write"):
-        field = f"llm_{name}"
-        if field in settings.model_fields_set:
-            changes[name] = getattr(settings, field)
     return base.with_overrides(**changes)
 
 
