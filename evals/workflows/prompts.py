@@ -22,3 +22,54 @@ def build_system_prompt_v2(cfg) -> str:
 
 def with_marks_note(system_text: str) -> str:
     return system_text + "\n\n" + MARKS_NOTE
+
+
+TIEBREAK_RULE = (
+    "For scale criteria choose the highest step whose descriptor fully holds for the whole conversation. Choose a lower step only "
+    "when you can point to a specific observable event in the transcript (a message index, or a gap between timestamps) that the "
+    "lower step's descriptor describes; do not lower the step on general impressions."
+)
+
+
+def v2_rules() -> list[str]:
+    from backend.app.services.evaluator import RULES
+
+    return [NEW_RANGE_RULE if r == OLD_RANGE_RULE else r for r in RULES]
+
+
+def build_system_prompt_tiebreak(cfg) -> str:
+    from backend.app.services.evaluator import OUTPUT_FORMAT, render_criterion
+
+    rules = v2_rules()
+    rules = rules[:-1] + [TIEBREAK_RULE] + rules[-1:]
+    titles = {s.id: s.title for s in cfg.sections}
+    parts = [
+        "\n".join(f"{i}. {r}" for i, r in enumerate(rules, 1)),
+        f"Checklist: {cfg.name}",
+        "\n\n".join(render_criterion(c, titles) for c in cfg.criteria),
+        OUTPUT_FORMAT,
+    ]
+    return "\n\n".join(parts)
+
+
+def build_system_prompt_xml(cfg) -> str:
+    import html
+
+    from backend.app.services.evaluator import OUTPUT_FORMAT, render_criterion
+
+    titles = {s.id: s.title for s in cfg.sections}
+    rules_text = "\n".join(f"{i}. {r}" for i, r in enumerate(v2_rules(), 1))
+    criteria = "\n".join(f'<criterion id="{c.id}">\n{render_criterion(c, titles)}\n</criterion>' for c in cfg.criteria)
+    name = html.escape(cfg.name, quote=True)
+    return f"<rules>\n{rules_text}\n</rules>\n\n<checklist name=\"{name}\">\n{criteria}\n</checklist>\n\n<output_format>\n{OUTPUT_FORMAT}\n</output_format>"
+
+
+def build_user_prompt_xml(conv: dict, messages: list[dict]) -> str:
+    from backend.app.services.evaluator import transcript_lines
+
+    head = f"channel={conv.get('channel')}, language={conv.get('language')}, messages={len(messages)}"
+    return (
+        f"<conversation_metadata>{head}</conversation_metadata>\n\n<transcript>\n"
+        + "\n".join(transcript_lines(messages))
+        + "\n</transcript>\n\n<task>Evaluate every criterion now.</task>"
+    )

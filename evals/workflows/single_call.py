@@ -1,10 +1,21 @@
 from backend.app.services.evaluator import build_schema, build_system_prompt, build_user_prompt
 from evals.decisions import annotate_gaps
 from evals.workflows.base import Stage, Workflow, build_candidate, record_calls, resolve_profile
-from evals.workflows.prompts import build_system_prompt_v2, with_marks_note
+from evals.workflows.prompts import (
+    build_system_prompt_tiebreak,
+    build_system_prompt_v2,
+    build_system_prompt_xml,
+    build_user_prompt_xml,
+    with_marks_note,
+)
 from evals.workflows.review import ReviewPass
 
-PROMPTS = {"v1": (build_system_prompt, build_user_prompt), "v2": (build_system_prompt_v2, build_user_prompt)}
+PROMPTS = {
+    "v1": (build_system_prompt, build_user_prompt),
+    "v2": (build_system_prompt_v2, build_user_prompt),
+    "v3_tiebreak": (build_system_prompt_tiebreak, build_user_prompt),
+    "v3_xml": (build_system_prompt_xml, build_user_prompt_xml),
+}
 
 
 def conversation_of(case: dict) -> tuple[dict, list[dict]]:
