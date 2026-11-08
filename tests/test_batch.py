@@ -283,3 +283,28 @@ def test_no_comments_in_new_sources():
     for rel in ["backend/app/services/batch.py", "backend/app/api/v1/batches.py", "scripts/batch_eval.py", "tests/test_batch.py"]:
         text = (root / rel).read_text(encoding="utf-8")
         assert not re.search(r"^\s*#", text, re.M), rel
+
+
+def test_throttle_markers_cover_openai_error_names():
+    assert batch.is_throttle_error("RateLimitError status 429: slow down")
+    assert batch.is_throttle_error("code rate_limit_exceeded")
+    assert batch.is_throttle_error("gave up after 5 attempts: APIStatusError status 503")
+    assert not batch.is_throttle_error("AuthenticationError status 401: bad key")
+    assert not batch.is_throttle_error("served model 'x' does not match requested model 'y'")
+    assert not batch.is_throttle_error("OPENAI_API_KEY is not set")
+    assert not batch.is_throttle_error(None)
+
+
+def test_create_job_clamp_only_for_openai_provider(env, monkeypatch):
+    for name in ("OPENAI_API_KEY", "LLM_PROMPT_VERSION", "CQA_BATCH_CONCURRENCY"):
+        monkeypatch.delenv(name, raising=False)
+    add_dataset(env, "CAP", 2)
+    vid = version_id(env)
+    openai_settings = config.Settings(_env_file=None, llm_provider="openai", llm_effort="high", openai_max_inflight=5, cqa_batch_concurrency=4)
+    job, _ = batch.create_job(env, "CAP", vid, concurrency=9, settings=openai_settings)
+    assert job.concurrency == 5 and job.snapshot()["concurrency"] == 5
+    job, _ = batch.create_job(env, "CAP", vid, force=True, settings=openai_settings)
+    assert job.concurrency == 4
+    anthropic_settings = config.Settings(_env_file=None, llm_provider="anthropic", openai_max_inflight=5)
+    job, _ = batch.create_job(env, "CAP", vid, force=True, concurrency=9, settings=anthropic_settings)
+    assert job.concurrency == 9

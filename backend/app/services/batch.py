@@ -7,13 +7,13 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Callable
 
-from backend.app.core.config import get_settings
+from backend.app.core.config import Settings, get_settings
 from backend.app.core.database import connect
 from backend.app.services.appeals import with_review
 from backend.app.services.evaluator import evaluate_conversation, get_evaluation
 from backend.app.services.llm_client import LLMClient
 
-THROTTLE_MARKERS = ("429", "throttl", "ratelimit", "rate limit", "rate_limit", "too many requests", "overloaded", "529", "503", "serviceunavailable")
+THROTTLE_MARKERS = ("429", "throttl", "ratelimit", "rate limit", "rate_limit", "rate_limit_exceeded", "ratelimiterror", "too many requests", "overloaded", "529", "503", "serviceunavailable")
 
 
 def is_throttle_error(message: str | None) -> bool:
@@ -180,12 +180,13 @@ def _evaluate_with_backoff(
     max_retries: int,
     backoff_base: float,
     sleep: Callable[[float], None],
+    settings: Settings | None = None,
 ) -> dict:
     conn = connect()
     try:
         attempt = 0
         while True:
-            result = evaluate_conversation(conn, pk, job.checklist_version_id, client)
+            result = evaluate_conversation(conn, pk, job.checklist_version_id, client, settings)
             error = _evaluation_error(conn, result["id"]) if result["status"] == "failed" else None
             if error and is_throttle_error(error) and attempt < max_retries:
                 conn.execute("DELETE FROM evaluation WHERE id = ?", (result["id"],))
@@ -202,7 +203,7 @@ def _evaluate_with_backoff(
         conn.close()
 
 
-def _process_item(job: BatchJob, item: dict, client: LLMClient, max_retries: int, backoff_base: float, sleep: Callable[[float], None]) -> None:
+def _process_item(job: BatchJob, item: dict, client: LLMClient, max_retries: int, backoff_base: float, sleep: Callable[[float], None], settings: Settings | None = None) -> None:
     with job.lock:
         job.in_flight += 1
     began = time.monotonic()
@@ -213,7 +214,7 @@ def _process_item(job: BatchJob, item: dict, client: LLMClient, max_retries: int
         (_now_iso(), job.id, item["id"]),
     )
     try:
-        result = _evaluate_with_backoff(job, item["id"], client, max_retries, backoff_base, sleep)
+        result = _evaluate_with_backoff(job, item["id"], client, max_retries, backoff_base, sleep, settings)
         status = result["status"]
         error = result.get("error")
         evaluation_id = result["id"]
@@ -246,7 +247,7 @@ def _process_item(job: BatchJob, item: dict, client: LLMClient, max_retries: int
     _refresh_counters(job.id, throttled)
 
 
-def create_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, conversation_pks: list[int] | None = None, model: str | None = None) -> tuple[BatchJob, list[dict]]:
+def create_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, conversation_pks: list[int] | None = None, model: str | None = None, settings: Settings | None = None) -> tuple[BatchJob, list[dict]]:
     if dataset:
         items = select_conversations(conn, dataset)
         if conversation_pks is not None:
@@ -260,7 +261,10 @@ def create_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, f
         raise LookupError(f"No conversations found for dataset {dataset}")
     statuses = existing_statuses(conn, version_id)
     todo = [i for i in items if needs_run(statuses.get(i["id"]), force, retry_failed)]
-    workers = max(1, concurrency or get_settings().cqa_batch_concurrency)
+    cfg = settings or get_settings()
+    workers = max(1, concurrency or cfg.cqa_batch_concurrency)
+    if cfg.llm_provider == "openai":
+        workers = min(workers, max(1, cfg.openai_max_inflight))
     started = _now_iso()
     run_id = conn.execute(
         "INSERT INTO eval_run (dataset, checklist_version_id, model, force, retry_failed, concurrency, status, total, skipped, started_at) "
@@ -290,13 +294,13 @@ def create_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, f
     return job, todo
 
 
-def run_job(job: BatchJob, todo: list[dict], client: LLMClient, max_retries: int = 4, backoff_base: float = 2.0, sleep: Callable[[float], None] = time.sleep) -> None:
+def run_job(job: BatchJob, todo: list[dict], client: LLMClient, max_retries: int = 4, backoff_base: float = 2.0, sleep: Callable[[float], None] = time.sleep, settings: Settings | None = None) -> None:
     with job.lock:
         job.status = "running"
     _db_write("UPDATE eval_run SET status = 'running' WHERE id = ?", (job.id,))
     try:
         with ThreadPoolExecutor(max_workers=job.concurrency) as pool:
-            futures = [pool.submit(_process_item, job, item, client, max_retries, backoff_base, sleep) for item in todo]
+            futures = [pool.submit(_process_item, job, item, client, max_retries, backoff_base, sleep, settings) for item in todo]
             for f in futures:
                 f.result()
     except Exception as exc:
@@ -313,15 +317,17 @@ def run_job(job: BatchJob, todo: list[dict], client: LLMClient, max_retries: int
     _db_write("UPDATE eval_run SET status = 'completed', finished_at = ? WHERE id = ?", (job.finished_at, job.id))
 
 
-def start_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, client: LLMClient, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, max_retries: int = 4, backoff_base: float = 2.0, conversation_pks: list[int] | None = None) -> BatchJob:
-    job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency, conversation_pks, client.model)
-    thread = threading.Thread(target=run_job, args=(job, todo, client, max_retries, backoff_base), daemon=True, name=f"batch-{job.id}")
+def start_job(conn: sqlite3.Connection, dataset: str | None, version_id: int, client: LLMClient, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, max_retries: int = 4, backoff_base: float = 2.0, conversation_pks: list[int] | None = None, settings: Settings | None = None) -> BatchJob:
+    settings = settings or getattr(client, "settings", None)
+    job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency, conversation_pks, client.model, settings)
+    thread = threading.Thread(target=run_job, args=(job, todo, client, max_retries, backoff_base, time.sleep, settings), daemon=True, name=f"batch-{job.id}")
     thread.start()
     return job
 
 
-def run_job_sync(conn: sqlite3.Connection, dataset: str, version_id: int, client: LLMClient, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, max_retries: int = 4, backoff_base: float = 2.0, sleep: Callable[[float], None] = time.sleep, on_progress: Callable[[dict], None] | None = None) -> dict:
-    job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency, None, client.model)
+def run_job_sync(conn: sqlite3.Connection, dataset: str, version_id: int, client: LLMClient, force: bool = False, retry_failed: bool = True, concurrency: int | None = None, max_retries: int = 4, backoff_base: float = 2.0, sleep: Callable[[float], None] = time.sleep, on_progress: Callable[[dict], None] | None = None, settings: Settings | None = None) -> dict:
+    settings = settings or getattr(client, "settings", None)
+    job, todo = create_job(conn, dataset, version_id, force, retry_failed, concurrency, None, client.model, settings)
     stop = threading.Event()
 
     def reporter():
@@ -332,7 +338,7 @@ def run_job_sync(conn: sqlite3.Connection, dataset: str, version_id: int, client
     if on_progress:
         watcher = threading.Thread(target=reporter, daemon=True)
         watcher.start()
-    run_job(job, todo, client, max_retries, backoff_base, sleep)
+    run_job(job, todo, client, max_retries, backoff_base, sleep, settings)
     stop.set()
     if watcher:
         watcher.join()
