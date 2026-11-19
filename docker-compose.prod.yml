@@ -1,0 +1,24 @@
+services:
+  cqa:
+    image: ${CQA_IMAGE:?set by deploy.sh}
+    container_name: cqa
+    env_file: .env              # lives on the server only, never in git/CI
+    environment:
+      CQA_DB_PATH: /data/cqa.db
+    volumes:
+      - cqa-data:/data
+      - ./results:/app/results
+    networks:
+      - web                     # shared with the Caddy proxy; no host port published
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+
+networks:
+  web:
+    external: true
+
+volumes:
+  cqa-data:
