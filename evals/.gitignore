@@ -1,2 +1,7 @@
 runs/*/raw/
 gen/out/
+reports/
+runs/20261108-031748-gpt_sol_high-dev/
+runs/20261108-033733-gpt_sol_medium-holdout/
+runs/20261108-034715-gpt_sol_medium-holdout/
+runs/20261108-035105-gpt_sol_medium-holdout/

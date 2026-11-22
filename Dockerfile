@@ -12,4 +12,5 @@ COPY scripts/export_results.py ./scripts/export_results.py
 
 ENV CQA_DB_PATH=/data/cqa.db
 EXPOSE 8000
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s CMD python -c "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')" || exit 1
 CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
