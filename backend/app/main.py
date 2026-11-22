@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from backend.app.api.v1.router import router as v1_router
@@ -55,6 +56,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="CQA", lifespan=lifespan)
 install_errors(app)
+
+
+@app.get("/", include_in_schema=False)
+def root():
+    return RedirectResponse("/app/")
 
 
 @app.get("/health")
